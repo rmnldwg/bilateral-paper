@@ -1,0 +1,76 @@
+---
+---
+# Correlations with Contralateral Involvement
+
+```{python}
+#| label: tbl-contra
+#| tbl-cap: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal line, the T-category, and whether the ipsilateral LNL III was involved or healthy.
+#| html-table-processing: none
+import pandas as pd
+import paths
+import shared
+from shared import COL, LNLS
+
+data = pd.read_csv(paths.data, header=[0,1,2])
+data[COL.t_stage] = data[COL.t_stage].apply(lambda x: "early" if x <= 2 else "late")
+early_midext_data = (data.loc[data[COL.t_stage] == "early", COL.midext] == True).mean()
+late_midext_data = (data.loc[data[COL.t_stage] == "late", COL.midext] == True).mean()
+grouped = data.groupby(by=[COL.midext, COL.t_stage, COL.ipsi_III])
+
+total = grouped.count()[LNLS.contra]["max_llh", "contra"]
+idx = total.index.rename(["Mid. ext.", "T-cat.", "ipsi III"])
+
+num_involved = grouped.sum()[LNLS.contra]["max_llh", "contra"]
+percent_involved = num_involved / total
+total.index = idx
+num_involved.index = idx
+percent_involved.index = idx
+
+involved = num_involved.join(
+  100 * percent_involved,
+  rsuffix=" (%)",
+).sort_index(axis="columns")
+involved.columns = pd.MultiIndex.from_product(
+  [["I", "II", "III", "IV"],
+   ["n", "%"]],
+  names=["LNL", ""]
+)
+(
+  involved.style
+  .format(precision=2)
+  .apply(shared.right_align, axis="index")
+  .highlight_min()
+)
+```
+
+
+# Involvement Patterns
+
+```{python}
+#| echo: false
+#| label: fig-data-upset
+#| fig-cap: Upset plot of the ipsilateral lymphatic involvement patterns [@lex_upset_2014]. Here, the horizontal bars depict the overall prevalence of LNL involvemen. I.e., LNL II is the only level that is involved in more than 500 patients. The vertical bar plots depict joint involvements. E.g., the fourth bar from the left depicts how often the LNLs II, III, and IV are jointly involved while level I and V are not. This is indicated by the light and dark shaded dots in the matrix underneath.
+#| warning: false
+import upsetplot
+import pandas as pd
+from lyscripts.plot.utils import COLORS
+import matplotlib.pyplot as plt
+import paths
+
+data = pd.read_csv(paths.data, header=[0,1,2])
+lnls = ["I", "II", "III", "IV", "V"]
+
+indicator_data = upsetplot.from_indicators(lnls, data=data["max_llh", "ipsi"])
+upset = upsetplot.UpSet(
+  indicator_data,
+  sort_by="cardinality",
+  sort_categories_by="-input",
+  min_subset_size=10,
+  facecolor=COLORS["blue"],
+)
+upset.style_subsets(absent=lnls, facecolor=COLORS["green"], label="N0 (all healthy)")
+axes = upset.plot()
+axes["totals"].set_xlabel("Prevalence")
+axes["intersections"].set_ylabel("Scenario size")
+plt.show()
+```

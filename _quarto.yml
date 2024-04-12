@@ -1,15 +1,24 @@
 project: 
   type: manuscript
-  render: 
-    - manuscript.qmd
+  preview: 
+    browser: false
+    port: 8000
 
-# define main manuscript file
+# define main manuscript file and supporting notebooks
 manuscript: 
   article: manuscript.qmd
+  notebooks: 
+    - notebook: notebooks/data.qmd
+      title: Involvement Pattern Data
+    - notebook: notebooks/model.qmd
+      title: Visalizing Model Properties
+    - notebook: notebooks/results.qmd
+      title: Showing the Results
 
 # which formats should be rendered?
 format:
-  html: default
+  html:
+    toc: true
   docx: default
   jats: default
   pdf:
