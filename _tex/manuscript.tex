@@ -43,28 +43,14 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
-\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}{
-    \@ifstar
-      \xxxParagraphStar
-      \xxxParagraphNoStar
-  }
-  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
-  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}{
-    \@ifstar
-      \xxxSubParagraphStar
-      \xxxSubParagraphNoStar
-  }
-  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
-  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
-\makeatother
 
 
 \providecommand{\tightlist}{%
@@ -265,7 +251,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_900f1}\tabularnewline
+\caption{}\label{T_cf4d9}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -301,11 +287,11 @@ extended over the mid-sagittal line. A similar but more complete
 stratification is also tabulated in the appendix in
 table~\ref{tbl-data-strat}.
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/data-fig-data-strat-output-1.png}
+\includegraphics{figures/fig-data-strat.png}
 
 }
 
@@ -315,10 +301,6 @@ T-category (left panel), the number of metastatic LNLs ipsilaterally
 mid-sagittal line or was clearly lateralized (right panel).}
 
 \end{figure}%
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
 
 The left panel in figure~\ref{fig-data-strat} indicates that T-category
 is correlated with contralateral involvement (as it is with overal
@@ -700,11 +682,11 @@ distribution over diagnose times \(P(t)\), the conditional probability
 of midline extension \(P(\epsilon \mid t)\), and their joint
 \(P(\epsilon, t)\) evolve over the course of a patient evolution.
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/model-fig-model-midext-evo-output-1.png}
+\includegraphics[width=0.5\textwidth,height=\textheight]{figures/fig-model-midext-evo.png}
 
 }
 
@@ -717,10 +699,6 @@ In the bottom panel, we show the joint probability of getting diagnosed
 in time-step \(t\) \emph{and} having a tumor that crosses the midline.}
 
 \end{figure}%
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
 
 To get the joint probability over the ipsi- and contralateral hidden
 states, as well as the state of the tumor's midline extension
@@ -746,11 +724,11 @@ a full midline model as two separate heatmaps. To keep it readable, this
 example model only considers the LNLs II, III, and IV ipsi- and
 contralaterally.
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/model-fig-model-state-dist-output-2.png}
+\includegraphics{figures/fig-model-state-dist.png}
 
 }
 
@@ -758,10 +736,6 @@ contralaterally.
 model with 3 LNLs (II, III, and IV) in both sides of the neck.}
 
 \end{figure}%
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
 
 \subsection{Parameter Symmetries}\label{sec-params-symmetry}
 
@@ -981,11 +955,11 @@ e.g.~rows of subplots.
 
 \section{Results}\label{results}
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/model-fig-model-burnin-history-output-1.png}
+\includegraphics{figures/fig-model-burnin-history.png}
 
 }
 
@@ -993,10 +967,6 @@ e.g.~rows of subplots.
 the burn-in phase of the parameter sampling.}
 
 \end{figure}%
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
 
 figure~\ref{fig-model-burnin-history} is only a temporary placeholder
 for now.
@@ -1008,11 +978,11 @@ contralateral involvement of the LNLs II, III, and IV for the four
 scenarios made up of the possible combinations of early and late
 T-category, as well as lateralized and midline extending tumors.
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/model-fig-model-prevalences-overall-output-1.png}
+\includegraphics{figures/fig-model-prevalences-overall.png}
 
 }
 
@@ -1027,10 +997,6 @@ model's ability to describe the prevalence of different combinations of
 scenarios involving the risk factors T-category and midline extension.}
 
 \end{figure}%
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
 
 Figure~\ref{fig-model-prevalences-overall} shows nicely how the model is
 capable of accurately taking the most important risk factors,
@@ -1049,11 +1015,11 @@ by the wide Beta posteriors.
 \subsubsection{Correlation between Ipsi- and Contralateral
 Involvement}\label{correlation-between-ipsi--and-contralateral-involvement}
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/model-fig-model-prevalences-with-ipsi-output-1.png}
+\includegraphics[width=0.5\textwidth,height=\textheight]{figures/fig-model-prevalences-with-ipsi.png}
 
 }
 
@@ -1070,10 +1036,6 @@ advanced T-category is not large enough.}
 
 \end{figure}%
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
-
 In figure~\ref{fig-model-prevalences-with-ipsi} we display the model's
 ability to capture the correlation between ipsi- and contralateral
 involvement. It shows that the prevalence of metastases in the two sides
@@ -1088,11 +1050,11 @@ advanced T-category.
 
 \subsubsection{Midline Extension}\label{midline-extension}
 
-\begin{figure}[H]
+\begin{figure}
 
 \centering{
 
-\includegraphics{manuscript_files/figure-latex/model-fig-model-prevalences-midext-output-1.png}
+\includegraphics[width=0.5\textwidth,height=\textheight]{figures/fig-model-prevalences-midext.png}
 
 }
 
@@ -1106,10 +1068,6 @@ part of the diagnosis and hence \emph{given} when predicting a patient's
 risk, we do not consider this discrepancy a major issue.}
 
 \end{figure}%
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
 
 Lastly, in figure~\ref{fig-model-prevalences-midext}, we plot the
 prevalence of midline extension in the data versus our model's
@@ -1175,7 +1133,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_4992d}\tabularnewline
+\caption{}\label{T_17196}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1276,7 +1234,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_07ae0}\tabularnewline
+\caption{}\label{T_e13a6}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%

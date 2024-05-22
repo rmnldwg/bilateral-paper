@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.37">
+    <meta name="generator" content="quarto-1.5.25">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -209,9 +209,12 @@
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-       <section id="contralateral-involvement-stratified-by-risk-factors" class="level1">
+       <div id="77a5b505" class="cell markdown">
+<section id="contralateral-involvement-stratified-by-risk-factors" class="level1">
 <h1>Contralateral Involvement Stratified by Risk Factors</h1>
 <p>To motivate our bilateral model extension, we show how the contralateral nodal involvement in the data depends on T-category, the ipsilateral involvement, and midline extension of the primary tumor.</p>
+</section>
+</div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="cell-fig-data-strat" class="cell" data-execution_count="2">
 <pre><code>#| label: fig-data-strat
 #| fig-cap: 'Contralateral involvement stratified by T-category (left panel), the number of metastatic LNLs ipsilaterally (center panel), and whether the primary tumor extended over the mid-sagittal line or was clearly lateralized (right panel).'
@@ -327,9 +330,12 @@ group_and_plot(
   column="t_stage",
   axes=left,
   colors=[COLORS["blue"], COLORS["orange"]],
-)</code></pre>
+)
+
+plt.savefig(paths.figure_dir / "fig-data-strat.png", dpi=400)
+plt.show()</code></pre>
 <div class="cell-output cell-output-display">
-<div id="fig-data-strat" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-data-strat" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
 <a href="data_files/figure-html/fig-data-strat-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Contralateral involvement stratified by T-category (left panel), the number of metastatic LNLs ipsilaterally (center panel), and whether the primary tumor extended over the mid-sagittal line or was clearly lateralized (right panel)."><img src="data_files/figure-html/fig-data-strat-output-1.png" width="620" height="155" class="figure-img"></a>
@@ -341,8 +347,7 @@ Contralateral involvement stratified by T-category (left panel), the number of m
 </div>
 </div>
 </div></div>
-</section>
-<div id="435ed908" class="cell markdown">
+<div id="dc50e08f" class="cell markdown">
 <section id="involvement-patterns-as-upset-plots" class="level1">
 <h1>Involvement Patterns as UpSet Plots</h1>
 <p>The joint involvement of different combinations of lymphatic involvements is best visualized using so-called <em>upset plots</em> <span class="citation" data-cites="lex_upset_2014">(<a href="#ref-lex_upset_2014" role="doc-biblioref">Lex et al. 2014</a>)</span>.</p>
@@ -356,6 +361,7 @@ Contralateral involvement stratified by T-category (left panel), the number of m
 #| fig-cap: 'Upset plot of the ipsilateral lymphatic involvement patterns [@lex_upset_2014]. Here, the horizontal bars depict the overall prevalence of LNL involvement. I.e., LNL II is the only level that is involved in more than 500 patients. The vertical bar plots depict joint involvements. E.g., the fourth bar from the left depicts how often the LNLs II, III, and IV are jointly involved while level I and V are not. This is indicated by the light and dark shaded dots in the matrix underneath.'
 from typing import Literal
 import upsetplot
+from scripts import paths
 
 def plot_involvement_upset(
   df: pd.DataFrame,
@@ -387,15 +393,21 @@ axes = plot_involvement_upset(
   df=raw["max_llh", "ipsi"],
   lnls=[tpl[-1] for tpl in get_lnl_cols("ipsi")],
 )
+
+plt.savefig(paths.figure_dir / "fig-data-upset-ipsi.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
+<pre><code>/tmp/ipykernel_11281/2479270270.py:36: UserWarning:
+
+This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+
+/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
 
 This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div id="fig-data-upset-ipsi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-data-upset-ipsi" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-data-upset-ipsi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
 <a href="data_files/figure-html/fig-data-upset-ipsi-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Upset plot of the ipsilateral lymphatic involvement patterns [@lex_upset_2014]. Here, the horizontal bars depict the overall prevalence of LNL involvement. I.e., LNL II is the only level that is involved in more than 500 patients. The vertical bar plots depict joint involvements. E.g., the fourth bar from the left depicts how often the LNLs II, III, and IV are jointly involved while level I and V are not. This is indicated by the light and dark shaded dots in the matrix underneath."><img src="data_files/figure-html/fig-data-upset-ipsi-output-2.png" width="496" height="394" class="figure-img"></a>
@@ -407,7 +419,7 @@ Upset plot of the ipsilateral lymphatic involvement patterns <span class="citati
 </div>
 </div>
 </div></div>
-<div id="601ada73" class="cell markdown">
+<div id="6d0aff65" class="cell markdown">
 <section id="contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="contralateral-involvement">Contralateral Involvement</h2>
 </section>
@@ -415,19 +427,27 @@ Upset plot of the ipsilateral lymphatic involvement patterns <span class="citati
 <div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="cell-fig-data-upset-contra" class="cell" data-execution_count="4">
 <pre><code>#| label: fig-data-upset-contra
 #| fig-cap: 'Upset plot of the contralateral lymphatic involvement patterns [@lex_upset_2014]. Here, the horizontal bars depict the overall prevalence of LNL involvement. I.e., LNL II is the only level that is involved in more than 100 patients. The vertical bar plots depict joint involvements. E.g., the thirs bar from the left depicts how often the LNLs II, and III are jointly involved while level I, IV, and V are not. This is indicated by the light and dark shaded dots in the matrix underneath.'
+from scripts import paths
+
 axes = plot_involvement_upset(
   df=raw["max_llh", "contra"],
   lnls=[tpl[-1] for tpl in get_lnl_cols("contra")],
 )
+
+plt.savefig(paths.figure_dir / "fig-data-upset-contra.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
+<pre><code>/tmp/ipykernel_11281/3104973063.py:8: UserWarning:
+
+This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+
+/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
 
 This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<div id="fig-data-upset-contra" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-data-upset-contra" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-data-upset-contra-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
 <a href="data_files/figure-html/fig-data-upset-contra-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Upset plot of the contralateral lymphatic involvement patterns [@lex_upset_2014]. Here, the horizontal bars depict the overall prevalence of LNL involvement. I.e., LNL II is the only level that is involved in more than 100 patients. The vertical bar plots depict joint involvements. E.g., the thirs bar from the left depicts how often the LNLs II, and III are jointly involved while level I, IV, and V are not. This is indicated by the light and dark shaded dots in the matrix underneath."><img src="data_files/figure-html/fig-data-upset-contra-output-2.png" width="232" height="394" class="figure-img"></a>
@@ -864,7 +884,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","loop":false,"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
