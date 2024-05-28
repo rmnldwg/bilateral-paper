@@ -4,9 +4,8 @@
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-  letterpaper,
-  DIV=11,
-  numbers=noendperiod]{scrartcl}
+  sn-mathphys-num,
+]{sn-jnl}
 
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
@@ -43,14 +42,28 @@
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
 
 
 \providecommand{\tightlist}{%
@@ -77,43 +90,29 @@
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-% definitions for citeproc citations
-\NewDocumentCommand\citeproctext{}{}
-\NewDocumentCommand\citeproc{mm}{%
-  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
-\makeatletter
- % allow citations to break across lines
- \let\@cite@ofmt\@firstofone
- % avoid brackets around text for \cite:
- \def\@biblabel#1{}
- \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
-\makeatother
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
- {\begin{list}{}{%
-  \setlength{\itemindent}{0pt}
-  \setlength{\leftmargin}{0pt}
-  \setlength{\parsep}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-   \setlength{\leftmargin}{\cslhangindent}
-   \setlength{\itemindent}{-1\cslhangindent}
-  \fi
-  % set entry spacing
-  \setlength{\itemsep}{#2\baselineskip}}}
- {\end{list}}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
+%%%% Standard Packages
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+%%%%
+
+\raggedbottom
 \usepackage{multirow}
 \usepackage{centernot}
-\KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -158,6 +157,8 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -171,10 +172,22 @@
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-\title{Probabilistic Model of Bilateral Lymphatic Spread in Head and
-Neck Cancer}
-\author{Roman Ludwig \and Yoel Perez Haas \and Jan Unkelbach}
-\date{}
+\title[Probabilistic Model of Bilateral Lymphatic Spread in Head and
+Neck Cancer]{Probabilistic Model of Bilateral Lymphatic Spread in Head
+and Neck Cancer}
+
+% author setup
+\author*[1,2]{\fnm{Roman} \sur{Ludwig}}\email{roman.ludwig@usz.ch}\author[1,2]{\fnm{Yoel Perez} \sur{Haas}}\email{yoel.perezhaas@usz.ch}\author[1,2]{\fnm{Jan} \sur{Unkelbach}}\email{jan.unkelbach@usz.ch}
+% affil setup
+\affil[1]{\orgdiv{Department of Physics}, \orgname{University of
+Zurich}}
+\affil[2]{\orgdiv{Radiation Oncology}, \orgname{University Hospital
+Zurich}}
+
+% abstract 
+
+
+% keywords
 
 \begin{document}
 \maketitle
@@ -251,7 +264,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_cf4d9}\tabularnewline
+\caption{}\label{T_900f1}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -329,8 +342,7 @@ only reach the blind-ended lymphatic vessels in the contralateral neck
 via short-ranged diffusion. Which in turn is only possible when the
 primary tumor is close enough to the mid-sagittal line or crosses it.
 
-\subsection{Requirements for a Bilateral
-Model}\label{requirements-for-a-bilateral-model}
+\subsection{Requirements for a Bilateral Model}\label{sec-requirements}
 
 Based on the observations of the \hyperref[sec-data-strat]{previous
 section}, any potential model that aims to also predict the risk for
@@ -343,8 +355,8 @@ into account:
 \item
   More advanced T-category should lead to higher risk for nodal disease.
   One approach to achieve this via the expected time of diagnosis has
-  already been developed in the form of a hidden Markov model (Ludwig et
-  al. 2021).
+  already been developed in the form of a hidden Markov model
+  \citep{ludwig_hidden_2021}.
 \item
   The degree of ipsilateral involvement should give the model
   information on the time that may have passed between onset and
@@ -372,9 +384,10 @@ primary locations than the oropharynx, is publicly available: It may be
 it can be interactively explored too,
 \href{https://github.com/rmnldwg/lydata}{from GitHub},
 \href{https://zenodo.org/search?q=lydata}{from zenodo}, or via the
-\emph{Data-in-Brief} publications Ludwig et al. (2022) and Ludwig et al.
-(2023). Although these publications do not include the most recent
-dataset addition from Vall d'Hebron Barcelona Hospital.
+\emph{Data-in-Brief} publications \citet{ludwig_dataset_2022} and
+\citet{ludwig_multicentric_2023}. Although these publications do not
+include the most recent dataset addition from Vall d'Hebron Barcelona
+Hospital.
 
 \section{Unilateral Model for Lymphatic
 Progression}\label{sec-unilateral}
@@ -383,7 +396,7 @@ Progression}\label{sec-unilateral}
 
 \centering{
 
-\includegraphics[width=0.6\textwidth,height=\textheight]{static/small-graph.png}
+\includegraphics[width=0.5\textwidth,height=\textheight]{static/small-graph.png}
 
 }
 
@@ -399,11 +412,11 @@ represent the sensitivity and specificity of the observational modality
 \end{figure}%
 
 Our first model to predict the lymphatic progression of HNSCC was
-introduced using Bayesian networks (Pouymayou et al. 2019). We
-subsequently extended this work to a hidden Markov model (HMM) (Ludwig
-et al. 2020) to allow an intuitive inclusion of T-category into the
-predictions. We will briefly summarize this HMM's formalism before
-building on it to include the contralateral spread in
+introduced using Bayesian networks \citep{pouymayou_bayesian_2019}. We
+subsequently extended this work to a hidden Markov model (HMM)
+\citep{ludwig_hidden_2021} to allow an intuitive inclusion of T-category
+into the predictions. We will briefly summarize this HMM's formalism
+before building on it to include the contralateral spread in
 section~\ref{sec-ext-to-contra}.
 
 We model a patient's state of involvement at an abstract time-step \(t\)
@@ -793,87 +806,66 @@ involvment that comes with tumors extending over the mid-sagittal line.
 
 \section{Methods}\label{methods}
 
-We compared three different aprroaches to modelling the contralateral
-involvement in OPSCC:
+In this section, we detail how the experiments were performed. Every
+figure, table, and result is fully reproducible via the GitHub
+repository
+\href{https://github.com/rmnldwg/bilateral-paper}{\texttt{rmnldwg/bilateral-paper}}.
+It also contains the raw manuscript and instructions on how to recreate
+all figures, tables, and the final document.
+
+\subsection{Involvement Data
+Consensus}\label{involvement-data-consensus}
+
+It is possible to provide our model with multiple different diagnostic
+modalities, each being characterized by different pairs of sensitivity
+and specificity. However, we instead chose to combine them into a single
+``consensus'' diagnosis before parameter inference. We opted for this
+because the literature values of sensitivity and specificity
+\citep{debondt_detection_2007} of imaging modalities like MRI and CT do
+not plausibly match some of our observations: In the USZ cohort, 78\% of
+OPSCC patients where diagnosed with ipsilateral LNL II involvement via
+diagnostic imaging. This is virtually impossible with sensitivities
+around 80\% and specificities lower than 100\%.
+
+Our pre-training consensus was formed by considering all reported
+diagnostic information for a particular patient and LNL. When conflicts
+arose, we computed the \emph{most likely} true state of involvement
+using the literature sensitivity and specificity values
+\citep{debondt_detection_2007}.
+
+\subsection{MCMC Sampling}\label{sec-sampling}
+
+For parameter inference, we used the Python package
+\href{https://emcee.readthedocs.io/en/stable/}{\texttt{emcee}}
+\citep{foreman-mackey_emcee_2013}. It implements efficient MCMC sampling
+algorithms that employ multiple parallel samplers for affine invariance
+and better performance on multi-core CPUs. The
+\href{https://emcee.readthedocs.io/en/stable/}{\texttt{emcee}} library
+was provided with the likelihood implemented by our
+\href{https://lymph-model.readthedocs.io/en/stable/}{\texttt{lymph-model}}
+Python package.
+
+For each dimension in the parameter space of the model, we initialized
+12 of these parallel samplers, called ``walkers'', with random values in
+the unit cube. Every time all of these walkers advanced 50 steps, the
+autocorrelation time of the chains was estimated. For short chains, this
+estimate is not trustworthy, but stabilizes for longer chains. We
+therefore considered a sampling to be converged when two criteria where
+met:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  A naive model of the contralateral side only. Neither the patterns of
-  ipsilateral involvement, nor the information on whether the patients'
-  tumors crossed the mid-sagittal line enter this model.
+  The change in the autocorrelation time was less then 5.0e-2.
 \item
-  The bilateral model as introduced in the sections up to and including
-  section~\ref{sec-params-symmetry}. The involvement patterns of both
-  sides enter this model, but not whether the tumors extended the
-  midline.
-\item
-  An additional bilateral model that tracks the midline extension of the
-  patients' tumors as a random variable. This includes the formalism
-  introduced up to and including section~\ref{sec-midline}. In contrast
-  to the other two models, it does consider the reported midline
-  extension in the data to attempt a more accurate prediction of the
-  risk for contralateral occult disease.
+  The estimate of the autocorrelation dropped below \(n\) / 50 where
+  \(n\) is the length of the chain up to that point.
 \end{enumerate}
 
-\subsection{MCMC Sampling}\label{sec-sampling}
-
-\begin{itemize}
-\tightlist
-\item
-  all models initialized with the same settings
-
-  \begin{itemize}
-  \tightlist
-  \item
-    same graph
-  \item
-    same data
-  \item
-    same distributions over diagnose time
-  \end{itemize}
-\item
-  parameter samples were drawn for all three models:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    the sampling used 12 walkers per parameter space dimension.
-  \item
-    Every 50 steps, convergence was checked
-  \item
-    convergence was reached when two criteria were met:
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \tightlist
-    \item
-      the relative difference between subsequent autocorrelation
-      estimates of the chain does not change more than 5.0e-2.
-    \item
-      the autocorrelation estimate of the chain drops below the length
-      of the chain divided by 50.
-    \end{enumerate}
-  \item
-    after convergence, 10 samples (from the parallel walkers) were drawn
-    that were spaced 10 steps apart, resulting in
-    \texttt{num\ params\ x\ 12\ x\ 10} parameter samples.
-  \end{itemize}
-\end{itemize}
-
-For every model, we compare the predicted prevalence of a certain
-scenario to how often this scenario is seen in the data. The considered
-scenarios are choosen to test if the models can take into account
-T-category, the correlation of ipsi- and contralateral involvement, and
-the primary tumor's lateralization (whether or not it extends over the
-mid-sagittal line).
-
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  list and describe the scenarios
-\end{itemize}
+All samples up to this convergence - called the \emph{burn-in phase} -
+were discarded. We only kept another 10 samples after that, which were
+spaced 10 steps apart.
 
 \subsection{Computing the Observed and Predicted Prevalence of
 Involvement
@@ -955,6 +947,11 @@ e.g.~rows of subplots.
 
 \section{Results}\label{results}
 
+First, in figure~\ref{fig-model-burnin-history}, we verify the sampling
+converged successfully by inspecting two monitoring quantities: The
+autocorrelation time of the MCMC chain and the acceptance fractions of
+the parallel walkers.
+
 \begin{figure}
 
 \centering{
@@ -964,14 +961,70 @@ e.g.~rows of subplots.
 }
 
 \caption{\label{fig-model-burnin-history}Monitoring quantities during
-the burn-in phase of the parameter sampling.}
+the burn-in phase of the parameter sampling. Left: The autocorrelation
+time of the sampling chain estimated at different sampling steps. We
+consider the chain converged when the estimate of the autocorrelation
+time is stable and drops below the trust threshold of \(n/50\) where
+\(n\) is the number of steps. Right: Fraction of accepted MCMC proposals
+averaged over all parallel walkers. Values around 30\% indicate good
+mixing of the walkers.}
 
 \end{figure}%
 
-figure~\ref{fig-model-burnin-history} is only a temporary placeholder
-for now.
+In table~\ref{tbl-midline-params}, we tabulate the mean and standard
+deviation of the sampled parameters for the full midline model.
+
+\textsubscript{Source:
+\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
+Notebook}}
+
+\begin{longtable}[]{@{}lll@{}}
+
+\caption{\label{tbl-midline-params}Mean sampled parameter estimates of
+the midline model and the respective standard deviation.}
+
+\tabularnewline
+
+\caption{}\label{T_4992d}\tabularnewline
+\toprule\noalign{}
+Parameter & Mean & Std. Dev. \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Parameter & Mean & Std. Dev. \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Mid. ext. probability & 8.13\% & ± 0.60\% \\
+ipsi: T ➜ II & 35.45\% & ± 1.75\% \\
+ipsi: T ➜ III & 5.59\% & ± 0.82\% \\
+ipsi: T ➜ IV & 0.91\% & ± 0.21\% \\
+contra: T ➜ II & 2.64\% & ± 0.35\% \\
+contra: T ➜ III & 0.16\% & ± 0.09\% \\
+contra: T ➜ IV & 0.21\% & ± 0.10\% \\
+Mixing ⍺ & 21.01\% & ± 3.24\% \\
+II ➜ III & 13.46\% & ± 1.95\% \\
+III ➜ IV & 15.74\% & ± 2.24\% \\
+late T-cat. binom. prob. & 45.35\% & ± 2.57\% \\
+
+\end{longtable}
+
+\textsubscript{Source:
+\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
+Notebook}}
 
 \subsection{Prevalence Predictions}\label{prevalence-predictions}
+
+We want to investigate whether and to what extent the model can fulfill
+the requirements laid out in section~\ref{sec-requirements}. To that
+end, we compare its predictions for contralateral involvement against
+observations in the data. This is done given scenarios that differ in
+T-category and/or midline extension and/or ipsilateral involvement.
+
+\subsubsection{Dependence of Contralateral Involvement on T-Category and
+Midline
+Extension}\label{dependence-of-contralateral-involvement-on-t-category-and-midline-extension}
 
 In figure~\ref{fig-model-prevalences-overall}, we plot the prevalence of
 contralateral involvement of the LNLs II, III, and IV for the four
@@ -1048,7 +1101,8 @@ T-category. The model slightly overestimates the prevalence of this
 scenario for early T-category patients and underestimates it for
 advanced T-category.
 
-\subsubsection{Midline Extension}\label{midline-extension}
+\subsubsection{Prevalence of Midline
+Extension}\label{prevalence-of-midline-extension}
 
 \begin{figure}
 
@@ -1120,65 +1174,6 @@ Disease}\label{prediction-of-risk-for-occult-disease}
   compute risks for occult disease, given diagnosis
 \end{itemize}
 
-\subsection{Parameter Estimates}\label{parameter-estimates}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
-
-\begin{longtable}[]{@{}lll@{}}
-
-\caption{\label{tbl-midline-params}Mean sampled parameter estimates of
-the midline model and the respective standard deviation.}
-
-\tabularnewline
-
-\caption{}\label{T_17196}\tabularnewline
-\toprule\noalign{}
-Parameter & Mean & Std. Dev. \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Parameter & Mean & Std. Dev. \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Mid. ext. probability & 8.13\% & ± 0.60\% \\
-ipsi: T ➜ II & 35.45\% & ± 1.75\% \\
-ipsi: T ➜ III & 5.59\% & ± 0.82\% \\
-ipsi: T ➜ IV & 0.91\% & ± 0.21\% \\
-contra: T ➜ II & 2.64\% & ± 0.35\% \\
-contra: T ➜ III & 0.16\% & ± 0.09\% \\
-contra: T ➜ IV & 0.21\% & ± 0.10\% \\
-Mixing ⍺ & 21.01\% & ± 3.24\% \\
-II ➜ III & 13.46\% & ± 1.95\% \\
-III ➜ IV & 15.74\% & ± 2.24\% \\
-late T-cat. binom. prob. & 45.35\% & ± 2.57\% \\
-
-\end{longtable}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
-
-The predicted prevalence of midline extension for early T-category
-tumors is . For a late T-category tumor, it is .
-
-In the data, the prevalence of midline extension for early T-category
-tumors is . For late T-category tumors it is .
-
-\begin{itemize}
-\tightlist
-\item
-  Discrepancy between data and model is due to late T-stage's time prior
-\item
-  still tied to other parameters
-\item
-  cannot fully represent spread of midline extension and also represent
-  spread params
-\end{itemize}
-
 \subsection{Distributions over States}\label{distributions-over-states}
 
 \textsubscript{Source:
@@ -1234,7 +1229,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_e13a6}\tabularnewline
+\caption{}\label{T_07ae0}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1279,43 +1274,8 @@ advanced & ≥ 2 & True & 3 & 3.80 & 46 & 58.23 & 18 & 22.78 & 8 & 10.13 &
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
 Notebook}}
 
-\phantomsection\label{refs}
-\begin{CSLReferences}{1}{0}
-\bibitem[\citeproctext]{ref-ludwig_dataset_2022}
-Ludwig, Roman, Jean-Marc Hoffmann, Bertrand Pouymayou, Grégoire Morand,
-Martina Broglie Däppen, Matthias Guckenberger, Vincent Grégoire,
-Panagiotis Balermpas, and Jan Unkelbach. 2022. {``A Dataset on
-Patient-Individual Lymph Node Involvement in Oropharyngeal Squamous Cell
-Carcinoma.''} \emph{Data in Brief} 43 (August): 108345.
-\url{https://doi.org/10.1016/j.dib.2022.108345}.
 
-\bibitem[\citeproctext]{ref-ludwig_hidden_2020}
-Ludwig, Roman, Bertrand Pouymayou, Panagiotis Balermpas, and Jan
-Unkelbach. 2020. {``A {Hidden Markov} Model for Lymphatic Tumour
-Progression.''} In \emph{{SASRO}}.
-
-\bibitem[\citeproctext]{ref-ludwig_hidden_2021}
----------. 2021. {``A Hidden {Markov} Model for Lymphatic Tumor
-Progression in the Head and Neck.''} \emph{Sci Rep} 11 (1): 12261.
-\url{https://doi.org/10.1038/s41598-021-91544-1}.
-
-\bibitem[\citeproctext]{ref-ludwig_multicentric_2023}
-Ludwig, Roman, Adrian Schubert, Dorothea Barbatei, Laurence Bauwens,
-Sandrine Werlen, Olgun Elicin, Matthias Dettmer, et al. 2023. {``A
-Multi-Centric Dataset on Patient-Individual Pathological Lymph Node
-Involvement in Head and Neck Squamous Cell Carcinoma.''} \emph{Data in
-Brief}, December, 110020.
-\url{https://doi.org/10.1016/j.dib.2023.110020}.
-
-\bibitem[\citeproctext]{ref-pouymayou_bayesian_2019}
-Pouymayou, Bertrand, Panagiotis Balermpas, Oliver Riesterer, Matthias
-Guckenberger, and Jan Unkelbach. 2019. {``A {Bayesian} Network Model of
-Lymphatic Tumor Progression for Personalized Elective {CTV} Definition
-in Head and Neck Cancers.''} \emph{Physics in Medicine \& Biology} 64
-(16): 165003. \url{https://doi.org/10.1088/1361-6560/ab2a18}.
-
-\end{CSLReferences}
-
+  \bibliography{references.bib}
 
 
 \end{document}
