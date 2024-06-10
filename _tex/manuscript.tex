@@ -264,7 +264,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_900f1}\tabularnewline
+\caption{}\label{T_c4fec}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -396,7 +396,7 @@ Progression}\label{sec-unilateral}
 
 \centering{
 
-\includegraphics[width=0.5\textwidth,height=\textheight]{static/small-graph.png}
+\includegraphics[width=0.4\textwidth,height=\textheight]{static/small-graph.png}
 
 }
 
@@ -985,7 +985,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_4992d}\tabularnewline
+\caption{}\label{T_b241f}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1060,10 +1060,9 @@ to almost 40\% when the tumor is of advanced T-category and crosses the
 mid-sagittal line.
 
 However, for early T-category scenarios with midline extension, the
-model does seem to overestimate contralateral LNL II invovlement and
-underestimate the prevalence for metastases in LNL III. This likely
-stems from the the small sample size of this rare scenario as hinted at
-by the wide Beta posteriors.
+model does seem to overestimate contralateral LNL II and III
+invovlement. This likely stems from the the small sample size of this
+relatively rare scenario as hinted at by the wide beta posteriors.
 
 \subsubsection{Correlation between Ipsi- and Contralateral
 Involvement}\label{correlation-between-ipsi--and-contralateral-involvement}
@@ -1072,7 +1071,7 @@ Involvement}\label{correlation-between-ipsi--and-contralateral-involvement}
 
 \centering{
 
-\includegraphics[width=0.5\textwidth,height=\textheight]{figures/fig-model-prevalences-with-ipsi.png}
+\includegraphics{figures/fig-model-prevalences-with-ipsi.png}
 
 }
 
@@ -1168,23 +1167,62 @@ states in the prediction.
 \subsection{Prediction of Risk for Occult
 Disease}\label{prediction-of-risk-for-occult-disease}
 
-\begin{itemize}
-\tightlist
-\item
-  compute risks for occult disease, given diagnosis
-\end{itemize}
+In this section, we investigate how the model may be applied clinically:
+We want to estimate the risk for occult disease in some or all LNLs,
+given the patient's individual diagnosis. In terms of our model, this
+diagnosis consists of the T-category, the lateralization of the tumor
+(does it extend over the mid-sagittal line?), and which LNLs are
+clinically involved, e.g.~because some lymph nodes appear enlarged in an
+MRI scan or show increased glycolytic activity on an FDG PET/CT scan.
 
-\subsection{Distributions over States}\label{distributions-over-states}
+\begin{figure}
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
+\centering{
 
-\includegraphics{manuscript_files/figure-pdf/cell-6-output-1.pdf}
+\includegraphics[width=0.5\textwidth,height=\textheight]{figures/fig-model-risks.png}
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
+}
+
+\caption{\label{fig-model-risks}Histograms over the predicted risk of
+occult contralateral LNL II invovlement, shown for some combinations of
+T-category, tumor lateralization, and ipsilateral clinical involvement.
+The contralateral side was always assumed to be clinically negative.}
+
+\end{figure}%
+
+Figure~\ref{fig-model-risks} shows this predicted risk of occult disease
+in contralateral LNL II for four interesting combinations of these three
+risk factors. This risk is computed \emph{given} a CT diagnosis
+assessing the per-LNL clinical involvement for which we assumed a
+sensitivity of 81\% and a specificity of 76\%
+\citep{debondt_detection_2007}.
+
+The variable impacting the prediction for contralateral involvement in
+our model is the tumor's lateralization. For example, a patient with a
+clearly lateralized early T-category tumor and a clinically N0 neck is
+assigned a 1-2\% risk for occult disease in contralateral LNL II. Under
+the same scenario, but \emph{with} mid-sagittal extension, the risk
+jumps to almost 7\%.
+
+T-category plays a lesser role: Considering the scenario of a tumor that
+crosses the mid-sagittal line and an ipsilateral neck where at least LNL
+III is clinically involved, the risk for occult contralateral LNL II
+disease is around 8.5\%. For the same scenario and an advanced
+T-category tumor, the risk increases to 11\%.
+
+Lastly, the predicted risk is also correlated via the time-steps to the
+degree of ipsilateral involvement. Changing the aforementioned scenario
+(advanced T-category, midline extension, ipsilateral LNL III clinically
+involved) to one where the patient presents with a clinically N0 neck,
+the risk for occult disease in the contralateral LNL II falls from 11\%
+to 9.5\%.
+
+Taken together, T-category and ipsilateral involvement may still
+considerably impact the risk prediction for contralateral involvement:
+In figure~\ref{fig-model-risks} the scenarios underlying the orange
+(6.5\% ) and the red (11\% ) histograms differ in T-category (early vs
+advanced) and clinical diagnosis (N0 vs ipsilateral at least LNL III
+involved).
 
 \section{Discussion}\label{discussion}
 
@@ -1214,7 +1252,8 @@ This work was supported by:
   5645-08-2022
 \end{itemize}
 
-\section{Appendix}\label{appendix}
+\section{Contralateral Prevalence of
+Involvement}\label{contralateral-prevalence-of-involvement}
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
@@ -1229,7 +1268,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_07ae0}\tabularnewline
+\caption{}\label{T_bb1c4}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1269,6 +1308,20 @@ advanced & ≥ 2 & True & 3 & 3.80 & 46 & 58.23 & 18 & 22.78 & 8 & 10.13 &
 79 \\
 
 \end{longtable}
+
+\textsubscript{Source:
+\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
+Notebook}}
+
+\section{Marginalizing Beta Posteriors over
+Unknowns}\label{marginalizing-beta-posteriors-over-unknowns}
+
+\begin{itemize}
+\tightlist
+\item[$\square$]
+  write short theory section about why and how to compute the posteriors
+  if some of the data (here midline extension) is unknown
+\end{itemize}
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article

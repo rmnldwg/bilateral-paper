@@ -511,13 +511,19 @@
     </div>  </div>
 </header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#marginalizing-beta-posteriors-over-unknowns" id="toc-marginalizing-beta-posteriors-over-unknowns" class="nav-link active" data-scroll-target="#marginalizing-beta-posteriors-over-unknowns">Marginalizing Beta Posteriors over Unknowns</a></li>
+  </ul>
+</nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-     <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="10369d4c" class="cell" data-execution_count="2">
+       <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="3ca3a221" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -535,13 +541,13 @@
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>simple_model <span class="op">=</span> shared.get_model(<span class="st">"simple"</span>, load_samples<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="cf87b903" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="9b002e9c" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># width of figures. May depend on number of text columns</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>full <span class="op">=</span> <span class="dv">17</span> <span class="co"># cm</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="70e210f7" class="cell markdown">
+<div id="60f1e3c7" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <ul>
@@ -661,59 +667,59 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 <div aria-describedby="tbl-data-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <style type="text/css">
-#T_fdfb3_row0_col1, #T_fdfb3_row0_col2, #T_fdfb3_row0_col3, #T_fdfb3_row0_col4, #T_fdfb3_row0_col5, #T_fdfb3_row0_col6, #T_fdfb3_row1_col1, #T_fdfb3_row1_col2, #T_fdfb3_row1_col3, #T_fdfb3_row1_col4, #T_fdfb3_row1_col5, #T_fdfb3_row1_col6, #T_fdfb3_row2_col1, #T_fdfb3_row2_col2, #T_fdfb3_row2_col3, #T_fdfb3_row2_col4, #T_fdfb3_row2_col5, #T_fdfb3_row2_col6, #T_fdfb3_row3_col1, #T_fdfb3_row3_col2, #T_fdfb3_row3_col3, #T_fdfb3_row3_col4, #T_fdfb3_row3_col5, #T_fdfb3_row3_col6 {
+#T_451c9_row0_col1, #T_451c9_row0_col2, #T_451c9_row0_col3, #T_451c9_row0_col4, #T_451c9_row0_col5, #T_451c9_row0_col6, #T_451c9_row1_col1, #T_451c9_row1_col2, #T_451c9_row1_col3, #T_451c9_row1_col4, #T_451c9_row1_col5, #T_451c9_row1_col6, #T_451c9_row2_col1, #T_451c9_row2_col2, #T_451c9_row2_col3, #T_451c9_row2_col4, #T_451c9_row2_col5, #T_451c9_row2_col6, #T_451c9_row3_col1, #T_451c9_row3_col2, #T_451c9_row3_col3, #T_451c9_row3_col4, #T_451c9_row3_col5, #T_451c9_row3_col6 {
   text-align: right;
 }
 </style>
 
-<table id="T_fdfb3" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_451c9" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_fdfb3_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Institution</th>
-<th id="T_fdfb3_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Total</th>
-<th id="T_fdfb3_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Age (median)</th>
-<th id="T_fdfb3_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Neck Dissection</th>
-<th id="T_fdfb3_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">N0</th>
-<th id="T_fdfb3_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Early T-Cat.</th>
-<th id="T_fdfb3_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Mid. Ext.</th>
+<th id="T_451c9_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Institution</th>
+<th id="T_451c9_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Total</th>
+<th id="T_451c9_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Age (median)</th>
+<th id="T_451c9_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Neck Dissection</th>
+<th id="T_451c9_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">N0</th>
+<th id="T_451c9_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Early T-Cat.</th>
+<th id="T_451c9_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Mid. Ext.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_fdfb3_row0_col0" class="data row0 col0">Centre Léon Bérard</td>
-<td id="T_fdfb3_row0_col1" class="data row0 col1">325</td>
-<td id="T_fdfb3_row0_col2" class="data row0 col2">60</td>
-<td id="T_fdfb3_row0_col3" class="data row0 col3">100%</td>
-<td id="T_fdfb3_row0_col4" class="data row0 col4">19%</td>
-<td id="T_fdfb3_row0_col5" class="data row0 col5">69%</td>
-<td id="T_fdfb3_row0_col6" class="data row0 col6">18%</td>
+<td id="T_451c9_row0_col0" class="data row0 col0">Centre Léon Bérard</td>
+<td id="T_451c9_row0_col1" class="data row0 col1">325</td>
+<td id="T_451c9_row0_col2" class="data row0 col2">60</td>
+<td id="T_451c9_row0_col3" class="data row0 col3">100%</td>
+<td id="T_451c9_row0_col4" class="data row0 col4">19%</td>
+<td id="T_451c9_row0_col5" class="data row0 col5">69%</td>
+<td id="T_451c9_row0_col6" class="data row0 col6">18%</td>
 </tr>
 <tr class="even">
-<td id="T_fdfb3_row1_col0" class="data row1 col0">Inselspital Bern</td>
-<td id="T_fdfb3_row1_col1" class="data row1 col1">74</td>
-<td id="T_fdfb3_row1_col2" class="data row1 col2">61</td>
-<td id="T_fdfb3_row1_col3" class="data row1 col3">100%</td>
-<td id="T_fdfb3_row1_col4" class="data row1 col4">18%</td>
-<td id="T_fdfb3_row1_col5" class="data row1 col5">66%</td>
-<td id="T_fdfb3_row1_col6" class="data row1 col6">14%</td>
+<td id="T_451c9_row1_col0" class="data row1 col0">Inselspital Bern</td>
+<td id="T_451c9_row1_col1" class="data row1 col1">74</td>
+<td id="T_451c9_row1_col2" class="data row1 col2">61</td>
+<td id="T_451c9_row1_col3" class="data row1 col3">100%</td>
+<td id="T_451c9_row1_col4" class="data row1 col4">18%</td>
+<td id="T_451c9_row1_col5" class="data row1 col5">66%</td>
+<td id="T_451c9_row1_col6" class="data row1 col6">14%</td>
 </tr>
 <tr class="odd">
-<td id="T_fdfb3_row2_col0" class="data row2 col0">University Hospital Zurich</td>
-<td id="T_fdfb3_row2_col1" class="data row2 col1">287</td>
-<td id="T_fdfb3_row2_col2" class="data row2 col2">66</td>
-<td id="T_fdfb3_row2_col3" class="data row2 col3">26%</td>
-<td id="T_fdfb3_row2_col4" class="data row2 col4">18%</td>
-<td id="T_fdfb3_row2_col5" class="data row2 col5">52%</td>
-<td id="T_fdfb3_row2_col6" class="data row2 col6">31%</td>
+<td id="T_451c9_row2_col0" class="data row2 col0">University Hospital Zurich</td>
+<td id="T_451c9_row2_col1" class="data row2 col1">287</td>
+<td id="T_451c9_row2_col2" class="data row2 col2">66</td>
+<td id="T_451c9_row2_col3" class="data row2 col3">26%</td>
+<td id="T_451c9_row2_col4" class="data row2 col4">18%</td>
+<td id="T_451c9_row2_col5" class="data row2 col5">52%</td>
+<td id="T_451c9_row2_col6" class="data row2 col6">31%</td>
 </tr>
 <tr class="even">
-<td id="T_fdfb3_row3_col0" class="data row3 col0">Vall d'Hebron Barcelona Hospital</td>
-<td id="T_fdfb3_row3_col1" class="data row3 col1">147</td>
-<td id="T_fdfb3_row3_col2" class="data row3 col2">58</td>
-<td id="T_fdfb3_row3_col3" class="data row3 col3">5%</td>
-<td id="T_fdfb3_row3_col4" class="data row3 col4">21%</td>
-<td id="T_fdfb3_row3_col5" class="data row3 col5">34%</td>
-<td id="T_fdfb3_row3_col6" class="data row3 col6">34%</td>
+<td id="T_451c9_row3_col0" class="data row3 col0">Vall d'Hebron Barcelona Hospital</td>
+<td id="T_451c9_row3_col1" class="data row3 col1">147</td>
+<td id="T_451c9_row3_col2" class="data row3 col2">58</td>
+<td id="T_451c9_row3_col3" class="data row3 col3">5%</td>
+<td id="T_451c9_row3_col4" class="data row3 col4">21%</td>
+<td id="T_451c9_row3_col5" class="data row3 col5">34%</td>
+<td id="T_451c9_row3_col6" class="data row3 col6">34%</td>
 </tr>
 </tbody>
 </table>
@@ -722,7 +728,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="9ab38070" class="cell markdown">
+<div id="ef0b48d4" class="cell markdown">
 <section id="sec-data-strat" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-strat">Contralateral Involvement Prevalence</h2>
 <p>These datasets allow us to investigate correlations between the involvement of individual LNLs, or between risk factors and patterns of involvement. In <a href="#fig-data-strat" class="quarto-xref">figure&nbsp;1</a>, we have plotted the prevalence of each contralateral LNL’s involvement, stratified by T-category, ipsilateral number of involved LNLs, and whether the tumor extended over the mid-sagittal line. A similar but more complete stratification is also tabulated in the appendix in <a href="#tbl-data-strat" class="quarto-xref">table&nbsp;3</a>.</p>
@@ -760,7 +766,7 @@ Figure&nbsp;1: Contralateral involvement stratified by T-category (left panel), 
 <div id="fig-small-graph" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-small-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="static/small-graph.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Directed acyclic graph (DAG) representing the abstract lymphatic network in the head and neck region. Blue nodes are the LNLs’ hidden random variables, the red node represents the tumor, and the orange square nodes depict the binary observed variables. Red and blue arcs symbolize the probability of lymphatic spread along that edge during one time-step. The orange arcs represent the sensitivity and specificity of the observational modality (e.g.&nbsp;CT, MRI, pathology, …)."><img src="static/small-graph.png" class="img-fluid figure-img" style="width:50.0%"></a>
+<a href="static/small-graph.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Directed acyclic graph (DAG) representing the abstract lymphatic network in the head and neck region. Blue nodes are the LNLs’ hidden random variables, the red node represents the tumor, and the orange square nodes depict the binary observed variables. Red and blue arcs symbolize the probability of lymphatic spread along that edge during one time-step. The orange arcs represent the sensitivity and specificity of the observational modality (e.g.&nbsp;CT, MRI, pathology, …)."><img src="static/small-graph.png" class="img-fluid figure-img" style="width:40.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-small-graph-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Directed acyclic graph (DAG) representing the abstract lymphatic network in the head and neck region. Blue nodes are the LNLs’ hidden random variables, the red node represents the tumor, and the orange square nodes depict the binary observed variables. Red and blue arcs symbolize the probability of lymphatic spread along that edge during one time-step. The orange arcs represent the sensitivity and specificity of the observational modality (e.g.&nbsp;CT, MRI, pathology, …).
@@ -1009,74 +1015,74 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 <div aria-describedby="tbl-midline-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <style type="text/css">
-#T_ee221_row0_col1, #T_ee221_row0_col2, #T_ee221_row1_col1, #T_ee221_row1_col2, #T_ee221_row2_col1, #T_ee221_row2_col2, #T_ee221_row3_col1, #T_ee221_row3_col2, #T_ee221_row4_col1, #T_ee221_row4_col2, #T_ee221_row5_col1, #T_ee221_row5_col2, #T_ee221_row6_col1, #T_ee221_row6_col2, #T_ee221_row7_col1, #T_ee221_row7_col2, #T_ee221_row8_col1, #T_ee221_row8_col2, #T_ee221_row9_col1, #T_ee221_row9_col2, #T_ee221_row10_col1, #T_ee221_row10_col2 {
+#T_babbb_row0_col1, #T_babbb_row0_col2, #T_babbb_row1_col1, #T_babbb_row1_col2, #T_babbb_row2_col1, #T_babbb_row2_col2, #T_babbb_row3_col1, #T_babbb_row3_col2, #T_babbb_row4_col1, #T_babbb_row4_col2, #T_babbb_row5_col1, #T_babbb_row5_col2, #T_babbb_row6_col1, #T_babbb_row6_col2, #T_babbb_row7_col1, #T_babbb_row7_col2, #T_babbb_row8_col1, #T_babbb_row8_col2, #T_babbb_row9_col1, #T_babbb_row9_col2, #T_babbb_row10_col1, #T_babbb_row10_col2 {
   text-align: right;
 }
 </style>
 
-<table id="T_ee221" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_babbb" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_ee221_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
-<th id="T_ee221_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Mean</th>
-<th id="T_ee221_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Std. Dev.</th>
+<th id="T_babbb_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
+<th id="T_babbb_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Mean</th>
+<th id="T_babbb_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Std. Dev.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_ee221_row0_col0" class="data row0 col0">Mid. ext. probability</td>
-<td id="T_ee221_row0_col1" class="data row0 col1">8.13%</td>
-<td id="T_ee221_row0_col2" class="data row0 col2">± 0.60%</td>
+<td id="T_babbb_row0_col0" class="data row0 col0">Mid. ext. probability</td>
+<td id="T_babbb_row0_col1" class="data row0 col1">8.13%</td>
+<td id="T_babbb_row0_col2" class="data row0 col2">± 0.60%</td>
 </tr>
 <tr class="even">
-<td id="T_ee221_row1_col0" class="data row1 col0">ipsi: T ➜ II</td>
-<td id="T_ee221_row1_col1" class="data row1 col1">35.45%</td>
-<td id="T_ee221_row1_col2" class="data row1 col2">± 1.75%</td>
+<td id="T_babbb_row1_col0" class="data row1 col0">ipsi: T ➜ II</td>
+<td id="T_babbb_row1_col1" class="data row1 col1">35.45%</td>
+<td id="T_babbb_row1_col2" class="data row1 col2">± 1.75%</td>
 </tr>
 <tr class="odd">
-<td id="T_ee221_row2_col0" class="data row2 col0">ipsi: T ➜ III</td>
-<td id="T_ee221_row2_col1" class="data row2 col1">5.59%</td>
-<td id="T_ee221_row2_col2" class="data row2 col2">± 0.82%</td>
+<td id="T_babbb_row2_col0" class="data row2 col0">ipsi: T ➜ III</td>
+<td id="T_babbb_row2_col1" class="data row2 col1">5.59%</td>
+<td id="T_babbb_row2_col2" class="data row2 col2">± 0.82%</td>
 </tr>
 <tr class="even">
-<td id="T_ee221_row3_col0" class="data row3 col0">ipsi: T ➜ IV</td>
-<td id="T_ee221_row3_col1" class="data row3 col1">0.91%</td>
-<td id="T_ee221_row3_col2" class="data row3 col2">± 0.21%</td>
+<td id="T_babbb_row3_col0" class="data row3 col0">ipsi: T ➜ IV</td>
+<td id="T_babbb_row3_col1" class="data row3 col1">0.91%</td>
+<td id="T_babbb_row3_col2" class="data row3 col2">± 0.21%</td>
 </tr>
 <tr class="odd">
-<td id="T_ee221_row4_col0" class="data row4 col0">contra: T ➜ II</td>
-<td id="T_ee221_row4_col1" class="data row4 col1">2.64%</td>
-<td id="T_ee221_row4_col2" class="data row4 col2">± 0.35%</td>
+<td id="T_babbb_row4_col0" class="data row4 col0">contra: T ➜ II</td>
+<td id="T_babbb_row4_col1" class="data row4 col1">2.64%</td>
+<td id="T_babbb_row4_col2" class="data row4 col2">± 0.35%</td>
 </tr>
 <tr class="even">
-<td id="T_ee221_row5_col0" class="data row5 col0">contra: T ➜ III</td>
-<td id="T_ee221_row5_col1" class="data row5 col1">0.16%</td>
-<td id="T_ee221_row5_col2" class="data row5 col2">± 0.09%</td>
+<td id="T_babbb_row5_col0" class="data row5 col0">contra: T ➜ III</td>
+<td id="T_babbb_row5_col1" class="data row5 col1">0.16%</td>
+<td id="T_babbb_row5_col2" class="data row5 col2">± 0.09%</td>
 </tr>
 <tr class="odd">
-<td id="T_ee221_row6_col0" class="data row6 col0">contra: T ➜ IV</td>
-<td id="T_ee221_row6_col1" class="data row6 col1">0.21%</td>
-<td id="T_ee221_row6_col2" class="data row6 col2">± 0.10%</td>
+<td id="T_babbb_row6_col0" class="data row6 col0">contra: T ➜ IV</td>
+<td id="T_babbb_row6_col1" class="data row6 col1">0.21%</td>
+<td id="T_babbb_row6_col2" class="data row6 col2">± 0.10%</td>
 </tr>
 <tr class="even">
-<td id="T_ee221_row7_col0" class="data row7 col0">Mixing ⍺</td>
-<td id="T_ee221_row7_col1" class="data row7 col1">21.01%</td>
-<td id="T_ee221_row7_col2" class="data row7 col2">± 3.24%</td>
+<td id="T_babbb_row7_col0" class="data row7 col0">Mixing ⍺</td>
+<td id="T_babbb_row7_col1" class="data row7 col1">21.01%</td>
+<td id="T_babbb_row7_col2" class="data row7 col2">± 3.24%</td>
 </tr>
 <tr class="odd">
-<td id="T_ee221_row8_col0" class="data row8 col0">II ➜ III</td>
-<td id="T_ee221_row8_col1" class="data row8 col1">13.46%</td>
-<td id="T_ee221_row8_col2" class="data row8 col2">± 1.95%</td>
+<td id="T_babbb_row8_col0" class="data row8 col0">II ➜ III</td>
+<td id="T_babbb_row8_col1" class="data row8 col1">13.46%</td>
+<td id="T_babbb_row8_col2" class="data row8 col2">± 1.95%</td>
 </tr>
 <tr class="even">
-<td id="T_ee221_row9_col0" class="data row9 col0">III ➜ IV</td>
-<td id="T_ee221_row9_col1" class="data row9 col1">15.74%</td>
-<td id="T_ee221_row9_col2" class="data row9 col2">± 2.24%</td>
+<td id="T_babbb_row9_col0" class="data row9 col0">III ➜ IV</td>
+<td id="T_babbb_row9_col1" class="data row9 col1">15.74%</td>
+<td id="T_babbb_row9_col2" class="data row9 col2">± 2.24%</td>
 </tr>
 <tr class="odd">
-<td id="T_ee221_row10_col0" class="data row10 col0">late T-cat. binom. prob.</td>
-<td id="T_ee221_row10_col1" class="data row10 col1">45.35%</td>
-<td id="T_ee221_row10_col2" class="data row10 col2">± 2.57%</td>
+<td id="T_babbb_row10_col0" class="data row10 col0">late T-cat. binom. prob.</td>
+<td id="T_babbb_row10_col1" class="data row10 col1">45.35%</td>
+<td id="T_babbb_row10_col2" class="data row10 col2">± 2.57%</td>
 </tr>
 </tbody>
 </table>
@@ -1085,7 +1091,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="2384d7d1" class="cell markdown">
+<div id="e750ecbf" class="cell markdown">
 <section id="prevalence-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="prevalence-predictions">Prevalence Predictions</h2>
 <p>We want to investigate whether and to what extent the model can fulfill the requirements laid out in <a href="#sec-requirements" class="quarto-xref">section&nbsp;2.2</a>. To that end, we compare its predictions for contralateral involvement against observations in the data. This is done given scenarios that differ in T-category and/or midline extension and/or ipsilateral involvement.</p>
@@ -1102,15 +1108,15 @@ Figure&nbsp;6: Comparison of predicted (histograms) vs observed (beta posteriors
 </figcaption>
 </figure>
 </div>
-<p><a href="#fig-model-prevalences-overall" class="quarto-xref">Figure&nbsp;6</a> shows nicely how the model is capable of accurately taking the most important risk factors, i.e.&nbsp;T-category and midline extension, into account. As observed in the data, the model predicts that the prevalence of contralateral LNL II involvement jumps from below 8% for early T-category lateralized tumors to almost 40% when the tumor is of advanced T-category and crosses the mid-sagittal line.</p>
-<p>However, for early T-category scenarios with midline extension, the model does seem to overestimate contralateral LNL II invovlement and underestimate the prevalence for metastases in LNL III. This likely stems from the the small sample size of this rare scenario as hinted at by the wide Beta posteriors.</p>
+<p><a href="#fig-model-prevalences-overall" class="quarto-xref">Figure&nbsp;6</a> shows nicely how the model is capable of accurately taking the most important risk factors, i.e.&nbsp;T-category and midline extension, into account. As observed in the data, the model predicts that the prevalence of contralateral LNL II involvement jumps from below 8% <!-- TODO: make this dynamic --> for early T-category lateralized tumors to almost 40% <!-- TODO: make this dynamic --> when the tumor is of advanced T-category and crosses the mid-sagittal line.</p>
+<p>However, for early T-category scenarios with midline extension, the model does seem to overestimate contralateral LNL II and III invovlement. This likely stems from the the small sample size of this relatively rare scenario as hinted at by the wide beta posteriors.</p>
 </section>
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level3">
 <h3 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h3>
 <div id="fig-model-prevalences-with-ipsi" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-prevalences-with-ipsi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="figures/fig-model-prevalences-with-ipsi.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction’s split between early and advanced T-category is not large enough."><img src="figures/fig-model-prevalences-with-ipsi.png" class="img-fluid figure-img" style="width:50.0%"></a>
+<a href="figures/fig-model-prevalences-with-ipsi.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Figure&nbsp;7: Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction’s split between early and advanced T-category is not large enough."><img src="figures/fig-model-prevalences-with-ipsi.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-prevalences-with-ipsi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;7: Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction’s split between early and advanced T-category is not large enough.
@@ -1143,37 +1149,23 @@ P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mat
 </section>
 <section id="prediction-of-risk-for-occult-disease" class="level2">
 <h2 class="anchored" data-anchor-id="prediction-of-risk-for-occult-disease">Prediction of Risk for Occult Disease</h2>
-<ul>
-<li>compute risks for occult disease, given diagnosis</li>
-</ul>
-</section>
-<section id="distributions-over-states" class="level2">
-<h2 class="anchored" data-anchor-id="distributions-over-states">Distributions over States</h2>
-</section>
+<p>In this section, we investigate how the model may be applied clinically: We want to estimate the risk for occult disease in some or all LNLs, given the patient’s individual diagnosis. In terms of our model, this diagnosis consists of the T-category, the lateralization of the tumor (does it extend over the mid-sagittal line?), and which LNLs are clinically involved, e.g.&nbsp;because some lymph nodes appear enlarged in an MRI scan or show increased glycolytic activity on an FDG PET/CT scan.</p>
+<div id="fig-model-risks" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model-risks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/fig-model-risks.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Histograms over the predicted risk of occult contralateral LNL II invovlement, shown for some combinations of T-category, tumor lateralization, and ipsilateral clinical involvement. The contralateral side was always assumed to be clinically negative."><img src="figures/fig-model-risks.png" class="img-fluid figure-img" style="width:50.0%"></a>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="e931b0fe" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.rcdefaults()</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> pd.MultiIndex.from_product(</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  [[<span class="va">False</span>, <span class="va">True</span>]] <span class="op">*</span> <span class="bu">len</span>(simple_model.ext.ipsi.graph.lnls),</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  names<span class="op">=</span>simple_model.ext.ipsi.graph.lnls.keys(),</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> pd.Series(simple_model.ext.ipsi.state_dist(), index<span class="op">=</span>mi)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>upsetplot.plot(</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  series,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  sort_by<span class="op">=</span><span class="st">"cardinality"</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  sort_categories_by<span class="op">=</span><span class="st">"-input"</span>,</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div class="">
-<figure class="figure">
-<p class=""><a href="manuscript_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-9"><img src="manuscript_files/figure-html/cell-6-output-1.png" width="433" height="351" class="figure-img"></a></p>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-risks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: Histograms over the predicted risk of occult contralateral LNL II invovlement, shown for some combinations of T-category, tumor lateralization, and ipsilateral clinical involvement. The contralateral side was always assumed to be clinically negative.
+</figcaption>
 </figure>
 </div>
-</div>
-</div></div>
-<div id="de1b9b21" class="cell markdown">
+<p><a href="#fig-model-risks" class="quarto-xref">Figure&nbsp;9</a> shows this predicted risk of occult disease in contralateral LNL II for four interesting combinations of these three risk factors. This risk is computed <em>given</em> a CT diagnosis assessing the per-LNL clinical involvement for which we assumed a sensitivity of 81% and a specificity of 76% <span class="citation" data-cites="debondt_detection_2007">(<a href="#ref-debondt_detection_2007" role="doc-biblioref">De Bondt and Others 2007</a>)</span>.</p>
+<p>The variable impacting the prediction for contralateral involvement in our model is the tumor’s lateralization. For example, a patient with a clearly lateralized early T-category tumor and a clinically N0 neck is assigned a 1-2% <!-- TODO: make this dynamic --> risk for occult disease in contralateral LNL II. Under the same scenario, but <em>with</em> mid-sagittal extension, the risk jumps to almost 7%. <!-- TODO: make this dynamic --></p>
+<p>T-category plays a lesser role: Considering the scenario of a tumor that crosses the mid-sagittal line and an ipsilateral neck where at least LNL III is clinically involved, the risk for occult contralateral LNL II disease is around 8.5%. <!-- TODO: make this dynamic --> For the same scenario and an advanced T-category tumor, the risk increases to 11%. <!-- TODO: make this dynamic --></p>
+<p>Lastly, the predicted risk is also correlated via the time-steps to the degree of ipsilateral involvement. Changing the aforementioned scenario (advanced T-category, midline extension, ipsilateral LNL III clinically involved) to one where the patient presents with a clinically N0 neck, the risk for occult disease in the contralateral LNL II falls from 11% <!-- TODO: make this dynamic --> to 9.5%. <!-- TODO: make this dynamic --></p>
+<p>Taken together, T-category and ipsilateral involvement may still considerably impact the risk prediction for contralateral involvement: In <a href="#fig-model-risks" class="quarto-xref">figure&nbsp;9</a> the scenarios underlying the orange (6.5% <!-- TODO: make this dynamic -->) and the red (11% <!-- TODO: make this dynamic -->) histograms differ in T-category (early vs advanced) and clinical diagnosis (N0 vs ipsilateral at least LNL III involved).</p>
+</section>
 <section id="discussion" class="level1">
 <h1>Discussion</h1>
 <ul>
@@ -1190,274 +1182,274 @@ P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mat
 <li>the Swiss Cancer Research Foundation under grant number KFS 5645-08-2022</li>
 </ul>
 </section>
-<section id="appendix" class="level1 appendix">
-<h1 class="appendix">Appendix</h1>
+<section id="contralateral-prevalence-of-involvement" class="level1 appendix">
+<h1 class="appendix">Contralateral Prevalence of Involvement</h1>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div class="cell" data-execution_count="7">
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell" data-execution_count="6">
 
-<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lnl_cols <span class="op">=</span> get_lnl_cols(<span class="st">"contra"</span>, lnls<span class="op">=</span>[<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>])</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num_ipsi_inv <span class="op">=</span> raw[get_lnl_cols(<span class="st">"ipsi"</span>)].<span class="bu">sum</span>(axis<span class="op">=</span><span class="st">"columns"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>contra_inv <span class="op">=</span> raw[lnl_cols].copy()</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>contra_inv.columns <span class="op">=</span> contra_inv.columns.droplevel([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>contra_inv[<span class="st">"t_stage"</span>] <span class="op">=</span> raw[COL.t_stage].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"early"</span> <span class="cf">if</span> x <span class="op">&lt;=</span> <span class="dv">2</span> <span class="cf">else</span> <span class="st">"advanced"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>contra_inv[<span class="st">"ipsi"</span>] <span class="op">=</span> num_ipsi_inv.<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="bu">str</span>(x) <span class="cf">if</span> x <span class="op">&lt;=</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">"≥ 2"</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>contra_inv[<span class="st">"midext"</span>] <span class="op">=</span> raw[COL.midext]</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> contra_inv.groupby(by<span class="op">=</span>[<span class="st">"t_stage"</span>, <span class="st">"ipsi"</span>, <span class="st">"midext"</span>])</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>num_involved <span class="op">=</span> grouped.<span class="bu">sum</span>()</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> grouped.count()</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>percent_involved <span class="op">=</span> num_involved <span class="op">/</span> total</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> total.index.rename([<span class="st">"T-cat."</span>, <span class="st">"ipsi"</span>, <span class="st">"Mid. ext."</span>])</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>total.index <span class="op">=</span> idx</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>num_involved.index <span class="op">=</span> idx</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>percent_involved.index <span class="op">=</span> idx</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>involved <span class="op">=</span> num_involved.join(</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="dv">100</span> <span class="op">*</span> percent_involved,</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  rsuffix<span class="op">=</span><span class="st">" (%)"</span>,</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>).sort_index(axis<span class="op">=</span><span class="st">"columns"</span>)</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>involved.columns <span class="op">=</span> pd.MultiIndex.from_product(</span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  [[<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>],</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>   [<span class="st">"n"</span>, <span class="st">"%"</span>]],</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  names<span class="op">=</span>[<span class="st">"LNL"</span>, <span class="st">""</span>]</span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>involved[<span class="st">"total"</span>, <span class="st">"n"</span>] <span class="op">=</span> total[<span class="st">"I"</span>]</span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  involved</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>  .reset_index()</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>  .sort_values(<span class="st">"ipsi"</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  .sort_values(<span class="st">"T-cat."</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  .style</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(right_align, subset<span class="op">=</span>involved.columns[<span class="dv">0</span>:])</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(highlight_t_stage, subset<span class="op">=</span>[<span class="st">"T-cat."</span>])</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(highlight_bool, subset<span class="op">=</span>[<span class="st">"Mid. ext."</span>])</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(highlight, subset<span class="op">=</span>[<span class="st">"ipsi"</span>], mapping<span class="op">=</span>{</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0"</span>: COLORS[<span class="st">"green"</span>],</span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1"</span>: COLORS[<span class="st">"orange"</span>],</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"≥ 2"</span>: COLORS[<span class="st">"red"</span>],</span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  })</span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  .hide()</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="7">
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lnl_cols <span class="op">=</span> get_lnl_cols(<span class="st">"contra"</span>, lnls<span class="op">=</span>[<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>num_ipsi_inv <span class="op">=</span> raw[get_lnl_cols(<span class="st">"ipsi"</span>)].<span class="bu">sum</span>(axis<span class="op">=</span><span class="st">"columns"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>contra_inv <span class="op">=</span> raw[lnl_cols].copy()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>contra_inv.columns <span class="op">=</span> contra_inv.columns.droplevel([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>contra_inv[<span class="st">"t_stage"</span>] <span class="op">=</span> raw[COL.t_stage].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">"early"</span> <span class="cf">if</span> x <span class="op">&lt;=</span> <span class="dv">2</span> <span class="cf">else</span> <span class="st">"advanced"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>contra_inv[<span class="st">"ipsi"</span>] <span class="op">=</span> num_ipsi_inv.<span class="bu">map</span>(<span class="kw">lambda</span> x: <span class="bu">str</span>(x) <span class="cf">if</span> x <span class="op">&lt;=</span> <span class="dv">1</span> <span class="cf">else</span> <span class="st">"≥ 2"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>contra_inv[<span class="st">"midext"</span>] <span class="op">=</span> raw[COL.midext]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> contra_inv.groupby(by<span class="op">=</span>[<span class="st">"t_stage"</span>, <span class="st">"ipsi"</span>, <span class="st">"midext"</span>])</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>num_involved <span class="op">=</span> grouped.<span class="bu">sum</span>()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> grouped.count()</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>percent_involved <span class="op">=</span> num_involved <span class="op">/</span> total</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> total.index.rename([<span class="st">"T-cat."</span>, <span class="st">"ipsi"</span>, <span class="st">"Mid. ext."</span>])</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>total.index <span class="op">=</span> idx</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>num_involved.index <span class="op">=</span> idx</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>percent_involved.index <span class="op">=</span> idx</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>involved <span class="op">=</span> num_involved.join(</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="dv">100</span> <span class="op">*</span> percent_involved,</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  rsuffix<span class="op">=</span><span class="st">" (%)"</span>,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>).sort_index(axis<span class="op">=</span><span class="st">"columns"</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>involved.columns <span class="op">=</span> pd.MultiIndex.from_product(</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  [[<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>],</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>   [<span class="st">"n"</span>, <span class="st">"%"</span>]],</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  names<span class="op">=</span>[<span class="st">"LNL"</span>, <span class="st">""</span>]</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>involved[<span class="st">"total"</span>, <span class="st">"n"</span>] <span class="op">=</span> total[<span class="st">"I"</span>]</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>  involved</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>  .reset_index()</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>  .sort_values(<span class="st">"ipsi"</span>, ascending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>  .sort_values(<span class="st">"T-cat."</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>  .style</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(right_align, subset<span class="op">=</span>involved.columns[<span class="dv">0</span>:])</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(highlight_t_stage, subset<span class="op">=</span>[<span class="st">"T-cat."</span>])</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(highlight_bool, subset<span class="op">=</span>[<span class="st">"Mid. ext."</span>])</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(highlight, subset<span class="op">=</span>[<span class="st">"ipsi"</span>], mapping<span class="op">=</span>{</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"0"</span>: COLORS[<span class="st">"green"</span>],</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1"</span>: COLORS[<span class="st">"orange"</span>],</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>    <span class="st">"≥ 2"</span>: COLORS[<span class="st">"red"</span>],</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>  .hide()</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;3: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal line, the T-category, and whether the ipsilateral LNL III was involved or healthy.
 </figcaption>
 <div aria-describedby="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <style type="text/css">
-#T_1946b_row0_col0, #T_1946b_row0_col1, #T_1946b_row0_col2, #T_1946b_row1_col0, #T_1946b_row1_col1, #T_1946b_row2_col0, #T_1946b_row2_col2, #T_1946b_row3_col0, #T_1946b_row4_col0, #T_1946b_row4_col2, #T_1946b_row5_col0, #T_1946b_row6_col1, #T_1946b_row6_col2, #T_1946b_row7_col1, #T_1946b_row8_col2, #T_1946b_row10_col2 {
+#T_b7f7a_row0_col0, #T_b7f7a_row0_col1, #T_b7f7a_row0_col2, #T_b7f7a_row1_col0, #T_b7f7a_row1_col1, #T_b7f7a_row2_col0, #T_b7f7a_row2_col2, #T_b7f7a_row3_col0, #T_b7f7a_row4_col0, #T_b7f7a_row4_col2, #T_b7f7a_row5_col0, #T_b7f7a_row6_col1, #T_b7f7a_row6_col2, #T_b7f7a_row7_col1, #T_b7f7a_row8_col2, #T_b7f7a_row10_col2 {
   color: #00afa5;
 }
-#T_1946b_row0_col3, #T_1946b_row0_col4, #T_1946b_row0_col5, #T_1946b_row0_col6, #T_1946b_row0_col7, #T_1946b_row0_col8, #T_1946b_row0_col9, #T_1946b_row0_col10, #T_1946b_row0_col11, #T_1946b_row1_col3, #T_1946b_row1_col4, #T_1946b_row1_col5, #T_1946b_row1_col6, #T_1946b_row1_col7, #T_1946b_row1_col8, #T_1946b_row1_col9, #T_1946b_row1_col10, #T_1946b_row1_col11, #T_1946b_row2_col3, #T_1946b_row2_col4, #T_1946b_row2_col5, #T_1946b_row2_col6, #T_1946b_row2_col7, #T_1946b_row2_col8, #T_1946b_row2_col9, #T_1946b_row2_col10, #T_1946b_row2_col11, #T_1946b_row3_col3, #T_1946b_row3_col4, #T_1946b_row3_col5, #T_1946b_row3_col6, #T_1946b_row3_col7, #T_1946b_row3_col8, #T_1946b_row3_col9, #T_1946b_row3_col10, #T_1946b_row3_col11, #T_1946b_row4_col3, #T_1946b_row4_col4, #T_1946b_row4_col5, #T_1946b_row4_col6, #T_1946b_row4_col7, #T_1946b_row4_col8, #T_1946b_row4_col9, #T_1946b_row4_col10, #T_1946b_row4_col11, #T_1946b_row5_col3, #T_1946b_row5_col4, #T_1946b_row5_col5, #T_1946b_row5_col6, #T_1946b_row5_col7, #T_1946b_row5_col8, #T_1946b_row5_col9, #T_1946b_row5_col10, #T_1946b_row5_col11, #T_1946b_row6_col3, #T_1946b_row6_col4, #T_1946b_row6_col5, #T_1946b_row6_col6, #T_1946b_row6_col7, #T_1946b_row6_col8, #T_1946b_row6_col9, #T_1946b_row6_col10, #T_1946b_row6_col11, #T_1946b_row7_col3, #T_1946b_row7_col4, #T_1946b_row7_col5, #T_1946b_row7_col6, #T_1946b_row7_col7, #T_1946b_row7_col8, #T_1946b_row7_col9, #T_1946b_row7_col10, #T_1946b_row7_col11, #T_1946b_row8_col3, #T_1946b_row8_col4, #T_1946b_row8_col5, #T_1946b_row8_col6, #T_1946b_row8_col7, #T_1946b_row8_col8, #T_1946b_row8_col9, #T_1946b_row8_col10, #T_1946b_row8_col11, #T_1946b_row9_col3, #T_1946b_row9_col4, #T_1946b_row9_col5, #T_1946b_row9_col6, #T_1946b_row9_col7, #T_1946b_row9_col8, #T_1946b_row9_col9, #T_1946b_row9_col10, #T_1946b_row9_col11, #T_1946b_row10_col3, #T_1946b_row10_col4, #T_1946b_row10_col5, #T_1946b_row10_col6, #T_1946b_row10_col7, #T_1946b_row10_col8, #T_1946b_row10_col9, #T_1946b_row10_col10, #T_1946b_row10_col11, #T_1946b_row11_col3, #T_1946b_row11_col4, #T_1946b_row11_col5, #T_1946b_row11_col6, #T_1946b_row11_col7, #T_1946b_row11_col8, #T_1946b_row11_col9, #T_1946b_row11_col10, #T_1946b_row11_col11 {
+#T_b7f7a_row0_col3, #T_b7f7a_row0_col4, #T_b7f7a_row0_col5, #T_b7f7a_row0_col6, #T_b7f7a_row0_col7, #T_b7f7a_row0_col8, #T_b7f7a_row0_col9, #T_b7f7a_row0_col10, #T_b7f7a_row0_col11, #T_b7f7a_row1_col3, #T_b7f7a_row1_col4, #T_b7f7a_row1_col5, #T_b7f7a_row1_col6, #T_b7f7a_row1_col7, #T_b7f7a_row1_col8, #T_b7f7a_row1_col9, #T_b7f7a_row1_col10, #T_b7f7a_row1_col11, #T_b7f7a_row2_col3, #T_b7f7a_row2_col4, #T_b7f7a_row2_col5, #T_b7f7a_row2_col6, #T_b7f7a_row2_col7, #T_b7f7a_row2_col8, #T_b7f7a_row2_col9, #T_b7f7a_row2_col10, #T_b7f7a_row2_col11, #T_b7f7a_row3_col3, #T_b7f7a_row3_col4, #T_b7f7a_row3_col5, #T_b7f7a_row3_col6, #T_b7f7a_row3_col7, #T_b7f7a_row3_col8, #T_b7f7a_row3_col9, #T_b7f7a_row3_col10, #T_b7f7a_row3_col11, #T_b7f7a_row4_col3, #T_b7f7a_row4_col4, #T_b7f7a_row4_col5, #T_b7f7a_row4_col6, #T_b7f7a_row4_col7, #T_b7f7a_row4_col8, #T_b7f7a_row4_col9, #T_b7f7a_row4_col10, #T_b7f7a_row4_col11, #T_b7f7a_row5_col3, #T_b7f7a_row5_col4, #T_b7f7a_row5_col5, #T_b7f7a_row5_col6, #T_b7f7a_row5_col7, #T_b7f7a_row5_col8, #T_b7f7a_row5_col9, #T_b7f7a_row5_col10, #T_b7f7a_row5_col11, #T_b7f7a_row6_col3, #T_b7f7a_row6_col4, #T_b7f7a_row6_col5, #T_b7f7a_row6_col6, #T_b7f7a_row6_col7, #T_b7f7a_row6_col8, #T_b7f7a_row6_col9, #T_b7f7a_row6_col10, #T_b7f7a_row6_col11, #T_b7f7a_row7_col3, #T_b7f7a_row7_col4, #T_b7f7a_row7_col5, #T_b7f7a_row7_col6, #T_b7f7a_row7_col7, #T_b7f7a_row7_col8, #T_b7f7a_row7_col9, #T_b7f7a_row7_col10, #T_b7f7a_row7_col11, #T_b7f7a_row8_col3, #T_b7f7a_row8_col4, #T_b7f7a_row8_col5, #T_b7f7a_row8_col6, #T_b7f7a_row8_col7, #T_b7f7a_row8_col8, #T_b7f7a_row8_col9, #T_b7f7a_row8_col10, #T_b7f7a_row8_col11, #T_b7f7a_row9_col3, #T_b7f7a_row9_col4, #T_b7f7a_row9_col5, #T_b7f7a_row9_col6, #T_b7f7a_row9_col7, #T_b7f7a_row9_col8, #T_b7f7a_row9_col9, #T_b7f7a_row9_col10, #T_b7f7a_row9_col11, #T_b7f7a_row10_col3, #T_b7f7a_row10_col4, #T_b7f7a_row10_col5, #T_b7f7a_row10_col6, #T_b7f7a_row10_col7, #T_b7f7a_row10_col8, #T_b7f7a_row10_col9, #T_b7f7a_row10_col10, #T_b7f7a_row10_col11, #T_b7f7a_row11_col3, #T_b7f7a_row11_col4, #T_b7f7a_row11_col5, #T_b7f7a_row11_col6, #T_b7f7a_row11_col7, #T_b7f7a_row11_col8, #T_b7f7a_row11_col9, #T_b7f7a_row11_col10, #T_b7f7a_row11_col11 {
   text-align: right;
 }
-#T_1946b_row1_col2, #T_1946b_row3_col2, #T_1946b_row4_col1, #T_1946b_row5_col1, #T_1946b_row5_col2, #T_1946b_row6_col0, #T_1946b_row7_col0, #T_1946b_row7_col2, #T_1946b_row8_col0, #T_1946b_row9_col0, #T_1946b_row9_col2, #T_1946b_row10_col0, #T_1946b_row10_col1, #T_1946b_row11_col0, #T_1946b_row11_col1, #T_1946b_row11_col2 {
+#T_b7f7a_row1_col2, #T_b7f7a_row3_col2, #T_b7f7a_row4_col1, #T_b7f7a_row5_col1, #T_b7f7a_row5_col2, #T_b7f7a_row6_col0, #T_b7f7a_row7_col0, #T_b7f7a_row7_col2, #T_b7f7a_row8_col0, #T_b7f7a_row9_col0, #T_b7f7a_row9_col2, #T_b7f7a_row10_col0, #T_b7f7a_row10_col1, #T_b7f7a_row11_col0, #T_b7f7a_row11_col1, #T_b7f7a_row11_col2 {
   color: #ae0060;
 }
-#T_1946b_row2_col1, #T_1946b_row3_col1, #T_1946b_row8_col1, #T_1946b_row9_col1 {
+#T_b7f7a_row2_col1, #T_b7f7a_row3_col1, #T_b7f7a_row8_col1, #T_b7f7a_row9_col1 {
   color: #f17900;
 }
 </style>
 
-<table id="T_1946b" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_b7f7a" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_1946b_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">T-cat.</th>
-<th id="T_1946b_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">ipsi</th>
-<th id="T_1946b_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Mid. ext.</th>
-<th colspan="2" id="T_1946b_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">I</th>
-<th colspan="2" id="T_1946b_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">II</th>
-<th colspan="2" id="T_1946b_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">III</th>
-<th colspan="2" id="T_1946b_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">IV</th>
-<th id="T_1946b_level0_col11" class="col_heading level0 col11" data-quarto-table-cell-role="th">total</th>
+<th id="T_b7f7a_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">T-cat.</th>
+<th id="T_b7f7a_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">ipsi</th>
+<th id="T_b7f7a_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Mid. ext.</th>
+<th colspan="2" id="T_b7f7a_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">I</th>
+<th colspan="2" id="T_b7f7a_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">II</th>
+<th colspan="2" id="T_b7f7a_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">III</th>
+<th colspan="2" id="T_b7f7a_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">IV</th>
+<th id="T_b7f7a_level0_col11" class="col_heading level0 col11" data-quarto-table-cell-role="th">total</th>
 </tr>
 <tr class="odd">
-<th id="T_1946b_level1_col0" class="col_heading level1 col0" data-quarto-table-cell-role="th"></th>
-<th id="T_1946b_level1_col1" class="col_heading level1 col1" data-quarto-table-cell-role="th"></th>
-<th id="T_1946b_level1_col2" class="col_heading level1 col2" data-quarto-table-cell-role="th"></th>
-<th id="T_1946b_level1_col3" class="col_heading level1 col3" data-quarto-table-cell-role="th">n</th>
-<th id="T_1946b_level1_col4" class="col_heading level1 col4" data-quarto-table-cell-role="th">%</th>
-<th id="T_1946b_level1_col5" class="col_heading level1 col5" data-quarto-table-cell-role="th">n</th>
-<th id="T_1946b_level1_col6" class="col_heading level1 col6" data-quarto-table-cell-role="th">%</th>
-<th id="T_1946b_level1_col7" class="col_heading level1 col7" data-quarto-table-cell-role="th">n</th>
-<th id="T_1946b_level1_col8" class="col_heading level1 col8" data-quarto-table-cell-role="th">%</th>
-<th id="T_1946b_level1_col9" class="col_heading level1 col9" data-quarto-table-cell-role="th">n</th>
-<th id="T_1946b_level1_col10" class="col_heading level1 col10" data-quarto-table-cell-role="th">%</th>
-<th id="T_1946b_level1_col11" class="col_heading level1 col11" data-quarto-table-cell-role="th">n</th>
+<th id="T_b7f7a_level1_col0" class="col_heading level1 col0" data-quarto-table-cell-role="th"></th>
+<th id="T_b7f7a_level1_col1" class="col_heading level1 col1" data-quarto-table-cell-role="th"></th>
+<th id="T_b7f7a_level1_col2" class="col_heading level1 col2" data-quarto-table-cell-role="th"></th>
+<th id="T_b7f7a_level1_col3" class="col_heading level1 col3" data-quarto-table-cell-role="th">n</th>
+<th id="T_b7f7a_level1_col4" class="col_heading level1 col4" data-quarto-table-cell-role="th">%</th>
+<th id="T_b7f7a_level1_col5" class="col_heading level1 col5" data-quarto-table-cell-role="th">n</th>
+<th id="T_b7f7a_level1_col6" class="col_heading level1 col6" data-quarto-table-cell-role="th">%</th>
+<th id="T_b7f7a_level1_col7" class="col_heading level1 col7" data-quarto-table-cell-role="th">n</th>
+<th id="T_b7f7a_level1_col8" class="col_heading level1 col8" data-quarto-table-cell-role="th">%</th>
+<th id="T_b7f7a_level1_col9" class="col_heading level1 col9" data-quarto-table-cell-role="th">n</th>
+<th id="T_b7f7a_level1_col10" class="col_heading level1 col10" data-quarto-table-cell-role="th">%</th>
+<th id="T_b7f7a_level1_col11" class="col_heading level1 col11" data-quarto-table-cell-role="th">n</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_1946b_row0_col0" class="data row0 col0">early</td>
-<td id="T_1946b_row0_col1" class="data row0 col1">0</td>
-<td id="T_1946b_row0_col2" class="data row0 col2">False</td>
-<td id="T_1946b_row0_col3" class="data row0 col3">0</td>
-<td id="T_1946b_row0_col4" class="data row0 col4">0.00</td>
-<td id="T_1946b_row0_col5" class="data row0 col5">1</td>
-<td id="T_1946b_row0_col6" class="data row0 col6">1.16</td>
-<td id="T_1946b_row0_col7" class="data row0 col7">0</td>
-<td id="T_1946b_row0_col8" class="data row0 col8">0.00</td>
-<td id="T_1946b_row0_col9" class="data row0 col9">0</td>
-<td id="T_1946b_row0_col10" class="data row0 col10">0.00</td>
-<td id="T_1946b_row0_col11" class="data row0 col11">86</td>
+<td id="T_b7f7a_row0_col0" class="data row0 col0">early</td>
+<td id="T_b7f7a_row0_col1" class="data row0 col1">0</td>
+<td id="T_b7f7a_row0_col2" class="data row0 col2">False</td>
+<td id="T_b7f7a_row0_col3" class="data row0 col3">0</td>
+<td id="T_b7f7a_row0_col4" class="data row0 col4">0.00</td>
+<td id="T_b7f7a_row0_col5" class="data row0 col5">1</td>
+<td id="T_b7f7a_row0_col6" class="data row0 col6">1.16</td>
+<td id="T_b7f7a_row0_col7" class="data row0 col7">0</td>
+<td id="T_b7f7a_row0_col8" class="data row0 col8">0.00</td>
+<td id="T_b7f7a_row0_col9" class="data row0 col9">0</td>
+<td id="T_b7f7a_row0_col10" class="data row0 col10">0.00</td>
+<td id="T_b7f7a_row0_col11" class="data row0 col11">86</td>
 </tr>
 <tr class="even">
-<td id="T_1946b_row1_col0" class="data row1 col0">early</td>
-<td id="T_1946b_row1_col1" class="data row1 col1">0</td>
-<td id="T_1946b_row1_col2" class="data row1 col2">True</td>
-<td id="T_1946b_row1_col3" class="data row1 col3">0</td>
-<td id="T_1946b_row1_col4" class="data row1 col4">0.00</td>
-<td id="T_1946b_row1_col5" class="data row1 col5">1</td>
-<td id="T_1946b_row1_col6" class="data row1 col6">10.00</td>
-<td id="T_1946b_row1_col7" class="data row1 col7">1</td>
-<td id="T_1946b_row1_col8" class="data row1 col8">10.00</td>
-<td id="T_1946b_row1_col9" class="data row1 col9">0</td>
-<td id="T_1946b_row1_col10" class="data row1 col10">0.00</td>
-<td id="T_1946b_row1_col11" class="data row1 col11">10</td>
+<td id="T_b7f7a_row1_col0" class="data row1 col0">early</td>
+<td id="T_b7f7a_row1_col1" class="data row1 col1">0</td>
+<td id="T_b7f7a_row1_col2" class="data row1 col2">True</td>
+<td id="T_b7f7a_row1_col3" class="data row1 col3">0</td>
+<td id="T_b7f7a_row1_col4" class="data row1 col4">0.00</td>
+<td id="T_b7f7a_row1_col5" class="data row1 col5">1</td>
+<td id="T_b7f7a_row1_col6" class="data row1 col6">10.00</td>
+<td id="T_b7f7a_row1_col7" class="data row1 col7">1</td>
+<td id="T_b7f7a_row1_col8" class="data row1 col8">10.00</td>
+<td id="T_b7f7a_row1_col9" class="data row1 col9">0</td>
+<td id="T_b7f7a_row1_col10" class="data row1 col10">0.00</td>
+<td id="T_b7f7a_row1_col11" class="data row1 col11">10</td>
 </tr>
 <tr class="odd">
-<td id="T_1946b_row2_col0" class="data row2 col0">early</td>
-<td id="T_1946b_row2_col1" class="data row2 col1">1</td>
-<td id="T_1946b_row2_col2" class="data row2 col2">False</td>
-<td id="T_1946b_row2_col3" class="data row2 col3">1</td>
-<td id="T_1946b_row2_col4" class="data row2 col4">0.53</td>
-<td id="T_1946b_row2_col5" class="data row2 col5">11</td>
-<td id="T_1946b_row2_col6" class="data row2 col6">5.82</td>
-<td id="T_1946b_row2_col7" class="data row2 col7">2</td>
-<td id="T_1946b_row2_col8" class="data row2 col8">1.06</td>
-<td id="T_1946b_row2_col9" class="data row2 col9">1</td>
-<td id="T_1946b_row2_col10" class="data row2 col10">0.53</td>
-<td id="T_1946b_row2_col11" class="data row2 col11">189</td>
+<td id="T_b7f7a_row2_col0" class="data row2 col0">early</td>
+<td id="T_b7f7a_row2_col1" class="data row2 col1">1</td>
+<td id="T_b7f7a_row2_col2" class="data row2 col2">False</td>
+<td id="T_b7f7a_row2_col3" class="data row2 col3">1</td>
+<td id="T_b7f7a_row2_col4" class="data row2 col4">0.53</td>
+<td id="T_b7f7a_row2_col5" class="data row2 col5">11</td>
+<td id="T_b7f7a_row2_col6" class="data row2 col6">5.82</td>
+<td id="T_b7f7a_row2_col7" class="data row2 col7">2</td>
+<td id="T_b7f7a_row2_col8" class="data row2 col8">1.06</td>
+<td id="T_b7f7a_row2_col9" class="data row2 col9">1</td>
+<td id="T_b7f7a_row2_col10" class="data row2 col10">0.53</td>
+<td id="T_b7f7a_row2_col11" class="data row2 col11">189</td>
 </tr>
 <tr class="even">
-<td id="T_1946b_row3_col0" class="data row3 col0">early</td>
-<td id="T_1946b_row3_col1" class="data row3 col1">1</td>
-<td id="T_1946b_row3_col2" class="data row3 col2">True</td>
-<td id="T_1946b_row3_col3" class="data row3 col3">1</td>
-<td id="T_1946b_row3_col4" class="data row3 col4">11.11</td>
-<td id="T_1946b_row3_col5" class="data row3 col5">2</td>
-<td id="T_1946b_row3_col6" class="data row3 col6">22.22</td>
-<td id="T_1946b_row3_col7" class="data row3 col7">0</td>
-<td id="T_1946b_row3_col8" class="data row3 col8">0.00</td>
-<td id="T_1946b_row3_col9" class="data row3 col9">0</td>
-<td id="T_1946b_row3_col10" class="data row3 col10">0.00</td>
-<td id="T_1946b_row3_col11" class="data row3 col11">9</td>
+<td id="T_b7f7a_row3_col0" class="data row3 col0">early</td>
+<td id="T_b7f7a_row3_col1" class="data row3 col1">1</td>
+<td id="T_b7f7a_row3_col2" class="data row3 col2">True</td>
+<td id="T_b7f7a_row3_col3" class="data row3 col3">1</td>
+<td id="T_b7f7a_row3_col4" class="data row3 col4">11.11</td>
+<td id="T_b7f7a_row3_col5" class="data row3 col5">2</td>
+<td id="T_b7f7a_row3_col6" class="data row3 col6">22.22</td>
+<td id="T_b7f7a_row3_col7" class="data row3 col7">0</td>
+<td id="T_b7f7a_row3_col8" class="data row3 col8">0.00</td>
+<td id="T_b7f7a_row3_col9" class="data row3 col9">0</td>
+<td id="T_b7f7a_row3_col10" class="data row3 col10">0.00</td>
+<td id="T_b7f7a_row3_col11" class="data row3 col11">9</td>
 </tr>
 <tr class="odd">
-<td id="T_1946b_row4_col0" class="data row4 col0">early</td>
-<td id="T_1946b_row4_col1" class="data row4 col1">≥ 2</td>
-<td id="T_1946b_row4_col2" class="data row4 col2">False</td>
-<td id="T_1946b_row4_col3" class="data row4 col3">1</td>
-<td id="T_1946b_row4_col4" class="data row4 col4">0.96</td>
-<td id="T_1946b_row4_col5" class="data row4 col5">15</td>
-<td id="T_1946b_row4_col6" class="data row4 col6">14.42</td>
-<td id="T_1946b_row4_col7" class="data row4 col7">3</td>
-<td id="T_1946b_row4_col8" class="data row4 col8">2.88</td>
-<td id="T_1946b_row4_col9" class="data row4 col9">3</td>
-<td id="T_1946b_row4_col10" class="data row4 col10">2.88</td>
-<td id="T_1946b_row4_col11" class="data row4 col11">104</td>
+<td id="T_b7f7a_row4_col0" class="data row4 col0">early</td>
+<td id="T_b7f7a_row4_col1" class="data row4 col1">≥ 2</td>
+<td id="T_b7f7a_row4_col2" class="data row4 col2">False</td>
+<td id="T_b7f7a_row4_col3" class="data row4 col3">1</td>
+<td id="T_b7f7a_row4_col4" class="data row4 col4">0.96</td>
+<td id="T_b7f7a_row4_col5" class="data row4 col5">15</td>
+<td id="T_b7f7a_row4_col6" class="data row4 col6">14.42</td>
+<td id="T_b7f7a_row4_col7" class="data row4 col7">3</td>
+<td id="T_b7f7a_row4_col8" class="data row4 col8">2.88</td>
+<td id="T_b7f7a_row4_col9" class="data row4 col9">3</td>
+<td id="T_b7f7a_row4_col10" class="data row4 col10">2.88</td>
+<td id="T_b7f7a_row4_col11" class="data row4 col11">104</td>
 </tr>
 <tr class="even">
-<td id="T_1946b_row5_col0" class="data row5 col0">early</td>
-<td id="T_1946b_row5_col1" class="data row5 col1">≥ 2</td>
-<td id="T_1946b_row5_col2" class="data row5 col2">True</td>
-<td id="T_1946b_row5_col3" class="data row5 col3">0</td>
-<td id="T_1946b_row5_col4" class="data row5 col4">0.00</td>
-<td id="T_1946b_row5_col5" class="data row5 col5">3</td>
-<td id="T_1946b_row5_col6" class="data row5 col6">30.00</td>
-<td id="T_1946b_row5_col7" class="data row5 col7">4</td>
-<td id="T_1946b_row5_col8" class="data row5 col8">40.00</td>
-<td id="T_1946b_row5_col9" class="data row5 col9">1</td>
-<td id="T_1946b_row5_col10" class="data row5 col10">10.00</td>
-<td id="T_1946b_row5_col11" class="data row5 col11">10</td>
+<td id="T_b7f7a_row5_col0" class="data row5 col0">early</td>
+<td id="T_b7f7a_row5_col1" class="data row5 col1">≥ 2</td>
+<td id="T_b7f7a_row5_col2" class="data row5 col2">True</td>
+<td id="T_b7f7a_row5_col3" class="data row5 col3">0</td>
+<td id="T_b7f7a_row5_col4" class="data row5 col4">0.00</td>
+<td id="T_b7f7a_row5_col5" class="data row5 col5">3</td>
+<td id="T_b7f7a_row5_col6" class="data row5 col6">30.00</td>
+<td id="T_b7f7a_row5_col7" class="data row5 col7">4</td>
+<td id="T_b7f7a_row5_col8" class="data row5 col8">40.00</td>
+<td id="T_b7f7a_row5_col9" class="data row5 col9">1</td>
+<td id="T_b7f7a_row5_col10" class="data row5 col10">10.00</td>
+<td id="T_b7f7a_row5_col11" class="data row5 col11">10</td>
 </tr>
 <tr class="odd">
-<td id="T_1946b_row6_col0" class="data row6 col0">advanced</td>
-<td id="T_1946b_row6_col1" class="data row6 col1">0</td>
-<td id="T_1946b_row6_col2" class="data row6 col2">False</td>
-<td id="T_1946b_row6_col3" class="data row6 col3">0</td>
-<td id="T_1946b_row6_col4" class="data row6 col4">0.00</td>
-<td id="T_1946b_row6_col5" class="data row6 col5">2</td>
-<td id="T_1946b_row6_col6" class="data row6 col6">5.88</td>
-<td id="T_1946b_row6_col7" class="data row6 col7">0</td>
-<td id="T_1946b_row6_col8" class="data row6 col8">0.00</td>
-<td id="T_1946b_row6_col9" class="data row6 col9">0</td>
-<td id="T_1946b_row6_col10" class="data row6 col10">0.00</td>
-<td id="T_1946b_row6_col11" class="data row6 col11">34</td>
+<td id="T_b7f7a_row6_col0" class="data row6 col0">advanced</td>
+<td id="T_b7f7a_row6_col1" class="data row6 col1">0</td>
+<td id="T_b7f7a_row6_col2" class="data row6 col2">False</td>
+<td id="T_b7f7a_row6_col3" class="data row6 col3">0</td>
+<td id="T_b7f7a_row6_col4" class="data row6 col4">0.00</td>
+<td id="T_b7f7a_row6_col5" class="data row6 col5">2</td>
+<td id="T_b7f7a_row6_col6" class="data row6 col6">5.88</td>
+<td id="T_b7f7a_row6_col7" class="data row6 col7">0</td>
+<td id="T_b7f7a_row6_col8" class="data row6 col8">0.00</td>
+<td id="T_b7f7a_row6_col9" class="data row6 col9">0</td>
+<td id="T_b7f7a_row6_col10" class="data row6 col10">0.00</td>
+<td id="T_b7f7a_row6_col11" class="data row6 col11">34</td>
 </tr>
 <tr class="even">
-<td id="T_1946b_row7_col0" class="data row7 col0">advanced</td>
-<td id="T_1946b_row7_col1" class="data row7 col1">0</td>
-<td id="T_1946b_row7_col2" class="data row7 col2">True</td>
-<td id="T_1946b_row7_col3" class="data row7 col3">0</td>
-<td id="T_1946b_row7_col4" class="data row7 col4">0.00</td>
-<td id="T_1946b_row7_col5" class="data row7 col5">3</td>
-<td id="T_1946b_row7_col6" class="data row7 col6">12.50</td>
-<td id="T_1946b_row7_col7" class="data row7 col7">0</td>
-<td id="T_1946b_row7_col8" class="data row7 col8">0.00</td>
-<td id="T_1946b_row7_col9" class="data row7 col9">0</td>
-<td id="T_1946b_row7_col10" class="data row7 col10">0.00</td>
-<td id="T_1946b_row7_col11" class="data row7 col11">24</td>
+<td id="T_b7f7a_row7_col0" class="data row7 col0">advanced</td>
+<td id="T_b7f7a_row7_col1" class="data row7 col1">0</td>
+<td id="T_b7f7a_row7_col2" class="data row7 col2">True</td>
+<td id="T_b7f7a_row7_col3" class="data row7 col3">0</td>
+<td id="T_b7f7a_row7_col4" class="data row7 col4">0.00</td>
+<td id="T_b7f7a_row7_col5" class="data row7 col5">3</td>
+<td id="T_b7f7a_row7_col6" class="data row7 col6">12.50</td>
+<td id="T_b7f7a_row7_col7" class="data row7 col7">0</td>
+<td id="T_b7f7a_row7_col8" class="data row7 col8">0.00</td>
+<td id="T_b7f7a_row7_col9" class="data row7 col9">0</td>
+<td id="T_b7f7a_row7_col10" class="data row7 col10">0.00</td>
+<td id="T_b7f7a_row7_col11" class="data row7 col11">24</td>
 </tr>
 <tr class="odd">
-<td id="T_1946b_row8_col0" class="data row8 col0">advanced</td>
-<td id="T_1946b_row8_col1" class="data row8 col1">1</td>
-<td id="T_1946b_row8_col2" class="data row8 col2">False</td>
-<td id="T_1946b_row8_col3" class="data row8 col3">0</td>
-<td id="T_1946b_row8_col4" class="data row8 col4">0.00</td>
-<td id="T_1946b_row8_col5" class="data row8 col5">3</td>
-<td id="T_1946b_row8_col6" class="data row8 col6">4.55</td>
-<td id="T_1946b_row8_col7" class="data row8 col7">0</td>
-<td id="T_1946b_row8_col8" class="data row8 col8">0.00</td>
-<td id="T_1946b_row8_col9" class="data row8 col9">0</td>
-<td id="T_1946b_row8_col10" class="data row8 col10">0.00</td>
-<td id="T_1946b_row8_col11" class="data row8 col11">66</td>
+<td id="T_b7f7a_row8_col0" class="data row8 col0">advanced</td>
+<td id="T_b7f7a_row8_col1" class="data row8 col1">1</td>
+<td id="T_b7f7a_row8_col2" class="data row8 col2">False</td>
+<td id="T_b7f7a_row8_col3" class="data row8 col3">0</td>
+<td id="T_b7f7a_row8_col4" class="data row8 col4">0.00</td>
+<td id="T_b7f7a_row8_col5" class="data row8 col5">3</td>
+<td id="T_b7f7a_row8_col6" class="data row8 col6">4.55</td>
+<td id="T_b7f7a_row8_col7" class="data row8 col7">0</td>
+<td id="T_b7f7a_row8_col8" class="data row8 col8">0.00</td>
+<td id="T_b7f7a_row8_col9" class="data row8 col9">0</td>
+<td id="T_b7f7a_row8_col10" class="data row8 col10">0.00</td>
+<td id="T_b7f7a_row8_col11" class="data row8 col11">66</td>
 </tr>
 <tr class="even">
-<td id="T_1946b_row9_col0" class="data row9 col0">advanced</td>
-<td id="T_1946b_row9_col1" class="data row9 col1">1</td>
-<td id="T_1946b_row9_col2" class="data row9 col2">True</td>
-<td id="T_1946b_row9_col3" class="data row9 col3">1</td>
-<td id="T_1946b_row9_col4" class="data row9 col4">1.64</td>
-<td id="T_1946b_row9_col5" class="data row9 col5">18</td>
-<td id="T_1946b_row9_col6" class="data row9 col6">29.51</td>
-<td id="T_1946b_row9_col7" class="data row9 col7">5</td>
-<td id="T_1946b_row9_col8" class="data row9 col8">8.20</td>
-<td id="T_1946b_row9_col9" class="data row9 col9">1</td>
-<td id="T_1946b_row9_col10" class="data row9 col10">1.64</td>
-<td id="T_1946b_row9_col11" class="data row9 col11">61</td>
+<td id="T_b7f7a_row9_col0" class="data row9 col0">advanced</td>
+<td id="T_b7f7a_row9_col1" class="data row9 col1">1</td>
+<td id="T_b7f7a_row9_col2" class="data row9 col2">True</td>
+<td id="T_b7f7a_row9_col3" class="data row9 col3">1</td>
+<td id="T_b7f7a_row9_col4" class="data row9 col4">1.64</td>
+<td id="T_b7f7a_row9_col5" class="data row9 col5">18</td>
+<td id="T_b7f7a_row9_col6" class="data row9 col6">29.51</td>
+<td id="T_b7f7a_row9_col7" class="data row9 col7">5</td>
+<td id="T_b7f7a_row9_col8" class="data row9 col8">8.20</td>
+<td id="T_b7f7a_row9_col9" class="data row9 col9">1</td>
+<td id="T_b7f7a_row9_col10" class="data row9 col10">1.64</td>
+<td id="T_b7f7a_row9_col11" class="data row9 col11">61</td>
 </tr>
 <tr class="odd">
-<td id="T_1946b_row10_col0" class="data row10 col0">advanced</td>
-<td id="T_1946b_row10_col1" class="data row10 col1">≥ 2</td>
-<td id="T_1946b_row10_col2" class="data row10 col2">False</td>
-<td id="T_1946b_row10_col3" class="data row10 col3">4</td>
-<td id="T_1946b_row10_col4" class="data row10 col4">5.26</td>
-<td id="T_1946b_row10_col5" class="data row10 col5">16</td>
-<td id="T_1946b_row10_col6" class="data row10 col6">21.05</td>
-<td id="T_1946b_row10_col7" class="data row10 col7">7</td>
-<td id="T_1946b_row10_col8" class="data row10 col8">9.21</td>
-<td id="T_1946b_row10_col9" class="data row10 col9">4</td>
-<td id="T_1946b_row10_col10" class="data row10 col10">5.26</td>
-<td id="T_1946b_row10_col11" class="data row10 col11">76</td>
+<td id="T_b7f7a_row10_col0" class="data row10 col0">advanced</td>
+<td id="T_b7f7a_row10_col1" class="data row10 col1">≥ 2</td>
+<td id="T_b7f7a_row10_col2" class="data row10 col2">False</td>
+<td id="T_b7f7a_row10_col3" class="data row10 col3">4</td>
+<td id="T_b7f7a_row10_col4" class="data row10 col4">5.26</td>
+<td id="T_b7f7a_row10_col5" class="data row10 col5">16</td>
+<td id="T_b7f7a_row10_col6" class="data row10 col6">21.05</td>
+<td id="T_b7f7a_row10_col7" class="data row10 col7">7</td>
+<td id="T_b7f7a_row10_col8" class="data row10 col8">9.21</td>
+<td id="T_b7f7a_row10_col9" class="data row10 col9">4</td>
+<td id="T_b7f7a_row10_col10" class="data row10 col10">5.26</td>
+<td id="T_b7f7a_row10_col11" class="data row10 col11">76</td>
 </tr>
 <tr class="even">
-<td id="T_1946b_row11_col0" class="data row11 col0">advanced</td>
-<td id="T_1946b_row11_col1" class="data row11 col1">≥ 2</td>
-<td id="T_1946b_row11_col2" class="data row11 col2">True</td>
-<td id="T_1946b_row11_col3" class="data row11 col3">3</td>
-<td id="T_1946b_row11_col4" class="data row11 col4">3.80</td>
-<td id="T_1946b_row11_col5" class="data row11 col5">46</td>
-<td id="T_1946b_row11_col6" class="data row11 col6">58.23</td>
-<td id="T_1946b_row11_col7" class="data row11 col7">18</td>
-<td id="T_1946b_row11_col8" class="data row11 col8">22.78</td>
-<td id="T_1946b_row11_col9" class="data row11 col9">8</td>
-<td id="T_1946b_row11_col10" class="data row11 col10">10.13</td>
-<td id="T_1946b_row11_col11" class="data row11 col11">79</td>
+<td id="T_b7f7a_row11_col0" class="data row11 col0">advanced</td>
+<td id="T_b7f7a_row11_col1" class="data row11 col1">≥ 2</td>
+<td id="T_b7f7a_row11_col2" class="data row11 col2">True</td>
+<td id="T_b7f7a_row11_col3" class="data row11 col3">3</td>
+<td id="T_b7f7a_row11_col4" class="data row11 col4">3.80</td>
+<td id="T_b7f7a_row11_col5" class="data row11 col5">46</td>
+<td id="T_b7f7a_row11_col6" class="data row11 col6">58.23</td>
+<td id="T_b7f7a_row11_col7" class="data row11 col7">18</td>
+<td id="T_b7f7a_row11_col8" class="data row11 col8">22.78</td>
+<td id="T_b7f7a_row11_col9" class="data row11 col9">8</td>
+<td id="T_b7f7a_row11_col10" class="data row11 col10">10.13</td>
+<td id="T_b7f7a_row11_col11" class="data row11 col11">79</td>
 </tr>
 </tbody>
 </table>
@@ -1466,6 +1458,14 @@ Table&nbsp;3: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
+<div id="351e775d" class="cell markdown">
+<section id="marginalizing-beta-posteriors-over-unknowns" class="level1 appendix">
+<h1 class="appendix">Marginalizing Beta Posteriors over Unknowns</h1>
+<ul class="task-list">
+<li><label><input type="checkbox">write short theory section about why and how to compute the posteriors if some of the data (here midline extension) is unknown</label></li>
+</ul>
+</section>
+</div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-debondt_detection_2007" class="csl-entry" role="listitem">
 De Bondt, R, and Others. 2007. <span>“Detection of Lymph Node Metastases in Head and Neck Cancer: A Meta-Analysis Comparing <span>US</span>, <span>USgFNAC</span>, <span>CT</span> and <span>MR</span> Imaging.”</span> <em>Eur. J. Radiol.</em> 64: 266–72. <a href="https://doi.org/10.1016/j.ejrad.2007.02.037">https://doi.org/10.1016/j.ejrad.2007.02.037</a>.
@@ -1906,7 +1906,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom","loop":false,"selector":".lightbox"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

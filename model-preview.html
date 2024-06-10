@@ -215,6 +215,7 @@
   </ul></li>
   <li><a href="#correlation-between-ipsi--and-contralateral-involvement" id="toc-correlation-between-ipsi--and-contralateral-involvement" class="nav-link" data-scroll-target="#correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</a></li>
   <li><a href="#portion-of-midline-extension" id="toc-portion-of-midline-extension" class="nav-link" data-scroll-target="#portion-of-midline-extension">Portion of Midline Extension</a></li>
+  <li><a href="#risk-predictions" id="toc-risk-predictions" class="nav-link" data-scroll-target="#risk-predictions">Risk Predictions</a></li>
   </ul>
 </nav>
 </div>
@@ -318,7 +319,7 @@ The top panel shows the prior probability to get diagnosed at time-step <span cl
 </div>
 </div></div>
 </section>
-<div id="2c910a3b" class="cell markdown">
+<div id="c44c036e" class="cell markdown">
 <section id="sampling-history" class="level1">
 <h1>Sampling History</h1>
 <p>For bookeeping, we also show how different quantities evolve during the burnin of the sampling. For example, the ratio of proposed samples that were accepted or the autocorrelation time.</p>
@@ -403,7 +404,7 @@ Monitoring quantities during the burn-in phase of the parameter sampling.
 </div>
 </div>
 </div></div>
-<div id="2e10d7b0" class="cell markdown">
+<div id="d4ba386f" class="cell markdown">
 <section id="prior-state-distribution-of-midline-model" class="level1">
 <h1>Prior State Distribution of Midline Model</h1>
 <p>It may be illustrative to look at the 3D state distribution of the midline model (at least if we only consider 3 LNLs).</p>
@@ -463,14 +464,10 @@ midext.set_xlabel(r"contra state $\boldsymbol{\xi}^\text{c}_k$")
 plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_25079/349788680.py:49: UserWarning:
-
-This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-
-/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
-
-This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-</code></pre>
+<pre><code>/tmp/ipykernel_5784/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
+/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div id="fig-model-state-dist" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -485,7 +482,7 @@ This figure includes Axes that are not compatible with tight_layout, so results 
 </div>
 </div>
 </div></div>
-<div id="3fcf385e" class="cell markdown">
+<div id="9e1d54dc" class="cell markdown">
 <section id="observed-vs-predicted-prevalence" class="level1">
 <h1>Observed vs Predicted Prevalence</h1>
 <p>To verify that the model does what it is supposed to, we compare how often some selected diagnoses appear in the data and how often the model predicts these diagnoses to be observed.</p>
@@ -498,10 +495,13 @@ This figure includes Axes that are not compatible with tight_layout, so results 
 <div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="cell-fig-model-prevalences-overall" class="cell" data-execution_count="5">
 <pre><code>#| label: fig-model-prevalences-overall
 #| fig-cap: 'Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown for the contralateral LNLs II (blue), III (orange), and IV (green). The top row shows scenarios with early T-category tumors, the bottom row for late T-category ones. The left column depicts scenarios where the primary tumor is clearly lateralized, the right column scenarios of tumors extending over the mid-sagittal line. This figure illustrates the model''s ability to describe the prevalence of different combinations of scenarios involving the risk factors T-category and midline extension.'
+import matplotlib.pyplot as plt
 from matplotlib import gridspec
+import numpy as np
 from lyscripts.scenario import Scenario
-from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS
+from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS, split_legends
 from scripts import paths, shared
+from scripts.marginalize_midext import possible_prevalence_combinations, SummedBetaPosterior
 
 def turn_axis_off(axes):
   axes.set_xticks([])
@@ -529,6 +529,8 @@ full.set_title(
   fontsize="large",
 )
 
+data = shared.get_data()
+
 for i, t_stage in enumerate(["early", "late"]):
   axes[i,0].set_ylabel(f"{t_stage} T-cat.", fontweight="bold")
   for j, midext in enumerate([False, True]):
@@ -554,13 +556,22 @@ for i, t_stage in enumerate(["early", "late"]):
           label="prediction",
         )
       )
-      beta_post = BetaPosterior.from_hdf5(
-        filename=paths.model_dir / "full" / "prevalences_overall.hdf5",
-        dataname=scenario.md5_hash("prevalences"),
-        color=color,
+      # content.append(
+      #   BetaPosterior.from_hdf5(
+      #     filename=paths.model_dir / "full" / "prevalences_overall.hdf5",
+      #     dataname=scenario.md5_hash("prevalences"),
+      #     color=color,
+      #   )
+      # )
+      combs = possible_prevalence_combinations(data, scenario)
+      content.append(
+        SummedBetaPosterior(
+          num_success=combs.matches.values,
+          num_total=combs.total.values,
+          permutations=combs.permutations.values,
+          kwargs={"color": color},
+        )
       )
-      beta_post.kwargs["label"] = f"data: {beta_post.num_success} of {beta_post.num_total}"
-      content.append(beta_post)
     draw(
       axes=axes[i,j],
       contents=content,
@@ -568,25 +579,26 @@ for i, t_stage in enumerate(["early", "late"]):
     )
 
 # manually place legends
-shared.split_legends(
-  ax=axes[0,0],
+split_legends(
+  axes=axes[0,0],
   titles=["LNL II", "LNL III", "LNL IV"],
-  locs=[(0.57, 0.55), (0.48, 0.99), (0.15, 0.99)],
+  locs=[(0.53, 0.6), (0.55, 0.99), (0.12, 0.99)],
 )
-shared.split_legends(
-  ax=axes[0,1],
+split_legends(
+  axes=axes[0,1],
   titles=["LNL II", "LNL III", "LNL IV"],
-  locs=[(0.67, 0.99), (0.27, 0.6), (0.1, 0.99)],
+  locs=[(0.55, 0.99), (0.27, 0.6), (0.1, 0.99)],
 )
-shared.split_legends(
-  ax=axes[1,0],
+axes[1,0].set_ylim(top=1.4)
+split_legends(
+  axes=axes[1,0],
   titles=["LNL II", "LNL III", "LNL IV"],
-  locs=[(0.64, 0.99), (0.27, 0.6), (0.24, 0.99)],
+  locs=[(0.54, 0.99), (0.24, 0.6), (0.11, 0.99)],
 )
-shared.split_legends(
-  ax=axes[1,1],
+split_legends(
+  axes=axes[1,1],
   titles=["LNL II", "LNL III", "LNL IV"],
-  locs=[(0.64, 0.99), (0.4, 0.6), (0.16, 0.99)],
+  locs=[(0.54, 0.99), (0.4, 0.6), (0.12, 0.99)],
 )
 
 plt.savefig(paths.figure_dir / "fig-model-prevalences-overall.png", dpi=400)
@@ -604,7 +616,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="15e69ed7" class="cell markdown">
+<div id="2955210b" class="cell markdown">
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h2>
 </section>
@@ -613,52 +625,114 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 <pre><code>#| label: fig-model-prevalences-with-ipsi
 #| fig-cap: 'Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction''s split between early and advanced T-category is not large enough.'
 import matplotlib.pyplot as plt
+from matplotlib import gridspec
+import numpy as np
 from lyscripts.scenario import Scenario
-from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS
+from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS, split_legends
 from scripts import paths, shared
+from scripts.marginalize_midext import (
+  possible_prevalence_combinations,
+  SummedBetaPosterior,
+)
+
+def turn_axis_off(axes):
+  axes.set_xticks([])
+  axes.set_yticks([])
+
+nrows, ncols = 2, 2
 
 plt.rcParams.update(shared.get_fontsizes())
-plt.rcParams.update(shared.get_figsizes(width=17./2.))
+plt.rcParams.update(shared.get_figsizes(
+  nrows=nrows,
+  ncols=ncols,
+  aspect_ratio=2.,
+  width=17,
+))
 
-fig, ax = plt.subplots()
-content = []
-colors = iter([COLORS[c] for c in ["orange", "green", "red", "blue"]])
+fig = plt.figure()
+gs = gridspec.GridSpec(nrows=nrows, ncols=ncols, figure=fig)
+axes = np.array([[fig.add_subplot(gs[i,j]) for j in range(ncols)] for i in range(nrows)])
+full = fig.add_subplot(gs[:,:], frame_on=False)
+turn_axis_off(full)
 
-for t_stage in ["early", "late"]:
-  for diagnosis in [{"II": True}, {lnl: False for lnl in ["I", "II", "III", "IV", "V"]}]:
-    color = next(colors)
-    scenario = Scenario(
-      t_stages=[t_stage],
-      diagnosis={
-        "ipsi": {"max_llh": diagnosis},
-        "contra": {"max_llh": {"II": True}},
-      }
-    )
-    content.append(
-      Histogram.from_hdf5(
-        filename=paths.model_dir / "full" / "prevalences_with_ipsi.hdf5",
-        dataname=scenario.md5_hash("prevalences"),
-        color=color,
-        label="prediction"
+full.set_title(
+  "Observed vs Predicted Prevalence of Contralateral LNL II Involvement\nDependent on Ipsilateral Involvement",
+  pad=20.,
+  fontsize="large",
+)
+
+data = shared.get_data()
+
+for i, t_stage in enumerate(["early", "late"]):
+  axes[i,0].set_ylabel(f"{t_stage} T-cat.", fontweight="bold")
+  for j, midext in enumerate([False, True]):
+    axes[0,j].set_title("Mid. ext." if midext else "Lateralized", fontweight="bold")
+    axes[0,j].set_xticks([])
+    axes[-1,j].set_xlabel("prevalence [%]")
+    axes[i,j].set_yticks([])
+    content = []
+    for ipsi, color in zip(
+      [{"I": False, "II": False, "III": False, "IV": False, "V": False}, {"III": True}],
+      [COLORS["blue"], COLORS["orange"]],
+    ):
+      scenario = Scenario(
+        t_stages=[t_stage],
+        midext=midext,
+        diagnosis={
+          "ipsi": {"max_llh": ipsi},
+          "contra": {"max_llh": {"II": True}},
+        }
       )
+      content.append(
+        Histogram.from_hdf5(
+          filename=paths.model_dir / "full" / "prevalences_with_ipsi.hdf5",
+          dataname=scenario.md5_hash("prevalences"),
+          color=color,
+          label="prediction",
+        )
+      )
+      # content.append(
+      #   BetaPosterior.from_hdf5(
+      #     filename=paths.model_dir / "full" / "prevalences_with_ipsi.hdf5",
+      #     dataname=scenario.md5_hash("prevalences"),
+      #     color=color,
+      #   )
+      # )
+      combs = possible_prevalence_combinations(data, scenario)
+      content.append(
+        SummedBetaPosterior(
+          num_success=combs.matches.values,
+          num_total=combs.total.values,
+          permutations=combs.permutations.values,
+          kwargs={"color": color},
+        )
+      )
+    draw(
+      axes=axes[i,j],
+      contents=content,
+      xlims=(0., 30. if midext else 10.),
     )
-    beta_post = BetaPosterior.from_hdf5(
-      filename=paths.model_dir / "full" / "prevalences_with_ipsi.hdf5",
-      dataname=scenario.md5_hash("prevalences"),
-      color=color,
-    )
-    beta_post.kwargs["label"] = f"data: {beta_post.num_success} of {beta_post.num_total}"
-    content.append(beta_post)
 
-draw(ax, content, xlims=(0., 25.))
-ax.set_title("Observed vs Predicted Prevalence\nof Contralateral LNL II Involvement")
-ax.set_yticks([])
-ax.set_xlabel("prevalence [%]")
-
-shared.split_legends(
-  ax=ax,
-  titles=["early with ipsi II", "early ipsi N0", "late with ipsi II", "late with ipsi N0"],
-  locs=[(0.23, 0.65), (0.1, 0.99), (0.6, 0.65), (0.45, 0.99)],
+# manually place legends
+split_legends(
+  axes=axes[0,0],
+  titles=["ipsi N0", "ipsi LNL III"],
+  locs=[(0.3, 0.99), (0.5, 0.55)],
+)
+split_legends(
+  axes=axes[0,1],
+  titles=["ipsi N0", "ipsi LNL III"],
+  locs=[(0.3, 0.99), (0.5, 0.55)],
+)
+split_legends(
+  axes=axes[1,0],
+  titles=["ipsi N0", "ipsi LNL III"],
+  locs=[(0.16, 0.99), (0.53, 0.55)],
+)
+split_legends(
+  axes=axes[1,1],
+  titles=["ipsi N0", "ipsi LNL III"],
+  locs=[(0.13, 0.55), (0.5, 0.99)],
 )
 
 plt.savefig(paths.figure_dir / "fig-model-prevalences-with-ipsi.png", dpi=400)
@@ -667,7 +741,7 @@ plt.show()</code></pre>
 <div id="fig-model-prevalences-with-ipsi" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-prevalences-with-ipsi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
-<a href="model_files/figure-html/fig-model-prevalences-with-ipsi-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction’s split between early and advanced T-category is not large enough."><img src="model_files/figure-html/fig-model-prevalences-with-ipsi-output-1.png" width="299" height="176" class="figure-img"></a>
+<a href="model_files/figure-html/fig-model-prevalences-with-ipsi-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction’s split between early and advanced T-category is not large enough."><img src="model_files/figure-html/fig-model-prevalences-with-ipsi-output-1.png" width="620" height="283" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-prevalences-with-ipsi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. Shown are four scenarios, all including contralateral LNL II involvement: Early T-category and an ipsilateral N0 neck (green), early T-category and ipsilateral LNL II involvement (blue), as well as the same two scenarios but for advanced T-category (orange and red). The figure shows that the model is capable of describing the correlation between ipsi- and contralateral involvement. Although for the scenario of LNL II involvement in both sides, the prediction’s split between early and advanced T-category is not large enough.
@@ -676,7 +750,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="1d7e987a" class="cell markdown">
+<div id="0db6920f" class="cell markdown">
 <section id="portion-of-midline-extension" class="level2">
 <h2 class="anchored" data-anchor-id="portion-of-midline-extension">Portion of Midline Extension</h2>
 <p>Since we model the tumor’s midline extension as a random variable we can predict its portion among early or late T-category patients and compare it with the observed prevalence in the data.</p>
@@ -687,8 +761,9 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 #| fig-cap: 'Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor''s midline extension is virtually always part of the diagnosis and hence *given* when predicting a patient''s risk, we do not consider this discrepancy a major issue.'
 import matplotlib.pyplot as plt
 from lyscripts.scenario import Scenario
-from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS
+from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS, split_legends
 from scripts import paths, shared
+from scripts.marginalize_midext import possible_combinations, SummedBetaPosterior
 
 plt.rcParams.update(shared.get_fontsizes())
 plt.rcParams.update(shared.get_figsizes(width=17./2.))
@@ -697,7 +772,17 @@ fig, ax = plt.subplots()
 content = []
 colors = iter([COLORS[c] for c in ["blue", "orange"]])
 
+data = shared.get_data()
+has_unknown_midext = data.ly.midext.isna()
+
 for t_stage in ["early", "late"]:
+  has_t_stage = data.ly.t_stage.isin([t_stage])
+  scenario = Scenario(
+    t_stages=[t_stage],
+    midext=True,
+    diagnosis={"ipsi": {"max_llh": {"II": None}}},
+  )
+  unknowns = (has_unknown_midext &amp; has_t_stage).sum()
   color = next(colors)
   content.append(
     Histogram.from_hdf5(
@@ -707,13 +792,13 @@ for t_stage in ["early", "late"]:
       label="prediction"
     )
   )
-  beta_post = BetaPosterior.from_hdf5(
-    filename=paths.model_dir / "full" / "prevalences_midext.hdf5",
-    dataname=t_stage,
-    color=color,
+  content.append(
+    BetaPosterior.from_hdf5(
+      filename=paths.model_dir / "full" / "prevalences_midext.hdf5",
+      dataname=t_stage,
+      color=color,
+    )
   )
-  beta_post.kwargs["label"] = f"data: {beta_post.num_success} of {beta_post.num_total}"
-  content.append(beta_post)
 
 draw(ax, content, xlims=(0., 55.))
 ax.set_title("Observed vs Predicted Prevalence\nof Midline Extension $\epsilon$")
@@ -721,8 +806,8 @@ ax.set_yticks([])
 ax.set_ylim(top=0.4)
 ax.set_xlabel("prevalence [%]")
 
-shared.split_legends(
-  ax=ax,
+split_legends(
+  axes=ax,
   titles=["early T-cat.", "late T-cat."],
   locs=[(0.05, 0.99), (0.6, 0.99)],
 )
@@ -738,6 +823,120 @@ plt.show()</code></pre>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-prevalences-midext-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence <em>given</em> when predicting a patient’s risk, we do not consider this discrepancy a major issue.
 </figcaption>
+</figure>
+</div>
+</div>
+</div></div>
+<div id="d07750f4" class="cell markdown">
+<section id="risk-predictions" class="level1">
+<h1>Risk Predictions</h1>
+<p>Now, we want to make actual use of the model and predict the risk for occult diease given some diagnoses.</p>
+</section>
+</div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="7d48aa76" class="cell" data-execution_count="8">
+<pre><code>import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.legend_handler import HandlerTuple
+from lyscripts.scenario import Scenario
+from lyscripts.plot.utils import Histogram, draw, COLORS, split_legends
+from scripts import paths, shared
+
+all_false = {lnl: False for lnl in ["I", "II", "III", "IV", "V"]}
+
+plt.rcParams.update(shared.get_fontsizes())
+plt.rcParams.update(shared.get_figsizes(width=17./2.))
+
+fig, ax = plt.subplots()
+ax.set_xlim(0., 15.)
+
+contents = []
+defaults = {
+  "density": True,
+  "histtype": "stepfilled",
+  "alpha": 0.7,
+  "bins": 50,
+}
+
+
+scenario = Scenario(
+  t_stages=["early"],
+  midext=False,
+  diagnosis={
+    "ipsi": {"CT": all_false},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"II": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["green"],
+  label="early, lateralized; N0",
+))
+
+
+scenario = Scenario(
+  t_stages=["late"],
+  midext=False,
+  diagnosis={
+    "ipsi": {"CT": {"III": True}},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"II": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["blue"],
+  label="advanced, lateralized; ipsi LNL III",
+))
+
+
+scenario = Scenario(
+  t_stages=["early"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": all_false},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"II": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["orange"],
+  label="early, midline extension; N0",
+))
+
+
+scenario = Scenario(
+  t_stages=["late"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": {"III": True}},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"II": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["red"],
+  label="advanced, midline extension; ipsi LNL III",
+))
+
+draw(ax, contents, xlims=(0., 15.))
+ax.legend(labelspacing=0.3)
+ax.set_xlabel("risk [%]")
+ax.set_yticks([])
+ax.set_title("Predicted Risk of Contralateral LNL II Involvement\nfor Selected Diagnosis Scenarios")
+
+plt.savefig(paths.figure_dir / "fig-model-risks.png", dpi=400)
+plt.show()</code></pre>
+<div class="cell-output cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="model_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="model_files/figure-html/cell-8-output-1.png" width="299" height="176" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1162,7 +1361,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
