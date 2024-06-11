@@ -216,6 +216,7 @@
   <li><a href="#correlation-between-ipsi--and-contralateral-involvement" id="toc-correlation-between-ipsi--and-contralateral-involvement" class="nav-link" data-scroll-target="#correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</a></li>
   <li><a href="#portion-of-midline-extension" id="toc-portion-of-midline-extension" class="nav-link" data-scroll-target="#portion-of-midline-extension">Portion of Midline Extension</a></li>
   <li><a href="#risk-predictions" id="toc-risk-predictions" class="nav-link" data-scroll-target="#risk-predictions">Risk Predictions</a></li>
+  <li><a href="#illustrating-the-marginalization-over-beta-pdfs" id="toc-illustrating-the-marginalization-over-beta-pdfs" class="nav-link" data-scroll-target="#illustrating-the-marginalization-over-beta-pdfs">Illustrating the Marginalization over Beta PDFs</a></li>
   </ul>
 </nav>
 </div>
@@ -319,7 +320,7 @@ The top panel shows the prior probability to get diagnosed at time-step <span cl
 </div>
 </div></div>
 </section>
-<div id="c44c036e" class="cell markdown">
+<div id="020872e7" class="cell markdown">
 <section id="sampling-history" class="level1">
 <h1>Sampling History</h1>
 <p>For bookeeping, we also show how different quantities evolve during the burnin of the sampling. For example, the ratio of proposed samples that were accepted or the autocorrelation time.</p>
@@ -404,7 +405,7 @@ Monitoring quantities during the burn-in phase of the parameter sampling.
 </div>
 </div>
 </div></div>
-<div id="d4ba386f" class="cell markdown">
+<div id="93bd1ba2" class="cell markdown">
 <section id="prior-state-distribution-of-midline-model" class="level1">
 <h1>Prior State Distribution of Midline Model</h1>
 <p>It may be illustrative to look at the 3D state distribution of the midline model (at least if we only consider 3 LNLs).</p>
@@ -464,7 +465,7 @@ midext.set_xlabel(r"contra state $\boldsymbol{\xi}^\text{c}_k$")
 plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_5784/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<pre><code>/tmp/ipykernel_20351/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 /home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   fig.canvas.print_figure(bytes_io, **kw)</code></pre>
@@ -482,7 +483,7 @@ plt.show()</code></pre>
 </div>
 </div>
 </div></div>
-<div id="9e1d54dc" class="cell markdown">
+<div id="b3d5acaa" class="cell markdown">
 <section id="observed-vs-predicted-prevalence" class="level1">
 <h1>Observed vs Predicted Prevalence</h1>
 <p>To verify that the model does what it is supposed to, we compare how often some selected diagnoses appear in the data and how often the model predicts these diagnoses to be observed.</p>
@@ -616,7 +617,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="2955210b" class="cell markdown">
+<div id="85c409e6" class="cell markdown">
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h2>
 </section>
@@ -750,7 +751,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="0db6920f" class="cell markdown">
+<div id="6c0d180c" class="cell markdown">
 <section id="portion-of-midline-extension" class="level2">
 <h2 class="anchored" data-anchor-id="portion-of-midline-extension">Portion of Midline Extension</h2>
 <p>Since we model the tumor’s midline extension as a random variable we can predict its portion among early or late T-category patients and compare it with the observed prevalence in the data.</p>
@@ -827,13 +828,13 @@ Comparing the predicted (histograms) and observed (lines depicting beta posterio
 </div>
 </div>
 </div></div>
-<div id="d07750f4" class="cell markdown">
+<div id="33feaf95" class="cell markdown">
 <section id="risk-predictions" class="level1">
 <h1>Risk Predictions</h1>
 <p>Now, we want to make actual use of the model and predict the risk for occult diease given some diagnoses.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="7d48aa76" class="cell" data-execution_count="8">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="14bb8586" class="cell" data-execution_count="8">
 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.legend_handler import HandlerTuple
@@ -937,6 +938,76 @@ plt.show()</code></pre>
 <div class="">
 <figure class="figure">
 <p class=""><a href="model_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="model_files/figure-html/cell-8-output-1.png" width="299" height="176" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+<div id="8076efe1" class="cell markdown">
+<section id="illustrating-the-marginalization-over-beta-pdfs" class="level1">
+<h1>Illustrating the Marginalization over Beta PDFs</h1>
+</section>
+</div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="055611e6" class="cell" data-execution_count="9">
+<pre><code>import matplotlib.pyplot as plt
+from lyscripts.scenario import Scenario
+from lyscripts.plot.utils import draw, COLORS, BetaPosterior
+from lyscripts.compute.prevalences import compute_observed_prevalence
+from scripts import paths, shared, COL
+from scripts.marginalize_midext import (
+  possible_prevalence_combinations,
+  SummedBetaPosterior,
+)
+
+scenario = Scenario(
+  t_stages=["early"],
+  midext=True,
+  diagnosis={"contra": {"max_llh": {"II": True}}},
+)
+combs = possible_prevalence_combinations(data, scenario)
+summed_beta = SummedBetaPosterior(
+  num_success=combs.matches.values,
+  num_total=combs.total.values,
+  permutations=combs.permutations.values,
+  kwargs={"label": "marginalized PDF", "color": COLORS["blue"]},
+)
+num_match, num_total = compute_observed_prevalence(data, scenario, mapping=None)
+naive_beta = BetaPosterior(
+  num_success=num_match,
+  num_total=num_total,
+  kwargs={"color": COLORS["green"], "label": "naive beta PDF"},
+)
+
+plt.rcParams.update(shared.get_fontsizes())
+plt.rcParams.update(shared.get_figsizes(width=17./2.))
+fig, ax = plt.subplots()
+draw(ax, contents=[naive_beta, summed_beta], xlims=(0., 50.))
+
+x = np.linspace(*ax.get_xlim(), 300)
+perm_sum = combs.permutations.sum()
+for _, row in combs.sort_values("permutations").iterrows():
+  beta = BetaPosterior(
+    num_success=row.matches,
+    num_total=row.total,
+  )
+  h, = ax.plot(
+    x, beta.pdf(x),
+    alpha=0.6 * (row.permutations / perm_sum)**0.5,
+    color=COLORS["red"],
+    zorder=1,
+  )
+
+ax.set_ylim(bottom=0.)
+handles, labels = ax.get_legend_handles_labels()
+ax.legend(handles=[*handles, h], labels=[*labels, "component beta PDFs"])
+ax.set_xlabel("prevalence [%]")
+ax.set_yticks([])
+
+plt.savefig(paths.figure_dir / "fig-model-marginal-pdf.png", dpi=400)
+plt.show()</code></pre>
+<div class="cell-output cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="model_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="model_files/figure-html/cell-9-output-1.png" width="299" height="176" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1361,7 +1432,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false,"openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","openEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

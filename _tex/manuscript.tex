@@ -264,7 +264,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_c4fec}\tabularnewline
+\caption{}\label{T_42bd2}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -868,8 +868,7 @@ were discarded. We only kept another 10 samples after that, which were
 spaced 10 steps apart.
 
 \subsection{Computing the Observed and Predicted Prevalence of
-Involvement
-Patterns}\label{computing-the-observed-and-predicted-prevalence-of-involvement-patterns}
+Involvement Patterns}\label{sec-prevalence}
 
 We want to assess the model's capability to approximate the distribution
 of lymphatic involvement patterns seen in the data. To that end, we
@@ -893,20 +892,21 @@ II involvement (i.e., contra LNL II ``involved'' and all other LNLs
 ``masked'') under the scenario of early T-category (T0-T2) and no
 midline extension (\(\epsilon=\texttt{False}\)). To compute this
 prevalence in the data, we select all patients of this scenario (in our
-data, this amounts to patients). Of those, were found to harbor
-metastases in their contralateral LNL II. Therefore, the prevalence is .
+data, this amounts to 379 patients). Of those, 28 were found to harbor
+metastases in their contralateral LNL II. Therefore, the prevalence is
+7\%.
 
 When displaying this data prevalence, we often choose to draw a
-\emph{Beta posterior} over the ``true'' prevalence, hinting at the fact
-that our data merely represents a limited sample. The Beta posterior
-follows from a uniform Beta distribution as prior and a Bernoulli
+\emph{beta posterior} over the ``true'' prevalence, hinting at the fact
+that our data merely represents a limited sample. The beta posterior
+follows from a uniform beta distribution as prior and a binomial
 likelihood for the number of patients with the involvement of interest,
 given the parameer for the ``true'' prevalence. The resulting
 distribution has its maximum at the observed prevalence, but in addition
 gives a visual intuition for the variance of of the observed quantity.
-I.e., when we observe 3 out of 10 events, the Beta posterior is much
+I.e., when we observe 3 out of 10 events, the beta posterior is much
 wider than if we observe 300 out of 1000 for he same prevalence. It also
-allows us to check not inly if the model is accurate, but also whether
+allows us to check not only if the model is accurate, but also whether
 it reflects the uncertainty contained in the data.
 
 Predicting the prevalence using our model amounts to computing the
@@ -985,7 +985,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_b241f}\tabularnewline
+\caption{}\label{T_c1c15}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1268,7 +1268,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_bb1c4}\tabularnewline
+\caption{}\label{T_78884}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1316,12 +1316,95 @@ Notebook}}
 \section{Marginalizing Beta Posteriors over
 Unknowns}\label{marginalizing-beta-posteriors-over-unknowns}
 
-\begin{itemize}
-\tightlist
-\item[$\square$]
-  write short theory section about why and how to compute the posteriors
-  if some of the data (here midline extension) is unknown
-\end{itemize}
+\textsubscript{Source:
+\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
+Notebook}}
+
+\begin{longtable}[]{@{}llll@{}}
+
+\caption{\label{tbl-data-unknowns}Combinations of midline extension
+status and state of contralateral LNL II for early T-category patients.}
+
+\tabularnewline
+
+\toprule\noalign{}
+Midline Extension & no & yes & unknown \\
+contra LNL II & & & \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+healthy & 352 & 23 & 59 \\
+involved & 27 & 6 & 6 \\
+total & 379 & 29 & 65 \\
+
+\end{longtable}
+
+\textsubscript{Source:
+\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
+Notebook}}
+
+In section~\ref{sec-prevalence} we explained that we compare the
+predicted prevalence of an involvement pattern under a scenario to a
+beta posterior over the ``true'' prevalence given the observations in
+the data. However, our data contains incomplete observations, especially
+regarding the tumor's midline extension. This information is not present
+for a large group of 85 patients, most of which treated at the Centre
+Léon Bérard in France.
+
+To account for this missing information and plot the correct posteriors
+over the data prevalence, we need to marginalize over the possible
+combinations of matching involvement patterns and selected patients
+under a scenario. For example, we have only 29 early T-category patients
+with midline extension. But for an additional 65 patients we do not know
+whether the tumor crossed the mid-sagittal plane. If we now want to
+compute the prevalence of contralateral LNL II invovlement for these
+early T-category patients with midline extension, then we need to
+account for the possibility that we are missing information.
+
+In table~\ref{tbl-data-unknowns} we show the combinations of the midline
+extension status and state of the contralateral LNL II. Using only
+available information, we would get to 6 out of 29 patients for the
+prevalence of contralateral LNL II invovlement among the early
+T-category patients with midline extension. But the column with the
+``unknown'' numbers suggests that the true prevalence could range from 6
+out of 29 + 59 (7\%) up to 12 out of 29 + 6 (34\%). Assuming that every
+one of the possible combinations has the same a priori probability
+(uniform prior) and accouting for permutations via the binomial factor,
+the posterior marginalized over the unknowns could be written as
+
+\[
+\begin{aligned}
+p(x; \alpha=1, \beta=1) &= \sum_{m=0}^{65} \sum_{\ell=0}^{\min(m,6)} \binom{n+m}{k+\ell} x^{k+\ell} (1-x)^{n+m - (k+\ell)} \cdot \frac{1}{\operatorname{B}(\alpha, \beta)} x^\alpha (1-x)^\beta \\
+&= \sum_{m=0}^{65} \sum_{\ell=0}^{\min(m,6)} \binom{n+m}{k+\ell} x^{k+\ell+1} (1-x)^{n+m - (k+\ell) + 1}
+\end{aligned}
+\]
+
+We have plotted this marginal in figure~\ref{fig-model-marginal-pdf}
+(blue curve) and the terms that make up the above sum (light red
+curves). Note that we weighted the plotting opacity with the number of
+permutations each of the possible combinations has. The marginal is
+compared against the ``naive'' beta posterior that only takes the data
+into account for which midline extension is available (green curve).
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.5\textwidth,height=\textheight]{figures/fig-model-marginal-pdf.png}
+
+}
+
+\caption{\label{fig-model-marginal-pdf}Posterior distributions over the
+data prevalence for contralateral LNL II involvement under the scenario
+of early T-category and midline extension. The green beta distribution
+shows this prevalence for those patients for which midline extension is
+known. While the blue PDF is a marginal distribution summed over all
+possible combinations, which are shown in shades of red. The more
+permutations a particular combination has, the more opaque it is
+plotted.}
+
+\end{figure}%
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
