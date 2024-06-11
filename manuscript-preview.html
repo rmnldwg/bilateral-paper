@@ -547,7 +547,7 @@
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="804daf03" class="cell markdown">
+<div id="b9077f00" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <ul>
@@ -728,7 +728,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="1ac9b60a" class="cell markdown">
+<div id="49f956b6" class="cell markdown">
 <section id="sec-data-strat" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-strat">Contralateral Involvement Prevalence</h2>
 <p>These datasets allow us to investigate correlations between the involvement of individual LNLs, or between risk factors and patterns of involvement. In <a href="#fig-data-strat" class="quarto-xref">figure&nbsp;1</a>, we have plotted the prevalence of each contralateral LNL’s involvement, stratified by T-category, ipsilateral number of involved LNLs, and whether the tumor extended over the mid-sagittal line. A similar but more complete stratification is also tabulated in the appendix in <a href="#tbl-data-strat" class="quarto-xref">table&nbsp;3</a>.</p>
@@ -1091,7 +1091,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="7ab3af2d" class="cell markdown">
+<div id="ebb8c62f" class="cell markdown">
 <section id="prevalence-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="prevalence-predictions">Prevalence Predictions</h2>
 <p>We want to investigate whether and to what extent the model can fulfill the requirements laid out in <a href="#sec-requirements" class="quarto-xref">section&nbsp;2.2</a>. To that end, we compare its predictions for contralateral involvement against observations in the data. This is done given scenarios that differ in T-category and/or midline extension and/or ipsilateral involvement.</p>
@@ -1458,7 +1458,7 @@ Table&nbsp;3: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="0515cc01" class="cell markdown">
+<div id="5cedd27b" class="cell markdown">
 <section id="marginalizing-beta-posteriors-over-unknowns" class="level1 appendix">
 <h1 class="appendix">Marginalizing Beta Posteriors over Unknowns</h1>
 </section>
@@ -1547,7 +1547,7 @@ Table&nbsp;4: Combinations of midline extension status and state of contralatera
 </figure>
 </div></div></div>
 </div></div>
-<div id="691823fb" class="cell markdown">
+<div id="574dc0c0" class="cell markdown">
 <p>In <a href="#sec-prevalence" class="quarto-xref">section&nbsp;5.3</a> we explained that we compare the predicted prevalence of an involvement pattern under a scenario to a beta posterior over the “true” prevalence given the observations in the data. However, our data contains incomplete observations, especially regarding the tumor’s midline extension. This information is not present for a large group of 85 patients, most of which treated at the Centre Léon Bérard in France.</p>
 <p>To account for this missing information and plot the correct posteriors over the data prevalence, we need to marginalize over the possible combinations of matching involvement patterns and selected patients under a scenario. For example, we have only 29<!-- TODO: compute dynamically --> early T-category patients with midline extension. But for an additional 65<!-- TODO: compute dynamically --> patients we do not know whether the tumor crossed the mid-sagittal plane. If we now want to compute the prevalence of contralateral LNL II invovlement for these early T-category patients with midline extension, then we need to account for the possibility that we are missing information.</p>
 <p>In <a href="#tbl-data-unknowns" class="quarto-xref">table&nbsp;4</a> we show the combinations of the midline extension status and state of the contralateral LNL II. Using only available information, we would get to 6 out of 29<!-- TODO: compute dynamically --> patients for the prevalence of contralateral LNL II invovlement among the early T-category patients with midline extension. But the column with the “unknown” numbers suggests that the true prevalence could range from 6 out of 29 + 59 (7%)<!-- TODO: compute dynamically --> up to 12 out of 29 + 6 (34%)<!-- TODO: compute dynamically -->. Assuming that every one of the possible combinations has the same a priori probability (uniform prior) and accouting for permutations via the binomial factor, the posterior marginalized over the unknowns could be written as</p>
@@ -1568,6 +1568,8 @@ Figure&nbsp;10: Posterior distributions over the data prevalence for contralater
 </figcaption>
 </figure>
 </div>
+<p>The distribution that marginalizes over the unknown midline extension cases is shifted towards a lower prevalence. This makes intuitive sense: With only six patients among the 65 with unknown midline extension status, the upper bound for the prevalence has moved down compared to six out of 29.</p>
+<p>We chose to compare our model against such corrected prevalence posteriors, because the model, too, is capable of marginalizing over unknown midline extension in the data. It would therefore be inaccurate to compare the model trained with the full dataset to only that part of the patient cohort where the tumor lateralization was recorded.</p>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-debondt_detection_2007" class="csl-entry" role="listitem">
@@ -2009,7 +2011,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","loop":false});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
