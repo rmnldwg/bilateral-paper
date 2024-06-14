@@ -523,7 +523,7 @@
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-       <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="3c8d75b5" class="cell" data-execution_count="2">
+       <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="a2823b5d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -541,13 +541,13 @@
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>simple_model <span class="op">=</span> shared.get_model(<span class="st">"simple"</span>, load_samples<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="1988850e" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="ee06f4d7" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># width of figures. May depend on number of text columns</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>full <span class="op">=</span> <span class="dv">17</span> <span class="co"># cm</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="96204aac" class="cell markdown">
+<div id="b8e29d9a" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>When treating head and neck squamous cell carcinomas (HNSCC) with radiotherapy or surgery, not only the primary tumor and the clinically detected lymph node metastases are targeted. Per current guidelines, large volumes of the neck - lymph node levels (LNLs) - are part of the the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ctbased_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensitymodulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ctbased_2003" role="doc-biblioref">Vincent Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>; <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">V. Grégoire and Others 2018</a>; <a href="#ref-eisbruch_intensitymodulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span>. This is to minimize the risk of regional recurrences due to missed microscopic disease which cannot be detected by current in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET).</p>
@@ -661,61 +661,61 @@
 Table&nbsp;1: Overview over the five datasets from four different institutions used to train and evaluate our model. Here, we briefly characterize the total number of OPSCC patients from the respective institution, their median age, what proportion received some form of neck dissection, the N0 portion of patients, what percentage presented with early T-category, and the prevalence of primary tumor midline extension. For a much more detailed look at the data, visit <a href="https://lyprox.org">lyprox.org</a>.
 </figcaption>
 <div aria-describedby="tbl-data-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <style type="text/css">
-#T_a0e1b_row0_col1, #T_a0e1b_row0_col2, #T_a0e1b_row0_col3, #T_a0e1b_row0_col4, #T_a0e1b_row0_col5, #T_a0e1b_row0_col6, #T_a0e1b_row1_col1, #T_a0e1b_row1_col2, #T_a0e1b_row1_col3, #T_a0e1b_row1_col4, #T_a0e1b_row1_col5, #T_a0e1b_row1_col6, #T_a0e1b_row2_col1, #T_a0e1b_row2_col2, #T_a0e1b_row2_col3, #T_a0e1b_row2_col4, #T_a0e1b_row2_col5, #T_a0e1b_row2_col6, #T_a0e1b_row3_col1, #T_a0e1b_row3_col2, #T_a0e1b_row3_col3, #T_a0e1b_row3_col4, #T_a0e1b_row3_col5, #T_a0e1b_row3_col6 {
+#T_b5745_row0_col1, #T_b5745_row0_col2, #T_b5745_row0_col3, #T_b5745_row0_col4, #T_b5745_row0_col5, #T_b5745_row0_col6, #T_b5745_row1_col1, #T_b5745_row1_col2, #T_b5745_row1_col3, #T_b5745_row1_col4, #T_b5745_row1_col5, #T_b5745_row1_col6, #T_b5745_row2_col1, #T_b5745_row2_col2, #T_b5745_row2_col3, #T_b5745_row2_col4, #T_b5745_row2_col5, #T_b5745_row2_col6, #T_b5745_row3_col1, #T_b5745_row3_col2, #T_b5745_row3_col3, #T_b5745_row3_col4, #T_b5745_row3_col5, #T_b5745_row3_col6 {
   text-align: right;
 }
 </style>
 
-<table id="T_a0e1b" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_b5745" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_a0e1b_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Institution</th>
-<th id="T_a0e1b_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Total</th>
-<th id="T_a0e1b_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Age (median)</th>
-<th id="T_a0e1b_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Neck Dissection</th>
-<th id="T_a0e1b_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">N0</th>
-<th id="T_a0e1b_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Early T-Cat.</th>
-<th id="T_a0e1b_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Mid. Ext.</th>
+<th id="T_b5745_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Institution</th>
+<th id="T_b5745_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Total</th>
+<th id="T_b5745_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Age (median)</th>
+<th id="T_b5745_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Neck Dissection</th>
+<th id="T_b5745_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">N0</th>
+<th id="T_b5745_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Early T-Cat.</th>
+<th id="T_b5745_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Mid. Ext.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_a0e1b_row0_col0" class="data row0 col0">Centre Léon Bérard</td>
-<td id="T_a0e1b_row0_col1" class="data row0 col1">325</td>
-<td id="T_a0e1b_row0_col2" class="data row0 col2">60</td>
-<td id="T_a0e1b_row0_col3" class="data row0 col3">100%</td>
-<td id="T_a0e1b_row0_col4" class="data row0 col4">19%</td>
-<td id="T_a0e1b_row0_col5" class="data row0 col5">69%</td>
-<td id="T_a0e1b_row0_col6" class="data row0 col6">18%</td>
+<td id="T_b5745_row0_col0" class="data row0 col0">Centre Léon Bérard</td>
+<td id="T_b5745_row0_col1" class="data row0 col1">325</td>
+<td id="T_b5745_row0_col2" class="data row0 col2">60</td>
+<td id="T_b5745_row0_col3" class="data row0 col3">100%</td>
+<td id="T_b5745_row0_col4" class="data row0 col4">19%</td>
+<td id="T_b5745_row0_col5" class="data row0 col5">69%</td>
+<td id="T_b5745_row0_col6" class="data row0 col6">18%</td>
 </tr>
 <tr class="even">
-<td id="T_a0e1b_row1_col0" class="data row1 col0">Inselspital Bern</td>
-<td id="T_a0e1b_row1_col1" class="data row1 col1">74</td>
-<td id="T_a0e1b_row1_col2" class="data row1 col2">61</td>
-<td id="T_a0e1b_row1_col3" class="data row1 col3">100%</td>
-<td id="T_a0e1b_row1_col4" class="data row1 col4">18%</td>
-<td id="T_a0e1b_row1_col5" class="data row1 col5">66%</td>
-<td id="T_a0e1b_row1_col6" class="data row1 col6">14%</td>
+<td id="T_b5745_row1_col0" class="data row1 col0">Inselspital Bern</td>
+<td id="T_b5745_row1_col1" class="data row1 col1">74</td>
+<td id="T_b5745_row1_col2" class="data row1 col2">61</td>
+<td id="T_b5745_row1_col3" class="data row1 col3">100%</td>
+<td id="T_b5745_row1_col4" class="data row1 col4">18%</td>
+<td id="T_b5745_row1_col5" class="data row1 col5">66%</td>
+<td id="T_b5745_row1_col6" class="data row1 col6">14%</td>
 </tr>
 <tr class="odd">
-<td id="T_a0e1b_row2_col0" class="data row2 col0">University Hospital Zurich</td>
-<td id="T_a0e1b_row2_col1" class="data row2 col1">287</td>
-<td id="T_a0e1b_row2_col2" class="data row2 col2">66</td>
-<td id="T_a0e1b_row2_col3" class="data row2 col3">26%</td>
-<td id="T_a0e1b_row2_col4" class="data row2 col4">18%</td>
-<td id="T_a0e1b_row2_col5" class="data row2 col5">52%</td>
-<td id="T_a0e1b_row2_col6" class="data row2 col6">31%</td>
+<td id="T_b5745_row2_col0" class="data row2 col0">University Hospital Zurich</td>
+<td id="T_b5745_row2_col1" class="data row2 col1">287</td>
+<td id="T_b5745_row2_col2" class="data row2 col2">66</td>
+<td id="T_b5745_row2_col3" class="data row2 col3">26%</td>
+<td id="T_b5745_row2_col4" class="data row2 col4">18%</td>
+<td id="T_b5745_row2_col5" class="data row2 col5">52%</td>
+<td id="T_b5745_row2_col6" class="data row2 col6">31%</td>
 </tr>
 <tr class="even">
-<td id="T_a0e1b_row3_col0" class="data row3 col0">Vall d'Hebron Barcelona Hospital</td>
-<td id="T_a0e1b_row3_col1" class="data row3 col1">147</td>
-<td id="T_a0e1b_row3_col2" class="data row3 col2">58</td>
-<td id="T_a0e1b_row3_col3" class="data row3 col3">5%</td>
-<td id="T_a0e1b_row3_col4" class="data row3 col4">21%</td>
-<td id="T_a0e1b_row3_col5" class="data row3 col5">34%</td>
-<td id="T_a0e1b_row3_col6" class="data row3 col6">34%</td>
+<td id="T_b5745_row3_col0" class="data row3 col0">Vall d'Hebron Barcelona Hospital</td>
+<td id="T_b5745_row3_col1" class="data row3 col1">147</td>
+<td id="T_b5745_row3_col2" class="data row3 col2">58</td>
+<td id="T_b5745_row3_col3" class="data row3 col3">5%</td>
+<td id="T_b5745_row3_col4" class="data row3 col4">21%</td>
+<td id="T_b5745_row3_col5" class="data row3 col5">34%</td>
+<td id="T_b5745_row3_col6" class="data row3 col6">34%</td>
 </tr>
 </tbody>
 </table>
@@ -724,7 +724,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="83170d00" class="cell markdown">
+<div id="2bca213d" class="cell markdown">
 <section id="sec-data-strat" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-strat">Contralateral Involvement Prevalence</h2>
 <p>These datasets allow us to investigate correlations between the involvement of individual LNLs, or between risk factors and patterns of involvement. In <a href="#fig-data-strat" class="quarto-xref">figure&nbsp;1</a>, we have plotted the prevalence of each contralateral LNL’s involvement, stratified by T-category, ipsilateral number of involved LNLs, and whether the tumor extended over the mid-sagittal line. A similar but more complete stratification is also tabulated in the appendix in <a href="#tbl-data-strat" class="quarto-xref">table&nbsp;3</a>.</p>
@@ -1009,76 +1009,76 @@ Figure&nbsp;5: Monitoring quantities during the burn-in phase of the parameter s
 Table&nbsp;2: Mean sampled parameter estimates of the midline model and the respective standard deviation.
 </figcaption>
 <div aria-describedby="tbl-midline-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="40">
 <style type="text/css">
-#T_e3299_row0_col1, #T_e3299_row0_col2, #T_e3299_row1_col1, #T_e3299_row1_col2, #T_e3299_row2_col1, #T_e3299_row2_col2, #T_e3299_row3_col1, #T_e3299_row3_col2, #T_e3299_row4_col1, #T_e3299_row4_col2, #T_e3299_row5_col1, #T_e3299_row5_col2, #T_e3299_row6_col1, #T_e3299_row6_col2, #T_e3299_row7_col1, #T_e3299_row7_col2, #T_e3299_row8_col1, #T_e3299_row8_col2, #T_e3299_row9_col1, #T_e3299_row9_col2, #T_e3299_row10_col1, #T_e3299_row10_col2 {
+#T_0d41c_row0_col1, #T_0d41c_row0_col2, #T_0d41c_row1_col1, #T_0d41c_row1_col2, #T_0d41c_row2_col1, #T_0d41c_row2_col2, #T_0d41c_row3_col1, #T_0d41c_row3_col2, #T_0d41c_row4_col1, #T_0d41c_row4_col2, #T_0d41c_row5_col1, #T_0d41c_row5_col2, #T_0d41c_row6_col1, #T_0d41c_row6_col2, #T_0d41c_row7_col1, #T_0d41c_row7_col2, #T_0d41c_row8_col1, #T_0d41c_row8_col2, #T_0d41c_row9_col1, #T_0d41c_row9_col2, #T_0d41c_row10_col1, #T_0d41c_row10_col2 {
   text-align: right;
 }
 </style>
 
-<table id="T_e3299" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_0d41c" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_e3299_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
-<th id="T_e3299_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Mean</th>
-<th id="T_e3299_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Std. Dev.</th>
+<th id="T_0d41c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
+<th id="T_0d41c_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Mean</th>
+<th id="T_0d41c_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Std. Dev.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_e3299_row0_col0" class="data row0 col0">Mid. ext. probability</td>
-<td id="T_e3299_row0_col1" class="data row0 col1">8.13%</td>
-<td id="T_e3299_row0_col2" class="data row0 col2">± 0.60%</td>
+<td id="T_0d41c_row0_col0" class="data row0 col0">Mid. ext. probability</td>
+<td id="T_0d41c_row0_col1" class="data row0 col1">8.13%</td>
+<td id="T_0d41c_row0_col2" class="data row0 col2">± 0.60%</td>
 </tr>
 <tr class="even">
-<td id="T_e3299_row1_col0" class="data row1 col0">ipsi: T ➜ II</td>
-<td id="T_e3299_row1_col1" class="data row1 col1">35.45%</td>
-<td id="T_e3299_row1_col2" class="data row1 col2">± 1.75%</td>
+<td id="T_0d41c_row1_col0" class="data row1 col0">ipsi: T ➜ II</td>
+<td id="T_0d41c_row1_col1" class="data row1 col1">35.45%</td>
+<td id="T_0d41c_row1_col2" class="data row1 col2">± 1.75%</td>
 </tr>
 <tr class="odd">
-<td id="T_e3299_row2_col0" class="data row2 col0">ipsi: T ➜ III</td>
-<td id="T_e3299_row2_col1" class="data row2 col1">5.59%</td>
-<td id="T_e3299_row2_col2" class="data row2 col2">± 0.82%</td>
+<td id="T_0d41c_row2_col0" class="data row2 col0">ipsi: T ➜ III</td>
+<td id="T_0d41c_row2_col1" class="data row2 col1">5.59%</td>
+<td id="T_0d41c_row2_col2" class="data row2 col2">± 0.82%</td>
 </tr>
 <tr class="even">
-<td id="T_e3299_row3_col0" class="data row3 col0">ipsi: T ➜ IV</td>
-<td id="T_e3299_row3_col1" class="data row3 col1">0.91%</td>
-<td id="T_e3299_row3_col2" class="data row3 col2">± 0.21%</td>
+<td id="T_0d41c_row3_col0" class="data row3 col0">ipsi: T ➜ IV</td>
+<td id="T_0d41c_row3_col1" class="data row3 col1">0.91%</td>
+<td id="T_0d41c_row3_col2" class="data row3 col2">± 0.21%</td>
 </tr>
 <tr class="odd">
-<td id="T_e3299_row4_col0" class="data row4 col0">contra: T ➜ II</td>
-<td id="T_e3299_row4_col1" class="data row4 col1">2.64%</td>
-<td id="T_e3299_row4_col2" class="data row4 col2">± 0.35%</td>
+<td id="T_0d41c_row4_col0" class="data row4 col0">contra: T ➜ II</td>
+<td id="T_0d41c_row4_col1" class="data row4 col1">2.64%</td>
+<td id="T_0d41c_row4_col2" class="data row4 col2">± 0.35%</td>
 </tr>
 <tr class="even">
-<td id="T_e3299_row5_col0" class="data row5 col0">contra: T ➜ III</td>
-<td id="T_e3299_row5_col1" class="data row5 col1">0.16%</td>
-<td id="T_e3299_row5_col2" class="data row5 col2">± 0.09%</td>
+<td id="T_0d41c_row5_col0" class="data row5 col0">contra: T ➜ III</td>
+<td id="T_0d41c_row5_col1" class="data row5 col1">0.16%</td>
+<td id="T_0d41c_row5_col2" class="data row5 col2">± 0.09%</td>
 </tr>
 <tr class="odd">
-<td id="T_e3299_row6_col0" class="data row6 col0">contra: T ➜ IV</td>
-<td id="T_e3299_row6_col1" class="data row6 col1">0.21%</td>
-<td id="T_e3299_row6_col2" class="data row6 col2">± 0.10%</td>
+<td id="T_0d41c_row6_col0" class="data row6 col0">contra: T ➜ IV</td>
+<td id="T_0d41c_row6_col1" class="data row6 col1">0.21%</td>
+<td id="T_0d41c_row6_col2" class="data row6 col2">± 0.10%</td>
 </tr>
 <tr class="even">
-<td id="T_e3299_row7_col0" class="data row7 col0">Mixing ⍺</td>
-<td id="T_e3299_row7_col1" class="data row7 col1">21.01%</td>
-<td id="T_e3299_row7_col2" class="data row7 col2">± 3.24%</td>
+<td id="T_0d41c_row7_col0" class="data row7 col0">Mixing ⍺</td>
+<td id="T_0d41c_row7_col1" class="data row7 col1">21.01%</td>
+<td id="T_0d41c_row7_col2" class="data row7 col2">± 3.24%</td>
 </tr>
 <tr class="odd">
-<td id="T_e3299_row8_col0" class="data row8 col0">II ➜ III</td>
-<td id="T_e3299_row8_col1" class="data row8 col1">13.46%</td>
-<td id="T_e3299_row8_col2" class="data row8 col2">± 1.95%</td>
+<td id="T_0d41c_row8_col0" class="data row8 col0">II ➜ III</td>
+<td id="T_0d41c_row8_col1" class="data row8 col1">13.46%</td>
+<td id="T_0d41c_row8_col2" class="data row8 col2">± 1.95%</td>
 </tr>
 <tr class="even">
-<td id="T_e3299_row9_col0" class="data row9 col0">III ➜ IV</td>
-<td id="T_e3299_row9_col1" class="data row9 col1">15.74%</td>
-<td id="T_e3299_row9_col2" class="data row9 col2">± 2.24%</td>
+<td id="T_0d41c_row9_col0" class="data row9 col0">III ➜ IV</td>
+<td id="T_0d41c_row9_col1" class="data row9 col1">15.74%</td>
+<td id="T_0d41c_row9_col2" class="data row9 col2">± 2.24%</td>
 </tr>
 <tr class="odd">
-<td id="T_e3299_row10_col0" class="data row10 col0">late T-cat. binom. prob.</td>
-<td id="T_e3299_row10_col1" class="data row10 col1">45.35%</td>
-<td id="T_e3299_row10_col2" class="data row10 col2">± 2.57%</td>
+<td id="T_0d41c_row10_col0" class="data row10 col0">late T-cat. binom. prob.</td>
+<td id="T_0d41c_row10_col1" class="data row10 col1">45.35%</td>
+<td id="T_0d41c_row10_col2" class="data row10 col2">± 2.57%</td>
 </tr>
 </tbody>
 </table>
@@ -1087,7 +1087,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="12bf941d" class="cell markdown">
+<div id="03d3be75" class="cell markdown">
 <section id="prevalence-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="prevalence-predictions">Prevalence Predictions</h2>
 <p>We want to investigate whether and to what extent the model can fulfill the requirements laid out in <a href="#sec-requirements" class="quarto-xref">section&nbsp;2.2</a>. To that end, we compare its predictions for contralateral involvement against observations in the data. This is done given scenarios that differ in T-category and/or midline extension and/or ipsilateral involvement.</p>
@@ -1235,217 +1235,217 @@ Figure&nbsp;9: Histograms over the predicted risk of occult contralateral LNL II
 Table&nbsp;3: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal line, the T-category, and whether the ipsilateral LNL III was involved or healthy.
 </figcaption>
 <div aria-describedby="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <style type="text/css">
-#T_3f096_row0_col0, #T_3f096_row0_col1, #T_3f096_row0_col2, #T_3f096_row1_col0, #T_3f096_row1_col1, #T_3f096_row2_col0, #T_3f096_row2_col2, #T_3f096_row3_col0, #T_3f096_row4_col0, #T_3f096_row4_col2, #T_3f096_row5_col0, #T_3f096_row6_col1, #T_3f096_row6_col2, #T_3f096_row7_col1, #T_3f096_row8_col2, #T_3f096_row10_col2 {
+#T_5f95c_row0_col0, #T_5f95c_row0_col1, #T_5f95c_row0_col2, #T_5f95c_row1_col0, #T_5f95c_row1_col1, #T_5f95c_row2_col0, #T_5f95c_row2_col2, #T_5f95c_row3_col0, #T_5f95c_row4_col0, #T_5f95c_row4_col2, #T_5f95c_row5_col0, #T_5f95c_row6_col1, #T_5f95c_row6_col2, #T_5f95c_row7_col1, #T_5f95c_row8_col2, #T_5f95c_row10_col2 {
   color: #00afa5;
 }
-#T_3f096_row0_col3, #T_3f096_row0_col4, #T_3f096_row0_col5, #T_3f096_row0_col6, #T_3f096_row0_col7, #T_3f096_row0_col8, #T_3f096_row0_col9, #T_3f096_row0_col10, #T_3f096_row0_col11, #T_3f096_row1_col3, #T_3f096_row1_col4, #T_3f096_row1_col5, #T_3f096_row1_col6, #T_3f096_row1_col7, #T_3f096_row1_col8, #T_3f096_row1_col9, #T_3f096_row1_col10, #T_3f096_row1_col11, #T_3f096_row2_col3, #T_3f096_row2_col4, #T_3f096_row2_col5, #T_3f096_row2_col6, #T_3f096_row2_col7, #T_3f096_row2_col8, #T_3f096_row2_col9, #T_3f096_row2_col10, #T_3f096_row2_col11, #T_3f096_row3_col3, #T_3f096_row3_col4, #T_3f096_row3_col5, #T_3f096_row3_col6, #T_3f096_row3_col7, #T_3f096_row3_col8, #T_3f096_row3_col9, #T_3f096_row3_col10, #T_3f096_row3_col11, #T_3f096_row4_col3, #T_3f096_row4_col4, #T_3f096_row4_col5, #T_3f096_row4_col6, #T_3f096_row4_col7, #T_3f096_row4_col8, #T_3f096_row4_col9, #T_3f096_row4_col10, #T_3f096_row4_col11, #T_3f096_row5_col3, #T_3f096_row5_col4, #T_3f096_row5_col5, #T_3f096_row5_col6, #T_3f096_row5_col7, #T_3f096_row5_col8, #T_3f096_row5_col9, #T_3f096_row5_col10, #T_3f096_row5_col11, #T_3f096_row6_col3, #T_3f096_row6_col4, #T_3f096_row6_col5, #T_3f096_row6_col6, #T_3f096_row6_col7, #T_3f096_row6_col8, #T_3f096_row6_col9, #T_3f096_row6_col10, #T_3f096_row6_col11, #T_3f096_row7_col3, #T_3f096_row7_col4, #T_3f096_row7_col5, #T_3f096_row7_col6, #T_3f096_row7_col7, #T_3f096_row7_col8, #T_3f096_row7_col9, #T_3f096_row7_col10, #T_3f096_row7_col11, #T_3f096_row8_col3, #T_3f096_row8_col4, #T_3f096_row8_col5, #T_3f096_row8_col6, #T_3f096_row8_col7, #T_3f096_row8_col8, #T_3f096_row8_col9, #T_3f096_row8_col10, #T_3f096_row8_col11, #T_3f096_row9_col3, #T_3f096_row9_col4, #T_3f096_row9_col5, #T_3f096_row9_col6, #T_3f096_row9_col7, #T_3f096_row9_col8, #T_3f096_row9_col9, #T_3f096_row9_col10, #T_3f096_row9_col11, #T_3f096_row10_col3, #T_3f096_row10_col4, #T_3f096_row10_col5, #T_3f096_row10_col6, #T_3f096_row10_col7, #T_3f096_row10_col8, #T_3f096_row10_col9, #T_3f096_row10_col10, #T_3f096_row10_col11, #T_3f096_row11_col3, #T_3f096_row11_col4, #T_3f096_row11_col5, #T_3f096_row11_col6, #T_3f096_row11_col7, #T_3f096_row11_col8, #T_3f096_row11_col9, #T_3f096_row11_col10, #T_3f096_row11_col11 {
+#T_5f95c_row0_col3, #T_5f95c_row0_col4, #T_5f95c_row0_col5, #T_5f95c_row0_col6, #T_5f95c_row0_col7, #T_5f95c_row0_col8, #T_5f95c_row0_col9, #T_5f95c_row0_col10, #T_5f95c_row0_col11, #T_5f95c_row1_col3, #T_5f95c_row1_col4, #T_5f95c_row1_col5, #T_5f95c_row1_col6, #T_5f95c_row1_col7, #T_5f95c_row1_col8, #T_5f95c_row1_col9, #T_5f95c_row1_col10, #T_5f95c_row1_col11, #T_5f95c_row2_col3, #T_5f95c_row2_col4, #T_5f95c_row2_col5, #T_5f95c_row2_col6, #T_5f95c_row2_col7, #T_5f95c_row2_col8, #T_5f95c_row2_col9, #T_5f95c_row2_col10, #T_5f95c_row2_col11, #T_5f95c_row3_col3, #T_5f95c_row3_col4, #T_5f95c_row3_col5, #T_5f95c_row3_col6, #T_5f95c_row3_col7, #T_5f95c_row3_col8, #T_5f95c_row3_col9, #T_5f95c_row3_col10, #T_5f95c_row3_col11, #T_5f95c_row4_col3, #T_5f95c_row4_col4, #T_5f95c_row4_col5, #T_5f95c_row4_col6, #T_5f95c_row4_col7, #T_5f95c_row4_col8, #T_5f95c_row4_col9, #T_5f95c_row4_col10, #T_5f95c_row4_col11, #T_5f95c_row5_col3, #T_5f95c_row5_col4, #T_5f95c_row5_col5, #T_5f95c_row5_col6, #T_5f95c_row5_col7, #T_5f95c_row5_col8, #T_5f95c_row5_col9, #T_5f95c_row5_col10, #T_5f95c_row5_col11, #T_5f95c_row6_col3, #T_5f95c_row6_col4, #T_5f95c_row6_col5, #T_5f95c_row6_col6, #T_5f95c_row6_col7, #T_5f95c_row6_col8, #T_5f95c_row6_col9, #T_5f95c_row6_col10, #T_5f95c_row6_col11, #T_5f95c_row7_col3, #T_5f95c_row7_col4, #T_5f95c_row7_col5, #T_5f95c_row7_col6, #T_5f95c_row7_col7, #T_5f95c_row7_col8, #T_5f95c_row7_col9, #T_5f95c_row7_col10, #T_5f95c_row7_col11, #T_5f95c_row8_col3, #T_5f95c_row8_col4, #T_5f95c_row8_col5, #T_5f95c_row8_col6, #T_5f95c_row8_col7, #T_5f95c_row8_col8, #T_5f95c_row8_col9, #T_5f95c_row8_col10, #T_5f95c_row8_col11, #T_5f95c_row9_col3, #T_5f95c_row9_col4, #T_5f95c_row9_col5, #T_5f95c_row9_col6, #T_5f95c_row9_col7, #T_5f95c_row9_col8, #T_5f95c_row9_col9, #T_5f95c_row9_col10, #T_5f95c_row9_col11, #T_5f95c_row10_col3, #T_5f95c_row10_col4, #T_5f95c_row10_col5, #T_5f95c_row10_col6, #T_5f95c_row10_col7, #T_5f95c_row10_col8, #T_5f95c_row10_col9, #T_5f95c_row10_col10, #T_5f95c_row10_col11, #T_5f95c_row11_col3, #T_5f95c_row11_col4, #T_5f95c_row11_col5, #T_5f95c_row11_col6, #T_5f95c_row11_col7, #T_5f95c_row11_col8, #T_5f95c_row11_col9, #T_5f95c_row11_col10, #T_5f95c_row11_col11 {
   text-align: right;
 }
-#T_3f096_row1_col2, #T_3f096_row3_col2, #T_3f096_row4_col1, #T_3f096_row5_col1, #T_3f096_row5_col2, #T_3f096_row6_col0, #T_3f096_row7_col0, #T_3f096_row7_col2, #T_3f096_row8_col0, #T_3f096_row9_col0, #T_3f096_row9_col2, #T_3f096_row10_col0, #T_3f096_row10_col1, #T_3f096_row11_col0, #T_3f096_row11_col1, #T_3f096_row11_col2 {
+#T_5f95c_row1_col2, #T_5f95c_row3_col2, #T_5f95c_row4_col1, #T_5f95c_row5_col1, #T_5f95c_row5_col2, #T_5f95c_row6_col0, #T_5f95c_row7_col0, #T_5f95c_row7_col2, #T_5f95c_row8_col0, #T_5f95c_row9_col0, #T_5f95c_row9_col2, #T_5f95c_row10_col0, #T_5f95c_row10_col1, #T_5f95c_row11_col0, #T_5f95c_row11_col1, #T_5f95c_row11_col2 {
   color: #ae0060;
 }
-#T_3f096_row2_col1, #T_3f096_row3_col1, #T_3f096_row8_col1, #T_3f096_row9_col1 {
+#T_5f95c_row2_col1, #T_5f95c_row3_col1, #T_5f95c_row8_col1, #T_5f95c_row9_col1 {
   color: #f17900;
 }
 </style>
 
-<table id="T_3f096" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_5f95c" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_3f096_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">T-cat.</th>
-<th id="T_3f096_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">ipsi</th>
-<th id="T_3f096_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Mid. ext.</th>
-<th colspan="2" id="T_3f096_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">I</th>
-<th colspan="2" id="T_3f096_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">II</th>
-<th colspan="2" id="T_3f096_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">III</th>
-<th colspan="2" id="T_3f096_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">IV</th>
-<th id="T_3f096_level0_col11" class="col_heading level0 col11" data-quarto-table-cell-role="th">total</th>
+<th id="T_5f95c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">T-cat.</th>
+<th id="T_5f95c_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">ipsi</th>
+<th id="T_5f95c_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Mid. ext.</th>
+<th colspan="2" id="T_5f95c_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">I</th>
+<th colspan="2" id="T_5f95c_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">II</th>
+<th colspan="2" id="T_5f95c_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">III</th>
+<th colspan="2" id="T_5f95c_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">IV</th>
+<th id="T_5f95c_level0_col11" class="col_heading level0 col11" data-quarto-table-cell-role="th">total</th>
 </tr>
 <tr class="odd">
-<th id="T_3f096_level1_col0" class="col_heading level1 col0" data-quarto-table-cell-role="th"></th>
-<th id="T_3f096_level1_col1" class="col_heading level1 col1" data-quarto-table-cell-role="th"></th>
-<th id="T_3f096_level1_col2" class="col_heading level1 col2" data-quarto-table-cell-role="th"></th>
-<th id="T_3f096_level1_col3" class="col_heading level1 col3" data-quarto-table-cell-role="th">n</th>
-<th id="T_3f096_level1_col4" class="col_heading level1 col4" data-quarto-table-cell-role="th">%</th>
-<th id="T_3f096_level1_col5" class="col_heading level1 col5" data-quarto-table-cell-role="th">n</th>
-<th id="T_3f096_level1_col6" class="col_heading level1 col6" data-quarto-table-cell-role="th">%</th>
-<th id="T_3f096_level1_col7" class="col_heading level1 col7" data-quarto-table-cell-role="th">n</th>
-<th id="T_3f096_level1_col8" class="col_heading level1 col8" data-quarto-table-cell-role="th">%</th>
-<th id="T_3f096_level1_col9" class="col_heading level1 col9" data-quarto-table-cell-role="th">n</th>
-<th id="T_3f096_level1_col10" class="col_heading level1 col10" data-quarto-table-cell-role="th">%</th>
-<th id="T_3f096_level1_col11" class="col_heading level1 col11" data-quarto-table-cell-role="th">n</th>
+<th id="T_5f95c_level1_col0" class="col_heading level1 col0" data-quarto-table-cell-role="th"></th>
+<th id="T_5f95c_level1_col1" class="col_heading level1 col1" data-quarto-table-cell-role="th"></th>
+<th id="T_5f95c_level1_col2" class="col_heading level1 col2" data-quarto-table-cell-role="th"></th>
+<th id="T_5f95c_level1_col3" class="col_heading level1 col3" data-quarto-table-cell-role="th">n</th>
+<th id="T_5f95c_level1_col4" class="col_heading level1 col4" data-quarto-table-cell-role="th">%</th>
+<th id="T_5f95c_level1_col5" class="col_heading level1 col5" data-quarto-table-cell-role="th">n</th>
+<th id="T_5f95c_level1_col6" class="col_heading level1 col6" data-quarto-table-cell-role="th">%</th>
+<th id="T_5f95c_level1_col7" class="col_heading level1 col7" data-quarto-table-cell-role="th">n</th>
+<th id="T_5f95c_level1_col8" class="col_heading level1 col8" data-quarto-table-cell-role="th">%</th>
+<th id="T_5f95c_level1_col9" class="col_heading level1 col9" data-quarto-table-cell-role="th">n</th>
+<th id="T_5f95c_level1_col10" class="col_heading level1 col10" data-quarto-table-cell-role="th">%</th>
+<th id="T_5f95c_level1_col11" class="col_heading level1 col11" data-quarto-table-cell-role="th">n</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_3f096_row0_col0" class="data row0 col0">early</td>
-<td id="T_3f096_row0_col1" class="data row0 col1">0</td>
-<td id="T_3f096_row0_col2" class="data row0 col2">False</td>
-<td id="T_3f096_row0_col3" class="data row0 col3">0</td>
-<td id="T_3f096_row0_col4" class="data row0 col4">0.00</td>
-<td id="T_3f096_row0_col5" class="data row0 col5">1</td>
-<td id="T_3f096_row0_col6" class="data row0 col6">1.16</td>
-<td id="T_3f096_row0_col7" class="data row0 col7">0</td>
-<td id="T_3f096_row0_col8" class="data row0 col8">0.00</td>
-<td id="T_3f096_row0_col9" class="data row0 col9">0</td>
-<td id="T_3f096_row0_col10" class="data row0 col10">0.00</td>
-<td id="T_3f096_row0_col11" class="data row0 col11">86</td>
+<td id="T_5f95c_row0_col0" class="data row0 col0">early</td>
+<td id="T_5f95c_row0_col1" class="data row0 col1">0</td>
+<td id="T_5f95c_row0_col2" class="data row0 col2">False</td>
+<td id="T_5f95c_row0_col3" class="data row0 col3">0</td>
+<td id="T_5f95c_row0_col4" class="data row0 col4">0.00</td>
+<td id="T_5f95c_row0_col5" class="data row0 col5">1</td>
+<td id="T_5f95c_row0_col6" class="data row0 col6">1.16</td>
+<td id="T_5f95c_row0_col7" class="data row0 col7">0</td>
+<td id="T_5f95c_row0_col8" class="data row0 col8">0.00</td>
+<td id="T_5f95c_row0_col9" class="data row0 col9">0</td>
+<td id="T_5f95c_row0_col10" class="data row0 col10">0.00</td>
+<td id="T_5f95c_row0_col11" class="data row0 col11">86</td>
 </tr>
 <tr class="even">
-<td id="T_3f096_row1_col0" class="data row1 col0">early</td>
-<td id="T_3f096_row1_col1" class="data row1 col1">0</td>
-<td id="T_3f096_row1_col2" class="data row1 col2">True</td>
-<td id="T_3f096_row1_col3" class="data row1 col3">0</td>
-<td id="T_3f096_row1_col4" class="data row1 col4">0.00</td>
-<td id="T_3f096_row1_col5" class="data row1 col5">1</td>
-<td id="T_3f096_row1_col6" class="data row1 col6">10.00</td>
-<td id="T_3f096_row1_col7" class="data row1 col7">1</td>
-<td id="T_3f096_row1_col8" class="data row1 col8">10.00</td>
-<td id="T_3f096_row1_col9" class="data row1 col9">0</td>
-<td id="T_3f096_row1_col10" class="data row1 col10">0.00</td>
-<td id="T_3f096_row1_col11" class="data row1 col11">10</td>
+<td id="T_5f95c_row1_col0" class="data row1 col0">early</td>
+<td id="T_5f95c_row1_col1" class="data row1 col1">0</td>
+<td id="T_5f95c_row1_col2" class="data row1 col2">True</td>
+<td id="T_5f95c_row1_col3" class="data row1 col3">0</td>
+<td id="T_5f95c_row1_col4" class="data row1 col4">0.00</td>
+<td id="T_5f95c_row1_col5" class="data row1 col5">1</td>
+<td id="T_5f95c_row1_col6" class="data row1 col6">10.00</td>
+<td id="T_5f95c_row1_col7" class="data row1 col7">1</td>
+<td id="T_5f95c_row1_col8" class="data row1 col8">10.00</td>
+<td id="T_5f95c_row1_col9" class="data row1 col9">0</td>
+<td id="T_5f95c_row1_col10" class="data row1 col10">0.00</td>
+<td id="T_5f95c_row1_col11" class="data row1 col11">10</td>
 </tr>
 <tr class="odd">
-<td id="T_3f096_row2_col0" class="data row2 col0">early</td>
-<td id="T_3f096_row2_col1" class="data row2 col1">1</td>
-<td id="T_3f096_row2_col2" class="data row2 col2">False</td>
-<td id="T_3f096_row2_col3" class="data row2 col3">1</td>
-<td id="T_3f096_row2_col4" class="data row2 col4">0.53</td>
-<td id="T_3f096_row2_col5" class="data row2 col5">11</td>
-<td id="T_3f096_row2_col6" class="data row2 col6">5.82</td>
-<td id="T_3f096_row2_col7" class="data row2 col7">2</td>
-<td id="T_3f096_row2_col8" class="data row2 col8">1.06</td>
-<td id="T_3f096_row2_col9" class="data row2 col9">1</td>
-<td id="T_3f096_row2_col10" class="data row2 col10">0.53</td>
-<td id="T_3f096_row2_col11" class="data row2 col11">189</td>
+<td id="T_5f95c_row2_col0" class="data row2 col0">early</td>
+<td id="T_5f95c_row2_col1" class="data row2 col1">1</td>
+<td id="T_5f95c_row2_col2" class="data row2 col2">False</td>
+<td id="T_5f95c_row2_col3" class="data row2 col3">1</td>
+<td id="T_5f95c_row2_col4" class="data row2 col4">0.53</td>
+<td id="T_5f95c_row2_col5" class="data row2 col5">11</td>
+<td id="T_5f95c_row2_col6" class="data row2 col6">5.82</td>
+<td id="T_5f95c_row2_col7" class="data row2 col7">2</td>
+<td id="T_5f95c_row2_col8" class="data row2 col8">1.06</td>
+<td id="T_5f95c_row2_col9" class="data row2 col9">1</td>
+<td id="T_5f95c_row2_col10" class="data row2 col10">0.53</td>
+<td id="T_5f95c_row2_col11" class="data row2 col11">189</td>
 </tr>
 <tr class="even">
-<td id="T_3f096_row3_col0" class="data row3 col0">early</td>
-<td id="T_3f096_row3_col1" class="data row3 col1">1</td>
-<td id="T_3f096_row3_col2" class="data row3 col2">True</td>
-<td id="T_3f096_row3_col3" class="data row3 col3">1</td>
-<td id="T_3f096_row3_col4" class="data row3 col4">11.11</td>
-<td id="T_3f096_row3_col5" class="data row3 col5">2</td>
-<td id="T_3f096_row3_col6" class="data row3 col6">22.22</td>
-<td id="T_3f096_row3_col7" class="data row3 col7">0</td>
-<td id="T_3f096_row3_col8" class="data row3 col8">0.00</td>
-<td id="T_3f096_row3_col9" class="data row3 col9">0</td>
-<td id="T_3f096_row3_col10" class="data row3 col10">0.00</td>
-<td id="T_3f096_row3_col11" class="data row3 col11">9</td>
+<td id="T_5f95c_row3_col0" class="data row3 col0">early</td>
+<td id="T_5f95c_row3_col1" class="data row3 col1">1</td>
+<td id="T_5f95c_row3_col2" class="data row3 col2">True</td>
+<td id="T_5f95c_row3_col3" class="data row3 col3">1</td>
+<td id="T_5f95c_row3_col4" class="data row3 col4">11.11</td>
+<td id="T_5f95c_row3_col5" class="data row3 col5">2</td>
+<td id="T_5f95c_row3_col6" class="data row3 col6">22.22</td>
+<td id="T_5f95c_row3_col7" class="data row3 col7">0</td>
+<td id="T_5f95c_row3_col8" class="data row3 col8">0.00</td>
+<td id="T_5f95c_row3_col9" class="data row3 col9">0</td>
+<td id="T_5f95c_row3_col10" class="data row3 col10">0.00</td>
+<td id="T_5f95c_row3_col11" class="data row3 col11">9</td>
 </tr>
 <tr class="odd">
-<td id="T_3f096_row4_col0" class="data row4 col0">early</td>
-<td id="T_3f096_row4_col1" class="data row4 col1">≥ 2</td>
-<td id="T_3f096_row4_col2" class="data row4 col2">False</td>
-<td id="T_3f096_row4_col3" class="data row4 col3">1</td>
-<td id="T_3f096_row4_col4" class="data row4 col4">0.96</td>
-<td id="T_3f096_row4_col5" class="data row4 col5">15</td>
-<td id="T_3f096_row4_col6" class="data row4 col6">14.42</td>
-<td id="T_3f096_row4_col7" class="data row4 col7">3</td>
-<td id="T_3f096_row4_col8" class="data row4 col8">2.88</td>
-<td id="T_3f096_row4_col9" class="data row4 col9">3</td>
-<td id="T_3f096_row4_col10" class="data row4 col10">2.88</td>
-<td id="T_3f096_row4_col11" class="data row4 col11">104</td>
+<td id="T_5f95c_row4_col0" class="data row4 col0">early</td>
+<td id="T_5f95c_row4_col1" class="data row4 col1">≥ 2</td>
+<td id="T_5f95c_row4_col2" class="data row4 col2">False</td>
+<td id="T_5f95c_row4_col3" class="data row4 col3">1</td>
+<td id="T_5f95c_row4_col4" class="data row4 col4">0.96</td>
+<td id="T_5f95c_row4_col5" class="data row4 col5">15</td>
+<td id="T_5f95c_row4_col6" class="data row4 col6">14.42</td>
+<td id="T_5f95c_row4_col7" class="data row4 col7">3</td>
+<td id="T_5f95c_row4_col8" class="data row4 col8">2.88</td>
+<td id="T_5f95c_row4_col9" class="data row4 col9">3</td>
+<td id="T_5f95c_row4_col10" class="data row4 col10">2.88</td>
+<td id="T_5f95c_row4_col11" class="data row4 col11">104</td>
 </tr>
 <tr class="even">
-<td id="T_3f096_row5_col0" class="data row5 col0">early</td>
-<td id="T_3f096_row5_col1" class="data row5 col1">≥ 2</td>
-<td id="T_3f096_row5_col2" class="data row5 col2">True</td>
-<td id="T_3f096_row5_col3" class="data row5 col3">0</td>
-<td id="T_3f096_row5_col4" class="data row5 col4">0.00</td>
-<td id="T_3f096_row5_col5" class="data row5 col5">3</td>
-<td id="T_3f096_row5_col6" class="data row5 col6">30.00</td>
-<td id="T_3f096_row5_col7" class="data row5 col7">4</td>
-<td id="T_3f096_row5_col8" class="data row5 col8">40.00</td>
-<td id="T_3f096_row5_col9" class="data row5 col9">1</td>
-<td id="T_3f096_row5_col10" class="data row5 col10">10.00</td>
-<td id="T_3f096_row5_col11" class="data row5 col11">10</td>
+<td id="T_5f95c_row5_col0" class="data row5 col0">early</td>
+<td id="T_5f95c_row5_col1" class="data row5 col1">≥ 2</td>
+<td id="T_5f95c_row5_col2" class="data row5 col2">True</td>
+<td id="T_5f95c_row5_col3" class="data row5 col3">0</td>
+<td id="T_5f95c_row5_col4" class="data row5 col4">0.00</td>
+<td id="T_5f95c_row5_col5" class="data row5 col5">3</td>
+<td id="T_5f95c_row5_col6" class="data row5 col6">30.00</td>
+<td id="T_5f95c_row5_col7" class="data row5 col7">4</td>
+<td id="T_5f95c_row5_col8" class="data row5 col8">40.00</td>
+<td id="T_5f95c_row5_col9" class="data row5 col9">1</td>
+<td id="T_5f95c_row5_col10" class="data row5 col10">10.00</td>
+<td id="T_5f95c_row5_col11" class="data row5 col11">10</td>
 </tr>
 <tr class="odd">
-<td id="T_3f096_row6_col0" class="data row6 col0">advanced</td>
-<td id="T_3f096_row6_col1" class="data row6 col1">0</td>
-<td id="T_3f096_row6_col2" class="data row6 col2">False</td>
-<td id="T_3f096_row6_col3" class="data row6 col3">0</td>
-<td id="T_3f096_row6_col4" class="data row6 col4">0.00</td>
-<td id="T_3f096_row6_col5" class="data row6 col5">2</td>
-<td id="T_3f096_row6_col6" class="data row6 col6">5.88</td>
-<td id="T_3f096_row6_col7" class="data row6 col7">0</td>
-<td id="T_3f096_row6_col8" class="data row6 col8">0.00</td>
-<td id="T_3f096_row6_col9" class="data row6 col9">0</td>
-<td id="T_3f096_row6_col10" class="data row6 col10">0.00</td>
-<td id="T_3f096_row6_col11" class="data row6 col11">34</td>
+<td id="T_5f95c_row6_col0" class="data row6 col0">advanced</td>
+<td id="T_5f95c_row6_col1" class="data row6 col1">0</td>
+<td id="T_5f95c_row6_col2" class="data row6 col2">False</td>
+<td id="T_5f95c_row6_col3" class="data row6 col3">0</td>
+<td id="T_5f95c_row6_col4" class="data row6 col4">0.00</td>
+<td id="T_5f95c_row6_col5" class="data row6 col5">2</td>
+<td id="T_5f95c_row6_col6" class="data row6 col6">5.88</td>
+<td id="T_5f95c_row6_col7" class="data row6 col7">0</td>
+<td id="T_5f95c_row6_col8" class="data row6 col8">0.00</td>
+<td id="T_5f95c_row6_col9" class="data row6 col9">0</td>
+<td id="T_5f95c_row6_col10" class="data row6 col10">0.00</td>
+<td id="T_5f95c_row6_col11" class="data row6 col11">34</td>
 </tr>
 <tr class="even">
-<td id="T_3f096_row7_col0" class="data row7 col0">advanced</td>
-<td id="T_3f096_row7_col1" class="data row7 col1">0</td>
-<td id="T_3f096_row7_col2" class="data row7 col2">True</td>
-<td id="T_3f096_row7_col3" class="data row7 col3">0</td>
-<td id="T_3f096_row7_col4" class="data row7 col4">0.00</td>
-<td id="T_3f096_row7_col5" class="data row7 col5">3</td>
-<td id="T_3f096_row7_col6" class="data row7 col6">12.50</td>
-<td id="T_3f096_row7_col7" class="data row7 col7">0</td>
-<td id="T_3f096_row7_col8" class="data row7 col8">0.00</td>
-<td id="T_3f096_row7_col9" class="data row7 col9">0</td>
-<td id="T_3f096_row7_col10" class="data row7 col10">0.00</td>
-<td id="T_3f096_row7_col11" class="data row7 col11">24</td>
+<td id="T_5f95c_row7_col0" class="data row7 col0">advanced</td>
+<td id="T_5f95c_row7_col1" class="data row7 col1">0</td>
+<td id="T_5f95c_row7_col2" class="data row7 col2">True</td>
+<td id="T_5f95c_row7_col3" class="data row7 col3">0</td>
+<td id="T_5f95c_row7_col4" class="data row7 col4">0.00</td>
+<td id="T_5f95c_row7_col5" class="data row7 col5">3</td>
+<td id="T_5f95c_row7_col6" class="data row7 col6">12.50</td>
+<td id="T_5f95c_row7_col7" class="data row7 col7">0</td>
+<td id="T_5f95c_row7_col8" class="data row7 col8">0.00</td>
+<td id="T_5f95c_row7_col9" class="data row7 col9">0</td>
+<td id="T_5f95c_row7_col10" class="data row7 col10">0.00</td>
+<td id="T_5f95c_row7_col11" class="data row7 col11">24</td>
 </tr>
 <tr class="odd">
-<td id="T_3f096_row8_col0" class="data row8 col0">advanced</td>
-<td id="T_3f096_row8_col1" class="data row8 col1">1</td>
-<td id="T_3f096_row8_col2" class="data row8 col2">False</td>
-<td id="T_3f096_row8_col3" class="data row8 col3">0</td>
-<td id="T_3f096_row8_col4" class="data row8 col4">0.00</td>
-<td id="T_3f096_row8_col5" class="data row8 col5">3</td>
-<td id="T_3f096_row8_col6" class="data row8 col6">4.55</td>
-<td id="T_3f096_row8_col7" class="data row8 col7">0</td>
-<td id="T_3f096_row8_col8" class="data row8 col8">0.00</td>
-<td id="T_3f096_row8_col9" class="data row8 col9">0</td>
-<td id="T_3f096_row8_col10" class="data row8 col10">0.00</td>
-<td id="T_3f096_row8_col11" class="data row8 col11">66</td>
+<td id="T_5f95c_row8_col0" class="data row8 col0">advanced</td>
+<td id="T_5f95c_row8_col1" class="data row8 col1">1</td>
+<td id="T_5f95c_row8_col2" class="data row8 col2">False</td>
+<td id="T_5f95c_row8_col3" class="data row8 col3">0</td>
+<td id="T_5f95c_row8_col4" class="data row8 col4">0.00</td>
+<td id="T_5f95c_row8_col5" class="data row8 col5">3</td>
+<td id="T_5f95c_row8_col6" class="data row8 col6">4.55</td>
+<td id="T_5f95c_row8_col7" class="data row8 col7">0</td>
+<td id="T_5f95c_row8_col8" class="data row8 col8">0.00</td>
+<td id="T_5f95c_row8_col9" class="data row8 col9">0</td>
+<td id="T_5f95c_row8_col10" class="data row8 col10">0.00</td>
+<td id="T_5f95c_row8_col11" class="data row8 col11">66</td>
 </tr>
 <tr class="even">
-<td id="T_3f096_row9_col0" class="data row9 col0">advanced</td>
-<td id="T_3f096_row9_col1" class="data row9 col1">1</td>
-<td id="T_3f096_row9_col2" class="data row9 col2">True</td>
-<td id="T_3f096_row9_col3" class="data row9 col3">1</td>
-<td id="T_3f096_row9_col4" class="data row9 col4">1.64</td>
-<td id="T_3f096_row9_col5" class="data row9 col5">18</td>
-<td id="T_3f096_row9_col6" class="data row9 col6">29.51</td>
-<td id="T_3f096_row9_col7" class="data row9 col7">5</td>
-<td id="T_3f096_row9_col8" class="data row9 col8">8.20</td>
-<td id="T_3f096_row9_col9" class="data row9 col9">1</td>
-<td id="T_3f096_row9_col10" class="data row9 col10">1.64</td>
-<td id="T_3f096_row9_col11" class="data row9 col11">61</td>
+<td id="T_5f95c_row9_col0" class="data row9 col0">advanced</td>
+<td id="T_5f95c_row9_col1" class="data row9 col1">1</td>
+<td id="T_5f95c_row9_col2" class="data row9 col2">True</td>
+<td id="T_5f95c_row9_col3" class="data row9 col3">1</td>
+<td id="T_5f95c_row9_col4" class="data row9 col4">1.64</td>
+<td id="T_5f95c_row9_col5" class="data row9 col5">18</td>
+<td id="T_5f95c_row9_col6" class="data row9 col6">29.51</td>
+<td id="T_5f95c_row9_col7" class="data row9 col7">5</td>
+<td id="T_5f95c_row9_col8" class="data row9 col8">8.20</td>
+<td id="T_5f95c_row9_col9" class="data row9 col9">1</td>
+<td id="T_5f95c_row9_col10" class="data row9 col10">1.64</td>
+<td id="T_5f95c_row9_col11" class="data row9 col11">61</td>
 </tr>
 <tr class="odd">
-<td id="T_3f096_row10_col0" class="data row10 col0">advanced</td>
-<td id="T_3f096_row10_col1" class="data row10 col1">≥ 2</td>
-<td id="T_3f096_row10_col2" class="data row10 col2">False</td>
-<td id="T_3f096_row10_col3" class="data row10 col3">4</td>
-<td id="T_3f096_row10_col4" class="data row10 col4">5.26</td>
-<td id="T_3f096_row10_col5" class="data row10 col5">16</td>
-<td id="T_3f096_row10_col6" class="data row10 col6">21.05</td>
-<td id="T_3f096_row10_col7" class="data row10 col7">7</td>
-<td id="T_3f096_row10_col8" class="data row10 col8">9.21</td>
-<td id="T_3f096_row10_col9" class="data row10 col9">4</td>
-<td id="T_3f096_row10_col10" class="data row10 col10">5.26</td>
-<td id="T_3f096_row10_col11" class="data row10 col11">76</td>
+<td id="T_5f95c_row10_col0" class="data row10 col0">advanced</td>
+<td id="T_5f95c_row10_col1" class="data row10 col1">≥ 2</td>
+<td id="T_5f95c_row10_col2" class="data row10 col2">False</td>
+<td id="T_5f95c_row10_col3" class="data row10 col3">4</td>
+<td id="T_5f95c_row10_col4" class="data row10 col4">5.26</td>
+<td id="T_5f95c_row10_col5" class="data row10 col5">16</td>
+<td id="T_5f95c_row10_col6" class="data row10 col6">21.05</td>
+<td id="T_5f95c_row10_col7" class="data row10 col7">7</td>
+<td id="T_5f95c_row10_col8" class="data row10 col8">9.21</td>
+<td id="T_5f95c_row10_col9" class="data row10 col9">4</td>
+<td id="T_5f95c_row10_col10" class="data row10 col10">5.26</td>
+<td id="T_5f95c_row10_col11" class="data row10 col11">76</td>
 </tr>
 <tr class="even">
-<td id="T_3f096_row11_col0" class="data row11 col0">advanced</td>
-<td id="T_3f096_row11_col1" class="data row11 col1">≥ 2</td>
-<td id="T_3f096_row11_col2" class="data row11 col2">True</td>
-<td id="T_3f096_row11_col3" class="data row11 col3">3</td>
-<td id="T_3f096_row11_col4" class="data row11 col4">3.80</td>
-<td id="T_3f096_row11_col5" class="data row11 col5">46</td>
-<td id="T_3f096_row11_col6" class="data row11 col6">58.23</td>
-<td id="T_3f096_row11_col7" class="data row11 col7">18</td>
-<td id="T_3f096_row11_col8" class="data row11 col8">22.78</td>
-<td id="T_3f096_row11_col9" class="data row11 col9">8</td>
-<td id="T_3f096_row11_col10" class="data row11 col10">10.13</td>
-<td id="T_3f096_row11_col11" class="data row11 col11">79</td>
+<td id="T_5f95c_row11_col0" class="data row11 col0">advanced</td>
+<td id="T_5f95c_row11_col1" class="data row11 col1">≥ 2</td>
+<td id="T_5f95c_row11_col2" class="data row11 col2">True</td>
+<td id="T_5f95c_row11_col3" class="data row11 col3">3</td>
+<td id="T_5f95c_row11_col4" class="data row11 col4">3.80</td>
+<td id="T_5f95c_row11_col5" class="data row11 col5">46</td>
+<td id="T_5f95c_row11_col6" class="data row11 col6">58.23</td>
+<td id="T_5f95c_row11_col7" class="data row11 col7">18</td>
+<td id="T_5f95c_row11_col8" class="data row11 col8">22.78</td>
+<td id="T_5f95c_row11_col9" class="data row11 col9">8</td>
+<td id="T_5f95c_row11_col10" class="data row11 col10">10.13</td>
+<td id="T_5f95c_row11_col11" class="data row11 col11">79</td>
 </tr>
 </tbody>
 </table>
@@ -1454,7 +1454,7 @@ Table&nbsp;3: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="e24e7c11" class="cell markdown">
+<div id="64fb0c8f" class="cell markdown">
 <section id="marginalizing-beta-posteriors-over-unknowns" class="level1 appendix">
 <h1 class="appendix">Marginalizing Beta Posteriors over Unknowns</h1>
 </section>
@@ -1496,7 +1496,7 @@ Table&nbsp;3: Contralateral involvement depending on whether the primary tumor e
 Table&nbsp;4: Combinations of midline extension status and state of contralateral LNL II for early T-category patients.
 </figcaption>
 <div aria-describedby="tbl-data-unknowns-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <div>
 
 
@@ -1543,15 +1543,16 @@ Table&nbsp;4: Combinations of midline extension status and state of contralatera
 </figure>
 </div></div></div>
 </div></div>
-<div id="7235de1d" class="cell markdown">
+<div id="85c1a339" class="cell markdown">
 <p>In <a href="#sec-prevalence" class="quarto-xref">section&nbsp;5.3</a> we explained that we compare the predicted prevalence of an involvement pattern under a scenario to a beta posterior over the “true” prevalence given the observations in the data. However, our data contains incomplete observations, especially regarding the tumor’s midline extension. This information is not present for a large group of 85 patients, most of which treated at the Centre Léon Bérard in France.</p>
 <p>To account for this missing information and plot the correct posteriors over the data prevalence, we need to marginalize over the possible combinations of matching involvement patterns and selected patients under a scenario. For example, we have only 29<!-- TODO: compute dynamically --> early T-category patients with midline extension. But for an additional 65<!-- TODO: compute dynamically --> patients we do not know whether the tumor crossed the mid-sagittal plane. If we now want to compute the prevalence of contralateral LNL II invovlement for these early T-category patients with midline extension, then we need to account for the possibility that we are missing information.</p>
-<p>In <a href="#tbl-data-unknowns" class="quarto-xref">table&nbsp;4</a> we show the combinations of the midline extension status and state of the contralateral LNL II. Using only available information, we would get to 6 out of 29<!-- TODO: compute dynamically --> patients for the prevalence of contralateral LNL II invovlement among the early T-category patients with midline extension. But the column with the “unknown” numbers suggests that the true prevalence could range from 6 out of 29 + 59 (7%)<!-- TODO: compute dynamically --> up to 12 out of 29 + 6 (34%)<!-- TODO: compute dynamically -->. Assuming that every one of the possible combinations has the same a priori probability (uniform prior) and accouting for permutations via the binomial factor, the posterior marginalized over the unknowns could be written as</p>
+<p>In <a href="#tbl-data-unknowns" class="quarto-xref">table&nbsp;4</a> we show the combinations of the midline extension status and state of the contralateral LNL II. Using only available information, we would get to 6 out of 29<!-- TODO: compute dynamically --> patients for the prevalence of contralateral LNL II invovlement among the early T-category patients with midline extension. But the column with the “unknown” numbers suggests that the true prevalence could range from 6 out of 29 + 59 (7%)<!-- TODO: compute dynamically --> up to 12 out of 29 + 6 (34%)<!-- TODO: compute dynamically -->. We assume that every one of the possible combinations has the same a priori probability (uniform prior) but we do need to account for permutations via the binomial factor. In general, let us say we have <span class="math inline">\(n\)</span> patients with midline extension, of which <span class="math inline">\(k\)</span> harbor metastases in the contralateral LNL II. And we have <span class="math inline">\(m\)</span> patients with unknown midline extension, of which <span class="math inline">\(\ell\)</span> presented with diasease in contralateral LNL II, then the posterior distribution - marginalized over the unknown data - over the true prevalence <span class="math inline">\(x \in \left[ 0, 1 \right]\)</span> is given by:</p>
 <p><span class="math display">\[
-\begin{aligned}
-p(x; \alpha=1, \beta=1) &amp;= \sum_{m=0}^{65} \sum_{\ell=0}^{\min(m,6)} \binom{n+m}{k+\ell} x^{k+\ell} (1-x)^{n+m - (k+\ell)} \cdot \frac{1}{\operatorname{B}(\alpha, \beta)} x^\alpha (1-x)^\beta \\
-&amp;= \sum_{m=0}^{65} \sum_{\ell=0}^{\min(m,6)} \binom{n+m}{k+\ell} x^{k+\ell+1} (1-x)^{n+m - (k+\ell) + 1}
-\end{aligned}
+p(x \mid n, k, m, \ell, \alpha, \beta) = \left[ \frac{1}{m} \sum_{i=0}^m \frac{1}{\min(i,\ell)} \sum_{j=0}^{\min(i,\ell)} \frac{P(i, j \mid x )}{\binom{n}{k}} \right] \cdot P(n, k \mid x) \cdot \frac{1}{\operatorname{B}(\alpha, \beta)} x^\alpha (1-x)^\beta
+\]</span></p>
+<p>Note the two binomial likelihoods: one being marginalized over and one acting implicitly as a prior to the summed terms. This role of the likelihood over the data with known midline extension as a prior to the part where that data is missing corrects for the fact that there are highly unlikely combinations among those we marginalize over. E.g., expecting that exactly those 6 patients with contralateral LNL II involvemnt are also coincidentially the only ones of the 65 with a tumor crossing the mid-sagittal line is very unlikely. This is accounted for by the fact that this possibility has only one permutation and it is weakened by the likelihood over the data with known midline extension. With a uniform prior beta distribution (<span class="math inline">\(\alpha=1\)</span> and <span class="math inline">\(\beta=1\)</span>), the above simplifies to:</p>
+<p><span class="math display">\[
+p(x \mid n, k, m, \ell) = \left[ \frac{1}{m} \sum_{i=0}^m \frac{1}{\min(i,\ell)} \sum_{j=0}^{\min(i,\ell)} \binom{n+i}{k+j} x^j (1 - x)^{i-j} \right] \cdot x^{k+1} (1 - x)^{n-k+1}
 \]</span></p>
 <p>We have plotted this marginal in <a href="#fig-model-marginal-pdf" class="quarto-xref">figure&nbsp;10</a> (blue curve) and the terms that make up the above sum (light red curves). Note that we weighted the plotting opacity with the number of permutations each of the possible combinations has. The marginal is compared against the “naive” beta posterior that only takes the data into account for which midline extension is available (green curve).</p>
 <div id="fig-model-marginal-pdf" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1564,7 +1565,7 @@ Figure&nbsp;10: Posterior distributions over the data prevalence for contralater
 </figcaption>
 </figure>
 </div>
-<p>The distribution that marginalizes over the unknown midline extension cases is shifted towards a lower prevalence. This makes intuitive sense: With only six patients among the 65 with unknown midline extension status, the upper bound for the prevalence has moved down compared to six out of 29.</p>
+<p>The distribution that marginalizes over the unknown midline extension cases is shifted towards a lower prevalence. This makes intuitive sense: With only 6 patients among the 65 with unknown midline extension status, the upper bound for the prevalence has moved down compared to 6 out of 29.</p>
 <p>We chose to compare our model against such corrected prevalence posteriors, because the model, too, is capable of marginalizing over unknown midline extension in the data. It would therefore be inaccurate to compare the model trained with the full dataset to only that part of the patient cohort where the tumor lateralization was recorded.</p>
 </div>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
@@ -2034,7 +2035,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":false});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
