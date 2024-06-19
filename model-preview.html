@@ -320,7 +320,7 @@ The top panel shows the prior probability to get diagnosed at time-step <span cl
 </div>
 </div></div>
 </section>
-<div id="c2c4f5aa" class="cell markdown">
+<div id="27fc4e8e" class="cell markdown">
 <section id="sampling-history" class="level1">
 <h1>Sampling History</h1>
 <p>For bookeeping, we also show how different quantities evolve during the burnin of the sampling. For example, the ratio of proposed samples that were accepted or the autocorrelation time.</p>
@@ -405,7 +405,7 @@ Monitoring quantities during the burn-in phase of the parameter sampling.
 </div>
 </div>
 </div></div>
-<div id="8cf3ac1b" class="cell markdown">
+<div id="229f1171" class="cell markdown">
 <section id="prior-state-distribution-of-midline-model" class="level1">
 <h1>Prior State Distribution of Midline Model</h1>
 <p>It may be illustrative to look at the 3D state distribution of the midline model (at least if we only consider 3 LNLs).</p>
@@ -465,7 +465,7 @@ midext.set_xlabel(r"contra state $\boldsymbol{\xi}^\text{c}_k$")
 plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3971/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<pre><code>/tmp/ipykernel_2595/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 /home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   fig.canvas.print_figure(bytes_io, **kw)</code></pre>
@@ -483,7 +483,7 @@ plt.show()</code></pre>
 </div>
 </div>
 </div></div>
-<div id="23842f4c" class="cell markdown">
+<div id="1219569c" class="cell markdown">
 <section id="observed-vs-predicted-prevalence" class="level1">
 <h1>Observed vs Predicted Prevalence</h1>
 <p>To verify that the model does what it is supposed to, we compare how often some selected diagnoses appear in the data and how often the model predicts these diagnoses to be observed.</p>
@@ -617,7 +617,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="b55124f1" class="cell markdown">
+<div id="26c5967c" class="cell markdown">
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h2>
 </section>
@@ -751,7 +751,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="4d2be56f" class="cell markdown">
+<div id="bf6e30ad" class="cell markdown">
 <section id="portion-of-midline-extension" class="level2">
 <h2 class="anchored" data-anchor-id="portion-of-midline-extension">Portion of Midline Extension</h2>
 <p>Since we model the tumor’s midline extension as a random variable we can predict its portion among early or late T-category patients and compare it with the observed prevalence in the data.</p>
@@ -828,13 +828,13 @@ Comparing the predicted (histograms) and observed (lines depicting beta posterio
 </div>
 </div>
 </div></div>
-<div id="3e05113d" class="cell markdown">
+<div id="578eddb5" class="cell markdown">
 <section id="risk-predictions" class="level1">
 <h1>Risk Predictions</h1>
 <p>Now, we want to make actual use of the model and predict the risk for occult diease given some diagnoses.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="fe45da75" class="cell" data-execution_count="8">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="7378fb94" class="cell" data-execution_count="8">
 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.legend_handler import HandlerTuple
@@ -941,12 +941,12 @@ plt.show()</code></pre>
 </div>
 </div>
 </div></div>
-<div id="6a3a45dc" class="cell markdown">
+<div id="9c195121" class="cell markdown">
 <section id="illustrating-the-marginalization-over-beta-pdfs" class="level1">
 <h1>Illustrating the Marginalization over Beta PDFs</h1>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="92e59df6" class="cell" data-execution_count="9">
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="02670001" class="cell" data-execution_count="9">
 <pre><code>import matplotlib.pyplot as plt
 import numpy as np
 from lyscripts.scenario import Scenario
@@ -1434,7 +1434,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","selector":".lightbox"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;

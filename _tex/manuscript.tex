@@ -186,6 +186,29 @@ Zurich}}
 
 % abstract 
 
+\abstract{In current practice, large parts of the contralateral lymph
+system are included in the elective clinical target volume (CTV-N) of
+oropharyngeal squamous cell carcinoma (OPSCC) patients. Guidelines on
+how to define the CTV-N are mostly based on prevalences of nodal
+involvement in the different lymph node levels (LNLs) and do not
+consider the detailed, individual diagnosis of a patient.
+
+In this work, we present a probabilistic model for bilateral lymphatic
+tumor progression in OPSCC. Its aim is to predict the personal risk for
+occult disease in any LNL, given the patient's clincal diagnosis,
+T-category, and lateralization of the primary tumor. The model
+represents each of the LNLs I, II, III, IV, V, and VII of both sides of
+the neck as a hidden binary random variable that are connected to the
+tumor and among each other via arcs that correspond to spread
+probabilities per time-step. These spread probability rates are learned
+via Markov chain Monte Carlo (MCMC) sampling from a dataset of 833 OPSCC
+patients.
+
+The model is able to describe the data well and may in the future be
+used to only include LNLs in a CTV-N that show a risk above a specific
+threshold for that particular patient's diagnosis. E.g., it predicts the
+risk for occult disease in contralateral LNL II to be below 5\% unless
+the tumor crosses the mid-sagittal line.}
 
 % keywords
 
@@ -207,7 +230,7 @@ radiotherapy or surgery, not only the primary tumor and the clinically
 detected lymph node metastases are targeted. Per current guidelines,
 large volumes of the neck - lymph node levels (LNLs) - are part of the
 the elective clinical target volume (CTV-N)
-\citep{gregoire_ctbased_2003, gregoire_delineation_2014, gregoire_delineation_2018, eisbruch_intensitymodulated_2002, biau_selection_2019, chao_determination_2002, vorwerk_guidelines_2011, ferlito_elective_2009}.
+\citep{gregoire_ct-based_2003, gregoire_delineation_2014, gregoire_delineation_2018, eisbruch_intensity-modulated_2002, biau_selection_2019, chao_determination_2002, vorwerk_guidelines_2011, ferlito_elective_2009}.
 This is to minimize the risk of regional recurrences due to missed
 microscopic disease which cannot be detected by current in-vivo imaging
 modalities such as computed tomography (CT), magnetic resonance imaging
@@ -261,11 +284,18 @@ results in section~\ref{sec-results}, followed by a closing discussion
 
 \section{Data on Lymphatic Progression Patterns}\label{sec-data}
 
-We have collected a detailed dataset of 833 patients with newly
-diagnosed oropharyngeal squamous cell carcinomas. It reports the
-involvement of every patient individually and per lymph node level in
-tabular form, in addition to other clinico-pathological information such
-as age, T-category, and HPV p16 status.
+Originally, the only available data of detailed - i.e.~per patient and
+per LNL - lymphatic involvement was a reconstructed table from the
+findings in \citet{sanguineti_defining_2009}, which included only
+ipsilateral nodal involvement for the LNLs I to IV.
+
+To be able to create models for lymphatic tumor progression that include
+more LNLs and the contralateral side, we have collected a detailed
+dataset of 833 patients with newly diagnosed oropharyngeal squamous cell
+carcinomas. It reports the involvement of every patient individually and
+per lymph node level in tabular form, in addition to other
+clinico-pathological information such as age, T-category, and HPV p16
+status.
 
 Their patient records have been collected at four different institutions
 and a brief overview over some of their patients' characteristics are
@@ -292,7 +322,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_42bd2}\tabularnewline
+\caption{}\label{T_331cf}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -413,7 +443,7 @@ it can be interactively explored too,
 \href{https://github.com/rmnldwg/lydata}{from GitHub},
 \href{https://zenodo.org/search?q=lydata}{from zenodo}, or via the
 \emph{Data-in-Brief} publications \citet{ludwig_dataset_2022} and
-\citet{ludwig_multicentric_2023}. Although these publications do not
+\citet{ludwig_multi-centric_2023}. Although these publications do not
 include the most recent dataset addition from Vall d'Hebron Barcelona
 Hospital.
 
@@ -849,17 +879,18 @@ modalities, each being characterized by different pairs of sensitivity
 and specificity. However, we instead chose to combine them into a single
 ``consensus'' diagnosis before parameter inference. We opted for this
 because the literature values of sensitivity and specificity
-\citep{debondt_detection_2007} of imaging modalities like MRI and CT do
-not plausibly match some of our observations: In the USZ cohort, 78\% of
-OPSCC patients where diagnosed with ipsilateral LNL II involvement via
-diagnostic imaging. This is virtually impossible with sensitivities
-around 80\% and specificities lower than 100\%.
+\citep{de_bondt_detection_2007, kyzas_18f-fluorodeoxyglucose_2008} of
+imaging modalities like MRI and CT do not plausibly match some of our
+observations: In the USZ cohort, 78\% of OPSCC patients where diagnosed
+with ipsilateral LNL II involvement via diagnostic imaging. This is
+virtually impossible with sensitivities around 80\% and specificities
+lower than 100\%.
 
 Our pre-training consensus was formed by considering all reported
 diagnostic information for a particular patient and LNL. When conflicts
 arose, we computed the \emph{most likely} true state of involvement
 using the literature sensitivity and specificity values
-\citep{debondt_detection_2007}.
+\citep{de_bondt_detection_2007, kyzas_18f-fluorodeoxyglucose_2008}.
 
 \subsection{MCMC Sampling}\label{sec-sampling}
 
@@ -867,7 +898,9 @@ For parameter inference, we used the Python package
 \href{https://emcee.readthedocs.io/en/stable/}{\texttt{emcee}}
 \citep{foreman-mackey_emcee_2013}. It implements efficient MCMC sampling
 algorithms that employ multiple parallel samplers for affine invariance
-and better performance on multi-core CPUs. The
+and better performance on multi-core CPUs. The sample proposal
+algirothms used by us are based on differential evolution moves
+\citep{ter_braak_differential_2008, nelson_run_2013}. The
 \href{https://emcee.readthedocs.io/en/stable/}{\texttt{emcee}} library
 was provided with the likelihood implemented by our
 \href{https://lymph-model.readthedocs.io/en/stable/}{\texttt{lymph-model}}
@@ -1013,7 +1046,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_c1c15}\tabularnewline
+\caption{}\label{T_d4a82}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1192,6 +1225,11 @@ enumerator and the denominator, which largely cancel each other, leaving
 only the midline extension's effect on the distribution over hidden
 states in the prediction.
 
+Also, the discrepancy in midline extension prevalence between early and
+advanced T-category is particularly pronounced in oropharyngeal SCC
+patients. For example, in oral cavity SCC, the midline extension only
+increases from 15.4\% (20 out of 130) to 33.3\% (13 out of 39).
+
 \subsection{Prediction of Risk for Occult
 Disease}\label{prediction-of-risk-for-occult-disease}
 
@@ -1223,7 +1261,7 @@ in contralateral LNL II for four interesting combinations of these three
 risk factors. This risk is computed \emph{given} a CT diagnosis
 assessing the per-LNL clinical involvement for which we assumed a
 sensitivity of 81\% and a specificity of 76\%
-\citep{debondt_detection_2007}.
+\citep{de_bondt_detection_2007}.
 
 The variable impacting the prediction for contralateral involvement in
 our model is the tumor's lateralization. For example, a patient with a
@@ -1254,16 +1292,52 @@ involved).
 
 \section{Discussion}\label{sec-discussion}
 
+\subsection{Summary}\label{summary}
+
+In this work we present a formalism to model the ipsi- and contralateral
+lymphatic involvement of oropharyngeal SCC patients. An ipsilateral
+model has been previously developed and published
+\citep{ludwig_hidden_2021, ludwig_modelling_2023}. Based on this, we
+introduce an extension that leaves the ipsilateral model untouched, but
+extends it to the contralateral side in an intuitive and comprehensible
+manner.
+
+The model's performance w.r.t. its ability to describe the data on
+contralateral nodal involvement was evaluated based on a dataset of 833
+patients from four institutions. To the best of our knowledge, this is
+the first time lymphatic tumor progression has been modelled in such
+detail and to such an extent. While there was work on regional tumor
+spread, these models were conceptually different, more limited in the
+LNLs for which they make predictions, and not trained with real patient
+data \citep{benson_markov_2006, jung_development_2017}.
+
+The model takes the clincal diagnosis of the lymph node levels, the
+primary tumor's T-category, as well as lateralization into account when
+predicting the personalized risk for occult disease in any LNL of
+interest. Owing to the relatively few parameters, the model is highly
+interpretable and every parameter can be intuitively explained, while
+still offering good accuracy in its predictions.
+
+\subsection{Implications for Contralateral Elective Nodal
+Treatment}\label{implications-for-contralateral-elective-nodal-treatment}
+
+The predictions of this model are being used to inform a clinical trial
+on volume deescalation at the University Hospital Zurich {[}citation
+needed{]}. When accepting a 5\% risk of occult disease in any given LNL,
+the model suggests the following contralateral elective irradiation
+(assuming the respective LNL appears clinically healthy):
+
 \begin{itemize}
 \tightlist
 \item
-  conceptually extended model to cover both sides of neck
+  LNL II when the tumor extends over the mid-sagittal line
 \item
-  explicitly models midline extension (also allows for easy
-  marginalization)
+  LNL III when LNL II is clinically, the tumor is of advanced
+  T-category, crosses the midline, and the ipsilateral neck shows
+  involvement of at least LNL II
 \item
-  midline extension intuitively causes contralateral spread to become
-  more similar to ipsilateral spread
+  LNL IV only for severe ipsilateral involvement, advanced T-category
+  with obvious midline extension and contralateral upstream involvement
 \end{itemize}
 
 \section{Acknowledgement}\label{acknowledgement}
@@ -1296,7 +1370,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_78884}\tabularnewline
+\caption{}\label{T_f8f73}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
