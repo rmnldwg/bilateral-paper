@@ -320,7 +320,7 @@ The top panel shows the prior probability to get diagnosed at time-step <span cl
 </div>
 </div></div>
 </section>
-<div id="27fc4e8e" class="cell markdown">
+<div id="9534b8a2" class="cell markdown">
 <section id="sampling-history" class="level1">
 <h1>Sampling History</h1>
 <p>For bookeeping, we also show how different quantities evolve during the burnin of the sampling. For example, the ratio of proposed samples that were accepted or the autocorrelation time.</p>
@@ -405,7 +405,7 @@ Monitoring quantities during the burn-in phase of the parameter sampling.
 </div>
 </div>
 </div></div>
-<div id="229f1171" class="cell markdown">
+<div id="0c61309c" class="cell markdown">
 <section id="prior-state-distribution-of-midline-model" class="level1">
 <h1>Prior State Distribution of Midline Model</h1>
 <p>It may be illustrative to look at the 3D state distribution of the midline model (at least if we only consider 3 LNLs).</p>
@@ -465,7 +465,7 @@ midext.set_xlabel(r"contra state $\boldsymbol{\xi}^\text{c}_k$")
 plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_2595/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<pre><code>/tmp/ipykernel_21200/349788680.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.savefig(paths.figure_dir / "fig-model-state-dist.png", dpi=400)
 /home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   fig.canvas.print_figure(bytes_io, **kw)</code></pre>
@@ -483,7 +483,7 @@ plt.show()</code></pre>
 </div>
 </div>
 </div></div>
-<div id="1219569c" class="cell markdown">
+<div id="04dde326" class="cell markdown">
 <section id="observed-vs-predicted-prevalence" class="level1">
 <h1>Observed vs Predicted Prevalence</h1>
 <p>To verify that the model does what it is supposed to, we compare how often some selected diagnoses appear in the data and how often the model predicts these diagnoses to be observed.</p>
@@ -617,7 +617,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="26c5967c" class="cell markdown">
+<div id="25a6307d" class="cell markdown">
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h2>
 </section>
@@ -717,22 +717,22 @@ for i, t_stage in enumerate(["early", "late"]):
 # manually place legends
 split_legends(
   axes=axes[0,0],
-  titles=["ipsi N0", "ipsi LNL III"],
+  titles=["ipsi LNLs I-V healthy", "ipsi LNL III"],
   locs=[(0.3, 0.99), (0.5, 0.55)],
 )
 split_legends(
   axes=axes[0,1],
-  titles=["ipsi N0", "ipsi LNL III"],
+  titles=["ipsi LNLs I-V healthy", "ipsi LNL III"],
   locs=[(0.3, 0.99), (0.5, 0.55)],
 )
 split_legends(
   axes=axes[1,0],
-  titles=["ipsi N0", "ipsi LNL III"],
+  titles=["ipsi LNLs I-V healthy", "ipsi LNL III"],
   locs=[(0.16, 0.99), (0.53, 0.55)],
 )
 split_legends(
   axes=axes[1,1],
-  titles=["ipsi N0", "ipsi LNL III"],
+  titles=["ipsi LNLs I-V healthy", "ipsi LNL III"],
   locs=[(0.13, 0.55), (0.5, 0.99)],
 )
 
@@ -751,7 +751,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="bf6e30ad" class="cell markdown">
+<div id="303cb20a" class="cell markdown">
 <section id="portion-of-midline-extension" class="level2">
 <h2 class="anchored" data-anchor-id="portion-of-midline-extension">Portion of Midline Extension</h2>
 <p>Since we model the tumor’s midline extension as a random variable we can predict its portion among early or late T-category patients and compare it with the observed prevalence in the data.</p>
@@ -828,13 +828,13 @@ Comparing the predicted (histograms) and observed (lines depicting beta posterio
 </div>
 </div>
 </div></div>
-<div id="578eddb5" class="cell markdown">
+<div id="62814b5b" class="cell markdown">
 <section id="risk-predictions" class="level1">
 <h1>Risk Predictions</h1>
 <p>Now, we want to make actual use of the model and predict the risk for occult diease given some diagnoses.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="7378fb94" class="cell" data-execution_count="8">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="3a303932" class="cell" data-execution_count="8">
 <pre><code>import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.legend_handler import HandlerTuple
@@ -842,13 +842,19 @@ from lyscripts.scenario import Scenario
 from lyscripts.plot.utils import Histogram, draw, COLORS, split_legends
 from scripts import paths, shared
 
-all_false = {lnl: False for lnl in ["I", "II", "III", "IV", "V"]}
+all_false = {lnl: False for lnl in ["I", "II", "III", "IV", "V", "VII"]}
+all_true = {lnl: True for lnl in ["I", "II", "III", "IV", "V", "VII"]}
 
+nrows, ncols = 1, 3
 plt.rcParams.update(shared.get_fontsizes())
-plt.rcParams.update(shared.get_figsizes(width=17./2.))
+plt.rcParams.update(shared.get_figsizes(
+  nrows=nrows,
+  ncols=ncols,
+  width=17,
+  aspect_ratio=1.3,
+))
 
-fig, ax = plt.subplots()
-ax.set_xlim(0., 15.)
+fig, ax = plt.subplots(nrows=nrows, ncols=ncols)
 
 contents = []
 defaults = {
@@ -858,7 +864,7 @@ defaults = {
   "bins": 50,
 }
 
-
+# contra LNL II
 scenario = Scenario(
   t_stages=["early"],
   midext=False,
@@ -875,7 +881,6 @@ contents.append(Histogram.from_hdf5(
   label="early, lateralized; N0",
 ))
 
-
 scenario = Scenario(
   t_stages=["late"],
   midext=False,
@@ -889,9 +894,8 @@ contents.append(Histogram.from_hdf5(
   filename=paths.model_dir / "full" / "risks.hdf5",
   dataname=scenario.md5_hash("risks"),
   color=COLORS["blue"],
-  label="advanced, lateralized; ipsi LNL III",
+  label="adv., lateralized; ipsi LNL III",
 ))
-
 
 scenario = Scenario(
   t_stages=["early"],
@@ -906,7 +910,7 @@ contents.append(Histogram.from_hdf5(
   filename=paths.model_dir / "full" / "risks.hdf5",
   dataname=scenario.md5_hash("risks"),
   color=COLORS["orange"],
-  label="early, midline extension; N0",
+  label="early, mid. ext.; N0",
 ))
 
 scenario = Scenario(
@@ -922,31 +926,133 @@ contents.append(Histogram.from_hdf5(
   filename=paths.model_dir / "full" / "risks.hdf5",
   dataname=scenario.md5_hash("risks"),
   color=COLORS["red"],
-  label="advanced, midline extension; ipsi LNL III",
+  label="adv., mid. ext.; ipsi LNL III",
 ))
 
-draw(ax, contents, xlims=(0., 15.))
-ax.legend(labelspacing=0.3)
-ax.set_xlabel("risk [%]")
-ax.set_yticks([])
-ax.set_title("Predicted Risk of Contralateral LNL II Involvement\nfor Selected Diagnosis Scenarios")
+draw(ax[0], contents, xlims=(0., 15.))
+ax[0].legend(labelspacing=0.1)
+ax[0].set_xlabel("risk [%]")
+ax[0].set_yticks([])
+ax[0].set_xticks(np.linspace(0, 15, 6))
+ax[0].set_title("Contralateral LNL II")
+
+# contra LNL III
+contents = []
+
+scenario = Scenario(
+  t_stages=["early"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": all_false},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"III": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["green"],
+  label="early, mid. ext.; N0",
+))
+
+scenario = Scenario(
+  t_stages=["late"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": all_false},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"III": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["blue"],
+  label="adv., mid. ext.; N0",
+))
+
+scenario = Scenario(
+  t_stages=["late"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": {"III": True}},
+    "contra": {"CT": {"I": False, "II": True, "III": False, "IV": False, "V": False, "VII": False}},
+  },
+  involvement={"contra": {"III": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["red"],
+  label="adv., mid. ext.;\nipsi LNL III &amp; contra LNL II",
+))
+
+draw(ax[1], contents, xlims=(0., 8.))
+ax[1].legend(labelspacing=0.1)
+ax[1].set_xlabel("risk [%]")
+ax[1].set_yticks([])
+ax[1].set_xticks(np.linspace(0, 8, 9))
+ax[1].set_title("Contralateral LNL III")
+
+
+# contra LNL IV
+contents = []
+
+scenario = Scenario(
+  t_stages=["late"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": {"III": True}},
+    "contra": {"CT": all_false},
+  },
+  involvement={"contra": {"IV": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["green"],
+  label="adv., mid. ext.; ipsi LNL III",
+))
+
+scenario = Scenario(
+  t_stages=["late"],
+  midext=True,
+  diagnosis={
+    "ipsi": {"CT": all_true},
+    "contra": {"CT": {"I": True, "II": True, "III": True, "IV": False, "V": False, "VII": False}},
+  },
+  involvement={"contra": {"IV": True}},
+)
+contents.append(Histogram.from_hdf5(
+  filename=paths.model_dir / "full" / "risks.hdf5",
+  dataname=scenario.md5_hash("risks"),
+  color=COLORS["red"],
+  label="adv., mid. ext.;\nsevere bilat. inv.",
+))
+
+draw(ax[2], contents, xlims=(0., 5.))
+ax[2].legend(labelspacing=0.1)
+ax[2].set_xlabel("risk [%]")
+ax[2].set_yticks([])
+ax[2].set_xticks(np.linspace(0, 5, 6))
+ax[2].set_title("Contralateral LNL IV")
 
 plt.savefig(paths.figure_dir / "fig-model-risks.png", dpi=400)
 plt.show()</code></pre>
 <div class="cell-output cell-output-display">
 <div class="">
 <figure class="figure">
-<p class=""><a href="model_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="model_files/figure-html/cell-8-output-1.png" width="299" height="176" class="figure-img"></a></p>
+<p class=""><a href="model_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="model_files/figure-html/cell-8-output-1.png" width="620" height="142" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
 </div></div>
-<div id="9c195121" class="cell markdown">
+<div id="b6c4b24f" class="cell markdown">
 <section id="illustrating-the-marginalization-over-beta-pdfs" class="level1">
 <h1>Illustrating the Marginalization over Beta PDFs</h1>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="02670001" class="cell" data-execution_count="9">
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="a1067389" class="cell" data-execution_count="9">
 <pre><code>import matplotlib.pyplot as plt
 import numpy as np
 from lyscripts.scenario import Scenario
@@ -1434,7 +1540,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","selector":".lightbox"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom","closeEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
