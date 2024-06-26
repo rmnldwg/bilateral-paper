@@ -562,7 +562,7 @@ The model is able to describe the data well and may in the future be used to onl
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="bee55e43" class="cell markdown">
+<div id="5810e2ba" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>When treating head and neck squamous cell carcinomas (HNSCC) with radiotherapy or surgery, not only the primary tumor and the clinically detected lymph node metastases are targeted. Per current guidelines, large volumes of the neck - lymph node levels (LNLs) - are part of the the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ct-based_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensity-modulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ct-based_2003" role="doc-biblioref">Vincent Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>; <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">V. Grégoire and Others 2018</a>; <a href="#ref-eisbruch_intensity-modulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span>. This is to minimize the risk of regional recurrences due to missed microscopic disease which cannot be detected by current in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET).</p>
@@ -740,7 +740,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="67c292cb" class="cell markdown">
+<div id="9d9c35d5" class="cell markdown">
 <section id="sec-data-strat" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-strat">Contralateral Involvement Prevalence</h2>
 <p>These datasets allow us to investigate correlations between the involvement of individual LNLs, or between risk factors and patterns of involvement. In <a href="#fig-data-strat" class="quarto-xref">figure&nbsp;1</a>, we have plotted the prevalence of each contralateral LNL’s involvement, stratified by T-category, ipsilateral number of involved LNLs, and whether the tumor extended over the mid-sagittal line. A similar but more complete stratification is also tabulated in the appendix in <a href="#tbl-data-strat" class="quarto-xref">table&nbsp;3</a>.</p>
@@ -808,7 +808,7 @@ Figure&nbsp;2: Directed acyclic graph (DAG) representing the abstract lymphatic 
 <p><span class="math display">\[
 P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{max}} P \left( \mathbf{X} \mid t \right) \cdot P(t \mid \text{early})
 \]</span></p>
-<p>For later use, we define at this point the matrices <span class="math inline">\(\boldsymbol{\Lambda}\)</span>:</p>
+<p>For later use, we define at this point the matrices of the dsitributions over all hidden states, given all time-steps <span class="math inline">\(\boldsymbol{\Lambda}\)</span>:</p>
 <p><span id="eq-lambda-matrix"><span class="math display">\[
 \boldsymbol{\Lambda} = P \left( \mathbf{X} \mid \mathbf{t} \right) = \begin{pmatrix}
 \boldsymbol{\pi}^\intercal \cdot \mathbf{A}^0 \\
@@ -826,7 +826,7 @@ P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{m
 \ell = P \left( \mathbf{Z} = \boldsymbol{\zeta}_i \mid \text{T}x \right) = \sum_{t=0}^{t_\text{max}} \left[ \boldsymbol{\xi}_0 \cdot \mathbf{A} \cdot \mathbf{B} \right]_i \cdot P \left( t \mid \text{T}x \right)
 \tag{5}\]</span></span></p>
 <p>Above, the quantity inside <span class="math inline">\(\left[ \ldots \right]_i\)</span> denotes the <span class="math inline">\(i\)</span>-th component of the vector that is the result of the vector and matrix multiplications in the square brackets. Note that it is also possible to account for missing involvement information: If a diagnosis (like fine needle aspiration (FNA)) is only available for a subset of all LNLs, we can sum over all those possible complete observed states <span class="math inline">\(\boldsymbol{\zeta}_j\)</span> that match the provided diagnosis.</p>
-<p>The single-patient likelihood <span class="math inline">\(\ell\)</span> in <a href="#eq-single-patient-llh" class="quarto-xref">equation&nbsp;5</a> depends on the spread parameters shown in <a href="#fig-small-graph" class="quarto-xref">figure&nbsp;2</a> via the transition matrix <span class="math inline">\(\mathbf{A}\)</span> and on the binomial parameters <span class="math inline">\(p_{\text{T}x}\)</span> via time-priors. In this work, we will only differentiate between “early” (T1 &amp; T2) and “advanced” (T3 &amp; T4) T-categories. Therefore, our parameter space is:</p>
+<p>The single-patient likelihood <span class="math inline">\(\ell\)</span> in <a href="#eq-single-patient-llh" class="quarto-xref">equation&nbsp;5</a> depends on the spread parameters shown in <a href="#fig-small-graph" class="quarto-xref">figure&nbsp;2</a> via the transition matrix <span class="math inline">\(\mathbf{A}\)</span> and on the binomial parameters <span class="math inline">\(p_{\text{T}x}\)</span> via time-priors. In this work, we will only differentiate between “early” (T1 &amp; T2) and “advanced” (T3 &amp; T4) T-categories. Therefore, the parameter space of the unilateral model is:</p>
 <p><span id="eq-param-space"><span class="math display">\[
 \boldsymbol{\theta} = \left( \left\{ b_v \right\}, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.} \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
 \tag{6}\]</span></span></p>
@@ -887,13 +887,16 @@ t_{rv}^\text{c} &amp;= t_{rv}^\text{i}
 b_v^{\text{c},\epsilon=\texttt{True}} = \alpha \cdot b_v^\text{i} + (1 - \alpha) \cdot b_v^{\text{c},\epsilon=\texttt{False}}
 \tag{14}\]</span></span> This means the model now uses three different sets of parameters to describe the spread from the tumor to the LNLs: <span class="math inline">\(b^\text{i}_v\)</span> for the spread to the ipsilateral LNLs, <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{False}}\)</span> for the spread to the contralateral LNLs as long as the tumor is clearly lateralized, and finally <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{True}}\)</span> when it crosses the midline. Note, however, that these three sets of spread rates only account for <span class="math inline">\(2 \cdot 2^V + 1\)</span> parameters, since they are coupled via the mixing parameter <span class="math inline">\(\alpha\)</span>.</li>
 </ol>
-<p>Together with the explicit modelling of the tumor’s midline extension <span class="math inline">\(\epsilon\)</span> from <a href="#sec-midline" class="quarto-xref">section&nbsp;4.2</a>, we now have a model that may be capable of capturing the higher prevalence of contralateral involvment that comes with tumors extending over the mid-sagittal line.</p>
+<p>Our parameter space has now expanded to</p>
+<p><span id="eq-bi-param-space"><span class="math display">\[
+\boldsymbol{\theta} = \left( \left\{ b_v^\text{i} \right\}, \left\{ b_v^\text{c} \right\}, \alpha, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.} \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
+\tag{15}\]</span></span></p>
+<p>which is less than double in size, compared to the unilateral model. From these parameters, we now build three different transition matrices: The unchanged <span class="math inline">\(\mathbf{A}_\text{i}\)</span> for the ipsilateral side, one <span class="math inline">\(\mathbf{A}_\text{c}^{\epsilon=\texttt{False}}\)</span> for the contralateral side that covers the progression as long as the tumor is lateralized, and <span class="math inline">\(\mathbf{A}_\text{c}^{\epsilon=\texttt{True}}\)</span> in case of a tumor that has crossed the mid-sagittal line.</p>
 </section>
 <section id="sec-midline" class="level2">
 <h2 class="anchored" data-anchor-id="sec-midline">Modelling Midline Extension</h2>
 <p>To account for the increased prevalence of involvement on the contralateral side when the tumor is not clearly lateralized anymore, we also model the tumor’s extension over the mid-sagittal line as a binary random variable. It starts lateralized and at every time-step there is a finite probability <span class="math inline">\(p_\epsilon\)</span> that the tumor grows over the symmetry plane of the patient.</p>
-<p>Technically, the introduction of this additional random variable doubles the space of the hidden states and therefore quadruples the size of the transition matrix <span class="math inline">\(\mathbf{A}\)</span>. But since only the transition matrix in case of midline extension depends on the lateralization of the tumor, we implement it differently and thereby make the computation slightly more efficient.</p>
-<p>First, the overall probabilities to find a patient with a clearly lateralized tumor or one that extends over the mid-sagittal line after <span class="math inline">\(t\)</span> time-steps are respectively given by</p>
+<p>The overall probabilities to find a patient with a clearly lateralized tumor or one that extends over the mid-sagittal line after <span class="math inline">\(t\)</span> time-steps are then respectively given by</p>
 <p><span class="math display">\[
 \begin{aligned}
 P(\epsilon = \texttt{False} \mid t) &amp;= (1 - p_\epsilon)^t \\
@@ -911,36 +914,57 @@ Figure&nbsp;3: The top panel shows the prior probability to get diagnosed at tim
 </figcaption>
 </figure>
 </div>
-<p>Using this, it is straightforward to write down the joint probability of ipsi- and contralalteral states in case of a tumor that does <em>not</em> extend over the mid-sagittal line similar to the marginalization in <a href="#eq-bilateral-marginal" class="quarto-xref">equation&nbsp;11</a>:</p>
-<p><span id="eq-joint-noext"><span class="math display">\[
-P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{False} \right) = \sum_{t=0}^{t_\text{max}} P(t) \cdot (1 - p_\epsilon)^t \cdot P \left( \mathbf{X}^\text{i} \mid t \right) \cdot P \left( \mathbf{X}^\text{c} \mid t, \epsilon=\texttt{False} \right)
-\tag{15}\]</span></span></p>
-<p>where for the contralateral evolution we used the transition matrix that depends on the base spread parameters <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{False}}\)</span>.</p>
-<p>The case when midline extension is eventually present is more complicated: We already marginalize over the exact time-step when the tumor grows over the mid-sagittal line. But whenever that happens, we also need to change the contralateral transition matrix to use the increased spread rates from the tumor to the contralateral LNLs, given by the linear mix in <a href="#eq-mixing" class="quarto-xref">equation&nbsp;14</a>. We can achieve the correct marginalization by iteratively building the joint <span class="math inline">\(P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t \right)\)</span> from <span class="math inline">\(t=0\)</span>, where we know that all LNLs are healthy and the tumor is lateralized:</p>
+<p>Using this, it is straightforward to write down the matrix of state distributions for all time-steps, as in <a href="#eq-lambda-matrix" class="quarto-xref">equation&nbsp;4</a> covering the contralateral hidden state evolution:</p>
 <p><span class="math display">\[
-P \left( \mathbf{X}^\text{c} = \boldsymbol{\xi}_0, \epsilon=\texttt{False} \mid t=0 \right) = 1
+\boldsymbol{\Lambda}_\text{c}^{\epsilon=\texttt{False}} =
+\left(
+\begin{array}{r}
+\boldsymbol{\pi}^\intercal \cdot \left( \mathbf{A}_\text{c}^{\epsilon=\texttt{False}} \right)^{0\phantom{t_\text{max}}} \\
+(1-p_\epsilon) \cdot \boldsymbol{\pi}^\intercal \cdot \left( \mathbf{A}_\text{c}^{\epsilon=\texttt{False}} \right)^{1\phantom{t_\text{max}}} \\
+\hfill \vdots \hfill \\
+(1-p_\epsilon)^{t_\text{max}} \cdot \boldsymbol{\pi}^\intercal \cdot \left( \mathbf{A}_\text{c}^{\epsilon=\texttt{False}} \right)^{t_\text{max}\phantom{0}} \\
+\end{array}
+\right)
+\]</span></p>
+<p>where we used the transition matrix <span class="math inline">\(\mathbf{A}_\text{c}^{\epsilon=\texttt{False}}\)</span> that depends on the base spread parameters <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{False}}\)</span>.</p>
+<p>The case when midline extension is eventually present is more complicated: We already marginalize over the exact time-step when the tumor grows over the mid-sagittal line. But whenever that happens, we also need to change the contralateral transition matrix to use the increased spread rates <span class="math inline">\(b_v^{\text{c}, \epsilon=\texttt{True}}\)</span> from the tumor to the contralateral LNLs, given by the linear mix in <a href="#eq-mixing" class="quarto-xref">equation&nbsp;14</a>. We can achieve the correct marginalization by iteratively building the joint <span class="math inline">\(P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t \right)\)</span>. We start from <span class="math inline">\(t=0\)</span>, where we know that all LNLs are healthy - i.e., the contralateral neck is in the state <span class="math inline">\(\mathbf{X}_\text{c}=\boldsymbol{\xi}_0\)</span> - and the tumor is lateralized (<span class="math inline">\(\epsilon=\texttt{False}\)</span>):</p>
+<p><span class="math display">\[
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid t=0 \right) = \boldsymbol{\xi}_0
 \]</span></p>
 <p>Then we consider an arbitrary later time-step <span class="math inline">\(t=\tau+1\)</span>. There are two possible scenarios we need to marginalize over:</p>
 <ol type="1">
-<li>The tumor was still lateralized at <span class="math inline">\(t=\tau\)</span> and just grew over the midline. Under this scenario, the probability for having a midline extension at <span class="math inline">\(t=\tau+1\)</span> is <span class="math inline">\(p_\epsilon\)</span> and we use this to weight the contralateral state distribution that was so far evolved without increased contralateral spread.</li>
+<li>The tumor was still lateralized at <span class="math inline">\(t=\tau\)</span> and just grew over the midline. Under this scenario, the probability for having a midline extension at <span class="math inline">\(t=\tau+1\)</span> is given by <span class="math inline">\(p_\epsilon\)</span>. We use this to weight the contralateral state distribution that was so far evolved without increased contralateral spread.</li>
 <li>The mid-sagittal line was already crossed by the tumor. In that case, the probability is 1 to remain in that lateralization state. Thus, for this case we simply add the same distribution we are computing, but from one time-step earlier, arriving at a recursion relation:</li>
 </ol>
 <p><span class="math display">\[
-P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau + 1 \right) = \big[ p_\epsilon P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid \tau \right) + P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right) \big]^\top \cdot \mathbf{A}^{\text{c},\epsilon=\texttt{True}}
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau + 1 \right) = \big[ p_\epsilon P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid \tau \right) + P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right) \big]^\top \cdot \mathbf{A}_\text{c}^{\epsilon=\texttt{True}}
 \]</span></p>
-<p>Using this, we can write the joint of ipsi- and contralateral involvement also for the case of mid-sagittal extension:</p>
-<p><span id="eq-joint-ext"><span class="math display">\[
-P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right) = \sum_{t=0}^{t_\text{max}} P(t) \cdot P \left( \mathbf{X}^\text{i} \mid t \right) \cdot P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t \right)
+<p>We can collect the iteratively computed distributions for the midline extension case to define the matrix over the states given all time-steps, in analogy to <a href="#eq-lambda-matrix" class="quarto-xref">equation&nbsp;4</a>:</p>
+<p><span class="math display">\[
+\boldsymbol{\Lambda}_\text{c}^{\epsilon=\texttt{True}} = \begin{pmatrix}
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid 0 \right) \\
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid 1 \right) \\
+\vdots \\
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t_\text{max} \right) \\
+\end{pmatrix}
+\]</span></p>
+<p>Using this, we can again write the joint of ipsi- and contralateral involvement - now also for the case of mid-sagittal extension - algebraically as before in <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;12</a>:</p>
+<p><span class="math display">\[
+P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsymbol{\xi}_m, \epsilon \right) = \left[ \boldsymbol{\Lambda}^\intercal_\text{i} \cdot \operatorname{diag} P(\mathbf{t}) \cdot \boldsymbol{\Lambda}_\text{c}^\epsilon \right]_{n,m}
+\]</span></p>
+<p>We can use this term to compute the likelihood of all patients with and without midline extension separately. And if for some patients the information of tumor lateralization is not available, we can simply sum the above term once for <span class="math inline">\(\epsilon=\texttt{False}\)</span> and once for <span class="math inline">\(\epsilon=\texttt{True}\)</span> to marginalize over the unknown variable.</p>
+<p>The final parameter space of our extended model has now reached this size:</p>
+<p><span id="eq-ext-param-space"><span class="math display">\[
+\boldsymbol{\theta} = \left( \left\{ b_v^\text{i} \right\}, \left\{ b_v^\text{c} \right\}, \alpha, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.}, p_\epsilon \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
 \tag{16}\]</span></span></p>
-<p>Subsequently, <a href="#eq-joint-noext" class="quarto-xref">equation&nbsp;15</a> and <a href="#eq-joint-ext" class="quarto-xref">equation&nbsp;16</a> can be used to compute the likelihoods of patients with the respective tumor lateralization. If, for some reason, it is not known whether the tumor crossed the midline or not, we can simply add the two distributions to marginalize over midline extension as well.</p>
-<p>In <a href="#fig-model-state-dist" class="quarto-xref">figure&nbsp;4</a> we plot the state distribution for a full midline model as two separate heatmaps. To keep it readable, this example model only considers the LNLs II, III, and IV ipsi- and contralaterally.</p>
+<p>In <a href="#fig-model-state-dist" class="quarto-xref">figure&nbsp;4</a> we plot the state distribution for a full midline model as two separate heatmaps. To keep it manageable to interpret, this example model only considers the LNLs II, III, and IV ipsi- and contralaterally, resulting in <span class="math inline">\(2 \times 2^3 \times 2^3 = 128\)</span> distinct states.</p>
 <div id="fig-model-state-dist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-state-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="figures/fig-model-state-dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: 3D state distribution of a midline model with 3 LNLs (II, III, and IV) in both sides of the neck."><img src="figures/fig-model-state-dist.png" class="img-fluid figure-img"></a>
+<a href="figures/fig-model-state-dist.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: 3D state distribution of a midline model with 3 LNLs (II, III, and IV) in both sides of the neck. Note the higher probability for contralateral involvement in the right subplot, where the tumor extends over the mid-sagittal line."><img src="figures/fig-model-state-dist.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-state-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: 3D state distribution of a midline model with 3 LNLs (II, III, and IV) in both sides of the neck.
+Figure&nbsp;4: 3D state distribution of a midline model with 3 LNLs (II, III, and IV) in both sides of the neck. Note the higher probability for contralateral involvement in the right subplot, where the tumor extends over the mid-sagittal line.
 </figcaption>
 </figure>
 </div>
@@ -1157,7 +1181,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="a658ff17" class="cell markdown">
+<div id="dc79433a" class="cell markdown">
 <section id="prevalence-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="prevalence-predictions">Prevalence Predictions</h2>
 <p>We want to investigate whether and to what extent the model can fulfill the requirements laid out in <a href="#sec-requirements" class="quarto-xref">section&nbsp;2.2</a>. To that end, we compare its predictions for contralateral involvement against observations in the data. This is done given scenarios that differ in T-category and/or midline extension and/or ipsilateral involvement.</p>
@@ -1547,7 +1571,7 @@ Table&nbsp;3: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="b8f21398" class="cell markdown">
+<div id="94063584" class="cell markdown">
 <section id="marginalizing-beta-posteriors-over-unknowns" class="level1 appendix">
 <h1 class="appendix">Marginalizing Beta Posteriors over Unknowns</h1>
 </section>
@@ -1636,7 +1660,7 @@ Table&nbsp;4: Combinations of midline extension status and state of contralatera
 </figure>
 </div></div></div>
 </div></div>
-<div id="d8dbc83e" class="cell markdown">
+<div id="cd789f5b" class="cell markdown">
 <p>In <a href="#sec-prevalence" class="quarto-xref">section&nbsp;5.3</a> we explained that we compare the predicted prevalence of an involvement pattern under a scenario to a beta posterior over the “true” prevalence given the observations in the data. However, our data contains incomplete observations, especially regarding the tumor’s midline extension. This information is not present for a large group of 85 patients, most of which treated at the Centre Léon Bérard in France.</p>
 <p>To account for this missing information and plot the correct posteriors over the data prevalence, we need to marginalize over the possible combinations of matching involvement patterns and selected patients under a scenario. For example, we have only 29<!-- TODO: compute dynamically --> early T-category patients with midline extension. But for an additional 65<!-- TODO: compute dynamically --> patients we do not know whether the tumor crossed the mid-sagittal plane. If we now want to compute the prevalence of contralateral LNL II invovlement for these early T-category patients with midline extension, then we need to account for the possibility that we are missing information.</p>
 <p>In <a href="#tbl-data-unknowns" class="quarto-xref">table&nbsp;4</a> we show the combinations of the midline extension status and state of the contralateral LNL II. Using only available information, we would get to 6 out of 29<!-- TODO: compute dynamically --> patients for the prevalence of contralateral LNL II invovlement among the early T-category patients with midline extension. But the column with the “unknown” numbers suggests that the true prevalence could range from 6 out of 29 + 59 (7%)<!-- TODO: compute dynamically --> up to 12 out of 29 + 6 (34%)<!-- TODO: compute dynamically -->. We assume that every one of the possible combinations has the same a priori probability (uniform prior) but we do need to account for permutations via the binomial factor. In general, let us say we have <span class="math inline">\(n\)</span> patients with midline extension, of which <span class="math inline">\(k\)</span> harbor metastases in the contralateral LNL II. And we have <span class="math inline">\(m\)</span> patients with unknown midline extension, of which <span class="math inline">\(\ell\)</span> presented with diasease in contralateral LNL II, then the posterior distribution - marginalized over the unknown data - over the true prevalence <span class="math inline">\(x \in \left[ 0, 1 \right]\)</span> is given by:</p>
@@ -2146,7 +2170,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","openEffect":"zoom","loop":false,"descPosition":"bottom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
