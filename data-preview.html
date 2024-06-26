@@ -359,7 +359,7 @@ group_and_plot(
   colors=[COLORS["blue"], COLORS["orange"]],
 )
 
-plt.savefig(paths.figure_dir / "fig-data-strat.png", dpi=400)
+plt.savefig(paths.figure_dir / "fig-data-strat.svg")
 plt.show()</code></pre>
 <div class="cell-output cell-output-display">
 <div id="fig-data-strat" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -375,7 +375,7 @@ Contralateral involvement stratified by T-category (left panel), the number of m
 </div>
 </div></div>
 </section>
-<div id="2f87e422" class="cell markdown">
+<div id="560fea22" class="cell markdown">
 <section id="involvement-patterns-as-upset-plots" class="level1">
 <h1>Involvement Patterns as UpSet Plots</h1>
 <p>The joint involvement of different combinations of lymphatic involvements is best visualized using so-called <em>upset plots</em> <span class="citation" data-cites="lex_upset_2014">(<a href="#ref-lex_upset_2014" role="doc-biblioref">Lex et al. 2014</a>)</span>.</p>
@@ -422,17 +422,13 @@ axes = plot_involvement_upset(
   lnls=[tpl[-1] for tpl in get_lnl_cols("ipsi")],
 )
 
-plt.savefig(paths.figure_dir / "fig-data-upset-ipsi.png", dpi=400)
+plt.savefig(paths.figure_dir / "fig-data-upset-ipsi.svg")
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3391/2479270270.py:36: UserWarning:
-
-This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-
-/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
-
-This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-</code></pre>
+<pre><code>/tmp/ipykernel_31852/2276600058.py:36: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.savefig(paths.figure_dir / "fig-data-upset-ipsi.svg")
+/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div id="fig-data-upset-ipsi" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -447,7 +443,7 @@ Upset plot of the ipsilateral lymphatic involvement patterns <span class="citati
 </div>
 </div>
 </div></div>
-<div id="3362a0d6" class="cell markdown">
+<div id="cd979249" class="cell markdown">
 <section id="contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="contralateral-involvement">Contralateral Involvement</h2>
 </section>
@@ -462,17 +458,13 @@ axes = plot_involvement_upset(
   lnls=[tpl[-1] for tpl in get_lnl_cols("contra")],
 )
 
-plt.savefig(paths.figure_dir / "fig-data-upset-contra.png", dpi=400)
+plt.savefig(paths.figure_dir / "fig-data-upset-contra.svg")
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_3391/3104973063.py:8: UserWarning:
-
-This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-
-/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:152: UserWarning:
-
-This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
-</code></pre>
+<pre><code>/tmp/ipykernel_31852/347015875.py:8: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  plt.savefig(paths.figure_dir / "fig-data-upset-contra.svg")
+/home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div id="fig-data-upset-contra" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -912,7 +904,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","loop":false});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
