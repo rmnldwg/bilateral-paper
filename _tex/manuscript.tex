@@ -186,29 +186,44 @@ Zurich}}
 
 % abstract 
 
-\abstract{In current practice, large parts of the contralateral lymph
-system are included in the elective clinical target volume (CTV-N) of
-oropharyngeal squamous cell carcinoma (OPSCC) patients. Guidelines on
-how to define the CTV-N are mostly based on prevalences of nodal
-involvement in the different lymph node levels (LNLs) and do not
-consider the detailed, individual diagnosis of a patient.
+\abstract{Purpose: According to current guidelines for elective nodal
+irradiation of oropharyngeal squamous cell carcinoma (OPSCC) patients,
+large parts of the contralateral lymphatic system are included in the
+elective clinical target volume (CTV-N), even for lateralized tumors
+without clinical lymph node involvement in the contralateral neck. In
+this work, we present a probabilistic model for bilateral lymphatic
+tumor progression in OPSCC to predict the personal risk for occult
+disease in any lymph node level (LNL), given the patient's clinical
+lymph node involvement, T-stage, and lateralization of the primary
+tumor.
 
-In this work, we present a probabilistic model for bilateral lymphatic
-tumor progression in OPSCC. Its aim is to predict the personal risk for
-occult disease in any LNL, given the patient's clincal diagnosis,
-T-category, and lateralization of the primary tumor. The model
-represents each of the LNLs I, II, III, IV, V, and VII of both sides of
-the neck as a hidden binary random variable that are connected to the
-tumor and among each other via arcs that correspond to spread
-probabilities per time-step. These spread probability rates are learned
-via Markov chain Monte Carlo (MCMC) sampling from a dataset of 833 OPSCC
+Methods: We extend a hidden markov model for lymphatic tumor
+progression, which was previously developed for ipsilateral lymph node
+involvement, to the contralateral neck. The model represents each of the
+LNLs I, II, III, IV, V, and VII of both sides of the neck as a hidden
+binary random variable with states healthy and involved. LNLs are
+connected to the tumor and among each other via arcs that correspond to
+spread probabilities. These spread probability rates are learned via
+Markov chain Monte Carlo (MCMC) sampling from a dataset of 833 OPSCC
 patients.
 
-The model is able to describe the data well and may in the future be
-used to only include LNLs in a CTV-N that show a risk above a specific
-threshold for that particular patient's diagnosis. E.g., it predicts the
-risk for occult disease in contralateral LNL II to be below 5\% unless
-the tumor crosses the mid-sagittal line.}
+Results: The model is able to describe the data on lymph node
+involvement well with a small number of interpretable parameters.
+Midline extension of the primary tumor is the main risk factor for
+contralateral involvement. In addition, the risk of occult metastases in
+contralateral lymph node level increases with more advanced T-stage and
+more severe ipsilateral involvement. The probability of involvement in
+contralateral level III is very low if the upstream level II is
+clinically negative. Similarly, the probability of involvement in
+contralateral level IV is very low if the upstream level III is
+clinically negative.
+
+Conclusions: The model may guide personalized volume reduction of the
+elective CTV-N. It suggests that the contralateral neck may be spared
+from elective irradiation for lateralized tumors not crossing the
+midline. In patients with primary tumors crossing the midline but
+clinically negative contralateral neck, the contralateral elective
+irradiation may be limited to level II.}
 
 % keywords
 
@@ -228,82 +243,90 @@ Notebook}}
 When treating head and neck squamous cell carcinomas (HNSCC) with
 radiotherapy or surgery, not only the primary tumor and the clinically
 detected lymph node metastases are targeted. Per current guidelines,
-large volumes of the neck - lymph node levels (LNLs) - are part of the
-the elective clinical target volume (CTV-N)
+large volumes of the neck are part of the the elective clinical target
+volume (CTV-N)
 \citep{gregoire_ct-based_2003, gregoire_delineation_2014, gregoire_delineation_2018, eisbruch_intensity-modulated_2002, biau_selection_2019, chao_determination_2002, vorwerk_guidelines_2011, ferlito_elective_2009}.
-This is to minimize the risk of regional recurrences due to missed
+This is to minimize the risk of regional recurrences due to untreated
 microscopic disease which cannot be detected by current in-vivo imaging
 modalities such as computed tomography (CT), magnetic resonance imaging
-(MRI), or positron emission tomography (PET).
+(MRI), or positron emission tomography (PET). However, minimizing the
+risk of missing occult disease in the lymph drainage region must be
+balanced against the toxicity related to unnecessary treatment of
+healthy tissue.
 
-Minimizing this risk of missing occult disease in the lymph drainage
-region must be balanced against the toxicity related to unnecessary
-treatment of healthy tissue.
+The aforementioned guidelines for the definition of the CTV-N are based
+on anatomically defined lymph node levels (LNL)
+\citep{gregoire_delineation_2014} and the overall prevalence of lymph
+node metastases in the LNLs. Based on this, they recommend extensive
+irradiation of both sides of the neck for a majority of patients.
+However, this prevalence the guidelines are based on does not take into
+account an individual patient's state of tumor progression, which may
+have a great impact on a patient's personal risk for occult disease in a
+given LNL. For example, a patient with substantial nodal involvement in
+the ipsilateral side and an advanced primary tumor that crosses the
+mid-sagittal plane would receive extensive elective irradiation of the
+contralateral LNLs II, III, and IVa. However, if the patient presented
+with no clinically detectable nodal disease (cN0) and only a small,
+clearly lateralized T1 tumor, the same contralateral CTV-N would be
+recommended \citep{biau_selection_2019}.
 
-The aforementioned guidelines for the definition of the CTV-N quantify
-this risk via the overall prevalence of lymph node metastases in the
-LNLs. Based on this, they recommend extensive irradiation of both sides
-of the neck for a majority of patients. However, this prevalence the
-guidelines are based on does not take into account the individual state
-of tumor progression, which may have a great impact on a patient's
-personal risk for occult disease in a given LNL. For example, a patient
-with substantial nodal involvement in the ipsilateral side and an
-advanced primary tumor that crosses the mid-sagittal plane would receive
-extensive elective irradiation of the contralateral LNLs II, III, and
-IVa. However, if the patient presented with no clinically detectable
-nodal disease (cN0) and only a small, clearly lateralized T1 tumor, the
-same contralateral CTV-N would be recommended
-\citep{biau_selection_2019}.
-
-To better quantify this personalized risk we have previously developed
-an intuitive, probabilistic hidden Markov model
+To better quantify this personalized risk of occult disease we have
+previously developed an intuitive, probabilistic hidden Markov model
 \citep{ludwig_hidden_2021, ludwig_modelling_2023} which was originally
 based on a conceptually similar Bayesian network model
 \citep{pouymayou_bayesian_2019}. So far, these models were limited to
-the ipsilateral side of the neck. The main focus of this work will be to
-extend the formalism of these previous works to include risk predictions
-for the contralateral side as well. We believe this holds the potential
-to greatly reduce the electively irradiated volumes in the contralateral
-neck for patients whose individual risk for occult disease in that side
-is low. In turn, this may substantially reduce the toxicity from
-irradiation and the associated decrease in quality of life.
+the ipsilateral side of the neck. The main contribution of this work
+will be to extend the formalism to include risk predictions for the
+contralateral side as well. We believe this holds the potential to
+reduce the electively irradiated volumes in the contralateral neck for
+patients whose individual risk for occult disease is low. In turn, this
+may substantially reduce the toxicity from irradiation and the
+associated decrease in quality of life.
 
-In the following, we begin by inspecting the dataset the model is built
-upon (section~\ref{sec-data}) and from it formulate some properties we
-require the bilateral model extension to have
-(section~\ref{sec-requirements}).
+The main contributions of this paper are as follows:
 
-After that, in section~\ref{sec-unilateral}, we briefly summarize the
-original model formalism before we extend it to the contralateral side
-starting in section~\ref{sec-ext-to-contra}.
-
-Next, we describe how the model training and the computational
-experiments were set up in section~\ref{sec-methods} and present the
-results in section~\ref{sec-results}, followed by a closing discussion
-(section~\ref{sec-discussion}).
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In section section~\ref{sec-data} we present a multi-centric dataset
+  on lymph node involvement in 833 OPSCC patients. Based on the dataset
+  the main risk factors for contralateral lymph node involvement are
+  identified and the requirements for the bilateral model extension are
+  described (section~\ref{sec-requirements}).
+\item
+  In section~\ref{sec-ext-to-contra} we present a bilateral HMM of
+  lymphatic progression that accounts for the T-stage lateralization of
+  the primary tumor as well as clinical involvement as risk factors for
+  occult contralateral involvement. In section~\ref{sec-methods} we
+  describe how the model training and the computational experiments were
+  set up.
+\item
+  In the results in section~\ref{sec-results}, we demonstrate that the
+  model is able to describe the patterns of contralateral lymph node
+  involvement observed in the dataset, and we apply the model to
+  estimating risk of occult disease for typical patients. In
+  section~\ref{sec-discussion}, implications for volume-deescalated
+  radiotherapy are discussed.
+\end{enumerate}
 
 \section{Data on Lymphatic Progression Patterns}\label{sec-data}
 
-Originally, the only available data of detailed - i.e.~per patient and
-per LNL - lymphatic involvement was a reconstructed table from the
-findings in \citet{sanguineti_defining_2009}, which included only
-ipsilateral nodal involvement for the LNLs I to IV.
-
-To be able to create models for lymphatic tumor progression that include
-more LNLs and the contralateral side, we have collected a detailed
-dataset of 833 patients with newly diagnosed oropharyngeal squamous cell
-carcinomas. It reports the involvement of every patient individually and
-per lymph node level in tabular form, in addition to other
-clinico-pathological information such as age, T-category, and HPV p16
-status.
-
-Their patient records have been collected at four different institutions
-and a brief overview over some of their patients' characteristics are
-shown in table~\ref{tbl-data-overview}. Note that the data from the
-Inselspital Bern and the Centre Léon Bérard only consists of patients
-treated with some form of neck dissection. Since this treatment is more
+To be able to create models for lymphatic tumor progression that
+includes all relevant LNLs including the contralateral side, we have
+collected a detailed dataset of 833 patients with newly diagnosed
+oropharyngeal squamous cell carcinomas. It reports the lymph node
+involvement per LNL of every patient individually in tabular form, in
+addition to other primary tumor and patient characteristics such as
+T-category, subside, and lateralization of the primary tumor, and HPV
+p16 status. Their patient records have been collected at four different
+institutions and a brief overview over some of their patients'
+characteristics are shown in table~\ref{tbl-data-overview}. The data
+from the Inselspital Bern and the Centre Léon Bérard only consists of
+patients who received a neck dissection. Since this treatment is more
 commonly chosen for early T-category patients, they also make up a
-larger portion of the respective dataset.
+larger portion of the respective dataset. The majority of patients from
+the University Hospital Zürich and the Vall d'Hebron Barcelona Hospital
+was treated with definitive radiotherapy.
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
@@ -322,7 +345,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_c3b84}\tabularnewline
+\caption{}\label{T_b5301}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -347,7 +370,7 @@ Vall d\textquotesingle Hebron Barcelona Hospital & 147 & 58 & 5\% & 21\%
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
 Notebook}}
 
-\subsection{Contralateral Involvement Prevalence}\label{sec-data-strat}
+\subsection{Patterns of Contralateral Involvement}\label{sec-data-strat}
 
 These datasets allow us to investigate correlations between the
 involvement of individual LNLs, or between risk factors and patterns of
@@ -1128,7 +1151,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_6c7f4}\tabularnewline
+\caption{}\label{T_6f0e6}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1483,7 +1506,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_37f78}\tabularnewline
+\caption{}\label{T_a95ce}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1523,134 +1546,6 @@ advanced & ≥ 2 & True & 3 & 3.80 & 46 & 58.23 & 18 & 22.78 & 8 & 10.13 &
 79 \\
 
 \end{longtable}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
-
-\section{Marginalizing Beta Posteriors over
-Unknowns}\label{marginalizing-beta-posteriors-over-unknowns}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
-
-\begin{longtable}[]{@{}llll@{}}
-
-\caption{\label{tbl-data-unknowns}Combinations of midline extension
-status and state of contralateral LNL II for early T-category patients.}
-
-\tabularnewline
-
-\toprule\noalign{}
-Midline Extension & no & yes & unknown \\
-contra LNL II & & & \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-healthy & 352 & 23 & 59 \\
-involved & 27 & 6 & 6 \\
-total & 379 & 29 & 65 \\
-
-\end{longtable}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
-Notebook}}
-
-In section~\ref{sec-prevalence} we explained that we compare the
-predicted prevalence of an involvement pattern under a scenario to a
-beta posterior over the ``true'' prevalence given the observations in
-the data. However, our data contains incomplete observations, especially
-regarding the tumor's midline extension. This information is not present
-for a large group of 85 patients, most of which treated at the Centre
-Léon Bérard in France.
-
-To account for this missing information and plot the correct posteriors
-over the data prevalence, we need to marginalize over the possible
-combinations of matching involvement patterns and selected patients
-under a scenario. For example, we have only 29 early T-category patients
-with midline extension. But for an additional 65 patients we do not know
-whether the tumor crossed the mid-sagittal plane. If we now want to
-compute the prevalence of contralateral LNL II invovlement for these
-early T-category patients with midline extension, then we need to
-account for the possibility that we are missing information.
-
-In table~\ref{tbl-data-unknowns} we show the combinations of the midline
-extension status and state of the contralateral LNL II. Using only
-available information, we would get to 6 out of 29 patients for the
-prevalence of contralateral LNL II invovlement among the early
-T-category patients with midline extension. But the column with the
-``unknown'' numbers suggests that the true prevalence could range from 6
-out of 29 + 59 (7\%) up to 12 out of 29 + 6 (34\%). We assume that every
-one of the possible combinations has the same a priori probability
-(uniform prior) but we do need to account for permutations via the
-binomial factor. In general, let us say we have \(n\) patients with
-midline extension, of which \(k\) harbor metastases in the contralateral
-LNL II. And we have \(m\) patients with unknown midline extension, of
-which \(\ell\) presented with diasease in contralateral LNL II, then the
-posterior distribution - marginalized over the unknown data - over the
-true prevalence \(x \in \left[ 0, 1 \right]\) is given by:
-
-\[
-p(x \mid n, k, m, \ell, \alpha, \beta) = \left[ \frac{1}{m} \sum_{i=0}^m \frac{1}{\min(i,\ell)} \sum_{j=0}^{\min(i,\ell)} \frac{P(i, j \mid x )}{\binom{n}{k}} \right] \cdot P(n, k \mid x) \cdot \frac{1}{\operatorname{B}(\alpha, \beta)} x^\alpha (1-x)^\beta
-\]
-
-Note the two binomial likelihoods: one being marginalized over and one
-acting implicitly as a prior to the summed terms. This role of the
-likelihood over the data with known midline extension as a prior to the
-part where that data is missing corrects for the fact that there are
-highly unlikely combinations among those we marginalize over. E.g.,
-expecting that exactly those 6 patients with contralateral LNL II
-involvemnt are also coincidentially the only ones of the 65 with a tumor
-crossing the mid-sagittal line is very unlikely. This is accounted for
-by the fact that this possibility has only one permutation and it is
-weakened by the likelihood over the data with known midline extension.
-With a uniform prior beta distribution (\(\alpha=1\) and \(\beta=1\)),
-the above simplifies to:
-
-\[
-p(x \mid n, k, m, \ell) = \left[ \frac{1}{m} \sum_{i=0}^m \frac{1}{\min(i,\ell)} \sum_{j=0}^{\min(i,\ell)} \binom{n+i}{k+j} x^j (1 - x)^{i-j} \right] \cdot x^{k+1} (1 - x)^{n-k+1}
-\]
-
-We have plotted this marginal in figure~\ref{fig-model-marginal-pdf}
-(blue curve) and the terms that make up the above sum (light red
-curves). Note that we weighted the plotting opacity with the number of
-permutations each of the possible combinations has. The marginal is
-compared against the ``naive'' beta posterior that only takes the data
-into account for which midline extension is available (green curve).
-
-\begin{figure}
-
-\centering{
-
-\includegraphics[width=0.5\textwidth,height=\textheight]{manuscript_files/mediabag/figures/fig-model-marginal-pdf.pdf}
-
-}
-
-\caption{\label{fig-model-marginal-pdf}Posterior distributions over the
-data prevalence for contralateral LNL II involvement under the scenario
-of early T-category and midline extension. The green beta distribution
-shows this prevalence for those patients for which midline extension is
-known. While the blue PDF is a marginal distribution summed over all
-possible combinations, which are shown in shades of red. The more
-permutations a particular combination has, the more opaque it is
-plotted.}
-
-\end{figure}%
-
-The distribution that marginalizes over the unknown midline extension
-cases is shifted towards a lower prevalence. This makes intuitive sense:
-With only 6 patients among the 65 with unknown midline extension status,
-the upper bound for the prevalence has moved down compared to 6 out of
-29.
-
-We chose to compare our model against such corrected prevalence
-posteriors, because the model, too, is capable of marginalizing over
-unknown midline extension in the data. It would therefore be inaccurate
-to compare the model trained with the full dataset to only that part of
-the patient cohort where the tumor lateralization was recorded.
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
