@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.37">
+    <meta name="generator" content="quarto-1.5.49">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -319,7 +319,7 @@ The top panel shows the prior probability to get diagnosed at time-step <span cl
 </div>
 </div></div>
 </section>
-<div id="a0814131" class="cell markdown">
+<div id="69ad59b7" class="cell markdown">
 <section id="sampling-history" class="level1">
 <h1>Sampling History</h1>
 <p>For bookeeping, we also show how different quantities evolve during the burnin of the sampling. For example, the ratio of proposed samples that were accepted or the autocorrelation time.</p>
@@ -404,7 +404,7 @@ Monitoring quantities during the burn-in phase of the parameter sampling.
 </div>
 </div>
 </div></div>
-<div id="a4ae593b" class="cell markdown">
+<div id="5d96b4e2" class="cell markdown">
 <section id="prior-state-distribution-of-midline-model" class="level1">
 <h1>Prior State Distribution of Midline Model</h1>
 <p>It may be illustrative to look at the 3D state distribution of the midline model (at least if we only consider 3 LNLs).</p>
@@ -464,7 +464,7 @@ midext.set_xlabel(r"contra state $\boldsymbol{\xi}^\text{c}_k$")
 plt.savefig(paths.figure_dir / "fig-model-state-dist.svg")
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_22634/2134411740.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<pre><code>/tmp/ipykernel_162345/2134411740.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.savefig(paths.figure_dir / "fig-model-state-dist.svg")
 /home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   fig.canvas.print_figure(bytes_io, **kw)</code></pre>
@@ -482,7 +482,7 @@ plt.show()</code></pre>
 </div>
 </div>
 </div></div>
-<div id="b4fa5b59" class="cell markdown">
+<div id="b058e106" class="cell markdown">
 <section id="observed-vs-predicted-prevalence" class="level1">
 <h1>Observed vs Predicted Prevalence</h1>
 <p>To verify that the model does what it is supposed to, we compare how often some selected diagnoses appear in the data and how often the model predicts these diagnoses to be observed.</p>
@@ -606,7 +606,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="9ab80d5d" class="cell markdown">
+<div id="2dbd77fa" class="cell markdown">
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h2>
 </section>
@@ -727,7 +727,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="3bddcc2b" class="cell markdown">
+<div id="5c8759e7" class="cell markdown">
 <section id="portion-of-midline-extension" class="level2">
 <h2 class="anchored" data-anchor-id="portion-of-midline-extension">Portion of Midline Extension</h2>
 <p>Since we model the tumor’s midline extension as a random variable we can predict its portion among early or late T-category patients and compare it with the observed prevalence in the data.</p>
@@ -804,13 +804,13 @@ Comparing the predicted (histograms) and observed (lines depicting beta posterio
 </div>
 </div>
 </div></div>
-<div id="7949605f" class="cell markdown">
+<div id="ffa077e7" class="cell markdown">
 <section id="risk-predictions" class="level1">
 <h1>Risk Predictions</h1>
 <p>Now, we want to make actual use of the model and predict the risk for occult diease given some diagnoses.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="556335c7" class="cell" data-execution_count="8">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="46be45a9" class="cell" data-execution_count="8">
 <pre><code>import numpy as np
 import h5py
 import matplotlib.pyplot as plt
@@ -839,7 +839,7 @@ defaults = {
   "bins": 50,
 }
 t_stage_map = {"early": "early", "late": "adv."}
-midext_map = {False: "lateralized", True: "mid. ext."}
+midext_map = {False: "lateral", True: "mid-ext"}
 colors = [COLORS["green"], COLORS["blue"], COLORS["orange"], COLORS["red"]]
 
 
@@ -860,9 +860,19 @@ def get_diag_label(diagnosis) -&gt; str:
   return label if not is_n0 else "N0"
 
 def get_label(scenario: Scenario) -&gt; str:
-  t = scenario.t_stages[0]
-  m = scenario.midext
+  lnl = list(eval(scenario.involvement)["contra"].keys()).pop()
   d = eval(scenario.diagnosis)
+  has_upstream_fna = "FNA" in d["contra"]
+
+  if lnl == "IV":
+    return get_diag_label(d) + (" &amp; c:III FNA+" if has_upstream_fna else "")
+
+  m = scenario.midext
+
+  if lnl == "III":
+    return f"{midext_map[m]}; {get_diag_label(d)}" + (" &amp; c:II FNA+" if has_upstream_fna else "")
+
+  t = scenario.t_stages[0]
   return f"{t_stage_map[t]}; {midext_map[m]}; {get_diag_label(d)}"
 
 
@@ -874,11 +884,11 @@ with h5py.File(name=paths.model_dir / "full" / "risks.hdf5", mode="r") as h5file
 
 indices = {}
 for lnl, means in mean_lists.items():
-  indices[lnl] = np.argsort(means)
+  indices[lnl] = np.argsort(np.argsort(means))
 
 counter = {"II": 0, "III": 0, "IV": 0}
 with h5py.File(name=paths.model_dir / "full" / "risks.hdf5", mode="r") as h5file:
-  for dset in h5file.values():
+  for md5, dset in h5file.items():
     scenario = Scenario.from_dict(dict(dset.attrs))
     for_subplot = list(eval(scenario.involvement)["contra"].keys()).pop()
     c = counter[for_subplot]
@@ -895,17 +905,27 @@ with h5py.File(name=paths.model_dir / "full" / "risks.hdf5", mode="r") as h5file
 
 xlims = {
   "II": (0, 15),
-  "III": (0, 7),
-  "IV": (0, 5),
+  "III": (0, 9),
+  "IV": (0, 7),
 }
 for ax, (lnl, content) in zip(axes, contents.items()):
   draw(ax, content, xlims=xlims[lnl])
   ax.set_title(f"Contralateral LNL {lnl}")
   ax.set_yticks([])
   ax.set_xlabel("risk [%]")
-  ax.legend(labelspacing=0.1)
 
 axes[0].set_xticks(np.linspace(xlims["II"][0], xlims["II"][1], 6))
+axes[0].legend(labelspacing=0.1)
+axes[1].legend(
+  title="advanced T-category",
+  title_fontsize="small",
+  labelspacing=0.1,
+)
+axes[2].legend(
+  title="advanced T-category\n&amp; midline extension",
+  title_fontsize="small",
+  labelspacing=0.1,
+)
 
 plt.savefig(paths.figure_dir / "fig-model-risks.svg")
 plt.show()</code></pre>
@@ -1337,30 +1357,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","descPosition":"bottom","loop":false,"closeEffect":"zoom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script> 
   
 </body></html>
