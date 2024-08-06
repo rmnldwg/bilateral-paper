@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.49">
+    <meta name="generator" content="quarto-1.5.37">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -214,6 +214,7 @@
   <li><a href="#contralteral-lnls-ii-iii-and-iv-dependent-on-t-cat.-and-mid.-ext." id="toc-contralteral-lnls-ii-iii-and-iv-dependent-on-t-cat.-and-mid.-ext." class="nav-link" data-scroll-target="#contralteral-lnls-ii-iii-and-iv-dependent-on-t-cat.-and-mid.-ext.">Contralteral LNLs II, III, and IV Dependent on T-Cat. and Mid. Ext.</a></li>
   </ul></li>
   <li><a href="#correlation-between-ipsi--and-contralateral-involvement" id="toc-correlation-between-ipsi--and-contralateral-involvement" class="nav-link" data-scroll-target="#correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</a></li>
+  <li><a href="#contra-lnl-iii-depending-on-upstream-lnl-ii-involvement" id="toc-contra-lnl-iii-depending-on-upstream-lnl-ii-involvement" class="nav-link" data-scroll-target="#contra-lnl-iii-depending-on-upstream-lnl-ii-involvement">Contra LNL III Depending on Upstream LNL II Involvement</a></li>
   <li><a href="#portion-of-midline-extension" id="toc-portion-of-midline-extension" class="nav-link" data-scroll-target="#portion-of-midline-extension">Portion of Midline Extension</a></li>
   <li><a href="#risk-predictions" id="toc-risk-predictions" class="nav-link" data-scroll-target="#risk-predictions">Risk Predictions</a></li>
   </ul>
@@ -319,7 +320,7 @@ The top panel shows the prior probability to get diagnosed at time-step <span cl
 </div>
 </div></div>
 </section>
-<div id="69ad59b7" class="cell markdown">
+<div id="bb00c8e2" class="cell markdown">
 <section id="sampling-history" class="level1">
 <h1>Sampling History</h1>
 <p>For bookeeping, we also show how different quantities evolve during the burnin of the sampling. For example, the ratio of proposed samples that were accepted or the autocorrelation time.</p>
@@ -404,7 +405,7 @@ Monitoring quantities during the burn-in phase of the parameter sampling.
 </div>
 </div>
 </div></div>
-<div id="5d96b4e2" class="cell markdown">
+<div id="16194721" class="cell markdown">
 <section id="prior-state-distribution-of-midline-model" class="level1">
 <h1>Prior State Distribution of Midline Model</h1>
 <p>It may be illustrative to look at the 3D state distribution of the midline model (at least if we only consider 3 LNLs).</p>
@@ -464,7 +465,7 @@ midext.set_xlabel(r"contra state $\boldsymbol{\xi}^\text{c}_k$")
 plt.savefig(paths.figure_dir / "fig-model-state-dist.svg")
 plt.show()</code></pre>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_162345/2134411740.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
+<pre><code>/tmp/ipykernel_6750/2134411740.py:49: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   plt.savefig(paths.figure_dir / "fig-model-state-dist.svg")
 /home/rmnldwg/repos/bilateral-paper/.venv/lib/python3.10/site-packages/IPython/core/pylabtools.py:170: UserWarning: This figure includes Axes that are not compatible with tight_layout, so results might be incorrect.
   fig.canvas.print_figure(bytes_io, **kw)</code></pre>
@@ -482,7 +483,7 @@ plt.show()</code></pre>
 </div>
 </div>
 </div></div>
-<div id="b058e106" class="cell markdown">
+<div id="4837e4c1" class="cell markdown">
 <section id="observed-vs-predicted-prevalence" class="level1">
 <h1>Observed vs Predicted Prevalence</h1>
 <p>To verify that the model does what it is supposed to, we compare how often some selected diagnoses appear in the data and how often the model predicts these diagnoses to be observed.</p>
@@ -606,7 +607,7 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="2dbd77fa" class="cell markdown">
+<div id="cab151c6" class="cell markdown">
 <section id="correlation-between-ipsi--and-contralateral-involvement" class="level2">
 <h2 class="anchored" data-anchor-id="correlation-between-ipsi--and-contralateral-involvement">Correlation between Ipsi- and Contralateral Involvement</h2>
 </section>
@@ -727,13 +728,122 @@ Comparison of predicted (histograms) vs observed (beta posteriors) prevalences. 
 </div>
 </div>
 </div></div>
-<div id="5c8759e7" class="cell markdown">
+<div id="91963743" class="cell markdown">
+<section id="contra-lnl-iii-depending-on-upstream-lnl-ii-involvement" class="level2">
+<h2 class="anchored" data-anchor-id="contra-lnl-iii-depending-on-upstream-lnl-ii-involvement">Contra LNL III Depending on Upstream LNL II Involvement</h2>
+</section>
+</div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="2d2514f8" class="cell" data-execution_count="7">
+<pre><code>import matplotlib.pyplot as plt
+from matplotlib import gridspec
+import numpy as np
+from lyscripts.scenario import Scenario
+from lyscripts.plot.utils import Histogram, BetaPosterior, draw, COLORS, split_legends
+from scripts import paths, shared
+
+def turn_axis_off(axes):
+  axes.set_xticks([])
+  axes.set_yticks([])
+
+nrows, ncols = 2, 2
+
+plt.rcParams.update(shared.get_fontsizes())
+plt.rcParams.update(shared.get_figsizes(
+  nrows=nrows,
+  ncols=ncols,
+  aspect_ratio=2.,
+  width=17,
+))
+
+fig = plt.figure()
+gs = gridspec.GridSpec(nrows=nrows, ncols=ncols, figure=fig)
+axes = np.array([[fig.add_subplot(gs[i,j]) for j in range(ncols)] for i in range(nrows)])
+full = fig.add_subplot(gs[:,:], frame_on=False)
+turn_axis_off(full)
+
+full.set_title(
+  "Observed vs Predicted Prevalence of Contralateral LNL III Involvement\nDependent on Upstream LNL III Involvement",
+  pad=20.,
+  fontsize="large",
+)
+
+data = shared.get_data()
+
+for i, t_stage in enumerate(["early", "late"]):
+  axes[i,0].set_ylabel(f"{t_stage} T-cat.", fontweight="bold")
+  for j, midext in enumerate([False, True]):
+    axes[0,j].set_title("Mid. ext." if midext else "Lateralized", fontweight="bold")
+    axes[0,j].set_xticks([])
+    axes[-1,j].set_xlabel("prevalence [%]")
+    axes[i,j].set_yticks([])
+    content = []
+    for upstream, color in zip([False, True], [COLORS["green"], COLORS["red"]]):
+      scenario = Scenario(
+        t_stages=[t_stage],
+        midext=midext,
+        diagnosis={
+          "contra": {"max_llh": {"II": upstream, "III": True}},
+        }
+      )
+      content.append(
+        Histogram.from_hdf5(
+          filename=paths.model_dir / "full" / "prevalences_with_upstream.hdf5",
+          dataname=scenario.md5_hash("prevalences"),
+          color=color,
+          label="prediction",
+        )
+      )
+      content.append(
+        BetaPosterior.from_hdf5(
+          filename=paths.model_dir / "full" / "prevalences_with_upstream.hdf5",
+          dataname=scenario.md5_hash("prevalences"),
+          color=color,
+        )
+      )
+    draw(
+      axes=axes[i,j],
+      contents=content,
+      xlims=(0., 15. if midext else 4.),
+    )
+
+split_legends(
+  axes=axes[0,0],
+  titles=["upstream healthy", "upstream involved"],
+  locs=[(0.4, 0.99), (0.5, 0.55)],
+)
+split_legends(
+  axes=axes[0,1],
+  titles=["upstream healthy", "upstream involved"],
+  locs=[(0.3, 0.99), (0.6, 0.55)],
+)
+split_legends(
+  axes=axes[1,0],
+  titles=["upstream healthy", "upstream involved"],
+  locs=[(0.2, 0.99), (0.65, 0.99)],
+)
+split_legends(
+  axes=axes[1,1],
+  titles=["upstream healthy", "upstream involved"],
+  locs=[(0.3, 0.99), (0.65, 0.99)],
+)
+
+plt.savefig(paths.figure_dir / "fig-model-prevalences-with-upstream.svg")
+plt.show()</code></pre>
+<div class="cell-output cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="model_files/figure-html/cell-7-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="model_files/figure-html/cell-7-output-1.png" width="620" height="283" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+<div id="3a7626d6" class="cell markdown">
 <section id="portion-of-midline-extension" class="level2">
 <h2 class="anchored" data-anchor-id="portion-of-midline-extension">Portion of Midline Extension</h2>
 <p>Since we model the tumor’s midline extension as a random variable we can predict its portion among early or late T-category patients and compare it with the observed prevalence in the data.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="cell-fig-model-prevalences-midext" class="cell" data-execution_count="7">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="cell-fig-model-prevalences-midext" class="cell" data-execution_count="8">
 <pre><code>#| label: fig-model-prevalences-midext
 #| fig-cap: 'Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor''s midline extension is virtually always part of the diagnosis and hence *given* when predicting a patient''s risk, we do not consider this discrepancy a major issue.'
 import matplotlib.pyplot as plt
@@ -795,7 +905,7 @@ plt.show()</code></pre>
 <div id="fig-model-prevalences-midext" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-prevalences-midext-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
-<a href="model_files/figure-html/fig-model-prevalences-midext-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence given when predicting a patient’s risk, we do not consider this discrepancy a major issue."><img src="model_files/figure-html/fig-model-prevalences-midext-output-1.png" width="299" height="176" class="figure-img"></a>
+<a href="model_files/figure-html/fig-model-prevalences-midext-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7" title="Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence given when predicting a patient’s risk, we do not consider this discrepancy a major issue."><img src="model_files/figure-html/fig-model-prevalences-midext-output-1.png" width="299" height="176" class="figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-prevalences-midext-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence <em>given</em> when predicting a patient’s risk, we do not consider this discrepancy a major issue.
@@ -804,13 +914,13 @@ Comparing the predicted (histograms) and observed (lines depicting beta posterio
 </div>
 </div>
 </div></div>
-<div id="ffa077e7" class="cell markdown">
+<div id="bff9f70c" class="cell markdown">
 <section id="risk-predictions" class="level1">
 <h1>Risk Predictions</h1>
 <p>Now, we want to make actual use of the model and predict the risk for occult diease given some diagnoses.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="46be45a9" class="cell" data-execution_count="8">
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="5d91824d" class="cell" data-execution_count="9">
 <pre><code>import numpy as np
 import h5py
 import matplotlib.pyplot as plt
@@ -932,7 +1042,7 @@ plt.show()</code></pre>
 <div class="cell-output cell-output-display">
 <div class="">
 <figure class="figure">
-<p class=""><a href="model_files/figure-html/cell-8-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-7"><img src="model_files/figure-html/cell-8-output-1.png" width="620" height="142" class="figure-img"></a></p>
+<p class=""><a href="model_files/figure-html/cell-9-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-8"><img src="model_files/figure-html/cell-9-output-1.png" width="620" height="142" class="figure-img"></a></p>
 </figure>
 </div>
 </div>
@@ -1357,37 +1467,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"selector":".lightbox","descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"selector":".lightbox","openEffect":"zoom","descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
           </script> 
   
 </body></html>

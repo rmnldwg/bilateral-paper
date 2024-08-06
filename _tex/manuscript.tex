@@ -156,7 +156,6 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -172,7 +171,6 @@
   citecolor={Blue},
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
-
 
 \title[Probabilistic Model of Bilateral Lymphatic Spread in Head and
 Neck Cancer]{Probabilistic Model of Bilateral Lymphatic Spread in Head
@@ -231,7 +229,6 @@ irradiation may be limited to level II.}
 
 \begin{document}
 \maketitle
-
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
@@ -314,22 +311,22 @@ The main contributions of this paper are as follows:
 
 \section{Data on Lymphatic Progression Patterns}\label{sec-data}
 
-To be able to create models for lymphatic tumor progression that
-includes all relevant LNLs including the contralateral side, we have
-collected a detailed dataset of 833 patients with newly diagnosed
-oropharyngeal squamous cell carcinomas. It reports the lymph node
-involvement per LNL of every patient individually in tabular form, in
-addition to other primary tumor and patient characteristics such as
-T-category, subside, and lateralization of the primary tumor, and HPV
-p16 status. Their patient records have been collected at four different
-institutions and a brief overview over some of their patients'
-characteristics are shown in table~\ref{tbl-data-overview}. The data
-from the Inselspital Bern and the Centre Léon Bérard only consists of
-patients who received a neck dissection. Since this treatment is more
-commonly chosen for early T-category patients, they also make up a
-larger portion of the respective dataset. The majority of patients from
-the University Hospital Zürich and the Vall d'Hebron Barcelona Hospital
-was treated with definitive radiotherapy.
+To be able to create models for lymphatic tumor progression that include
+all relevant LNLs including the contralateral side, we have collected a
+detailed dataset of 833 patients with newly diagnosed oropharyngeal
+squamous cell carcinomas. It reports the lymph node involvement per LNL
+of every patient individually in tabular form, in addition to other
+primary tumor and patient characteristics such as T-category, subside,
+and lateralization of the primary tumor, and HPV p16 status. Their
+patient records have been collected at four different institutions and a
+brief overview over some of their patients' characteristics are shown in
+table~\ref{tbl-data-overview}. The data from the Inselspital Bern and
+the Centre Léon Bérard only consist of patients who received a neck
+dissection. Since this treatment is more commonly chosen for early
+T-category patients, they also make up a larger portion of the
+respective dataset. The majority of patients from the University
+Hospital Zürich and the Vall d'Hebron Barcelona Hospital was treated
+with definitive radiotherapy.
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
@@ -348,7 +345,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_1b972}\tabularnewline
+\caption{}\label{T_b5301}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -445,7 +442,7 @@ into account:
   The degree of ipsilateral involvement should give the model
   information on the time that may have passed between onset and
   diagnosis of the disease. This should come in addition to what can be
-  inferred about this time from T-category alone.
+  inferred about the time from T-category alone.
 \item
   A tumor that extends over the mid-sagittal line should yield
   contralateral metastases with much higher probability.
@@ -613,7 +610,7 @@ observed state and a T-category
 \(d = \left( \boldsymbol{\zeta}_i, \text{T}x \right)\) as follows:
 
 \begin{equation}\phantomsection\label{eq-single-patient-llh}{
-\ell = P \left( \mathbf{Z} = \boldsymbol{\zeta}_i \mid \text{T}x \right) = \sum_{t=0}^{t_\text{max}} \left[ \boldsymbol{\xi}_0 \cdot \mathbf{A} \cdot \mathbf{B} \right]_i \cdot P \left( t \mid \text{T}x \right)
+\ell = P \left( \mathbf{Z} = \boldsymbol{\zeta}_i \mid \text{T}x \right) = \sum_{t=0}^{t_\text{max}} \left[ \boldsymbol{\xi}_0 \cdot \mathbf{A}^t \cdot \mathbf{B} \right]_i \cdot P \left( t \mid \text{T}x \right)
 }\end{equation}
 
 Above, the quantity inside \(\left[ \ldots \right]_i\) denotes the
@@ -1019,7 +1016,7 @@ For each dimension in the parameter space of the model, we initialized
 the unit cube. Every time all of these walkers advanced 50 steps, the
 autocorrelation time of the chains was estimated. For short chains, this
 estimate is not trustworthy, but stabilizes for longer chains. We
-therefore considered a sampling to be converged when two criteria where
+therefore considered a sampling to be converged when two criteria were
 met:
 
 \begin{enumerate}
@@ -1154,7 +1151,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_66259}\tabularnewline
+\caption{}\label{T_6f0e6}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1279,6 +1276,39 @@ III shows metastases. One reason for this may be the width of the
 time-prior: If it was wider, the posterior over the diagnosis time given
 the ipsilateral involvement could more flexibly shift to reflect a more
 severe contralateral involvement.
+
+\subsubsection{Influence of Upstream
+Involvement}\label{influence-of-upstream-involvement}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics{manuscript_files/mediabag/figures/fig-model-prevalences-with-upstream.pdf}
+
+}
+
+\caption{\label{fig-model-prevalences-with-upstream}Predicted
+(histograms) vs observed (beta posteriors) prevalence of scnearios that
+show how much more often the contralateral LNL III is involved when the
+upstream level II is involved (red) against when it is healthy (green).
+As in figure~\ref{fig-model-prevalences-with-ipsi}, this is plotted for
+all four combinations of T-category and midline extension. Note that the
+contralateral LNL III is extremely rarely involved without the upstream
+level II.}
+
+\end{figure}%
+
+Similarily to how we have shown the dependence of contralateral LNL II
+involvement on some extent of ipsilateral metastasis, we can look at the
+dependence of contralateral LNL III involvement depending on whether or
+not the upstream level harbors disease. In
+figure~\ref{fig-model-prevalences-with-upstream} this is shown in
+analogy to figure~\ref{fig-model-prevalences-with-ipsi}. Note that the
+prevalence of contralateral LNL III involvement is generally much lower
+than that of LNL II. Also, level III involvement is exceedingly rare
+when the upstream level II is not metastatic. The model captures this
+well.
 
 \subsubsection{Prevalence of Midline
 Extension}\label{prevalence-of-midline-extension}
@@ -1424,7 +1454,7 @@ involved).
 \subsubsection{Contralalteral LNL III}\label{contralalteral-lnl-iii}
 
 As shown in the center subplot of figure~\ref{fig-model-risks}, the risk
-for occult disease in the contralateral LNL III may only crosses a 5\%
+for occult disease in the contralateral LNL III may only cross a 5\%
 threshold if the upstream level II is clinically involved, too. If the
 clinical diagnosis of the contralateral upstream level II is
 pathologically confirmed by FNA the risk increases by another percentage
@@ -1523,7 +1553,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_a61d0}\tabularnewline
+\caption{}\label{T_a95ce}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1570,7 +1600,6 @@ Notebook}}
 
 
   \bibliography{references.bib}
-
 
 
 \end{document}
