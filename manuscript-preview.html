@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.49">
+    <meta name="generator" content="quarto-1.5.37">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -535,7 +535,7 @@ Conclusions: The model may guide personalized volume reduction of the elective C
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-     <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="fae79061" class="cell" data-execution_count="2">
+     <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="a00fce79" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -553,13 +553,13 @@ Conclusions: The model may guide personalized volume reduction of the elective C
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>simple_model <span class="op">=</span> shared.get_model(<span class="st">"simple"</span>, load_samples<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="41a19691" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="c6e143a7" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># width of figures. May depend on number of text columns</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>full <span class="op">=</span> <span class="dv">17</span> <span class="co"># cm</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="30e10075" class="cell markdown">
+<div id="7dab7a85" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>When treating head and neck squamous cell carcinomas (HNSCC) with radiotherapy or surgery, not only the primary tumor and the clinically detected lymph node metastases are targeted. Per current guidelines, large volumes of the neck are part of the the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ct-based_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensity-modulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ct-based_2003" role="doc-biblioref">Vincent Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>; <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">V. Grégoire and Others 2018</a>; <a href="#ref-eisbruch_intensity-modulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span>. This is to minimize the risk of regional recurrences due to untreated microscopic disease which cannot be detected by current in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET). However, minimizing the risk of missing occult disease in the lymph drainage region must be balanced against the toxicity related to unnecessary treatment of healthy tissue.</p>
@@ -676,59 +676,59 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 <div aria-describedby="tbl-data-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="3">
 <style type="text/css">
-#T_7cf37_row0_col1, #T_7cf37_row0_col2, #T_7cf37_row0_col3, #T_7cf37_row0_col4, #T_7cf37_row0_col5, #T_7cf37_row0_col6, #T_7cf37_row1_col1, #T_7cf37_row1_col2, #T_7cf37_row1_col3, #T_7cf37_row1_col4, #T_7cf37_row1_col5, #T_7cf37_row1_col6, #T_7cf37_row2_col1, #T_7cf37_row2_col2, #T_7cf37_row2_col3, #T_7cf37_row2_col4, #T_7cf37_row2_col5, #T_7cf37_row2_col6, #T_7cf37_row3_col1, #T_7cf37_row3_col2, #T_7cf37_row3_col3, #T_7cf37_row3_col4, #T_7cf37_row3_col5, #T_7cf37_row3_col6 {
+#T_0976c_row0_col1, #T_0976c_row0_col2, #T_0976c_row0_col3, #T_0976c_row0_col4, #T_0976c_row0_col5, #T_0976c_row0_col6, #T_0976c_row1_col1, #T_0976c_row1_col2, #T_0976c_row1_col3, #T_0976c_row1_col4, #T_0976c_row1_col5, #T_0976c_row1_col6, #T_0976c_row2_col1, #T_0976c_row2_col2, #T_0976c_row2_col3, #T_0976c_row2_col4, #T_0976c_row2_col5, #T_0976c_row2_col6, #T_0976c_row3_col1, #T_0976c_row3_col2, #T_0976c_row3_col3, #T_0976c_row3_col4, #T_0976c_row3_col5, #T_0976c_row3_col6 {
   text-align: right;
 }
 </style>
 
-<table id="T_7cf37" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_0976c" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_7cf37_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Institution</th>
-<th id="T_7cf37_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Total</th>
-<th id="T_7cf37_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Age (median)</th>
-<th id="T_7cf37_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Neck Dissection</th>
-<th id="T_7cf37_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">N0</th>
-<th id="T_7cf37_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Early T-Cat.</th>
-<th id="T_7cf37_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Mid. Ext.</th>
+<th id="T_0976c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Institution</th>
+<th id="T_0976c_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Total</th>
+<th id="T_0976c_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Age (median)</th>
+<th id="T_0976c_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">Neck Dissection</th>
+<th id="T_0976c_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">N0</th>
+<th id="T_0976c_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">Early T-Cat.</th>
+<th id="T_0976c_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">Mid. Ext.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_7cf37_row0_col0" class="data row0 col0">Centre Léon Bérard</td>
-<td id="T_7cf37_row0_col1" class="data row0 col1">325</td>
-<td id="T_7cf37_row0_col2" class="data row0 col2">60</td>
-<td id="T_7cf37_row0_col3" class="data row0 col3">100%</td>
-<td id="T_7cf37_row0_col4" class="data row0 col4">19%</td>
-<td id="T_7cf37_row0_col5" class="data row0 col5">69%</td>
-<td id="T_7cf37_row0_col6" class="data row0 col6">18%</td>
+<td id="T_0976c_row0_col0" class="data row0 col0">Centre Léon Bérard</td>
+<td id="T_0976c_row0_col1" class="data row0 col1">325</td>
+<td id="T_0976c_row0_col2" class="data row0 col2">60</td>
+<td id="T_0976c_row0_col3" class="data row0 col3">100%</td>
+<td id="T_0976c_row0_col4" class="data row0 col4">19%</td>
+<td id="T_0976c_row0_col5" class="data row0 col5">69%</td>
+<td id="T_0976c_row0_col6" class="data row0 col6">18%</td>
 </tr>
 <tr class="even">
-<td id="T_7cf37_row1_col0" class="data row1 col0">Inselspital Bern</td>
-<td id="T_7cf37_row1_col1" class="data row1 col1">74</td>
-<td id="T_7cf37_row1_col2" class="data row1 col2">61</td>
-<td id="T_7cf37_row1_col3" class="data row1 col3">100%</td>
-<td id="T_7cf37_row1_col4" class="data row1 col4">18%</td>
-<td id="T_7cf37_row1_col5" class="data row1 col5">66%</td>
-<td id="T_7cf37_row1_col6" class="data row1 col6">14%</td>
+<td id="T_0976c_row1_col0" class="data row1 col0">Inselspital Bern</td>
+<td id="T_0976c_row1_col1" class="data row1 col1">74</td>
+<td id="T_0976c_row1_col2" class="data row1 col2">61</td>
+<td id="T_0976c_row1_col3" class="data row1 col3">100%</td>
+<td id="T_0976c_row1_col4" class="data row1 col4">18%</td>
+<td id="T_0976c_row1_col5" class="data row1 col5">66%</td>
+<td id="T_0976c_row1_col6" class="data row1 col6">14%</td>
 </tr>
 <tr class="odd">
-<td id="T_7cf37_row2_col0" class="data row2 col0">University Hospital Zurich</td>
-<td id="T_7cf37_row2_col1" class="data row2 col1">287</td>
-<td id="T_7cf37_row2_col2" class="data row2 col2">66</td>
-<td id="T_7cf37_row2_col3" class="data row2 col3">26%</td>
-<td id="T_7cf37_row2_col4" class="data row2 col4">18%</td>
-<td id="T_7cf37_row2_col5" class="data row2 col5">52%</td>
-<td id="T_7cf37_row2_col6" class="data row2 col6">31%</td>
+<td id="T_0976c_row2_col0" class="data row2 col0">University Hospital Zurich</td>
+<td id="T_0976c_row2_col1" class="data row2 col1">287</td>
+<td id="T_0976c_row2_col2" class="data row2 col2">66</td>
+<td id="T_0976c_row2_col3" class="data row2 col3">26%</td>
+<td id="T_0976c_row2_col4" class="data row2 col4">18%</td>
+<td id="T_0976c_row2_col5" class="data row2 col5">52%</td>
+<td id="T_0976c_row2_col6" class="data row2 col6">31%</td>
 </tr>
 <tr class="even">
-<td id="T_7cf37_row3_col0" class="data row3 col0">Vall d'Hebron Barcelona Hospital</td>
-<td id="T_7cf37_row3_col1" class="data row3 col1">147</td>
-<td id="T_7cf37_row3_col2" class="data row3 col2">58</td>
-<td id="T_7cf37_row3_col3" class="data row3 col3">5%</td>
-<td id="T_7cf37_row3_col4" class="data row3 col4">21%</td>
-<td id="T_7cf37_row3_col5" class="data row3 col5">34%</td>
-<td id="T_7cf37_row3_col6" class="data row3 col6">34%</td>
+<td id="T_0976c_row3_col0" class="data row3 col0">Vall d'Hebron Barcelona Hospital</td>
+<td id="T_0976c_row3_col1" class="data row3 col1">147</td>
+<td id="T_0976c_row3_col2" class="data row3 col2">58</td>
+<td id="T_0976c_row3_col3" class="data row3 col3">5%</td>
+<td id="T_0976c_row3_col4" class="data row3 col4">21%</td>
+<td id="T_0976c_row3_col5" class="data row3 col5">34%</td>
+<td id="T_0976c_row3_col6" class="data row3 col6">34%</td>
 </tr>
 </tbody>
 </table>
@@ -737,7 +737,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="3420b216" class="cell markdown">
+<div id="c865f1f8" class="cell markdown">
 <section id="consensus-on-involvement-status" class="level2">
 <h2 class="anchored" data-anchor-id="consensus-on-involvement-status">Consensus on Involvement Status</h2>
 <p>Pathological involvement is thus available only for a subset of the patients and only for the dissected levels. For the remaining patients, only clinical involvement is available. For the analysis performed in this paper, all available diagnostic information has been combined into a consensus decision representing the most likely state of involvement for each patient and LNL, using literature values for sensitivity and specificity of different modalities <span class="citation" data-cites="de_bondt_detection_2007 kyzas_18f-fluorodeoxyglucose_2008">(<a href="#ref-de_bondt_detection_2007" role="doc-biblioref">De Bondt and Others 2007</a>; <a href="#ref-kyzas_18f-fluorodeoxyglucose_2008" role="doc-biblioref">Kyzas and Others 2008</a>)</span>. These values are tabulated in <a href="#tbl-spec-sens" class="quarto-xref">table&nbsp;2</a>.</p>
@@ -764,7 +764,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 Table&nbsp;2: Specificity and sensitivity values from the literature <span class="citation" data-cites="de_bondt_detection_2007 kyzas_18f-fluorodeoxyglucose_2008">(<a href="#ref-de_bondt_detection_2007" role="doc-biblioref">De Bondt and Others 2007</a>; <a href="#ref-kyzas_18f-fluorodeoxyglucose_2008" role="doc-biblioref">Kyzas and Others 2008</a>)</span>.
 </figcaption>
 <div aria-describedby="tbl-spec-sens-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table table-sm table-striped small">
+<table class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Modality</th>
@@ -911,28 +911,16 @@ P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{m
 \tag{7}\]</span></span></p>
 <p>The methodology we use to infer the model’s parameters is detailed in <a href="#sec-sampling" class="quarto-xref">section&nbsp;5.2</a>.</p>
 </section>
-<section id="model-prediction-in-the-bayesian-context" class="level2">
-<h2 class="anchored" data-anchor-id="model-prediction-in-the-bayesian-context">Model Prediction in the Bayesian Context</h2>
-<p>Our stated goal is to compute the risk for a patient’s true nodal involvement state <span class="math inline">\(\mathbf{X}\)</span>, <em>given</em> their individual diagnosis <span class="math inline">\(d = \left( \boldsymbol{\zeta}_k, \text{T}x \right)\)</span>. Using Bayes’ law, this is written as:</p>
-<p><span id="eq-uni-bayes-law"><span class="math display">\[
-P \big( \mathbf{X} \mid \mathbf{Z}=\boldsymbol{\zeta}_k, \boldsymbol{\hat{\theta}}, \text{T}x \big) = \frac{P \left( \boldsymbol{\zeta}_k \mid \mathbf{X} \right) P \big( \mathbf{X} \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}{\sum_{i=0}^{2^V} P \left( \boldsymbol{\zeta}_k \mid \mathbf{X}=\boldsymbol{\xi}_i \right) P \big( \mathbf{X}=\boldsymbol{\xi}_i \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}
-\tag{8}\]</span></span></p>
-<p>The term <span class="math inline">\(P \left( \boldsymbol{\zeta}_k \mid \mathbf{X} \right)\)</span> is defined solely by sensitivity and specificity of the diagnostic modality. Terms like this already appeared in the definition of the observation matrx in <a href="#eq-obs-matrix" class="quarto-xref">equation&nbsp;3</a>. The <em>prior</em> <span class="math inline">\(P \big( \mathbf{X} \mid \boldsymbol{\hat{\theta}} \big)\)</span> in the above equation is the crucial term that is supplied by a trained model and its parameters <span class="math inline">\(\boldsymbol{\hat{\theta}}\)</span>.</p>
-<p>It is possible to compute this <em>posterior</em> probability of true involvement not only for one fully defined state <span class="math inline">\(\mathbf{X}\)</span>, but also for e.g.&nbsp;individual LNLs: For example, the risk for involvement in level IV would be a marginalization over all states <span class="math inline">\(\boldsymbol{\xi}_i\)</span>, where <span class="math inline">\(\xi_{i4}=1\)</span>. Formally:</p>
-<p><span id="eq-marg-over-posterior"><span class="math display">\[
-P \big( \text{IV} \mid \mathbf{Z}=\boldsymbol{\zeta}_k, \boldsymbol{\hat{\theta}}, \text{T}x  \big) = \sum_{k \, : \, \xi_{k4}=1} P \big( \mathbf{X} = \boldsymbol{\xi}_k \mid \boldsymbol{\zeta}_k, \boldsymbol{\hat{\theta}}, \text{T}x  \big)
-\tag{9}\]</span></span></p>
-</section>
 </section>
 <section id="sec-ext-to-contra" class="level1">
 <h1>Extension to a Bilateral Model</h1>
 <p>A naive approach to model the contralateral lymphatic spread would be to simply employ two independent unilateral models as introduced in <a href="#sec-unilateral" class="quarto-xref">section&nbsp;3</a>. During training, one could enforce that some parameters are shared between these two models, e.g.&nbsp;the parameterization of the distributions over diagnose times or the spread among the LNLs ($t_{vr}). However, this approach lacks a way to describe the correlation between ipsi- and contralateral involvement discussed in section {#sec-data-strat}. Two independent unilateral models would not describe the observation that contralateral involvement becomes more likely with more severe ipsilateral involvement.</p>
 <!-- This is displayed in @tbl-data-strat and shows how often the contralateral LNLs I, II, III, and IV were involved, given all possible combinations of midline extension, T-category, and ipsilateral LNL III involvement. Unsurprisingly, the prevalence for contralateral involvement is consistently higher when the tumor extends over the mid-sagittal line or is of later T-category. But it is also more frequent when the ipsilateral side shows more severe involvement, which is here shown via the surrogate LNL III. -->
 <!-- Additionally, we could think of an approach to incorporate the primary tumor's mid-sagittal extension as a risk factor. -->
-<p>Thus, we extend the formalism in <a href="#sec-unilateral" class="quarto-xref">section&nbsp;3</a> in such a way that the model’s ipsi- and contralateral side evolve synchronously over time. To achieve that, we start by writing down the posterior distribution of involvement an analogy to <a href="#eq-uni-bayes-law" class="quarto-xref">equation&nbsp;8</a>, which is now a joint probability of an involvement <span class="math inline">\(\mathbf{X}^\text{i}\)</span> ipsilaterally <em>and</em> an involvement <span class="math inline">\(\mathbf{X}^\text{c}\)</span> contralaterally, given a diagnosis of the ipsilateral LNLs <span class="math inline">\(\mathbf{Z}^\text{i}\)</span> and of the contralateral ones <span class="math inline">\(\mathbf{Z}^\text{c}\)</span>:</p>
+<p>Thus, we extend the formalism in <a href="#sec-unilateral" class="quarto-xref">section&nbsp;3</a> in such a way that the model’s ipsi- and contralateral side evolve synchronously over time. To achieve that, we start by writing down the posterior distribution of involvement an analogy to <a href="#eq-uni-bayes-law" class="quarto-xref">equation&nbsp;15</a>, which is now a joint probability of an involvement <span class="math inline">\(\mathbf{X}^\text{i}\)</span> ipsilaterally <em>and</em> an involvement <span class="math inline">\(\mathbf{X}^\text{c}\)</span> contralaterally, given a diagnosis of the ipsilateral LNLs <span class="math inline">\(\mathbf{Z}^\text{i}\)</span> and of the contralateral ones <span class="math inline">\(\mathbf{Z}^\text{c}\)</span>:</p>
 <p><span id="eq-bilateral-bayes"><span class="math display">\[
 P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right) = \frac{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \mid \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right) P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right)}{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right)}
-\tag{10}\]</span></span></p>
+\tag{8}\]</span></span></p>
 <p>For the sake of brevity, we omit the dependency on the parameters and the T-category here.</p>
 <p>The probability of the diagnoses given a hidden state factorises: <span class="math inline">\(P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \mid \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right) = P \left( \mathbf{Z}^\text{i} \mid \mathbf{X}^\text{i} \right) \cdot P \left( \mathbf{Z}^\text{c} \mid \mathbf{X}^\text{c} \right)\)</span>, and the two factors are described through observation matrices <span class="math inline">\(\mathbf{B}^\text{i}\)</span> and <span class="math inline">\(\mathbf{B}^\text{c}\)</span>.</p>
 <p>The term representing the model’s prior probability of hidden involvement does not factorize. However, we assume that there is no direct lymph drainage from an ipsilateral LNL to a contralateral LNL. No major lymph vessels cross the mid-sagittal plane. In the graphical model, this means that we assume no directed arcs between ipsilateral and contralateral LNLs, i.e.&nbsp;tumor spread to the contralateral side is due to the primary tumor alone. We can thus write the joint probability <span class="math inline">\(P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right)\)</span> as a factorising sum:</p>
@@ -941,13 +929,13 @@ P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mat
 P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right) &amp;= \sum_{t=0}^{t_\text{max}} P(t) \cdot P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid t \right) \\
 &amp;= \sum_{t=0}^{t_\text{max}} P(t) \cdot P \left( \mathbf{X}^\text{i} \mid t \right) \cdot P \left( \mathbf{X}^\text{c} \mid t \right)
 \end{aligned}
-\tag{11}\]</span></span></p>
+\tag{9}\]</span></span></p>
 <p>This assumption makes intuitive sense: The state of the ipsilateral and contralateral sides of the lymphatic network evolves independently over time as there are no major lymph vessels crossing the midline. However, both sides are coupled via time. Qualitatively speaking, according to the model in {#eq-bilateral-marginal}, a joint state with severe contralateral involvement and limited ipsilateral involvement would be unlikely, because severe contralateral involvement becomes likely only at later time steps when limited ipsilateral involvement becomes unlikely.</p>
 <!--There may, however, be diffusion of lymph fluid accross this line or bulky involvement that redirects lymphatic drainage significantly.-->
 <p>Using {#eq-bilateral-marginal} along with <a href="#eq-lambda-matrix" class="quarto-xref">equation&nbsp;4</a>, we can write the above distribution algebraically as a product:</p>
 <p><span id="eq-bilateral-marginal-algebra"><span class="math display">\[
 P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsymbol{\xi}_m \right) = \left[ \boldsymbol{\Lambda}^\intercal_\text{i} \cdot \operatorname{diag} P(\mathbf{t}) \cdot \boldsymbol{\Lambda}_\text{c} \right]_{n,m}
-\tag{12}\]</span></span></p>
+\tag{10}\]</span></span></p>
 <section id="sec-params-symmetry" class="level2">
 <h2 class="anchored" data-anchor-id="sec-params-symmetry">Parameter Symmetries</h2>
 <p>In general, the matrices <span class="math inline">\(\boldsymbol{\Lambda}_\text{i}\)</span> and <span class="math inline">\(\boldsymbol{\Lambda}_\text{c}\)</span> could be parameterized using a disjoint set of parameters. I.e., the ipsi- and contralateral spread rates are entirely different. However, using three sensible assumptions, we can reduce the parameter space by sharing some parameters between the sides:</p>
@@ -959,16 +947,16 @@ P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsy
 b_v^\text{c} &amp;\neq b_v^\text{i} \\
 t_{rv}^\text{c} &amp;= t_{rv}^\text{i}
 \end{aligned}
-\tag{13}\]</span></span> for all <span class="math inline">\(v \leq V\)</span> and <span class="math inline">\(r \in \operatorname{pa}(v)\)</span>.</li>
+\tag{11}\]</span></span> for all <span class="math inline">\(v \leq V\)</span> and <span class="math inline">\(r \in \operatorname{pa}(v)\)</span>.</li>
 <li>The tumor’s spread to the contralateral side in case of an extension over the midline is larger than if it was clearly lateralized, but smaller than its spread to the ipsilateral side. This assumption stems from a simple thought experiment: Consider moving the tumor from a clearly lateralized position accross the mid-sagittal plane to the same position, but on the contralateral side. In the beginning we would have <span class="math inline">\(b_v^\text{c} &lt; b_v^\text{i}\)</span>, while in the end, the situation is reversed. If a tumor extends over the mid-sagittal line, its contralateral spread rate can be expected to be in between these two extremes. We encode this in a <em>mixing parameter</em> <span class="math inline">\(\alpha \in [0,1]\)</span> that captures a “degree of asymmetry”:<br>
 <span id="eq-mixing"><span class="math display">\[
 b_v^{\text{c},\epsilon=\texttt{True}} = \alpha \cdot b_v^\text{i} + (1 - \alpha) \cdot b_v^{\text{c},\epsilon=\texttt{False}}
-\tag{14}\]</span></span> This means the model now uses three different sets of parameters to describe the spread from the tumor to the LNLs: <span class="math inline">\(b^\text{i}_v\)</span> for the spread to the ipsilateral LNLs, <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{False}}\)</span> for the spread to the contralateral LNLs as long as the tumor is clearly lateralized, and finally <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{True}}\)</span> when it crosses the midline. Note, however, that these three sets of spread rates only account for <span class="math inline">\(2 \cdot 2^V + 1\)</span> parameters, since they are coupled via the mixing parameter <span class="math inline">\(\alpha\)</span>.</li>
+\tag{12}\]</span></span> This means the model now uses three different sets of parameters to describe the spread from the tumor to the LNLs: <span class="math inline">\(b^\text{i}_v\)</span> for the spread to the ipsilateral LNLs, <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{False}}\)</span> for the spread to the contralateral LNLs as long as the tumor is clearly lateralized, and finally <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{True}}\)</span> when it crosses the midline. Note, however, that these three sets of spread rates only account for <span class="math inline">\(2 \cdot 2^V + 1\)</span> parameters, since they are coupled via the mixing parameter <span class="math inline">\(\alpha\)</span>.</li>
 </ol>
 <p>Our parameter space has now expanded to</p>
 <p><span id="eq-bi-param-space"><span class="math display">\[
 \boldsymbol{\theta} = \left( \left\{ b_v^\text{i} \right\}, \left\{ b_v^\text{c} \right\}, \alpha, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.} \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
-\tag{15}\]</span></span></p>
+\tag{13}\]</span></span></p>
 <p>which is less than double in size, compared to the unilateral model. From these parameters, we now build three different transition matrices: The unchanged matrix <span class="math inline">\(\mathbf{A}_\text{i}\)</span> for the ipsilateral side, one <span class="math inline">\(\mathbf{A}_\text{c}^{\epsilon=\texttt{False}}\)</span> for the contralateral side that covers the progression as long as the tumor is lateralized, and <span class="math inline">\(\mathbf{A}_\text{c}^{\epsilon=\texttt{True}}\)</span> in case of a tumor that has crossed the mid-sagittal line.</p>
 </section>
 <section id="sec-midline" class="level2">
@@ -993,7 +981,7 @@ P(\epsilon = \texttt{True} \mid t) &amp;= 1 - P(\epsilon = \texttt{False} \mid t
 \right)
 \]</span></p>
 <p>where we used the transition matrix <span class="math inline">\(\mathbf{A}_\text{c}^{\epsilon=\texttt{False}}\)</span> that depends on the base spread parameters <span class="math inline">\(b_v^{\text{c},\epsilon=\texttt{False}}\)</span>.</p>
-<p>The case when midline extension is eventually present is more complicated: We already marginalize over the exact time-step when the tumor grows over the mid-sagittal line. But whenever that happens, we also need to change the contralateral transition matrix to use the increased spread rates <span class="math inline">\(b_v^{\text{c}, \epsilon=\texttt{True}}\)</span> from the tumor to the contralateral LNLs, given by the linear mixing in <a href="#eq-mixing" class="quarto-xref">equation&nbsp;14</a>. We can achieve the correct marginalization by iteratively building the joint distribution <span class="math inline">\(P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t \right)\)</span>. We start from <span class="math inline">\(t=0\)</span>, where we know that all LNLs are healthy (the contralateral neck is in the state <span class="math inline">\(\mathbf{X}_\text{c}=\boldsymbol{\xi}_0\)</span>) and the tumor is lateralized (<span class="math inline">\(\epsilon=\texttt{False}\)</span>):</p>
+<p>The case when midline extension is eventually present is more complicated: We already marginalize over the exact time-step when the tumor grows over the mid-sagittal line. But whenever that happens, we also need to change the contralateral transition matrix to use the increased spread rates <span class="math inline">\(b_v^{\text{c}, \epsilon=\texttt{True}}\)</span> from the tumor to the contralateral LNLs, given by the linear mixing in <a href="#eq-mixing" class="quarto-xref">equation&nbsp;12</a>. We can achieve the correct marginalization by iteratively building the joint distribution <span class="math inline">\(P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t \right)\)</span>. We start from <span class="math inline">\(t=0\)</span>, where we know that all LNLs are healthy (the contralateral neck is in the state <span class="math inline">\(\mathbf{X}_\text{c}=\boldsymbol{\xi}_0\)</span>) and the tumor is lateralized (<span class="math inline">\(\epsilon=\texttt{False}\)</span>):</p>
 <p><span class="math display">\[
 P \left( \mathbf{X}^\text{c} = \boldsymbol{\xi}_0, \epsilon=\texttt{False} \mid t=0 \right) = 1
 \]</span></p>
@@ -1014,7 +1002,7 @@ P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid 1 \right) \\
 P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t_\text{max} \right) \\
 \end{pmatrix}
 \]</span></p>
-<p>Using this, we can again write the joint of ipsi- and contralateral involvement - now also for the case of mid-sagittal extension - algebraically as before in <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;12</a>:</p>
+<p>Using this, we can again write the joint of ipsi- and contralateral involvement - now also for the case of mid-sagittal extension - algebraically as before in <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;10</a>:</p>
 <p><span class="math display">\[
 P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsymbol{\xi}_m, \epsilon \right) = \left[ \boldsymbol{\Lambda}^\intercal_\text{i} \cdot \operatorname{diag} P(\mathbf{t}) \cdot \boldsymbol{\Lambda}_\text{c}^\epsilon \right]_{n,m}
 \]</span></p>
@@ -1022,6 +1010,20 @@ P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsy
 <p>The final parameter space of our extended model has now reached this size:</p>
 <p><span id="eq-ext-param-space"><span class="math display">\[
 \boldsymbol{\theta} = \left( \left\{ b_v^\text{i} \right\}, \left\{ b_v^\text{c} \right\}, \alpha, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.}, p_\epsilon \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
+\tag{14}\]</span></span></p>
+</section>
+<section id="model-prediction-in-the-bayesian-context" class="level2">
+<h2 class="anchored" data-anchor-id="model-prediction-in-the-bayesian-context">Model Prediction in the Bayesian Context</h2>
+<p>Our stated goal is to compute the risk for a patient’s true ipsi- and contralateral nodal involvement states <span class="math inline">\(\mathbf{X}^\text{i}\)</span> and <span class="math inline">\(\mathbf{X}^\text{c}\)</span>, <em>given</em> their individual diagnosis <span class="math inline">\(d = \left( \boldsymbol{\zeta}^\text{i}_k, \boldsymbol{\zeta}^\text{c}_\ell, \epsilon, \text{T}x \right)\)</span>. Here, this diagnosis consists of the observed ipsi- and contralateral nodal involvements, the patient’s midline extension <span class="math inline">\(\epsilon\)</span>, and their tumor’s T-category <span class="math inline">\(\text{T}x\)</span>. Using Bayes’ law, we can write this risk as:</p>
+<p><span id="eq-uni-bayes-law"><span class="math display">\[
+P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid d, \boldsymbol{\hat{\theta}} \big)
+= \frac{P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right) P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right) P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}
+{\sum_{i=0}^{2^V} \sum_{j=0}^{2^V} P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i}=\boldsymbol{\xi}^\text{i}_i \right) P \big( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c}=\boldsymbol{\xi}^\text{c}_j \big) P \big( \mathbf{X}^\text{i}=\boldsymbol{\xi}^\text{i}_i, \mathbf{X}^\text{c}=\boldsymbol{\xi}^\text{c}_j, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}
+\tag{15}\]</span></span></p>
+<p>The terms <span class="math inline">\(P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right)\)</span> and <span class="math inline">\(P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right)\)</span> are defined solely by sensitivity and specificity of the diagnostic modality. Terms like these already appeared in the definition of the observation matrx in <a href="#eq-obs-matrix" class="quarto-xref">equation&nbsp;3</a>. The <em>prior</em> <span class="math inline">\(P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)\)</span> in the above equation is the crucial term that is supplied by a trained model and its parameters <span class="math inline">\(\boldsymbol{\hat{\theta}}\)</span>.</p>
+<p>It is possible to compute this <em>posterior</em> probability of true involvement not only for one fully defined state <span class="math inline">\((\mathbf{X}^\text{i}, \mathbf{X}^\text{c})\)</span>, but also for e.g.&nbsp;individual LNLs: For example, the risk for involvement in the contralateral level IV would be a marginalization over all ipsilateral states <span class="math inline">\(\boldsymbol{\xi}^\text{i}_i\)</span> and all contralateral states <span class="math inline">\(\boldsymbol{\xi}^\text{c}_j\)</span> where <span class="math inline">\(\xi^\text{c}_{j4}=1\)</span>. Formally:</p>
+<p><span id="eq-marg-over-posterior"><span class="math display">\[
+P \big( \text{cIV} \mid \mathbf{Z}^\text{i}=\boldsymbol{\zeta}^\text{i}_k, \mathbf{Z}^\text{c}=\boldsymbol{\zeta}^\text{c}_\ell, \boldsymbol{\hat{\theta}}, \text{T}x \big) = \sum_k \sum_{\ell \, : \, \xi_{\ell 4}=1} P \big( \mathbf{X}^\text{i} = \boldsymbol{\xi}^\text{i}_k, \mathbf{X}^\text{c} = \boldsymbol{\xi}^\text{c}_\ell \mid \boldsymbol{\zeta}^\text{i}_k, \boldsymbol{\zeta}^\text{c}_\ell, \epsilon, \boldsymbol{\hat{\theta}}, \text{T}x \big)
 \tag{16}\]</span></span></p>
 </section>
 </section>
@@ -1066,7 +1068,7 @@ Figure&nbsp;4: Monitoring quantities during the burn-in phase of the parameter s
 <p><span class="math display">\[
 P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early} \right) = \frac{P \left( \text{II}^\text{c}, \epsilon=\texttt{False} \mid \text{T}x=\text{early} \right)}{P \left( \epsilon=\texttt{False} \mid \text{T}x=\text{early} \right)}
 \]</span></p>
-<p>In the enumator, we marginalize over all ipsi- and contralateral LNLs’ involvements, except for LNL II contralaterally. This is similar to the marginalization in <a href="#eq-marg-over-posterior" class="quarto-xref">equation&nbsp;9</a>, although we are summing over different quantities. In the denominator, we can simply insert the joint distribution over midline extension and diagnose time <span class="math inline">\(P \left( \epsilon, t \right)\)</span> marginalized over <span class="math inline">\(t\)</span> using the early T-category’s time-prior.</p>
+<p>In the enumator, we marginalize over all ipsi- and contralateral LNLs’ involvements, except for LNL II contralaterally. This is similar to the marginalization in <a href="#eq-marg-over-posterior" class="quarto-xref">equation&nbsp;16</a>, although we are summing over different quantities. In the denominator, we can simply insert the joint distribution over midline extension and diagnose time <span class="math inline">\(P \left( \epsilon, t \right)\)</span> marginalized over <span class="math inline">\(t\)</span> using the early T-category’s time-prior.</p>
 <p>Since we compare it to the data, which does not report true but only observed involvement – although pathologically investigated LNLs may be as close as possible to the ground truth – we do not consider posteriors of the form <span class="math inline">\(P \left( \mathbf{X} \mid \mathbf{Z} \right)\)</span> here. Instead, we compute probabilities of observed involvement <span class="math inline">\(P \left( \mathbf{Z} \right)\)</span>, as in the likelihood <a href="#eq-single-patient-llh" class="quarto-xref">equation&nbsp;5</a>.</p>
 <p>When plotted, we usually display histograms over the model’s predictions. Each of their values was computed from a different parameter set drawn during MCMC sampling, effectively giving us a distribution over the prevalences. Ideally, the histograms approximate the location and width of the Beta posteriors when attempting to describe the data they were trained on.</p>
 <p>Note that we decided to omit the y-axis ticks and labels in these figures over prevalences and risks. The y-axis in these plots measures the probability density and its numerical values are not intuitively interpretable. Instead, we occasionally use the freed space to label e.g.&nbsp;rows of subplots.</p>
@@ -1120,114 +1122,114 @@ Table&nbsp;3: Mean sampled parameter estimates of the midline model and the resp
 <div aria-describedby="tbl-midline-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="4">
 <style type="text/css">
-#T_1fb02_row0_col1, #T_1fb02_row0_col2, #T_1fb02_row1_col1, #T_1fb02_row1_col2, #T_1fb02_row2_col1, #T_1fb02_row2_col2, #T_1fb02_row3_col1, #T_1fb02_row3_col2, #T_1fb02_row4_col1, #T_1fb02_row4_col2, #T_1fb02_row5_col1, #T_1fb02_row5_col2, #T_1fb02_row6_col1, #T_1fb02_row6_col2, #T_1fb02_row7_col1, #T_1fb02_row7_col2, #T_1fb02_row8_col1, #T_1fb02_row8_col2, #T_1fb02_row9_col1, #T_1fb02_row9_col2, #T_1fb02_row10_col1, #T_1fb02_row10_col2, #T_1fb02_row11_col1, #T_1fb02_row11_col2, #T_1fb02_row12_col1, #T_1fb02_row12_col2, #T_1fb02_row13_col1, #T_1fb02_row13_col2, #T_1fb02_row14_col1, #T_1fb02_row14_col2, #T_1fb02_row15_col1, #T_1fb02_row15_col2, #T_1fb02_row16_col1, #T_1fb02_row16_col2, #T_1fb02_row17_col1, #T_1fb02_row17_col2, #T_1fb02_row18_col1, #T_1fb02_row18_col2 {
+#T_c1569_row0_col1, #T_c1569_row0_col2, #T_c1569_row1_col1, #T_c1569_row1_col2, #T_c1569_row2_col1, #T_c1569_row2_col2, #T_c1569_row3_col1, #T_c1569_row3_col2, #T_c1569_row4_col1, #T_c1569_row4_col2, #T_c1569_row5_col1, #T_c1569_row5_col2, #T_c1569_row6_col1, #T_c1569_row6_col2, #T_c1569_row7_col1, #T_c1569_row7_col2, #T_c1569_row8_col1, #T_c1569_row8_col2, #T_c1569_row9_col1, #T_c1569_row9_col2, #T_c1569_row10_col1, #T_c1569_row10_col2, #T_c1569_row11_col1, #T_c1569_row11_col2, #T_c1569_row12_col1, #T_c1569_row12_col2, #T_c1569_row13_col1, #T_c1569_row13_col2, #T_c1569_row14_col1, #T_c1569_row14_col2, #T_c1569_row15_col1, #T_c1569_row15_col2, #T_c1569_row16_col1, #T_c1569_row16_col2, #T_c1569_row17_col1, #T_c1569_row17_col2, #T_c1569_row18_col1, #T_c1569_row18_col2 {
   text-align: right;
 }
 </style>
 
-<table id="T_1fb02" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_c1569" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_1fb02_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
-<th id="T_1fb02_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Mean</th>
-<th id="T_1fb02_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Std. Dev.</th>
+<th id="T_c1569_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Parameter</th>
+<th id="T_c1569_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">Mean</th>
+<th id="T_c1569_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Std. Dev.</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_1fb02_row0_col0" class="data row0 col0">Mid. ext. probability</td>
-<td id="T_1fb02_row0_col1" class="data row0 col1">8.16%</td>
-<td id="T_1fb02_row0_col2" class="data row0 col2">± 0.48%</td>
+<td id="T_c1569_row0_col0" class="data row0 col0">Mid. ext. probability</td>
+<td id="T_c1569_row0_col1" class="data row0 col1">8.16%</td>
+<td id="T_c1569_row0_col2" class="data row0 col2">± 0.48%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row1_col0" class="data row1 col0">ipsi: T ➜ I</td>
-<td id="T_1fb02_row1_col1" class="data row1 col1">2.80%</td>
-<td id="T_1fb02_row1_col2" class="data row1 col2">± 0.26%</td>
+<td id="T_c1569_row1_col0" class="data row1 col0">ipsi: T ➜ I</td>
+<td id="T_c1569_row1_col1" class="data row1 col1">2.80%</td>
+<td id="T_c1569_row1_col2" class="data row1 col2">± 0.26%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row2_col0" class="data row2 col0">ipsi: T ➜ II</td>
-<td id="T_1fb02_row2_col1" class="data row2 col1">34.89%</td>
-<td id="T_1fb02_row2_col2" class="data row2 col2">± 1.40%</td>
+<td id="T_c1569_row2_col0" class="data row2 col0">ipsi: T ➜ II</td>
+<td id="T_c1569_row2_col1" class="data row2 col1">34.89%</td>
+<td id="T_c1569_row2_col2" class="data row2 col2">± 1.40%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row3_col0" class="data row3 col0">ipsi: T ➜ III</td>
-<td id="T_1fb02_row3_col1" class="data row3 col1">5.45%</td>
-<td id="T_1fb02_row3_col2" class="data row3 col2">± 0.66%</td>
+<td id="T_c1569_row3_col0" class="data row3 col0">ipsi: T ➜ III</td>
+<td id="T_c1569_row3_col1" class="data row3 col1">5.45%</td>
+<td id="T_c1569_row3_col2" class="data row3 col2">± 0.66%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row4_col0" class="data row4 col0">ipsi: T ➜ IV</td>
-<td id="T_1fb02_row4_col1" class="data row4 col1">0.94%</td>
-<td id="T_1fb02_row4_col2" class="data row4 col2">± 0.18%</td>
+<td id="T_c1569_row4_col0" class="data row4 col0">ipsi: T ➜ IV</td>
+<td id="T_c1569_row4_col1" class="data row4 col1">0.94%</td>
+<td id="T_c1569_row4_col2" class="data row4 col2">± 0.18%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row5_col0" class="data row5 col0">ipsi: T ➜ V</td>
-<td id="T_1fb02_row5_col1" class="data row5 col1">1.83%</td>
-<td id="T_1fb02_row5_col2" class="data row5 col2">± 0.22%</td>
+<td id="T_c1569_row5_col0" class="data row5 col0">ipsi: T ➜ V</td>
+<td id="T_c1569_row5_col1" class="data row5 col1">1.83%</td>
+<td id="T_c1569_row5_col2" class="data row5 col2">± 0.22%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row6_col0" class="data row6 col0">ipsi: T ➜ VII</td>
-<td id="T_1fb02_row6_col1" class="data row6 col1">2.32%</td>
-<td id="T_1fb02_row6_col2" class="data row6 col2">± 0.26%</td>
+<td id="T_c1569_row6_col0" class="data row6 col0">ipsi: T ➜ VII</td>
+<td id="T_c1569_row6_col1" class="data row6 col1">2.32%</td>
+<td id="T_c1569_row6_col2" class="data row6 col2">± 0.26%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row7_col0" class="data row7 col0">contra: T ➜ I</td>
-<td id="T_1fb02_row7_col1" class="data row7 col1">0.29%</td>
-<td id="T_1fb02_row7_col2" class="data row7 col2">± 0.09%</td>
+<td id="T_c1569_row7_col0" class="data row7 col0">contra: T ➜ I</td>
+<td id="T_c1569_row7_col1" class="data row7 col1">0.29%</td>
+<td id="T_c1569_row7_col2" class="data row7 col2">± 0.09%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row8_col0" class="data row8 col0">contra: T ➜ II</td>
-<td id="T_1fb02_row8_col1" class="data row8 col1">2.46%</td>
-<td id="T_1fb02_row8_col2" class="data row8 col2">± 0.29%</td>
+<td id="T_c1569_row8_col0" class="data row8 col0">contra: T ➜ II</td>
+<td id="T_c1569_row8_col1" class="data row8 col1">2.46%</td>
+<td id="T_c1569_row8_col2" class="data row8 col2">± 0.29%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row9_col0" class="data row9 col0">contra: T ➜ III</td>
-<td id="T_1fb02_row9_col1" class="data row9 col1">0.14%</td>
-<td id="T_1fb02_row9_col2" class="data row9 col2">± 0.07%</td>
+<td id="T_c1569_row9_col0" class="data row9 col0">contra: T ➜ III</td>
+<td id="T_c1569_row9_col1" class="data row9 col1">0.14%</td>
+<td id="T_c1569_row9_col2" class="data row9 col2">± 0.07%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row10_col0" class="data row10 col0">contra: T ➜ IV</td>
-<td id="T_1fb02_row10_col1" class="data row10 col1">0.19%</td>
-<td id="T_1fb02_row10_col2" class="data row10 col2">± 0.08%</td>
+<td id="T_c1569_row10_col0" class="data row10 col0">contra: T ➜ IV</td>
+<td id="T_c1569_row10_col1" class="data row10 col1">0.19%</td>
+<td id="T_c1569_row10_col2" class="data row10 col2">± 0.08%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row11_col0" class="data row11 col0">contra: T ➜ V</td>
-<td id="T_1fb02_row11_col1" class="data row11 col1">0.05%</td>
-<td id="T_1fb02_row11_col2" class="data row11 col2">± 0.04%</td>
+<td id="T_c1569_row11_col0" class="data row11 col0">contra: T ➜ V</td>
+<td id="T_c1569_row11_col1" class="data row11 col1">0.05%</td>
+<td id="T_c1569_row11_col2" class="data row11 col2">± 0.04%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row12_col0" class="data row12 col0">contra: T ➜ VII</td>
-<td id="T_1fb02_row12_col1" class="data row12 col1">0.50%</td>
-<td id="T_1fb02_row12_col2" class="data row12 col2">± 0.17%</td>
+<td id="T_c1569_row12_col0" class="data row12 col0">contra: T ➜ VII</td>
+<td id="T_c1569_row12_col1" class="data row12 col1">0.50%</td>
+<td id="T_c1569_row12_col2" class="data row12 col2">± 0.17%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row13_col0" class="data row13 col0">Mixing ⍺</td>
-<td id="T_1fb02_row13_col1" class="data row13 col1">33.87%</td>
-<td id="T_1fb02_row13_col2" class="data row13 col2">± 4.32%</td>
+<td id="T_c1569_row13_col0" class="data row13 col0">Mixing ⍺</td>
+<td id="T_c1569_row13_col1" class="data row13 col1">33.87%</td>
+<td id="T_c1569_row13_col2" class="data row13 col2">± 4.32%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row14_col0" class="data row14 col0">I ➜ II</td>
-<td id="T_1fb02_row14_col1" class="data row14 col1">62.50%</td>
-<td id="T_1fb02_row14_col2" class="data row14 col2">± 16.69%</td>
+<td id="T_c1569_row14_col0" class="data row14 col0">I ➜ II</td>
+<td id="T_c1569_row14_col1" class="data row14 col1">62.50%</td>
+<td id="T_c1569_row14_col2" class="data row14 col2">± 16.69%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row15_col0" class="data row15 col0">II ➜ III</td>
-<td id="T_1fb02_row15_col1" class="data row15 col1">14.23%</td>
-<td id="T_1fb02_row15_col2" class="data row15 col2">± 1.64%</td>
+<td id="T_c1569_row15_col0" class="data row15 col0">II ➜ III</td>
+<td id="T_c1569_row15_col1" class="data row15 col1">14.23%</td>
+<td id="T_c1569_row15_col2" class="data row15 col2">± 1.64%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row16_col0" class="data row16 col0">III ➜ IV</td>
-<td id="T_1fb02_row16_col1" class="data row16 col1">15.86%</td>
-<td id="T_1fb02_row16_col2" class="data row16 col2">± 1.93%</td>
+<td id="T_c1569_row16_col0" class="data row16 col0">III ➜ IV</td>
+<td id="T_c1569_row16_col1" class="data row16 col1">15.86%</td>
+<td id="T_c1569_row16_col2" class="data row16 col2">± 1.93%</td>
 </tr>
 <tr class="even">
-<td id="T_1fb02_row17_col0" class="data row17 col0">IV ➜ V</td>
-<td id="T_1fb02_row17_col1" class="data row17 col1">14.58%</td>
-<td id="T_1fb02_row17_col2" class="data row17 col2">± 3.76%</td>
+<td id="T_c1569_row17_col0" class="data row17 col0">IV ➜ V</td>
+<td id="T_c1569_row17_col1" class="data row17 col1">14.58%</td>
+<td id="T_c1569_row17_col2" class="data row17 col2">± 3.76%</td>
 </tr>
 <tr class="odd">
-<td id="T_1fb02_row18_col0" class="data row18 col0">late T-cat. binom. prob.</td>
-<td id="T_1fb02_row18_col1" class="data row18 col1">44.98%</td>
-<td id="T_1fb02_row18_col2" class="data row18 col2">± 1.99%</td>
+<td id="T_c1569_row18_col0" class="data row18 col0">late T-cat. binom. prob.</td>
+<td id="T_c1569_row18_col1" class="data row18 col1">44.98%</td>
+<td id="T_c1569_row18_col2" class="data row18 col2">± 1.99%</td>
 </tr>
 </tbody>
 </table>
@@ -1236,7 +1238,7 @@ Table&nbsp;3: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="6cf6c97a" class="cell markdown">
+<div id="f6c8d629" class="cell markdown">
 <section id="illustration-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="illustration-of-the-model">Illustration of the model</h2>
 <p>In this subsection we illustrate parts of the mathematical framework defined in the previous section. In <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;5</a> (top panel), we visualize the prior distribution over diagnose times <span class="math inline">\(P(t)\)</span>. By parameter choice, early T-category tumors are diagnosed on average after 3 time steps. Advanced T-category tumors are diagnosed on average after 4.5 time steps (<span class="math inline">\(p_\text{adv.}=0.45\)</span>) <!-- TODO: make dynamic -->, a parameter learned from the data to describe the higher involvement for advanced T-category tumors. The probability per time step for the tumor to grow over the midline, <span class="math inline">\(p_\epsilon = 0.0816\)</span> <!-- TODO: make dynamic --> yields the probability of midline extension <span class="math inline">\(P(\epsilon \mid t)\)</span> at a given time step <span class="math inline">\(t\)</span> (red line). The parameter is adjusted such that the model yields the correct proportion of patients with tumors extending over the midline seen in the dataset. The bottom panel in <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;5</a> shows the joint probability <span class="math inline">\(P(\epsilon, t)\)</span> to be diagnosed at time step <span class="math inline">\(t\)</span> with a given state of midline extension and T-category.</p>
@@ -1250,14 +1252,14 @@ Figure&nbsp;5: The top panel shows the prior probability to get diagnosed at tim
 </figcaption>
 </figure>
 </div>
-<p>The model introduced in the previous section defines a model of the joint probability distribution over midline extension and ipsi- and contralateral lymph node involvement, <span class="math inline">\(P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)\)</span>. How this quantity is computed is illustrated in <a href="#fig-model-state-dist" class="quarto-xref">figure&nbsp;6</a>, visually representing <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;12</a>. To keep it manageable to interpret, this example only considers the LNLs II, III, and IV ipsi- and contralaterally, resulting in <span class="math inline">\(2^3 = 16\)</span> distinct states per side and thus <span class="math inline">\(2 \times 8 \times 8 = 128\)</span> total states. LNLs I, V, and VII and the associated spread parameters have been removed from the model while the remaining parameters are set to the mean values in table xxx. <a href="#fig-model-state-dist" class="quarto-xref">figure&nbsp;6</a> shows the joint distribution as two separate heatmaps for the two midline extension states for early/advanced??? T-category tumors. The most likely state is a lateralized tumor with involvement of ipsilateral level II and no contralateral involvement, which has a probability of approximately 25%. The second most probable state is a lateralized tumor with ipsilateral involvement of levels II and III and no contralateral involvement. The most likely state with contralateral involvement are tumors with midline extension with involvement of contralateral level II and ipsilateral level II and III.</p>
+<p>The model introduced in the previous section defines a model of the joint probability distribution over midline extension and ipsi- and contralateral lymph node involvement, <span class="math inline">\(P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)\)</span>. How this quantity is computed is illustrated in <a href="#fig-model-state-dist" class="quarto-xref">figure&nbsp;6</a>, visually representing <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;10</a>. To keep it manageable to interpret, this example only considers the LNLs II, III, and IV ipsi- and contralaterally, resulting in <span class="math inline">\(2^3 = 16\)</span> distinct states per side and thus <span class="math inline">\(2 \times 8 \times 8 = 128\)</span> total states. LNLs I, V, and VII and the associated spread parameters have been removed from the model while the remaining parameters are set to the mean values in table xxx. <a href="#fig-model-state-dist" class="quarto-xref">figure&nbsp;6</a> shows the joint distribution as two separate heatmaps for the two midline extension states for early/advanced??? T-category tumors. The most likely state is a lateralized tumor with involvement of ipsilateral level II and no contralateral involvement, which has a probability of approximately 25%. The second most probable state is a lateralized tumor with ipsilateral involvement of levels II and III and no contralateral involvement. The most likely state with contralateral involvement are tumors with midline extension with involvement of contralateral level II and ipsilateral level II and III.</p>
 <div id="fig-model-state-dist" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-state-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="figures/fig_model_state_dist.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Visual representation of equation&nbsp;12 for the case of midline extention. The left and right matrix represent the evolution of the possible hidden states for the ipsi- and contralateral neck respectively. In particular, the right matrix describes the evolution of the contralateral hidden states and midline extension. In the center, the time-prior is plotted as a diagonal matrix. The result of this matrix computation is the joint distribution P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)"><img src="figures/fig_model_state_dist.svg" class="img-fluid figure-img"></a>
+<a href="figures/fig_model_state_dist.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-6" title="Figure&nbsp;6: Visual representation of equation&nbsp;10 for the case of midline extention. The left and right matrix represent the evolution of the possible hidden states for the ipsi- and contralateral neck respectively. In particular, the right matrix describes the evolution of the contralateral hidden states and midline extension. In the center, the time-prior is plotted as a diagonal matrix. The result of this matrix computation is the joint distribution P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)"><img src="figures/fig_model_state_dist.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-state-dist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Visual representation of <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;12</a> for the case of midline extention. The left and right matrix represent the evolution of the possible hidden states for the ipsi- and contralateral neck respectively. In particular, the right matrix describes the evolution of the contralateral hidden states <em>and</em> midline extension. In the center, the time-prior is plotted as a diagonal matrix. The result of this matrix computation is the joint distribution <span class="math inline">\(P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)\)</span>
+Figure&nbsp;6: Visual representation of <a href="#eq-bilateral-marginal-algebra" class="quarto-xref">equation&nbsp;10</a> for the case of midline extention. The left and right matrix represent the evolution of the possible hidden states for the ipsi- and contralateral neck respectively. In particular, the right matrix describes the evolution of the contralateral hidden states <em>and</em> midline extension. In the center, the time-prior is plotted as a diagonal matrix. The result of this matrix computation is the joint distribution <span class="math inline">\(P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)\)</span>
 </figcaption>
 </figure>
 </div>
@@ -1296,19 +1298,33 @@ Figure&nbsp;8: Comparison of the computed and observed prevalences for scenarios
 <p>In <a href="#fig-model-prevalences-with-ipsi" class="quarto-xref">figure&nbsp;8</a> we display the model’s ability to capture the correlation between ipsi- and contralateral involvement. It shows that the prevalence of metastases in the two sides of the neck is correlated via the time of diagnosis, despite the model not having any direct connections between the two side. However, there are some discrepancies in the model’s prediction: It cannot quite capture the correlation of ipsi- and contralateral involvement that is seen in the data. This is notable for example in the bottom right subplot where the prevalence is overestimated for the scenario of an (almost) healthy ipsilateral neck and underestimated when at least LNL III shows metastases. One reason for this may be the width of the time-prior: If it was wider, the posterior over the diagnosis time given the ipsilateral involvement could more flexibly shift to reflect a more severe contralateral involvement.</p>
 <!-- NOTE: This last sentence is purely speculative! We need to discuss this. -->
 </section>
+<section id="influence-of-upstream-involvement-on-contralateral-metastasis" class="level3">
+<h3 class="anchored" data-anchor-id="influence-of-upstream-involvement-on-contralateral-metastasis">Influence of Upstream Involvement on Contralateral Metastasis</h3>
+<div id="fig-model-prevalences-upstream" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-model-prevalences-upstream-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="figures/fig_model_prevalences_upstream.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: The influence of the upstream LNL II’s involvement on the prevalence of contralateral level III for the four combinations of tumor lateralization (lateralized or extending over midline) and T-ctageory (early or advanced). Our model predictions (histograms) are plotted against the observations in the data (beta posteriors)."><img src="figures/fig_model_prevalences_upstream.svg" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-prevalences-upstream-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;9: The influence of the upstream LNL II’s involvement on the prevalence of contralateral level III for the four combinations of tumor lateralization (lateralized or extending over midline) and T-ctageory (early or advanced). Our model predictions (histograms) are plotted against the observations in the data (beta posteriors).
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-model-prevalences-upstream" class="quarto-xref">Figure&nbsp;9</a> illustrates how rarely the contralateral LNL III harbors metastases when its upstream level II is healthy. Also, the model can capture this correlation rather well, with the exception of early T-category tumors that extend over the mid-sagittal line. As in <a href="#fig-model-prevalences-overall" class="quarto-xref">figure&nbsp;7</a> and <a href="#fig-model-prevalences-with-ipsi" class="quarto-xref">figure&nbsp;8</a>, these cases are relatively rare resulting in a broad distribution over the true prevalence.</p>
+</section>
 <section id="prevalence-of-midline-extension" class="level3">
 <h3 class="anchored" data-anchor-id="prevalence-of-midline-extension">Prevalence of Midline Extension</h3>
 <div id="fig-model-prevalences-midext" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-prevalences-midext-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="figures/fig_model_prevalences_midext.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-9" title="Figure&nbsp;9: Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence given when predicting a patient’s risk, we do not consider this discrepancy a major issue."><img src="figures/fig_model_prevalences_midext.svg" class="img-fluid figure-img" style="width:50.0%"></a>
+<a href="figures/fig_model_prevalences_midext.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence given when predicting a patient’s risk, we do not consider this discrepancy a major issue."><img src="figures/fig_model_prevalences_midext.svg" class="img-fluid figure-img" style="width:50.0%"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-prevalences-midext-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence <em>given</em> when predicting a patient’s risk, we do not consider this discrepancy a major issue.
+Figure&nbsp;10: Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor’s midline extension is virtually always part of the diagnosis and hence <em>given</em> when predicting a patient’s risk, we do not consider this discrepancy a major issue.
 </figcaption>
 </figure>
 </div>
-<p>Lastly, in <a href="#fig-model-prevalences-midext" class="quarto-xref">figure&nbsp;9</a>, we plot the prevalence of midline extension in the data versus our model’s prediction. It is obvious the model cannot match the large spread between early and advanced T-category seen in the data. This is because to achieve that, it would need to increase the advanced T-category patient’s prior distribution over diagnosis times and at the same time reduce the probability of the tumor to cross the midline during a time-step. But since the time-priors parameter is also coupled with the spread probabilities among the LNLs, the model does not have that freedom.</p>
+<p>Lastly, in <a href="#fig-model-prevalences-midext" class="quarto-xref">figure&nbsp;10</a>, we plot the prevalence of midline extension in the data versus our model’s prediction. It is obvious the model cannot match the large spread between early and advanced T-category seen in the data. This is because to achieve that, it would need to increase the advanced T-category patient’s prior distribution over diagnosis times and at the same time reduce the probability of the tumor to cross the midline during a time-step. But since the time-priors parameter is also coupled with the spread probabilities among the LNLs, the model does not have that freedom.</p>
 <!-- Should the paragraphs below be part of the discussion? -->
 <p>However, we do not consider this discrepancy a major limitation of the model: We will not realistically be interested in the probability of midline extension, as it is always possible to assess it with high certainty. That is also the reason why we initially modelled the midline extension <em>not</em> as a random variable, but as a global risk factor that would have been turned on or off from the onset of a patient’s disease evolution. This, however, lead to overly high risks for contralateral involvement in advanced T-category patients with midline extension, because then the model assumes an increased spread to the contralateral side from the onset of the disease. Which is probably not true in a majority of those cases. Thus, treating it as a random variable that only becomes true during a patient’s disease evolution resulted in a better description of the data.</p>
 <p>Formally, the wrong prediction of midline extension prevalence makes little difference, since it is always given: Instead of <span class="math inline">\(P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right)\)</span>, we typically compute <span class="math inline">\(P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right)\)</span>, which does not suffer from the wrong probability of midline extension, as the distribution over hidden states is renormalized:</p>
@@ -1325,24 +1341,24 @@ P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mat
 <div id="fig-model-risks" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-model-risks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="figures/fig_model_risks.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-10" title="Figure&nbsp;10: Histograms over the predicted risk of occult contralateral LNL II (left), III (middle), and IV (right) invovlement, shown for some combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, where assumed to be clinically negative, based on CT imaging (specificity 76%, sensitivity 81%)."><img src="figures/fig_model_risks.svg" class="img-fluid figure-img"></a>
+<a href="figures/fig_model_risks.svg" class="lightbox" data-gallery="quarto-lightbox-gallery-11" title="Figure&nbsp;11: Histograms over the predicted risk of occult contralateral LNL II (left), III (middle), and IV (right) invovlement, shown for some combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, where assumed to be clinically negative, based on CT imaging (specificity 76%, sensitivity 81%)."><img src="figures/fig_model_risks.svg" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-model-risks-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Histograms over the predicted risk of occult contralateral LNL II (left), III (middle), and IV (right) invovlement, shown for some combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, where assumed to be clinically negative, based on CT imaging (specificity 76%, sensitivity 81%).
+Figure&nbsp;11: Histograms over the predicted risk of occult contralateral LNL II (left), III (middle), and IV (right) invovlement, shown for some combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, where assumed to be clinically negative, based on CT imaging (specificity 76%, sensitivity 81%).
 </figcaption>
 </figure>
 </div>
 <!-- @Fig-model-risks shows this predicted risk of occult disease in the contralateral LNLs II, III, and IV for interesting combinations of these three risk factors. This risk is computed *given* a CT diagnosis assessing the per-LNL clinical involvement for which we assumed a sensitivity of 81% and a specificity of 76%. For the involvement in the LNls III and IV contralaterally, we also cosidered how the risk would be affected if the upstream LNL was confirmed to be metastatic using fine needle aspiration (FNA) with a specificity of 98% and a sensitivity of 80% [@de_bondt_detection_2007]. In the figure legends, this is noted e.g. for the orange historgam over the risk of contralateral LNL IV involvement as `c:III FNA+`, meaning that the contralateral LNL III was pathologically confirmed to harbor metastases via FNA.-->
 <section id="contralateral-lnl-ii" class="level2">
 <h2 class="anchored" data-anchor-id="contralateral-lnl-ii">Contralateral LNL II</h2>
-<p><a href="#fig-model-risks" class="quarto-xref">Figure&nbsp;10</a> (left panel) shows the predicted risk of occult disease in contralateral LNL II. The most important variable impacting the prediction for contralateral level II involvement in our model is the tumor’s lateralization. A patient with a clearly lateralized early T-category tumor and a clinically N0 neck is predicted to have a 1-2% <!-- TODO: make this dynamic, and include this scenario in the plot --> risk for occult disease in contralateral LNL II. For a patient with a clearly lateralized early T-category tumor but <em>with</em> mid-sagittal extension, the risk increases to almost 7%. <!-- TODO: make this dynamic --></p>
+<p><a href="#fig-model-risks" class="quarto-xref">Figure&nbsp;11</a> (left panel) shows the predicted risk of occult disease in contralateral LNL II. The most important variable impacting the prediction for contralateral level II involvement in our model is the tumor’s lateralization. A patient with a clearly lateralized early T-category tumor and a clinically N0 neck is predicted to have a 1-2% <!-- TODO: make this dynamic, and include this scenario in the plot --> risk for occult disease in contralateral LNL II. For a patient with a clearly lateralized early T-category tumor but <em>with</em> mid-sagittal extension, the risk increases to almost 7%. <!-- TODO: make this dynamic --></p>
 <p>Also advanced T-category increases the risk of occult disease but plays a lesser role: Considering the scenario of a tumor that crosses the midline and an ipsilateral neck where at least LNL III is clinically involved, the risk for occult contralateral LNL II disease is around 8.5%. <!-- TODO: make this dynamic --> For the same scenario and an advanced T-category tumor, the risk increases to 11%. <!-- TODO: make this dynamic --></p>
 <p>Lastly, the predicted risk is also correlated via the time-steps to the degree of ipsilateral involvement. Changing the aforementioned scenario (advanced T-category, midline extension, ipsilateral LNL III clinically involved) to one where the patient presents with a clinically N0 neck, the risk for occult disease in the contralateral LNL II falls from 11% <!-- TODO: make this dynamic --> to 9.5%. <!-- TODO: make this dynamic --></p>
-<p>Taken together, T-category and ipsilateral involvement may still considerably impact the risk prediction for contralateral involvement: In <a href="#fig-model-risks" class="quarto-xref">figure&nbsp;10</a> the scenarios underlying the orange (6.5% <!-- TODO: make this dynamic -->) and the red (11% <!-- TODO: make this dynamic -->) histograms differ in T-category (early vs advanced) and clinical diagnosis (N0 vs ipsilateral at least LNL III involved).</p>
+<p>Taken together, T-category and ipsilateral involvement may still considerably impact the risk prediction for contralateral involvement: In <a href="#fig-model-risks" class="quarto-xref">figure&nbsp;11</a> the scenarios underlying the orange (6.5% <!-- TODO: make this dynamic -->) and the red (11% <!-- TODO: make this dynamic -->) histograms differ in T-category (early vs advanced) and clinical diagnosis (N0 vs ipsilateral at least LNL III involved).</p>
 </section>
 <section id="contralalteral-lnl-iii" class="level2">
 <h2 class="anchored" data-anchor-id="contralalteral-lnl-iii">Contralalteral LNL III</h2>
-<p>As shown in the center subplot of <a href="#fig-model-risks" class="quarto-xref">figure&nbsp;10</a>, the risk for occult disease in the contralateral LNL III may only cross a 5% threshold if the upstream level II is clinically involved, too. If the clinical diagnosis of the contralateral upstream level II is pathologically confirmed by FNA the risk increases by another percentage point<!-- TODO: make dynamic -->. When the tumor additionally crosses the mid-sagittal line, the risk may reach around 7%<!-- TODO: make dynamic -->.</p>
+<p>As shown in the center subplot of <a href="#fig-model-risks" class="quarto-xref">figure&nbsp;11</a>, the risk for occult disease in the contralateral LNL III may only cross a 5% threshold if the upstream level II is clinically involved, too. If the clinical diagnosis of the contralateral upstream level II is pathologically confirmed by FNA the risk increases by another percentage point<!-- TODO: make dynamic -->. When the tumor additionally crosses the mid-sagittal line, the risk may reach around 7%<!-- TODO: make dynamic -->.</p>
 </section>
 <section id="contralateral-lnl-iv" class="level2">
 <h2 class="anchored" data-anchor-id="contralateral-lnl-iv">Contralateral LNL IV</h2>
@@ -1434,215 +1450,215 @@ Table&nbsp;4: Contralateral involvement depending on whether the primary tumor e
 <div aria-describedby="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output cell-output-display" data-execution_count="5">
 <style type="text/css">
-#T_fa476_row0_col0, #T_fa476_row0_col1, #T_fa476_row0_col2, #T_fa476_row1_col0, #T_fa476_row1_col1, #T_fa476_row2_col0, #T_fa476_row2_col2, #T_fa476_row3_col0, #T_fa476_row4_col0, #T_fa476_row4_col2, #T_fa476_row5_col0, #T_fa476_row6_col1, #T_fa476_row6_col2, #T_fa476_row7_col1, #T_fa476_row8_col2, #T_fa476_row10_col2 {
+#T_710c1_row0_col0, #T_710c1_row0_col1, #T_710c1_row0_col2, #T_710c1_row1_col0, #T_710c1_row1_col1, #T_710c1_row2_col0, #T_710c1_row2_col2, #T_710c1_row3_col0, #T_710c1_row4_col0, #T_710c1_row4_col2, #T_710c1_row5_col0, #T_710c1_row6_col1, #T_710c1_row6_col2, #T_710c1_row7_col1, #T_710c1_row8_col2, #T_710c1_row10_col2 {
   color: #00afa5;
 }
-#T_fa476_row0_col3, #T_fa476_row0_col4, #T_fa476_row0_col5, #T_fa476_row0_col6, #T_fa476_row0_col7, #T_fa476_row0_col8, #T_fa476_row0_col9, #T_fa476_row0_col10, #T_fa476_row0_col11, #T_fa476_row1_col3, #T_fa476_row1_col4, #T_fa476_row1_col5, #T_fa476_row1_col6, #T_fa476_row1_col7, #T_fa476_row1_col8, #T_fa476_row1_col9, #T_fa476_row1_col10, #T_fa476_row1_col11, #T_fa476_row2_col3, #T_fa476_row2_col4, #T_fa476_row2_col5, #T_fa476_row2_col6, #T_fa476_row2_col7, #T_fa476_row2_col8, #T_fa476_row2_col9, #T_fa476_row2_col10, #T_fa476_row2_col11, #T_fa476_row3_col3, #T_fa476_row3_col4, #T_fa476_row3_col5, #T_fa476_row3_col6, #T_fa476_row3_col7, #T_fa476_row3_col8, #T_fa476_row3_col9, #T_fa476_row3_col10, #T_fa476_row3_col11, #T_fa476_row4_col3, #T_fa476_row4_col4, #T_fa476_row4_col5, #T_fa476_row4_col6, #T_fa476_row4_col7, #T_fa476_row4_col8, #T_fa476_row4_col9, #T_fa476_row4_col10, #T_fa476_row4_col11, #T_fa476_row5_col3, #T_fa476_row5_col4, #T_fa476_row5_col5, #T_fa476_row5_col6, #T_fa476_row5_col7, #T_fa476_row5_col8, #T_fa476_row5_col9, #T_fa476_row5_col10, #T_fa476_row5_col11, #T_fa476_row6_col3, #T_fa476_row6_col4, #T_fa476_row6_col5, #T_fa476_row6_col6, #T_fa476_row6_col7, #T_fa476_row6_col8, #T_fa476_row6_col9, #T_fa476_row6_col10, #T_fa476_row6_col11, #T_fa476_row7_col3, #T_fa476_row7_col4, #T_fa476_row7_col5, #T_fa476_row7_col6, #T_fa476_row7_col7, #T_fa476_row7_col8, #T_fa476_row7_col9, #T_fa476_row7_col10, #T_fa476_row7_col11, #T_fa476_row8_col3, #T_fa476_row8_col4, #T_fa476_row8_col5, #T_fa476_row8_col6, #T_fa476_row8_col7, #T_fa476_row8_col8, #T_fa476_row8_col9, #T_fa476_row8_col10, #T_fa476_row8_col11, #T_fa476_row9_col3, #T_fa476_row9_col4, #T_fa476_row9_col5, #T_fa476_row9_col6, #T_fa476_row9_col7, #T_fa476_row9_col8, #T_fa476_row9_col9, #T_fa476_row9_col10, #T_fa476_row9_col11, #T_fa476_row10_col3, #T_fa476_row10_col4, #T_fa476_row10_col5, #T_fa476_row10_col6, #T_fa476_row10_col7, #T_fa476_row10_col8, #T_fa476_row10_col9, #T_fa476_row10_col10, #T_fa476_row10_col11, #T_fa476_row11_col3, #T_fa476_row11_col4, #T_fa476_row11_col5, #T_fa476_row11_col6, #T_fa476_row11_col7, #T_fa476_row11_col8, #T_fa476_row11_col9, #T_fa476_row11_col10, #T_fa476_row11_col11 {
+#T_710c1_row0_col3, #T_710c1_row0_col4, #T_710c1_row0_col5, #T_710c1_row0_col6, #T_710c1_row0_col7, #T_710c1_row0_col8, #T_710c1_row0_col9, #T_710c1_row0_col10, #T_710c1_row0_col11, #T_710c1_row1_col3, #T_710c1_row1_col4, #T_710c1_row1_col5, #T_710c1_row1_col6, #T_710c1_row1_col7, #T_710c1_row1_col8, #T_710c1_row1_col9, #T_710c1_row1_col10, #T_710c1_row1_col11, #T_710c1_row2_col3, #T_710c1_row2_col4, #T_710c1_row2_col5, #T_710c1_row2_col6, #T_710c1_row2_col7, #T_710c1_row2_col8, #T_710c1_row2_col9, #T_710c1_row2_col10, #T_710c1_row2_col11, #T_710c1_row3_col3, #T_710c1_row3_col4, #T_710c1_row3_col5, #T_710c1_row3_col6, #T_710c1_row3_col7, #T_710c1_row3_col8, #T_710c1_row3_col9, #T_710c1_row3_col10, #T_710c1_row3_col11, #T_710c1_row4_col3, #T_710c1_row4_col4, #T_710c1_row4_col5, #T_710c1_row4_col6, #T_710c1_row4_col7, #T_710c1_row4_col8, #T_710c1_row4_col9, #T_710c1_row4_col10, #T_710c1_row4_col11, #T_710c1_row5_col3, #T_710c1_row5_col4, #T_710c1_row5_col5, #T_710c1_row5_col6, #T_710c1_row5_col7, #T_710c1_row5_col8, #T_710c1_row5_col9, #T_710c1_row5_col10, #T_710c1_row5_col11, #T_710c1_row6_col3, #T_710c1_row6_col4, #T_710c1_row6_col5, #T_710c1_row6_col6, #T_710c1_row6_col7, #T_710c1_row6_col8, #T_710c1_row6_col9, #T_710c1_row6_col10, #T_710c1_row6_col11, #T_710c1_row7_col3, #T_710c1_row7_col4, #T_710c1_row7_col5, #T_710c1_row7_col6, #T_710c1_row7_col7, #T_710c1_row7_col8, #T_710c1_row7_col9, #T_710c1_row7_col10, #T_710c1_row7_col11, #T_710c1_row8_col3, #T_710c1_row8_col4, #T_710c1_row8_col5, #T_710c1_row8_col6, #T_710c1_row8_col7, #T_710c1_row8_col8, #T_710c1_row8_col9, #T_710c1_row8_col10, #T_710c1_row8_col11, #T_710c1_row9_col3, #T_710c1_row9_col4, #T_710c1_row9_col5, #T_710c1_row9_col6, #T_710c1_row9_col7, #T_710c1_row9_col8, #T_710c1_row9_col9, #T_710c1_row9_col10, #T_710c1_row9_col11, #T_710c1_row10_col3, #T_710c1_row10_col4, #T_710c1_row10_col5, #T_710c1_row10_col6, #T_710c1_row10_col7, #T_710c1_row10_col8, #T_710c1_row10_col9, #T_710c1_row10_col10, #T_710c1_row10_col11, #T_710c1_row11_col3, #T_710c1_row11_col4, #T_710c1_row11_col5, #T_710c1_row11_col6, #T_710c1_row11_col7, #T_710c1_row11_col8, #T_710c1_row11_col9, #T_710c1_row11_col10, #T_710c1_row11_col11 {
   text-align: right;
 }
-#T_fa476_row1_col2, #T_fa476_row3_col2, #T_fa476_row4_col1, #T_fa476_row5_col1, #T_fa476_row5_col2, #T_fa476_row6_col0, #T_fa476_row7_col0, #T_fa476_row7_col2, #T_fa476_row8_col0, #T_fa476_row9_col0, #T_fa476_row9_col2, #T_fa476_row10_col0, #T_fa476_row10_col1, #T_fa476_row11_col0, #T_fa476_row11_col1, #T_fa476_row11_col2 {
+#T_710c1_row1_col2, #T_710c1_row3_col2, #T_710c1_row4_col1, #T_710c1_row5_col1, #T_710c1_row5_col2, #T_710c1_row6_col0, #T_710c1_row7_col0, #T_710c1_row7_col2, #T_710c1_row8_col0, #T_710c1_row9_col0, #T_710c1_row9_col2, #T_710c1_row10_col0, #T_710c1_row10_col1, #T_710c1_row11_col0, #T_710c1_row11_col1, #T_710c1_row11_col2 {
   color: #ae0060;
 }
-#T_fa476_row2_col1, #T_fa476_row3_col1, #T_fa476_row8_col1, #T_fa476_row9_col1 {
+#T_710c1_row2_col1, #T_710c1_row3_col1, #T_710c1_row8_col1, #T_710c1_row9_col1 {
   color: #f17900;
 }
 </style>
 
-<table id="T_fa476" class="do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table id="T_710c1" class="do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true">
 <thead>
 <tr class="header">
-<th id="T_fa476_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">T-cat.</th>
-<th id="T_fa476_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">ipsi</th>
-<th id="T_fa476_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Mid. ext.</th>
-<th colspan="2" id="T_fa476_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">I</th>
-<th colspan="2" id="T_fa476_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">II</th>
-<th colspan="2" id="T_fa476_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">III</th>
-<th colspan="2" id="T_fa476_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">IV</th>
-<th id="T_fa476_level0_col11" class="col_heading level0 col11" data-quarto-table-cell-role="th">total</th>
+<th id="T_710c1_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">T-cat.</th>
+<th id="T_710c1_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">ipsi</th>
+<th id="T_710c1_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">Mid. ext.</th>
+<th colspan="2" id="T_710c1_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">I</th>
+<th colspan="2" id="T_710c1_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">II</th>
+<th colspan="2" id="T_710c1_level0_col7" class="col_heading level0 col7" data-quarto-table-cell-role="th">III</th>
+<th colspan="2" id="T_710c1_level0_col9" class="col_heading level0 col9" data-quarto-table-cell-role="th">IV</th>
+<th id="T_710c1_level0_col11" class="col_heading level0 col11" data-quarto-table-cell-role="th">total</th>
 </tr>
 <tr class="odd">
-<th id="T_fa476_level1_col0" class="col_heading level1 col0" data-quarto-table-cell-role="th"></th>
-<th id="T_fa476_level1_col1" class="col_heading level1 col1" data-quarto-table-cell-role="th"></th>
-<th id="T_fa476_level1_col2" class="col_heading level1 col2" data-quarto-table-cell-role="th"></th>
-<th id="T_fa476_level1_col3" class="col_heading level1 col3" data-quarto-table-cell-role="th">n</th>
-<th id="T_fa476_level1_col4" class="col_heading level1 col4" data-quarto-table-cell-role="th">%</th>
-<th id="T_fa476_level1_col5" class="col_heading level1 col5" data-quarto-table-cell-role="th">n</th>
-<th id="T_fa476_level1_col6" class="col_heading level1 col6" data-quarto-table-cell-role="th">%</th>
-<th id="T_fa476_level1_col7" class="col_heading level1 col7" data-quarto-table-cell-role="th">n</th>
-<th id="T_fa476_level1_col8" class="col_heading level1 col8" data-quarto-table-cell-role="th">%</th>
-<th id="T_fa476_level1_col9" class="col_heading level1 col9" data-quarto-table-cell-role="th">n</th>
-<th id="T_fa476_level1_col10" class="col_heading level1 col10" data-quarto-table-cell-role="th">%</th>
-<th id="T_fa476_level1_col11" class="col_heading level1 col11" data-quarto-table-cell-role="th">n</th>
+<th id="T_710c1_level1_col0" class="col_heading level1 col0" data-quarto-table-cell-role="th"></th>
+<th id="T_710c1_level1_col1" class="col_heading level1 col1" data-quarto-table-cell-role="th"></th>
+<th id="T_710c1_level1_col2" class="col_heading level1 col2" data-quarto-table-cell-role="th"></th>
+<th id="T_710c1_level1_col3" class="col_heading level1 col3" data-quarto-table-cell-role="th">n</th>
+<th id="T_710c1_level1_col4" class="col_heading level1 col4" data-quarto-table-cell-role="th">%</th>
+<th id="T_710c1_level1_col5" class="col_heading level1 col5" data-quarto-table-cell-role="th">n</th>
+<th id="T_710c1_level1_col6" class="col_heading level1 col6" data-quarto-table-cell-role="th">%</th>
+<th id="T_710c1_level1_col7" class="col_heading level1 col7" data-quarto-table-cell-role="th">n</th>
+<th id="T_710c1_level1_col8" class="col_heading level1 col8" data-quarto-table-cell-role="th">%</th>
+<th id="T_710c1_level1_col9" class="col_heading level1 col9" data-quarto-table-cell-role="th">n</th>
+<th id="T_710c1_level1_col10" class="col_heading level1 col10" data-quarto-table-cell-role="th">%</th>
+<th id="T_710c1_level1_col11" class="col_heading level1 col11" data-quarto-table-cell-role="th">n</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_fa476_row0_col0" class="data row0 col0">early</td>
-<td id="T_fa476_row0_col1" class="data row0 col1">0</td>
-<td id="T_fa476_row0_col2" class="data row0 col2">False</td>
-<td id="T_fa476_row0_col3" class="data row0 col3">0</td>
-<td id="T_fa476_row0_col4" class="data row0 col4">0.00</td>
-<td id="T_fa476_row0_col5" class="data row0 col5">1</td>
-<td id="T_fa476_row0_col6" class="data row0 col6">1.16</td>
-<td id="T_fa476_row0_col7" class="data row0 col7">0</td>
-<td id="T_fa476_row0_col8" class="data row0 col8">0.00</td>
-<td id="T_fa476_row0_col9" class="data row0 col9">0</td>
-<td id="T_fa476_row0_col10" class="data row0 col10">0.00</td>
-<td id="T_fa476_row0_col11" class="data row0 col11">86</td>
+<td id="T_710c1_row0_col0" class="data row0 col0">early</td>
+<td id="T_710c1_row0_col1" class="data row0 col1">0</td>
+<td id="T_710c1_row0_col2" class="data row0 col2">False</td>
+<td id="T_710c1_row0_col3" class="data row0 col3">0</td>
+<td id="T_710c1_row0_col4" class="data row0 col4">0.00</td>
+<td id="T_710c1_row0_col5" class="data row0 col5">1</td>
+<td id="T_710c1_row0_col6" class="data row0 col6">1.16</td>
+<td id="T_710c1_row0_col7" class="data row0 col7">0</td>
+<td id="T_710c1_row0_col8" class="data row0 col8">0.00</td>
+<td id="T_710c1_row0_col9" class="data row0 col9">0</td>
+<td id="T_710c1_row0_col10" class="data row0 col10">0.00</td>
+<td id="T_710c1_row0_col11" class="data row0 col11">86</td>
 </tr>
 <tr class="even">
-<td id="T_fa476_row1_col0" class="data row1 col0">early</td>
-<td id="T_fa476_row1_col1" class="data row1 col1">0</td>
-<td id="T_fa476_row1_col2" class="data row1 col2">True</td>
-<td id="T_fa476_row1_col3" class="data row1 col3">0</td>
-<td id="T_fa476_row1_col4" class="data row1 col4">0.00</td>
-<td id="T_fa476_row1_col5" class="data row1 col5">1</td>
-<td id="T_fa476_row1_col6" class="data row1 col6">10.00</td>
-<td id="T_fa476_row1_col7" class="data row1 col7">1</td>
-<td id="T_fa476_row1_col8" class="data row1 col8">10.00</td>
-<td id="T_fa476_row1_col9" class="data row1 col9">0</td>
-<td id="T_fa476_row1_col10" class="data row1 col10">0.00</td>
-<td id="T_fa476_row1_col11" class="data row1 col11">10</td>
+<td id="T_710c1_row1_col0" class="data row1 col0">early</td>
+<td id="T_710c1_row1_col1" class="data row1 col1">0</td>
+<td id="T_710c1_row1_col2" class="data row1 col2">True</td>
+<td id="T_710c1_row1_col3" class="data row1 col3">0</td>
+<td id="T_710c1_row1_col4" class="data row1 col4">0.00</td>
+<td id="T_710c1_row1_col5" class="data row1 col5">1</td>
+<td id="T_710c1_row1_col6" class="data row1 col6">10.00</td>
+<td id="T_710c1_row1_col7" class="data row1 col7">1</td>
+<td id="T_710c1_row1_col8" class="data row1 col8">10.00</td>
+<td id="T_710c1_row1_col9" class="data row1 col9">0</td>
+<td id="T_710c1_row1_col10" class="data row1 col10">0.00</td>
+<td id="T_710c1_row1_col11" class="data row1 col11">10</td>
 </tr>
 <tr class="odd">
-<td id="T_fa476_row2_col0" class="data row2 col0">early</td>
-<td id="T_fa476_row2_col1" class="data row2 col1">1</td>
-<td id="T_fa476_row2_col2" class="data row2 col2">False</td>
-<td id="T_fa476_row2_col3" class="data row2 col3">1</td>
-<td id="T_fa476_row2_col4" class="data row2 col4">0.53</td>
-<td id="T_fa476_row2_col5" class="data row2 col5">11</td>
-<td id="T_fa476_row2_col6" class="data row2 col6">5.82</td>
-<td id="T_fa476_row2_col7" class="data row2 col7">2</td>
-<td id="T_fa476_row2_col8" class="data row2 col8">1.06</td>
-<td id="T_fa476_row2_col9" class="data row2 col9">1</td>
-<td id="T_fa476_row2_col10" class="data row2 col10">0.53</td>
-<td id="T_fa476_row2_col11" class="data row2 col11">189</td>
+<td id="T_710c1_row2_col0" class="data row2 col0">early</td>
+<td id="T_710c1_row2_col1" class="data row2 col1">1</td>
+<td id="T_710c1_row2_col2" class="data row2 col2">False</td>
+<td id="T_710c1_row2_col3" class="data row2 col3">1</td>
+<td id="T_710c1_row2_col4" class="data row2 col4">0.53</td>
+<td id="T_710c1_row2_col5" class="data row2 col5">11</td>
+<td id="T_710c1_row2_col6" class="data row2 col6">5.82</td>
+<td id="T_710c1_row2_col7" class="data row2 col7">2</td>
+<td id="T_710c1_row2_col8" class="data row2 col8">1.06</td>
+<td id="T_710c1_row2_col9" class="data row2 col9">1</td>
+<td id="T_710c1_row2_col10" class="data row2 col10">0.53</td>
+<td id="T_710c1_row2_col11" class="data row2 col11">189</td>
 </tr>
 <tr class="even">
-<td id="T_fa476_row3_col0" class="data row3 col0">early</td>
-<td id="T_fa476_row3_col1" class="data row3 col1">1</td>
-<td id="T_fa476_row3_col2" class="data row3 col2">True</td>
-<td id="T_fa476_row3_col3" class="data row3 col3">1</td>
-<td id="T_fa476_row3_col4" class="data row3 col4">11.11</td>
-<td id="T_fa476_row3_col5" class="data row3 col5">2</td>
-<td id="T_fa476_row3_col6" class="data row3 col6">22.22</td>
-<td id="T_fa476_row3_col7" class="data row3 col7">0</td>
-<td id="T_fa476_row3_col8" class="data row3 col8">0.00</td>
-<td id="T_fa476_row3_col9" class="data row3 col9">0</td>
-<td id="T_fa476_row3_col10" class="data row3 col10">0.00</td>
-<td id="T_fa476_row3_col11" class="data row3 col11">9</td>
+<td id="T_710c1_row3_col0" class="data row3 col0">early</td>
+<td id="T_710c1_row3_col1" class="data row3 col1">1</td>
+<td id="T_710c1_row3_col2" class="data row3 col2">True</td>
+<td id="T_710c1_row3_col3" class="data row3 col3">1</td>
+<td id="T_710c1_row3_col4" class="data row3 col4">11.11</td>
+<td id="T_710c1_row3_col5" class="data row3 col5">2</td>
+<td id="T_710c1_row3_col6" class="data row3 col6">22.22</td>
+<td id="T_710c1_row3_col7" class="data row3 col7">0</td>
+<td id="T_710c1_row3_col8" class="data row3 col8">0.00</td>
+<td id="T_710c1_row3_col9" class="data row3 col9">0</td>
+<td id="T_710c1_row3_col10" class="data row3 col10">0.00</td>
+<td id="T_710c1_row3_col11" class="data row3 col11">9</td>
 </tr>
 <tr class="odd">
-<td id="T_fa476_row4_col0" class="data row4 col0">early</td>
-<td id="T_fa476_row4_col1" class="data row4 col1">≥ 2</td>
-<td id="T_fa476_row4_col2" class="data row4 col2">False</td>
-<td id="T_fa476_row4_col3" class="data row4 col3">1</td>
-<td id="T_fa476_row4_col4" class="data row4 col4">0.96</td>
-<td id="T_fa476_row4_col5" class="data row4 col5">15</td>
-<td id="T_fa476_row4_col6" class="data row4 col6">14.42</td>
-<td id="T_fa476_row4_col7" class="data row4 col7">3</td>
-<td id="T_fa476_row4_col8" class="data row4 col8">2.88</td>
-<td id="T_fa476_row4_col9" class="data row4 col9">3</td>
-<td id="T_fa476_row4_col10" class="data row4 col10">2.88</td>
-<td id="T_fa476_row4_col11" class="data row4 col11">104</td>
+<td id="T_710c1_row4_col0" class="data row4 col0">early</td>
+<td id="T_710c1_row4_col1" class="data row4 col1">≥ 2</td>
+<td id="T_710c1_row4_col2" class="data row4 col2">False</td>
+<td id="T_710c1_row4_col3" class="data row4 col3">1</td>
+<td id="T_710c1_row4_col4" class="data row4 col4">0.96</td>
+<td id="T_710c1_row4_col5" class="data row4 col5">15</td>
+<td id="T_710c1_row4_col6" class="data row4 col6">14.42</td>
+<td id="T_710c1_row4_col7" class="data row4 col7">3</td>
+<td id="T_710c1_row4_col8" class="data row4 col8">2.88</td>
+<td id="T_710c1_row4_col9" class="data row4 col9">3</td>
+<td id="T_710c1_row4_col10" class="data row4 col10">2.88</td>
+<td id="T_710c1_row4_col11" class="data row4 col11">104</td>
 </tr>
 <tr class="even">
-<td id="T_fa476_row5_col0" class="data row5 col0">early</td>
-<td id="T_fa476_row5_col1" class="data row5 col1">≥ 2</td>
-<td id="T_fa476_row5_col2" class="data row5 col2">True</td>
-<td id="T_fa476_row5_col3" class="data row5 col3">0</td>
-<td id="T_fa476_row5_col4" class="data row5 col4">0.00</td>
-<td id="T_fa476_row5_col5" class="data row5 col5">3</td>
-<td id="T_fa476_row5_col6" class="data row5 col6">30.00</td>
-<td id="T_fa476_row5_col7" class="data row5 col7">4</td>
-<td id="T_fa476_row5_col8" class="data row5 col8">40.00</td>
-<td id="T_fa476_row5_col9" class="data row5 col9">1</td>
-<td id="T_fa476_row5_col10" class="data row5 col10">10.00</td>
-<td id="T_fa476_row5_col11" class="data row5 col11">10</td>
+<td id="T_710c1_row5_col0" class="data row5 col0">early</td>
+<td id="T_710c1_row5_col1" class="data row5 col1">≥ 2</td>
+<td id="T_710c1_row5_col2" class="data row5 col2">True</td>
+<td id="T_710c1_row5_col3" class="data row5 col3">0</td>
+<td id="T_710c1_row5_col4" class="data row5 col4">0.00</td>
+<td id="T_710c1_row5_col5" class="data row5 col5">3</td>
+<td id="T_710c1_row5_col6" class="data row5 col6">30.00</td>
+<td id="T_710c1_row5_col7" class="data row5 col7">4</td>
+<td id="T_710c1_row5_col8" class="data row5 col8">40.00</td>
+<td id="T_710c1_row5_col9" class="data row5 col9">1</td>
+<td id="T_710c1_row5_col10" class="data row5 col10">10.00</td>
+<td id="T_710c1_row5_col11" class="data row5 col11">10</td>
 </tr>
 <tr class="odd">
-<td id="T_fa476_row6_col0" class="data row6 col0">advanced</td>
-<td id="T_fa476_row6_col1" class="data row6 col1">0</td>
-<td id="T_fa476_row6_col2" class="data row6 col2">False</td>
-<td id="T_fa476_row6_col3" class="data row6 col3">0</td>
-<td id="T_fa476_row6_col4" class="data row6 col4">0.00</td>
-<td id="T_fa476_row6_col5" class="data row6 col5">2</td>
-<td id="T_fa476_row6_col6" class="data row6 col6">5.88</td>
-<td id="T_fa476_row6_col7" class="data row6 col7">0</td>
-<td id="T_fa476_row6_col8" class="data row6 col8">0.00</td>
-<td id="T_fa476_row6_col9" class="data row6 col9">0</td>
-<td id="T_fa476_row6_col10" class="data row6 col10">0.00</td>
-<td id="T_fa476_row6_col11" class="data row6 col11">34</td>
+<td id="T_710c1_row6_col0" class="data row6 col0">advanced</td>
+<td id="T_710c1_row6_col1" class="data row6 col1">0</td>
+<td id="T_710c1_row6_col2" class="data row6 col2">False</td>
+<td id="T_710c1_row6_col3" class="data row6 col3">0</td>
+<td id="T_710c1_row6_col4" class="data row6 col4">0.00</td>
+<td id="T_710c1_row6_col5" class="data row6 col5">2</td>
+<td id="T_710c1_row6_col6" class="data row6 col6">5.88</td>
+<td id="T_710c1_row6_col7" class="data row6 col7">0</td>
+<td id="T_710c1_row6_col8" class="data row6 col8">0.00</td>
+<td id="T_710c1_row6_col9" class="data row6 col9">0</td>
+<td id="T_710c1_row6_col10" class="data row6 col10">0.00</td>
+<td id="T_710c1_row6_col11" class="data row6 col11">34</td>
 </tr>
 <tr class="even">
-<td id="T_fa476_row7_col0" class="data row7 col0">advanced</td>
-<td id="T_fa476_row7_col1" class="data row7 col1">0</td>
-<td id="T_fa476_row7_col2" class="data row7 col2">True</td>
-<td id="T_fa476_row7_col3" class="data row7 col3">0</td>
-<td id="T_fa476_row7_col4" class="data row7 col4">0.00</td>
-<td id="T_fa476_row7_col5" class="data row7 col5">3</td>
-<td id="T_fa476_row7_col6" class="data row7 col6">12.50</td>
-<td id="T_fa476_row7_col7" class="data row7 col7">0</td>
-<td id="T_fa476_row7_col8" class="data row7 col8">0.00</td>
-<td id="T_fa476_row7_col9" class="data row7 col9">0</td>
-<td id="T_fa476_row7_col10" class="data row7 col10">0.00</td>
-<td id="T_fa476_row7_col11" class="data row7 col11">24</td>
+<td id="T_710c1_row7_col0" class="data row7 col0">advanced</td>
+<td id="T_710c1_row7_col1" class="data row7 col1">0</td>
+<td id="T_710c1_row7_col2" class="data row7 col2">True</td>
+<td id="T_710c1_row7_col3" class="data row7 col3">0</td>
+<td id="T_710c1_row7_col4" class="data row7 col4">0.00</td>
+<td id="T_710c1_row7_col5" class="data row7 col5">3</td>
+<td id="T_710c1_row7_col6" class="data row7 col6">12.50</td>
+<td id="T_710c1_row7_col7" class="data row7 col7">0</td>
+<td id="T_710c1_row7_col8" class="data row7 col8">0.00</td>
+<td id="T_710c1_row7_col9" class="data row7 col9">0</td>
+<td id="T_710c1_row7_col10" class="data row7 col10">0.00</td>
+<td id="T_710c1_row7_col11" class="data row7 col11">24</td>
 </tr>
 <tr class="odd">
-<td id="T_fa476_row8_col0" class="data row8 col0">advanced</td>
-<td id="T_fa476_row8_col1" class="data row8 col1">1</td>
-<td id="T_fa476_row8_col2" class="data row8 col2">False</td>
-<td id="T_fa476_row8_col3" class="data row8 col3">0</td>
-<td id="T_fa476_row8_col4" class="data row8 col4">0.00</td>
-<td id="T_fa476_row8_col5" class="data row8 col5">3</td>
-<td id="T_fa476_row8_col6" class="data row8 col6">4.55</td>
-<td id="T_fa476_row8_col7" class="data row8 col7">0</td>
-<td id="T_fa476_row8_col8" class="data row8 col8">0.00</td>
-<td id="T_fa476_row8_col9" class="data row8 col9">0</td>
-<td id="T_fa476_row8_col10" class="data row8 col10">0.00</td>
-<td id="T_fa476_row8_col11" class="data row8 col11">66</td>
+<td id="T_710c1_row8_col0" class="data row8 col0">advanced</td>
+<td id="T_710c1_row8_col1" class="data row8 col1">1</td>
+<td id="T_710c1_row8_col2" class="data row8 col2">False</td>
+<td id="T_710c1_row8_col3" class="data row8 col3">0</td>
+<td id="T_710c1_row8_col4" class="data row8 col4">0.00</td>
+<td id="T_710c1_row8_col5" class="data row8 col5">3</td>
+<td id="T_710c1_row8_col6" class="data row8 col6">4.55</td>
+<td id="T_710c1_row8_col7" class="data row8 col7">0</td>
+<td id="T_710c1_row8_col8" class="data row8 col8">0.00</td>
+<td id="T_710c1_row8_col9" class="data row8 col9">0</td>
+<td id="T_710c1_row8_col10" class="data row8 col10">0.00</td>
+<td id="T_710c1_row8_col11" class="data row8 col11">66</td>
 </tr>
 <tr class="even">
-<td id="T_fa476_row9_col0" class="data row9 col0">advanced</td>
-<td id="T_fa476_row9_col1" class="data row9 col1">1</td>
-<td id="T_fa476_row9_col2" class="data row9 col2">True</td>
-<td id="T_fa476_row9_col3" class="data row9 col3">1</td>
-<td id="T_fa476_row9_col4" class="data row9 col4">1.64</td>
-<td id="T_fa476_row9_col5" class="data row9 col5">18</td>
-<td id="T_fa476_row9_col6" class="data row9 col6">29.51</td>
-<td id="T_fa476_row9_col7" class="data row9 col7">5</td>
-<td id="T_fa476_row9_col8" class="data row9 col8">8.20</td>
-<td id="T_fa476_row9_col9" class="data row9 col9">1</td>
-<td id="T_fa476_row9_col10" class="data row9 col10">1.64</td>
-<td id="T_fa476_row9_col11" class="data row9 col11">61</td>
+<td id="T_710c1_row9_col0" class="data row9 col0">advanced</td>
+<td id="T_710c1_row9_col1" class="data row9 col1">1</td>
+<td id="T_710c1_row9_col2" class="data row9 col2">True</td>
+<td id="T_710c1_row9_col3" class="data row9 col3">1</td>
+<td id="T_710c1_row9_col4" class="data row9 col4">1.64</td>
+<td id="T_710c1_row9_col5" class="data row9 col5">18</td>
+<td id="T_710c1_row9_col6" class="data row9 col6">29.51</td>
+<td id="T_710c1_row9_col7" class="data row9 col7">5</td>
+<td id="T_710c1_row9_col8" class="data row9 col8">8.20</td>
+<td id="T_710c1_row9_col9" class="data row9 col9">1</td>
+<td id="T_710c1_row9_col10" class="data row9 col10">1.64</td>
+<td id="T_710c1_row9_col11" class="data row9 col11">61</td>
 </tr>
 <tr class="odd">
-<td id="T_fa476_row10_col0" class="data row10 col0">advanced</td>
-<td id="T_fa476_row10_col1" class="data row10 col1">≥ 2</td>
-<td id="T_fa476_row10_col2" class="data row10 col2">False</td>
-<td id="T_fa476_row10_col3" class="data row10 col3">4</td>
-<td id="T_fa476_row10_col4" class="data row10 col4">5.26</td>
-<td id="T_fa476_row10_col5" class="data row10 col5">16</td>
-<td id="T_fa476_row10_col6" class="data row10 col6">21.05</td>
-<td id="T_fa476_row10_col7" class="data row10 col7">7</td>
-<td id="T_fa476_row10_col8" class="data row10 col8">9.21</td>
-<td id="T_fa476_row10_col9" class="data row10 col9">4</td>
-<td id="T_fa476_row10_col10" class="data row10 col10">5.26</td>
-<td id="T_fa476_row10_col11" class="data row10 col11">76</td>
+<td id="T_710c1_row10_col0" class="data row10 col0">advanced</td>
+<td id="T_710c1_row10_col1" class="data row10 col1">≥ 2</td>
+<td id="T_710c1_row10_col2" class="data row10 col2">False</td>
+<td id="T_710c1_row10_col3" class="data row10 col3">4</td>
+<td id="T_710c1_row10_col4" class="data row10 col4">5.26</td>
+<td id="T_710c1_row10_col5" class="data row10 col5">16</td>
+<td id="T_710c1_row10_col6" class="data row10 col6">21.05</td>
+<td id="T_710c1_row10_col7" class="data row10 col7">7</td>
+<td id="T_710c1_row10_col8" class="data row10 col8">9.21</td>
+<td id="T_710c1_row10_col9" class="data row10 col9">4</td>
+<td id="T_710c1_row10_col10" class="data row10 col10">5.26</td>
+<td id="T_710c1_row10_col11" class="data row10 col11">76</td>
 </tr>
 <tr class="even">
-<td id="T_fa476_row11_col0" class="data row11 col0">advanced</td>
-<td id="T_fa476_row11_col1" class="data row11 col1">≥ 2</td>
-<td id="T_fa476_row11_col2" class="data row11 col2">True</td>
-<td id="T_fa476_row11_col3" class="data row11 col3">3</td>
-<td id="T_fa476_row11_col4" class="data row11 col4">3.80</td>
-<td id="T_fa476_row11_col5" class="data row11 col5">46</td>
-<td id="T_fa476_row11_col6" class="data row11 col6">58.23</td>
-<td id="T_fa476_row11_col7" class="data row11 col7">18</td>
-<td id="T_fa476_row11_col8" class="data row11 col8">22.78</td>
-<td id="T_fa476_row11_col9" class="data row11 col9">8</td>
-<td id="T_fa476_row11_col10" class="data row11 col10">10.13</td>
-<td id="T_fa476_row11_col11" class="data row11 col11">79</td>
+<td id="T_710c1_row11_col0" class="data row11 col0">advanced</td>
+<td id="T_710c1_row11_col1" class="data row11 col1">≥ 2</td>
+<td id="T_710c1_row11_col2" class="data row11 col2">True</td>
+<td id="T_710c1_row11_col3" class="data row11 col3">3</td>
+<td id="T_710c1_row11_col4" class="data row11 col4">3.80</td>
+<td id="T_710c1_row11_col5" class="data row11 col5">46</td>
+<td id="T_710c1_row11_col6" class="data row11 col6">58.23</td>
+<td id="T_710c1_row11_col7" class="data row11 col7">18</td>
+<td id="T_710c1_row11_col8" class="data row11 col8">22.78</td>
+<td id="T_710c1_row11_col9" class="data row11 col9">8</td>
+<td id="T_710c1_row11_col10" class="data row11 col10">10.13</td>
+<td id="T_710c1_row11_col11" class="data row11 col11">79</td>
 </tr>
 </tbody>
 </table>
@@ -2133,37 +2149,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","loop":false,"descPosition":"bottom","openEffect":"zoom","closeEffect":"zoom"});
-(function() {
-  let previousOnload = window.onload;
-  window.onload = () => {
-    if (previousOnload) {
-      previousOnload();
-    }
-    lightboxQuarto.on('slide_before_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      const href = trigger.getAttribute('href');
-      if (href !== null) {
-        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-        if (imgEl !== null) {
-          const srcAttr = imgEl.getAttribute("src");
-          if (srcAttr && srcAttr.startsWith("data:")) {
-            slideConfig.href = srcAttr;
-          }
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom","descPosition":"bottom"});
+window.onload = () => {
+  lightboxQuarto.on('slide_before_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    const href = trigger.getAttribute('href');
+    if (href !== null) {
+      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+      if (imgEl !== null) {
+        const srcAttr = imgEl.getAttribute("src");
+        if (srcAttr && srcAttr.startsWith("data:")) {
+          slideConfig.href = srcAttr;
         }
-      } 
-    });
-  
-    lightboxQuarto.on('slide_after_load', (data) => {
-      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(slideNode);
       }
-    });
-  
-  };
-  
-})();
+    } 
+  });
+
+  lightboxQuarto.on('slide_after_load', (data) => {
+    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+    if (window.Quarto?.typesetMath) {
+      window.Quarto.typesetMath(slideNode);
+    }
+  });
+
+};
           </script> 
   
 </body></html>
