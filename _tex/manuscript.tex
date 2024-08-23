@@ -351,7 +351,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_1b972}\tabularnewline
+\caption{}\label{T_b5301}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -376,8 +376,7 @@ Vall d\textquotesingle Hebron Barcelona Hospital & 147 & 58 & 5\% & 21\%
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
 Notebook}}
 
-\subsection{Consensus on Involvement
-Status}\label{consensus-on-involvement-status}
+\subsection{Consensus on Involvement Status}\label{sec-data-consensus}
 
 Pathological involvement is thus available only for a subset of the
 patients and only for the dissected levels. For the remaining patients,
@@ -464,13 +463,12 @@ addition from Vall d'Hebron Barcelona Hospital.
 \subsection{Patterns of Contralateral Involvement}\label{sec-data-strat}
 
 These datasets allow us to investigate correlations between the
-involvement of individual LNLs, or between risk factors and patterns of
-involvement. In figure~\ref{fig-data-strat}, we have plotted the
-prevalence of each contralateral LNL's involvement, stratified by
-T-category, ipsilateral number of involved LNLs, and whether the tumor
-extended over the mid-sagittal line. A similar but more complete
-stratification is also tabulated in the appendix in
-table~\ref{tbl-data-strat}.
+involvement of individual LNLs, or between risk factors and involvement.
+In figure~\ref{fig-data-strat}, we have plotted the prevalence of each
+contralateral LNL's involvement, stratified by T-category, number of
+ipsilaterally involved LNLs, and whether the tumor extended over the
+mid-sagittal line. A similar but more complete stratification is also
+tabulated in the appendix in table~\ref{tbl-data-strat}.
 
 \begin{figure}
 
@@ -522,7 +520,7 @@ contralateral metastases in advanced T-category tumors may thus be
 partially explained by a higher rate of midline extension in these
 tumors. However, figure~\ref{fig-data-strat-uncorr} indicates that
 advanced T-category and severe ipsilateral involvement do represent
-additional risk factors . The figure considers only patients with
+additional risk factors. The figure considers only patients with
 lateralized tumors not extending over the midline. For early T-category
 and healthy ipsilateral levels I-V, only 1\% (1 out of 84 patients)
 shows involvement of contralateral level II. This increases to 5\% (9
@@ -554,9 +552,8 @@ metastases.}
 \subsection{Requirements for a Bilateral Model}\label{sec-requirements}
 
 Based on the observations of the \hyperref[sec-data-strat]{previous
-section}, any potential model that aims to also predict the risk for
-contralateral nodal involvement, should be able to take the following
-into account:
+section}, any model to predict the risk for contralateral nodal
+involvement, should be able to describe the following:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -576,14 +573,14 @@ into account:
   contralateral metastases with much higher probability.
 \end{enumerate}
 
-Over the course of this work, we will first briefly recap the mentioned
-HMM in section~\ref{sec-unilateral}, which was so far used to model
-ipsilateral lymphatic progression only. Then, we intuitively extend it
-to include the contralateral side as well in
-section~\ref{sec-ext-to-contra}. In this section, we also introduce a
-way of modelling the tumor's midline extension as a random variable
-(section~\ref{sec-midline}) and lastly talk about how it may affect the
-contralateral spread in section~\ref{sec-params-symmetry}.
+Over the course of this work, we will first briefly recap the HMM in
+section~\ref{sec-unilateral}, which was so far used to model ipsilateral
+lymphatic progression only. Then, we intuitively extend it to include
+the contralateral side as well in section~\ref{sec-ext-to-contra}. In
+this section, we also introduce a way of modelling the tumor's midline
+extension as a random variable (section~\ref{sec-midline}) and lastly
+talk about how it may affect the contralateral spread in
+section~\ref{sec-params-symmetry}.
 
 \section{Unilateral Model for Lymphatic
 Progression}\label{sec-unilateral}
@@ -728,7 +725,8 @@ which means that the expected number of time-steps from the onset of a
 patient's disease to their diagnosis is
 \(\mathbb{E}\left[ t_D \right] = 10 \cdot p_{\text{T}x}\).
 
-\subsection{Likelihood Function}\label{likelihood-function}
+\subsection{Likelihood Function of the Unilateral
+Model}\label{likelihood-function-of-the-unilateral-model}
 
 With the formalism introduced above, we can write the likelihood
 function for a patient to present with a diagnosis consisting of an
@@ -847,10 +845,10 @@ P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsy
 
 In general, the matrices \(\boldsymbol{\Lambda}_\text{i}\) and
 \(\boldsymbol{\Lambda}_\text{c}\) could be parameterized using a
-disjoint set of parameters. I.e., the ipsi- and contralateral spread
+disjoint set of parameters, i.e., the ipsi- and contralateral spread
 rates are entirely different. However, using three sensible assumptions,
 we can reduce the parameter space by sharing some parameters between the
-sides:
+two sides:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -983,8 +981,9 @@ we need to marginalize over:
   without increased contralateral spread.
 \item
   The mid-sagittal line was already crossed by the tumor. In that case,
-  the probability is 1 to remain in that lateralization state. Thus, for
-  this case we simply add the same distribution we are computing, but
+  the probability is 1 to remain in that lateralization state. Thus, to
+  account for this case we simply add the distribution
+  \(P\left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right)\)
   from one time-step earlier, arriving at a recursion relation:
 \end{enumerate}
 
@@ -1082,20 +1081,15 @@ Consensus}\label{involvement-data-consensus}
 It is possible to provide our model with multiple different diagnostic
 modalities, each being characterized by different pairs of sensitivity
 and specificity. However, we instead chose to combine them into a single
-``consensus'' diagnosis before parameter inference. We opted for this
-because the literature values of sensitivity and specificity
+``consensus'' diagnosis before parameter inference, as introduced in
+\textbf{?@sec-sec-data-consensus}. We opted for this because the
+literature values of sensitivity and specificity
 \citep{de_bondt_detection_2007, kyzas_18f-fluorodeoxyglucose_2008} of
 imaging modalities like MRI and CT do not plausibly match some of our
 observations: In the USZ cohort, 78\% of OPSCC patients where diagnosed
 with ipsilateral LNL II involvement via diagnostic imaging. This is
 virtually impossible with sensitivities around 80\% and specificities
 lower than 100\%.
-
-Our pre-training consensus was formed by considering all reported
-diagnostic information for a particular patient and LNL. When conflicts
-arose, we computed the \emph{most likely} true state of involvement
-using the literature sensitivity and specificity values
-\citep{de_bondt_detection_2007, kyzas_18f-fluorodeoxyglucose_2008}.
 
 \subsection{MCMC Sampling}\label{sec-sampling}
 
@@ -1263,7 +1257,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_66259}\tabularnewline
+\caption{}\label{T_6f0e6}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1736,7 +1730,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_a61d0}\tabularnewline
+\caption{}\label{T_a95ce}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
