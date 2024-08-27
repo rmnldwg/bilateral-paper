@@ -465,10 +465,13 @@ addition from Vall d'Hebron Barcelona Hospital.
 These datasets allow us to investigate correlations between the
 involvement of individual LNLs, or between risk factors and involvement.
 In figure~\ref{fig-data-strat}, we have plotted the prevalence of each
-contralateral LNL's involvement, stratified by T-category, number of
-ipsilaterally involved LNLs, and whether the tumor extended over the
-mid-sagittal line. A similar but more complete stratification is also
-tabulated in the appendix in table~\ref{tbl-data-strat}.
+contralateral LNL's involvement, stratified by risk factors such as
+T-category, number of ipsilaterally involved LNLs, and whether the tumor
+extended over the mid-sagittal line. We also show in the fourth subfigre
+that T-category and ipsilateral involvement are not just rpedictive of
+contralateral involvement because they correlate with midline extension.
+A similar but more complete stratification is also tabulated in the
+appendix in table~\ref{tbl-data-strat}.
 
 \begin{figure}
 
@@ -479,15 +482,20 @@ tabulated in the appendix in table~\ref{tbl-data-strat}.
 }
 
 \caption{\label{fig-data-strat}Contralateral involvement stratified by
-T-category (left panel), the number of metastatic LNLs ipsilaterally
-(center panel), and whether the primary tumor extended over the
-mid-sagittal line or was clearly lateralized (right panel).}
+T-category (top left panel), the number of metastatic LNLs ipsilaterally
+(top right panel), and whether the primary tumor extended over the
+mid-sagittal line or was clearly lateralized (bottom left panel).
+Additionally, in the bottom right, we show that even for lateralized
+tumors, T-category and ipsilateral involvement are correlated with
+contralateral metastasis by comparing the contralateral involvement
+prevalence for selected scenarios that vary in their T-category and
+ipsilateral involvement extent.}
 
 \end{figure}%
 
-The left panel in figure~\ref{fig-data-strat} indicates that T-category
-is correlated with contralateral involvement (as it is with overal
-involvement). This is simply because T-category may on average be
+The top left panel in figure~\ref{fig-data-strat} indicates that
+T-category is correlated with contralateral involvement (as it is with
+overal involvement). This is simply because T-category may on average be
 considered a surrogate for the time between onset of disease and
 diagnosis. I.e., a patient with a T4 tumor was -- on average --
 diagnosed later than a patient with a T1 tumor. Thus, the former did
@@ -501,8 +509,8 @@ considered a surrogate for the duration of the disease. In addition, it
 has been hypothesized that bulky nodal disease ipsilaterally may also
 redirect lymph fluids to the contralateral side.
 
-Lastly, the right panel in figure~\ref{fig-data-strat} shows that
-patients with a tumor crossing the mid-sagittal line show contralateral
+The bottom left panel in figure~\ref{fig-data-strat} shows that patients
+with a tumor crossing the mid-sagittal line show contralateral
 involvement vastly more often compared to patients with clearly
 lateralized tumors. This makes intuitive sense, because the lymphatic
 system in the head and neck region is typically symmetric and thus no
@@ -518,36 +526,16 @@ midline extension was present in 48\% of advanced T-category tumors but
 only in 7\% of early T-category tumors. The higher prevalence of
 contralateral metastases in advanced T-category tumors may thus be
 partially explained by a higher rate of midline extension in these
-tumors. However, figure~\ref{fig-data-strat-uncorr} indicates that
-advanced T-category and severe ipsilateral involvement do represent
-additional risk factors. The figure considers only patients with
-lateralized tumors not extending over the midline. For early T-category
-and healthy ipsilateral levels I-V, only 1\% (1 out of 84 patients)
-shows involvement of contralateral level II. This increases to 5\% (9
-out of 165 patients) if ipsilateral level II is involved, to 15\% (9 out
-of 60 patients) if ipsilateral levels II and III are involved, and to
-23\% (6 out of 26 patients) for advanced T-category with ipsilateral
-levels II and III involved.
-
-\begin{figure}
-
-\centering{
-
-\includegraphics{manuscript_files/mediabag/figures/fig_data_strat_uncorr.pdf}
-
-}
-
-\caption{\label{fig-data-strat-uncorr}Contralateral involvement
-prevalence by LNL for lateralized tumors. Shown are four different
-scenarios: 1) early T-category with an ipsilateral N0 neck (green), 2)
-early T-category with ipsilaterally LNL II involved (blue), 3) late
-T-category with ipsilateral LNL II metastatic (orange), and 4) early
-T-category with ipsilateral both levels II and III involved (red). This
-illustrates that even when controlling for the tumor's lateralization,
-T-category and ipsilaeral involvement are predictive of contralateral
-metastases.}
-
-\end{figure}%
+tumors. However, the bottom right panel of figure~\ref{fig-data-strat}
+indicates that advanced T-category and severe ipsilateral involvement do
+represent additional risk factors. The figure considers only patients
+with lateralized tumors not extending over the midline. For early
+T-category and healthy ipsilateral levels I-V, only 1\% (1 out of 84
+patients) shows involvement of contralateral level II. This increases to
+5\% (9 out of 165 patients) if ipsilateral level II is involved, to 15\%
+(9 out of 60 patients) if ipsilateral levels II and III are involved,
+and to 23\% (6 out of 26 patients) for advanced T-category with
+ipsilateral levels II and III involved.
 
 \subsection{Requirements for a Bilateral Model}\label{sec-requirements}
 
@@ -1082,7 +1070,7 @@ It is possible to provide our model with multiple different diagnostic
 modalities, each being characterized by different pairs of sensitivity
 and specificity. However, we instead chose to combine them into a single
 ``consensus'' diagnosis before parameter inference, as introduced in
-\textbf{?@sec-sec-data-consensus}. We opted for this because the
+section~\ref{sec-data-consensus}. We opted for this because the
 literature values of sensitivity and specificity
 \citep{de_bondt_detection_2007, kyzas_18f-fluorodeoxyglucose_2008} of
 imaging modalities like MRI and CT do not plausibly match some of our
@@ -1491,75 +1479,6 @@ mid-sagittal line. As in figure~\ref{fig-model-prevalences-overall} and
 figure~\ref{fig-model-prevalences-with-ipsi}, these cases are relatively
 rare resulting in a broad distribution over the true prevalence.
 
-\subsubsection{Prevalence of Midline
-Extension}\label{prevalence-of-midline-extension}
-
-\begin{figure}
-
-\centering{
-
-\includegraphics[width=0.5\textwidth,height=\textheight]{manuscript_files/mediabag/figures/fig_model_prevalences_midext.pdf}
-
-}
-
-\caption{\label{fig-model-prevalences-midext}Comparing the predicted
-(histograms) and observed (lines depicting beta posteriors) prevalence
-of midline extension for early (blue) and late (orange) T-category.
-While the prevalence is predicted correctly when marginalizing over
-T-category, the model cannot capture the degree of separation observed
-in the data. Since the tumor's midline extension is virtually always
-part of the diagnosis and hence \emph{given} when predicting a patient's
-risk, we do not consider this discrepancy a major issue.}
-
-\end{figure}%
-
-Lastly, in figure~\ref{fig-model-prevalences-midext}, we plot the
-prevalence of midline extension in the data versus our model's
-prediction. It is obvious the model cannot match the large spread
-between early and advanced T-category seen in the data. This is because
-to achieve that, it would need to increase the advanced T-category
-patient's prior distribution over diagnosis times and at the same time
-reduce the probability of the tumor to cross the midline during a
-time-step. But since the time-priors parameter is also coupled with the
-spread probabilities among the LNLs, the model does not have that
-freedom.
-
-However, we do not consider this discrepancy a major limitation of the
-model: We will not realistically be interested in the probability of
-midline extension, as it is always possible to assess it with high
-certainty. That is also the reason why we initially modelled the midline
-extension \emph{not} as a random variable, but as a global risk factor
-that would have been turned on or off from the onset of a patient's
-disease evolution. This, however, lead to overly high risks for
-contralateral involvement in advanced T-category patients with midline
-extension, because then the model assumes an increased spread to the
-contralateral side from the onset of the disease. Which is probably not
-true in a majority of those cases. Thus, treating it as a random
-variable that only becomes true during a patient's disease evolution
-resulted in a better description of the data.
-
-Formally, the wrong prediction of midline extension prevalence makes
-little difference, since it is always given: Instead of
-\(P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right)\),
-we typically compute
-\(P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right)\),
-which does not suffer from the wrong probability of midline extension,
-as the distribution over hidden states is renormalized:
-
-\[
-P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right) = \frac{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \mid \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right) P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)}{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right)}
-\]
-
-Note that a distribution over \(\epsilon\) appears both in the
-enumerator and the denominator, which largely cancel each other, leaving
-only the midline extension's effect on the distribution over hidden
-states in the prediction.
-
-Also, the discrepancy in midline extension prevalence between early and
-advanced T-category is particularly pronounced in oropharyngeal SCC
-patients. For example, in oral cavity SCC, the midline extension only
-increases from 15.4\% (20 out of 130) to 33.3\% (13 out of 39).
-
 \section{Results: Prediction of Risk for Occult
 Disease}\label{results-prediction-of-risk-for-occult-disease}
 
@@ -1770,6 +1689,78 @@ advanced & ≥ 2 & True & 3 & 3.80 & 46 & 58.23 & 18 & 22.78 & 8 & 10.13 &
 79 \\
 
 \end{longtable}
+
+\textsubscript{Source:
+\href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
+Notebook}}
+
+\section{Prevalence of Midline
+Extension}\label{prevalence-of-midline-extension}
+
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.5\textwidth,height=\textheight]{manuscript_files/mediabag/figures/fig_model_prevalences_midext.pdf}
+
+}
+
+\caption{\label{fig-model-prevalences-midext}Comparing the predicted
+(histograms) and observed (lines depicting beta posteriors) prevalence
+of midline extension for early (blue) and late (orange) T-category.
+While the prevalence is predicted correctly when marginalizing over
+T-category, the model cannot capture the degree of separation observed
+in the data. Since the tumor's midline extension is virtually always
+part of the diagnosis and hence \emph{given} when predicting a patient's
+risk, we do not consider this discrepancy a major issue.}
+
+\end{figure}%
+
+In figure~\ref{fig-model-prevalences-midext}, we plot the prevalence of
+midline extension in the data versus our model's prediction. It is
+obvious the model cannot match the large spread between early and
+advanced T-category seen in the data. This is because to achieve that,
+it would need to increase the advanced T-category patient's prior
+distribution over diagnosis times and at the same time reduce the
+probability of the tumor to cross the midline during a time-step. But
+since the time-priors parameter is also coupled with the spread
+probabilities among the LNLs, the model does not have that freedom.
+
+However, we do not consider this discrepancy a major limitation of the
+model: We will not realistically be interested in the probability of
+midline extension, as it is always possible to assess it with high
+certainty. That is also the reason why we initially modelled the midline
+extension \emph{not} as a random variable, but as a global risk factor
+that would have been turned on or off from the onset of a patient's
+disease evolution. This, however, lead to overly high risks for
+contralateral involvement in advanced T-category patients with midline
+extension, because then the model assumes an increased spread to the
+contralateral side from the onset of the disease. Which is probably not
+true in a majority of those cases. Thus, treating it as a random
+variable that only becomes true during a patient's disease evolution
+resulted in a better description of the data.
+
+Formally, the wrong prediction of midline extension prevalence makes
+little difference, since it is always given: Instead of
+\(P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right)\),
+we typically compute
+\(P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right)\),
+which does not suffer from the wrong probability of midline extension,
+as the distribution over hidden states is renormalized:
+
+\[
+P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right) = \frac{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \mid \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right) P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)}{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right)}
+\]
+
+Note that a distribution over \(\epsilon\) appears both in the
+enumerator and the denominator, which largely cancel each other, leaving
+only the midline extension's effect on the distribution over hidden
+states in the prediction.
+
+Also, the discrepancy in midline extension prevalence between early and
+advanced T-category is particularly pronounced in oropharyngeal SCC
+patients. For example, in oral cavity SCC, the midline extension only
+increases from 15.4\% (20 out of 130) to 33.3\% (13 out of 39).
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript-preview.html}{Article
