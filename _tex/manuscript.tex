@@ -351,7 +351,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_b5301}\tabularnewline
+\caption{}\label{T_8749e}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -522,20 +522,20 @@ primary tumor is close enough to the mid-sagittal line or crosses it.
 
 The three risk factors for contralateral involvement, midline extension,
 T-category, and ipsilateral involvement are correlated. For example,
-midline extension was present in 48\% of advanced T-category tumors but
-only in 7\% of early T-category tumors. The higher prevalence of
+midline extension was present in 45.56\% of advanced T-category tumors
+but only in 6.13\% of early T-category tumors. The higher prevalence of
 contralateral metastases in advanced T-category tumors may thus be
 partially explained by a higher rate of midline extension in these
 tumors. However, the bottom right panel of figure~\ref{fig-data-strat}
 indicates that advanced T-category and severe ipsilateral involvement do
 represent additional risk factors. The figure considers only patients
 with lateralized tumors not extending over the midline. For early
-T-category and healthy ipsilateral levels I-V, only 1\% (1 out of 84
+T-category and healthy ipsilateral levels I-V, only 1.85\% (2 out of 108
 patients) shows involvement of contralateral level II. This increases to
-5\% (9 out of 165 patients) if ipsilateral level II is involved, to 15\%
-(9 out of 60 patients) if ipsilateral levels II and III are involved,
-and to 23\% (6 out of 26 patients) for advanced T-category with
-ipsilateral levels II and III involved.
+6.73\% (14 out of 208 patients) if ipsilateral level II is involved, to
+14.29\% (10 out of 70 patients) if ipsilateral levels II and III are
+involved, and to 39.68\% (25 out of 63 patients) for advanced T-category
+with ipsilateral levels II and III involved.
 
 \subsection{Requirements for a Bilateral Model}\label{sec-requirements}
 
@@ -1164,9 +1164,9 @@ II involvement (i.e., contra LNL II ``involved'' and all other LNLs
 ``masked'') under the scenario of early T-category (T0-T2) and no
 midline extension (\(\epsilon=\texttt{False}\)). To compute this
 prevalence in the data, we select all patients of this scenario (in our
-data, this amounts to 379 patients). Of those, 28 were found to harbor
+data, this amounts to 379 patients). Of those, 27 were found to harbor
 metastases in their contralateral LNL II. Therefore, the prevalence is
-7\%.
+7.12\%.
 
 When displaying this data prevalence, we often choose to draw a
 \emph{beta posterior} over the ``true'' prevalence, hinting at the fact
@@ -1245,7 +1245,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_6f0e6}\tabularnewline
+\caption{}\label{T_0105a}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1289,16 +1289,15 @@ defined in the previous section. In figure~\ref{fig-model-midext-evo}
 (top panel), we visualize the prior distribution over diagnose times
 \(P(t)\). By parameter choice, early T-category tumors are diagnosed on
 average after 3 time steps. Advanced T-category tumors are diagnosed on
-average after 4.5 time steps (\(p_\text{adv.}=0.45\)) , a parameter
-learned from the data to describe the higher involvement for advanced
-T-category tumors. The probability per time step for the tumor to grow
-over the midline, \(p_\epsilon = 0.0816\) yields the probability of
-midline extension \(P(\epsilon \mid t)\) at a given time step \(t\) (red
-line). The parameter is adjusted such that the model yields the correct
-proportion of patients with tumors extending over the midline seen in
-the dataset. The bottom panel in figure~\ref{fig-model-midext-evo} shows
-the joint probability \(P(\epsilon, t)\) to be diagnosed at time step
-\(t\) with a given state of midline extension and T-category.
+average after 4.5 time steps, because the parameter \(p_\text{adv.}\)
+was learned to be 44.98\% for advanced T-category tumors. The
+probability per time step for the tumor to grow over the midline
+(\(p_\epsilon\)) was on average 8.16\%. Using this, one can compute the
+probability of midline extension \(P(\epsilon \mid t)\) at a given time
+step \(t\) (red line in figure~\ref{fig-model-midext-evo}). The bottom
+panel in this figure shows the joint probability \(P(\epsilon, t)\) to
+be diagnosed at time step \(t\) with a given state of midline extension
+and T-category.
 
 \begin{figure}
 
@@ -1405,12 +1404,12 @@ Figure~\ref{fig-model-prevalences-overall} shows nicely that the model
 is capable of accurately accounting for the most important risk factors,
 i.e.~T-category and midline extension. As observed in the data, the
 model predicts that the prevalence of contralateral LNL II involvement
-increases from below 8\% for early T-category lateralized tumors to
-almost 40\% when the tumor is of advanced T-category and crosses the
-mid-sagittal line. Similarly, the prevalence of contralateral LNL III
-involvement increases from around 2\% for early T-category lateralized
-tumors to almost 15\% when the tumor is of advanced T-category and
-crosses the mid-sagittal line.
+increases from 7.1\% for early T-category lateralized tumors to 39.17\%
+when the tumor is of advanced T-category and crosses the mid-sagittal
+line. Similarly, the prevalence of contralateral LNL III involvement
+increases from around 1.55\% for early T-category lateralized tumors to
+almost 14.25\% when the tumor is of advanced T-category and crosses the
+mid-sagittal line.
 
 \subsubsection{Correlation between Ipsi- and Contralateral
 Involvement}\label{correlation-between-ipsi--and-contralateral-involvement}
@@ -1524,27 +1523,26 @@ model is the tumor's lateralization. A patient with a clearly
 lateralized early T-category tumor and a clinically N0 neck is predicted
 to have a 1-2\% risk for occult disease in contralateral LNL II. For a
 patient with a clearly lateralized early T-category tumor but
-\emph{with} mid-sagittal extension, the risk increases to almost 7\%.
+\emph{with} mid-sagittal extension, the risk increases to 7.58\%.
 
 Also advanced T-category increases the risk of occult disease but plays
-a lesser role: Considering the scenario of a tumor that crosses the
-midline and an ipsilateral neck where at least LNL III is clinically
-involved, the risk for occult contralateral LNL II disease is around
-8.5\%. For the same scenario and an advanced T-category tumor, the risk
-increases to 11\%.
+a lesser role: Considering the scenario of an early T-category tumor
+that crosses the midline and an ipsilateral neck where the LNLs II and
+III are clinically involved, the risk for occult contralateral LNL II
+disease is around 9.06\%. For the same scenario and an advanced
+T-category tumor, the risk increases to 11.25\%.
 
 Lastly, the predicted risk is also correlated via the time-steps to the
-degree of ipsilateral involvement. Changing the aforementioned scenario
-(advanced T-category, midline extension, ipsilateral LNL III clinically
-involved) to one where the patient presents with a clinically N0 neck,
-the risk for occult disease in the contralateral LNL II falls from 11\%
-to 9.5\%.
+degree of ipsilateral involvement. When an early T-category patient with
+a tumor that extends over the mid-sagittal line presents with a
+clinically N0 ipsilateral neck instead of involvement in the levels II
+and III, the risk is 7.58\% instead of 9.06\%.
 
 Taken together, T-category and ipsilateral involvement may still
 considerably impact the risk prediction for contralateral involvement:
 In figure~\ref{fig-model-risks} the scenarios underlying the orange
-(6.5\% ) and the red (11\% ) histograms differ in T-category (early vs
-advanced) and clinical diagnosis (N0 vs ipsilateral at least LNL III
+(7.58\%) and the purple (11.25\%) histograms differ in T-category (early
+vs advanced) and clinical diagnosis (N0 vs ipsilateral LNL II and III
 involved).
 
 \subsection{Contralalteral LNL III}\label{contralalteral-lnl-iii}
@@ -1554,22 +1552,33 @@ for occult disease in the contralateral LNL III may only cross a 5\%
 threshold if the upstream level II is clinically involved, too. If the
 clinical diagnosis of the contralateral upstream level II is
 pathologically confirmed by FNA the risk increases by another percentage
-point. When the tumor additionally crosses the mid-sagittal line, the
-risk may reach around 7\%.
+point to 5.58\%. When the tumor additionally crosses the mid-sagittal
+line, the risk may reach around 6.94\%.
 
 \subsection{Contralateral LNL IV}\label{contralateral-lnl-iv}
 
 Our model's prediction for the contralateral LNL IV show that even in
 the most extreme case, with an advanced T-category tumor extending over
-the mid-sagittal line as well as metastases in every ipsilateral LNL and
-every contralateral upstream level, the risk stays just below 3\%. We
-only observe a risk of 5-6\% when the involvement of the upstream level
-III is pathologically confirmed after taking a biopsy using FNA. This is
-because the model's prior probability for contralateral LNL IV
-involvement is so low that even given a clinical diagnosis in that
-level, a false positive in LNL III is a more likely explanation. This
-possibility, however, drops virtually to zero when tumor cells are
-pathologically confirmed in level III.
+the mid-sagittal line as well as metastases in the ipsilateral LNLs
+II-IV and the contralateral upstream levels II and III, the risk stays
+at just 2.81\%. We only observe a risk of 5.68\% when the involvement of
+the upstream level III is pathologically confirmed after taking a biopsy
+using FNA. This is because the model's prior probability for
+contralateral LNL IV involvement is so low that even given a clinical
+diagnosis in that level, a false positive in LNL III is a more likely
+explanation. This possibility, however, drops virtually to zero when
+tumor cells are pathologically confirmed in level III.
+
+\subsection{Contralateral LNLs I, V, and
+VII}\label{contralateral-lnls-i-v-and-vii}
+
+Even for advanced T-category patients whose tumor crosses the midline
+and who present with extensive ipsi- and contralateral clinical
+involvement, the risk for involvement in the LNLs I and VII never
+exceeds 3\%. LNL V contralaterally also shows only a very low risk for
+occult disease, but it does rise to 5.49\% in the same extreme case when
+additionally the upstream level IV involvement has been confirmed with
+FNA.
 
 \section{Discussion}\label{sec-discussion}
 
@@ -1617,6 +1626,12 @@ the model suggests the following contralateral elective irradiation
   FNA
 \item
   LNL IV only when upstream level III pathologically confirmed
+\item
+  LNLs I and VII only when clinically involved
+\item
+  LNL V only in extreme cases (adv. T-cat., midext, all ipsi LNLs
+  metastatic, contra II, III, and IV clinically involved plus cIV via
+  FNA confirmed)
 \end{itemize}
 
 \section{Acknowledgement}\label{acknowledgement}
@@ -1649,7 +1664,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_a95ce}\tabularnewline
+\caption{}\label{T_a035c}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1670,23 +1685,29 @@ IV} & total \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-early & 0 & False & 0 & 0.00 & 1 & 1.16 & 0 & 0.00 & 0 & 0.00 & 86 \\
-early & 0 & True & 0 & 0.00 & 1 & 10.00 & 1 & 10.00 & 0 & 0.00 & 10 \\
-early & 1 & False & 1 & 0.53 & 11 & 5.82 & 2 & 1.06 & 1 & 0.53 & 189 \\
-early & 1 & True & 1 & 11.11 & 2 & 22.22 & 0 & 0.00 & 0 & 0.00 & 9 \\
-early & ≥ 2 & False & 1 & 0.96 & 15 & 14.42 & 3 & 2.88 & 3 & 2.88 &
+early & 0 & False & 0 & 1 & 0 & 0 & 0.00 & 1.16 & 0.00 & 0.00 & 86 \\
+early & 0 & True & 0 & 1 & 1 & 0 & 0.00 & 10.00 & 10.00 & 0.00 & 10 \\
+early & 0 & nan & 0 & 0 & 0 & 0 & 0.00 & 0.00 & 0.00 & 0.00 & 12 \\
+early & 1 & False & 1 & 11 & 2 & 1 & 0.53 & 5.82 & 1.06 & 0.53 & 189 \\
+early & 1 & True & 1 & 2 & 0 & 0 & 11.11 & 22.22 & 0.00 & 0.00 & 9 \\
+early & 1 & nan & 0 & 3 & 0 & 1 & 0.00 & 9.68 & 0.00 & 3.23 & 31 \\
+early & ≥ 2 & False & 1 & 15 & 3 & 3 & 0.96 & 14.42 & 2.88 & 2.88 &
 104 \\
-early & ≥ 2 & True & 0 & 0.00 & 3 & 30.00 & 4 & 40.00 & 1 & 10.00 &
+early & ≥ 2 & True & 0 & 3 & 4 & 1 & 0.00 & 30.00 & 40.00 & 10.00 &
 10 \\
-advanced & 0 & False & 0 & 0.00 & 2 & 5.88 & 0 & 0.00 & 0 & 0.00 & 34 \\
-advanced & 0 & True & 0 & 0.00 & 3 & 12.50 & 0 & 0.00 & 0 & 0.00 & 24 \\
-advanced & 1 & False & 0 & 0.00 & 3 & 4.55 & 0 & 0.00 & 0 & 0.00 & 66 \\
-advanced & 1 & True & 1 & 1.64 & 18 & 29.51 & 5 & 8.20 & 1 & 1.64 &
+early & ≥ 2 & nan & 0 & 3 & 0 & 0 & 0.00 & 13.64 & 0.00 & 0.00 & 22 \\
+advanced & 0 & False & 0 & 2 & 0 & 0 & 0.00 & 5.88 & 0.00 & 0.00 & 34 \\
+advanced & 0 & True & 0 & 3 & 0 & 0 & 0.00 & 12.50 & 0.00 & 0.00 & 24 \\
+advanced & 0 & nan & 0 & 0 & 0 & 0 & 0.00 & 0.00 & 0.00 & 0.00 & 3 \\
+advanced & 1 & False & 0 & 3 & 0 & 0 & 0.00 & 4.55 & 0.00 & 0.00 & 66 \\
+advanced & 1 & True & 1 & 18 & 5 & 1 & 1.64 & 29.51 & 8.20 & 1.64 &
 61 \\
-advanced & ≥ 2 & False & 4 & 5.26 & 16 & 21.05 & 7 & 9.21 & 4 & 5.26 &
+advanced & 1 & nan & 0 & 0 & 0 & 0 & 0.00 & 0.00 & 0.00 & 0.00 & 9 \\
+advanced & ≥ 2 & False & 4 & 16 & 7 & 4 & 5.26 & 21.05 & 9.21 & 5.26 &
 76 \\
-advanced & ≥ 2 & True & 3 & 3.80 & 46 & 58.23 & 18 & 22.78 & 8 & 10.13 &
+advanced & ≥ 2 & True & 3 & 46 & 18 & 8 & 3.80 & 58.23 & 22.78 & 10.13 &
 79 \\
+advanced & ≥ 2 & nan & 0 & 0 & 0 & 0 & 0.00 & 0.00 & 0.00 & 0.00 & 8 \\
 
 \end{longtable}
 
