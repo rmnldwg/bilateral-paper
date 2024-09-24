@@ -668,7 +668,7 @@ The predictions of this model are being used to inform a clinical trial on volum
 - Exclude LNLs I and VII for most patients. I.e., only treat these LNLs when they appear clinically metastatic
 - Exclude LNL V in all but the most extreme cases. I.e., for advanced T-category tumors with midline extension, where all ipsilateral LNLs and the contralateral LNLs II to IV present with clinical involvement and the upstream involvement is additionally verified by FNA.
 
-In essence, this is a summary of the results in @sec-sec-results-risks. However, it should be considered in light of the limitations outlined in @sec-discussion-limitations below.
+In essence, this is a summary of the results in @sec-results-risks. However, it should be considered in light of the limitations outlined in @sec-discussion-limitations below.
 
 
 ## Limitations and Future Work {#sec-discussion-limitations}
