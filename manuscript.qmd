@@ -613,7 +613,7 @@ In @fig-model-prevalences-with-ipsi we display the model's ability to capture th
 @Fig-model-prevalences-upstream illustrates how rarely the contralateral LNL III harbors metastases when its upstream level II is healthy. Also, the model can capture this correlation rather well, with the exception of early T-category tumors that extend over the mid-sagittal line. As in @fig-model-prevalences-overall and @fig-model-prevalences-with-ipsi, these cases are relatively rare resulting in a broad distribution over the true prevalence.
 
 
-# Results: Prediction of Risk for Occult Disease
+# Results: Prediction of Risk for Occult Disease {#sec-results-risks}
 
 For a clinical application of the model we are interested in the risk of occult metastases rather than the observed patterns of lymph node involvement. We want to estimate the risk for occult disease in clinically negative LNLs, given the patient's individual diagnosis. In terms of our model, the diagnosis consists of the T-category, the lateralization of the tumor (if it extend over the mid-sagittal plane), and which LNLs are clinically involved based on imaging and possibly fine needle aspiration (FNA). For the results shown in this section, we assume that involvement of a LNL is clinically diagnosed through imaging with a sensitivity of 81% and a specificity of 76% [@de_bondt_detection_2007]. For FNA we assume a specificity of 98% and a sensitivity of 80%. This amounts to the assumption that lymph node involvement confirmed by FNA is almost certainly true involvement, i.e. there are almost no false positive diagnoses.
 
@@ -662,11 +662,30 @@ The model takes the clincal diagnosis of the lymph node levels, the primary tumo
 
 The predictions of this model are being used to inform a clinical trial on volume deescalation at the University Hospital Zurich [citation needed<!-- TODO: add -->]. When accepting a 5% risk of occult disease in any given LNL, the model suggests the following contralateral elective irradiation (assuming the respective LNL appears clinically healthy):
 
-- LNL II when the tumor extends over the mid-sagittal line
-- LNL III when LNL II is clinically involved, may need confirmation via FNA
-- LNL IV only when upstream level III pathologically confirmed
-- LNLs I and VII only when clinically involved
-- LNL V only in extreme cases (adv. T-cat., midext, all ipsi LNLs metastatic, contra II, III, and IV clinically involved plus cIV via FNA confirmed)
+- Irradiate LNL II when the tumor extends over the mid-sagittal line
+- Irradiate LNL III when LNL II is clinically involved
+- Irradiate LNL IV only when the upstream level III is pathologically confirmed via FNA
+- Exclude LNLs I and VII for most patients. I.e., only treat these LNLs when they appear clinically metastatic
+- Exclude LNL V in all but the most extreme cases. I.e., for advanced T-category tumors with midline extension, where all ipsilateral LNLs and the contralateral LNLs II to IV present with clinical involvement and the upstream involvement is additionally verified by FNA.
+
+In essence, this is a summary of the results in @sec-results-risks. However, it should be considered in light of the limitations outlined in @sec-discussion-limitations below.
+
+
+## Limitations and Future Work {#sec-discussion-limitations}
+
+### T-Category Dependence
+
+For some patterns of involvement the difference in the observed prevalence for early vs advanced T-category is greater, for other smaller, than what our model predicts. This is because only one parameter, $p_\text{adv.}$, governs this spread by continuing to evolve the system a certain number of time-steps, while the speed of spread, here the $b_v$ parameters, remains constant. However, it is feasible that these parameters themselves may change over time as the tumor grows into regions with different lymph drainage pathways.
+
+
+### Sensitivity and Specificity
+
+As hinted at in @sec-data-consensus, the literature values for sensitivity and specificity pairs of the diagnostic modalities do not plausibly match some of the observed data. We therefore assumed the consensus across diagnostic modalities and pathology to represent the ground truth. This simplification allowed us to investigate the models general capability to describe a realistic, if not necessarily entirely accurate dataset. But in the future, this may need to be approached more rigorously, e.g. by differentiating between pathologically confirmed and clinically diagnosed involvement, as the latter is - by definition - incapable of detecting microscopic disease.
+
+
+### Tumor Subsites
+
+Within the cohort of patients with oropharyngeal tumors, subgroups can be identified whose tumors are located in different subsites, e.g. at the base of the tongue or on the tonsils. The lymphatic metastatic spread patterns of these subgroups may differ slightly. If so, the model could benefit from more fine-grained information about the precise tumor subsite for its training and prediction. We have previously speculated that a mixture model could be a promising approach to capture the subsite specific spread patterns [@zora231470].
 
 
 # Acknowledgement {.appendix}

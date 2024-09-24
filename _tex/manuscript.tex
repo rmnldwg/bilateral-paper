@@ -351,7 +351,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_8749e}\tabularnewline
+\caption{}\label{T_5ff4d}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -1245,7 +1245,7 @@ the midline model and the respective standard deviation.}
 
 \tabularnewline
 
-\caption{}\label{T_0105a}\tabularnewline
+\caption{}\label{T_f5301}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1479,7 +1479,7 @@ figure~\ref{fig-model-prevalences-with-ipsi}, these cases are relatively
 rare resulting in a broad distribution over the true prevalence.
 
 \section{Results: Prediction of Risk for Occult
-Disease}\label{results-prediction-of-risk-for-occult-disease}
+Disease}\label{sec-results-risks}
 
 For a clinical application of the model we are interested in the risk of
 occult metastases rather than the observed patterns of lymph node
@@ -1620,19 +1620,65 @@ the model suggests the following contralateral elective irradiation
 \begin{itemize}
 \tightlist
 \item
-  LNL II when the tumor extends over the mid-sagittal line
+  Irradiate LNL II when the tumor extends over the mid-sagittal line
 \item
-  LNL III when LNL II is clinically involved, may need confirmation via
-  FNA
+  Irradiate LNL III when LNL II is clinically involved
 \item
-  LNL IV only when upstream level III pathologically confirmed
+  Irradiate LNL IV only when the upstream level III is pathologically
+  confirmed via FNA
 \item
-  LNLs I and VII only when clinically involved
+  Exclude LNLs I and VII for most patients. I.e., only treat these LNLs
+  when they appear clinically metastatic
 \item
-  LNL V only in extreme cases (adv. T-cat., midext, all ipsi LNLs
-  metastatic, contra II, III, and IV clinically involved plus cIV via
-  FNA confirmed)
+  Exclude LNL V in all but the most extreme cases. I.e., for advanced
+  T-category tumors with midline extension, where all ipsilateral LNLs
+  and the contralateral LNLs II to IV present with clinical involvement
+  and the upstream involvement is additionally verified by FNA.
 \end{itemize}
+
+In essence, this is a summary of the results in
+section~\ref{sec-results-risks}. However, it should be considered in
+light of the limitations outlined in
+section~\ref{sec-discussion-limitations} below.
+
+\subsection{Limitations and Future
+Work}\label{sec-discussion-limitations}
+
+\subsubsection{T-Category Dependence}\label{t-category-dependence}
+
+For some patterns of involvement the difference in the observed
+prevalence for early vs advanced T-category is greater, for other
+smaller, than what our model predicts. This is because only one
+parameter, \(p_\text{adv.}\), governs this spread by continuing to
+evolve the system a certain number of time-steps, while the speed of
+spread, here the \(b_v\) parameters, remains constant. However, it is
+feasible that these parameters themselves may change over time as the
+tumor grows into regions with different lymph drainage pathways.
+
+\subsubsection{Sensitivity and
+Specificity}\label{sensitivity-and-specificity}
+
+As hinted at in section~\ref{sec-data-consensus}, the literature values
+for sensitivity and specificity pairs of the diagnostic modalities do
+not plausibly match some of the observed data. We therefore assumed the
+consensus across diagnostic modalities and pathology to represent the
+ground truth. This simplification allowed us to investigate the models
+general capability to describe a realistic, if not necessarily entirely
+accurate dataset. But in the future, this may need to be approached more
+rigorously, e.g.~by differentiating between pathologically confirmed and
+clinically diagnosed involvement, as the latter is - by definition -
+incapable of detecting microscopic disease.
+
+\subsubsection{Tumor Subsites}\label{tumor-subsites}
+
+Within the cohort of patients with oropharyngeal tumors, subgroups can
+be identified whose tumors are located in different subsites, e.g.~at
+the base of the tongue or on the tonsils. The lymphatic metastatic
+spread patterns of these subgroups may differ slightly. If so, the model
+could benefit from more fine-grained information about the precise tumor
+subsite for its training and prediction. We have previously speculated
+that a mixture model could be a promising approach to capture the
+subsite specific spread patterns \citep{zora231470}.
 
 \section{Acknowledgement}\label{acknowledgement}
 
@@ -1664,7 +1710,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_a035c}\tabularnewline
+\caption{}\label{T_474bc}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
