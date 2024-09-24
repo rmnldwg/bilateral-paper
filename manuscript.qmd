@@ -613,7 +613,7 @@ In @fig-model-prevalences-with-ipsi we display the model's ability to capture th
 @Fig-model-prevalences-upstream illustrates how rarely the contralateral LNL III harbors metastases when its upstream level II is healthy. Also, the model can capture this correlation rather well, with the exception of early T-category tumors that extend over the mid-sagittal line. As in @fig-model-prevalences-overall and @fig-model-prevalences-with-ipsi, these cases are relatively rare resulting in a broad distribution over the true prevalence.
 
 
-# Results: Prediction of Risk for Occult Disease
+# Results: Prediction of Risk for Occult Disease {#sec-results-risks}
 
 For a clinical application of the model we are interested in the risk of occult metastases rather than the observed patterns of lymph node involvement. We want to estimate the risk for occult disease in clinically negative LNLs, given the patient's individual diagnosis. In terms of our model, the diagnosis consists of the T-category, the lateralization of the tumor (if it extend over the mid-sagittal plane), and which LNLs are clinically involved based on imaging and possibly fine needle aspiration (FNA). For the results shown in this section, we assume that involvement of a LNL is clinically diagnosed through imaging with a sensitivity of 81% and a specificity of 76% [@de_bondt_detection_2007]. For FNA we assume a specificity of 98% and a sensitivity of 80%. This amounts to the assumption that lymph node involvement confirmed by FNA is almost certainly true involvement, i.e. there are almost no false positive diagnoses.
 
@@ -668,8 +668,10 @@ The predictions of this model are being used to inform a clinical trial on volum
 - Exclude LNLs I and VII for most patients. I.e., only treat these LNLs when they appear clinically metastatic
 - Exclude LNL V in all but the most extreme cases. I.e., for advanced T-category tumors with midline extension, where all ipsilateral LNLs and the contralateral LNLs II to IV present with clinical involvement and the upstream involvement is additionally verified by FNA.
 
+In essence, this is a summary of the results in @sec-sec-results-risks. However, it should be considered in light of the limitations outlined in @sec-discussion-limitations below.
 
-## Limitations and Future Work
+
+## Limitations and Future Work {#sec-discussion-limitations}
 
 ### T-Category Dependence
 
