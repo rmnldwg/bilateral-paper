@@ -683,7 +683,7 @@ As hinted at in @sec-data-consensus, the literature values for sensitivity and s
 
 ### Tumor Subsites
 
-Future work may also investigate if the different tumor subsites that make up all oropharyngeal SCC patients exhibit spread patterns that are substantially different. In turn, the model could benefit from more fine-grained information about the precise tumor subsite for its prediction.
+Within the cohort of patients with oropharyngeal tumors, subgroups can be identified whose tumors are located in different subsites, e.g. at the base of the tongue or on the tonsils. The lymphatic metastatic spread patterns of these subgroups may differ slightly. If so, the model could benefit from more fine-grained information about the precise tumor subsite for its training and prediction. We have previously speculated that a mixture model could be a promising approach to capture the subsite specific spread patterns [@zora231470].
 
 
 # Acknowledgement {.appendix}
