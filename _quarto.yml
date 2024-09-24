@@ -1,0 +1,84 @@
+project: 
+  type: manuscript
+  output-dir: .output
+  render: 
+    - "*.qmd"
+  preview: 
+    browser: false
+    port: 8000
+    navigate: false
+
+# define main manuscript file
+manuscript: 
+  article: manuscript.qmd
+  environment: requirements.txt
+  meca-bundle: true
+  code-links:
+    - text: GitHub Repo
+      href: https://github.com/rmnldwg/bilateral-paper
+      icon: github
+  resources: 
+    - data/reduced.csv
+
+# which formats should be rendered?
+format:
+  html:
+    toc: true
+  nature-pdf:
+    journal:
+      cite-style: sn-mathphys-num
+    cite-method: natbib
+    csl: ./_extensions/christopherkenny/nature/csl/springer-mathphys-brackets.csl
+    keep-tex: true
+    include-in-header:
+    - text: |
+        \usepackage{multirow}
+        \usepackage{centernot}
+
+# how to execute the python code?
+jupyter: python3
+execute: 
+  cache: true
+  freeze: false
+  # activating freeze may be useful for writing without
+  # reproducing computations...
+
+# authors, affiliations, bibliography, ...
+authors:
+  - name: Roman Ludwig
+    orcid: 0000-0001-9434-328X
+    email: roman.ludwig@usz.ch
+    corresponding: true
+    affiliations:
+      - ref: 1
+      - ref: 2
+  - name: Yoel Perez Haas
+    email: yoel.perezhaas@usz.ch
+    corresponsing: false
+    affiliations:
+      - ref: 1
+      - ref: 2
+  - name: Jan Unkelbach
+    orcid: 0000-0002-4275-990X
+    email: jan.unkelbach@usz.ch
+    corresponsing: false
+    affiliations:
+      - ref: 1
+      - ref: 2
+affiliations:
+  - id: 1
+    department: Department of Physics
+    name: University of Zurich
+    city: Zurich
+    country: Switzerland
+  - id: 2
+    department: Radiation Oncology
+    name: University Hospital Zurich
+    city: Zurich
+    country: Switzerland
+bibliography: references.bib
+crossref:
+  fig-prefix: "figure"
+  tbl-prefix: "table"
+  eq-prefix: "equation"
+  sec-prefix: "section"
