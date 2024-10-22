@@ -163,7 +163,7 @@ stages:
         - model_prevalences_upstream
         - model_prevalences_with_ipsi
         - model_risks
-        - model_state_dist
+        - model_algebra_equation
         - data_strat
         - data_upset_ipsi
     cmd: >
