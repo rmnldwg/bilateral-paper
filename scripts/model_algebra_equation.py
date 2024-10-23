@@ -2,6 +2,7 @@
 
 import operator
 
+from matplotlib import patches
 import matplotlib.pyplot as plt
 import numpy as np
 import shared
@@ -36,39 +37,43 @@ def main():
         ]
     )
 
-    nrows, ncols = 1, 3
+    nrows = 11 + 11 + 2
+    ncols = 11 + 11 + 8 + 2
+
     plt.rcParams.update(shared.get_fontsizes())
     plt.rcParams.update(
         shared.get_figsizes(
             nrows=nrows,
             ncols=ncols,
-            aspect_ratio=0.53,
+            aspect_ratio=(ncols / nrows) - 0.3,
             width=17,
+            tight_layout=False,
         )
     )
+    plt.rcParams["figure.constrained_layout.use"] = False
 
     fig = plt.figure()
     gs = GridSpec(
-        nrows=12 * nrows,
+        nrows=2 * nrows,
         ncols=2 * ncols,
         figure=fig,
-        # height_ratios=[0.25, 0.25, 0.25, 0.25, 0.075],
-        # width_ratios=[1, 1, 1, 1, 0.75, 0.75],
+        wspace=0,
+        hspace=0,
     )
 
-    ipsi = fig.add_subplot(gs[3:9, 0:2])
+    ipsi = fig.add_subplot(gs[16:32, 0:22])
     ipsi.set_aspect(operator.truediv(*ipsi_evo.shape))
 
-    time = fig.add_subplot(gs[3:9, 2:4])
+    time = fig.add_subplot(gs[13:35, 24:46])
     time.set_aspect(operator.truediv(*time_prior.shape))
 
-    noext_contra = fig.add_subplot(gs[0:6, 4:6], sharey=time)
+    noext_contra = fig.add_subplot(gs[0:22, 47:64])
     noext_contra.set_aspect(operator.truediv(*noext_contra_evo.shape))
 
-    midext_contra = fig.add_subplot(gs[6:12, 4:6], sharey=time)
+    midext_contra = fig.add_subplot(gs[26:48, 47:64])
     midext_contra.set_aspect(operator.truediv(*midext_contra_evo.shape))
 
-    cbar_ax = fig.add_subplot(gs[11, 0:4])
+    cbar_ax = fig.add_subplot(gs[44:46, 4:42])
 
     kwargs = {
         "vmin": vmin,
@@ -84,23 +89,24 @@ def main():
     cbar = plt.colorbar(im, cax=cbar_ax, orientation="horizontal")
 
     state_list = smpl_model.ext.ipsi.graph.state_list
+    ipsi.set_title("$P(\\mathbf{X}^\\text{i} | \\mathbf{t})^T$")
     ipsi.set_yticks(range(8), labels=state_list)
     ipsi.set_ylabel("ipsi state $\\mathbf{X}^\\text{i}$")
     ipsi.set_xlabel("time $t$")
-    ipsi.set_xticks(ticks=[0, 5, 10], labels=["0", "5", "10"])
 
+    time.set_title("$\\text{diag} \\, P(\\mathbf{t})$")
     time.set_xlabel("time $t$")
-    time.set_xticks(ticks=[0, 5, 10], labels=["0", "5", "10"])
-    time.set_yticks(ticks=[0, 5, 10], labels=["0", "5", "10"])
+    time.set_yticks(ticks=[])
     time.yaxis.tick_right()
     time.yaxis.set_label_position("right")
 
-
+    noext_contra.set_title("$P(\\mathbf{X}^\\text{c} | \\mathbf{t}, \\epsilon=\\text{False})$")
     noext_contra.set_xticks([], labels=[])
     noext_contra.yaxis.tick_right()
     noext_contra.yaxis.set_label_position("right")
     noext_contra.set_ylabel("time $t$")
 
+    midext_contra.set_title("$P(\\mathbf{X}^\\text{c} | \\mathbf{t}, \\epsilon=\\text{True})$")
     midext_contra.set_xticks(range(8), labels=state_list, rotation=90)
     midext_contra.set_xlabel("contra state $\\mathbf{X}^\\text{c}$")
     midext_contra.yaxis.tick_right()
@@ -109,6 +115,24 @@ def main():
 
     cbar.set_label("probability (%)")
 
+    arrow = patches.ConnectionPatch(
+        xyA=(0, -0.5),
+        xyB=(-0.5, 0),
+        coordsA=ipsi.transData,
+        coordsB=noext_contra.transData,
+        arrowstyle="<->",
+        connectionstyle="angle,angleA=-90,angleB=0,rad=20",
+        color="black",
+        zorder=0,
+    )
+    fig.add_artist(arrow)
+
+    plt.text(
+        s="starting state at $t=0$",
+        x=4, y=22.3,
+        bbox={"boxstyle": "round", "fc": "white", "zorder": 10},
+        zorder=10,
+    )
     plt.savefig(shared.get_figure_path(__file__))
 
 

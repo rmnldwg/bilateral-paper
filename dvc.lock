@@ -6093,13 +6093,13 @@ stages:
       size: 557587
     - path: figures
       hash: md5
-      md5: 75ff4b8689723bdec7fdfe0d15191994.dir
-      size: 981372
+      md5: 0bc941490fcac8eaeee85e01e91dfe26.dir
+      size: 995623
       nfiles: 11
     - path: manuscript.qmd
       hash: md5
-      md5: ad141d0784a6b73e119b831198d08a84
-      size: 85824
+      md5: 9ee853b736a57a57110c94cdeffcfc0e
+      size: 85922
     - path: models
       hash: md5
       md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
@@ -6108,12 +6108,12 @@ stages:
     outs:
     - path: .output/_tex/manuscript.tex
       hash: md5
-      md5: 1e7abb098645df241bdc790f5a283eff
-      size: 90517
+      md5: 03e92cd259d42d56ddc4d05dcc456164
+      size: 90610
     - path: .output/manuscript.pdf
       hash: md5
-      md5: 3501433c164b765bfb92c139d9dc1717
-      size: 872772
+      md5: 65127c48d33ab27bf78e21686b4f85f5
+      size: 887560
   compute-priors@contra-base:
     cmd: "lyscripts compute priors --samples models/contra/samples.hdf5 --priors models/contra/priors.hdf5
       --params models/contra/params.yaml --scenarios scenarios/base.yaml\n"
@@ -10476,8 +10476,8 @@ stages:
       size: 14257
     - path: scripts/model_algebra_equation.py
       hash: md5
-      md5: 44624e0c9bc776fca71f3a44cc4c4cd2
-      size: 3453
+      md5: 16a2cd7fd97d55f771ef175d7c82565c
+      size: 4170
     - path: scripts/paths.py
       hash: md5
       md5: d3ba5ea3977c19b48d8649337fb952cd
@@ -10489,5 +10489,5 @@ stages:
     outs:
     - path: figures/fig_model_algebra_equation.svg
       hash: md5
-      md5: 8c88e4efaa8c9913d2c80349b4e2fbc7
-      size: 50783
+      md5: d5242bf317d22e8e8fa1fbf164e278a7
+      size: 65034
