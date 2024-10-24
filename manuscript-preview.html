@@ -566,7 +566,7 @@ Conclusions: The model may guide personalized volume reduction of the elective C
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="fded5f62" class="cell markdown">
+<div id="2e257fb2" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>When treating head and neck squamous cell carcinomas (HNSCC) with radiotherapy or surgery, not only the primary tumor and the clinically detected lymph node metastases are targeted. Per current guidelines, large volumes of the neck are part of the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ct-based_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensity-modulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ct-based_2003" role="doc-biblioref">Vincent Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>; <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">V. Grégoire and Others 2018</a>; <a href="#ref-eisbruch_intensity-modulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span>. This is to minimize the risk of regional recurrences due to untreated microscopic disease which cannot be detected by current in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET). However, minimizing the risk of missing occult disease in the lymph drainage region must be balanced against the toxicity related to unnecessary treatment of healthy tissue.</p>
@@ -744,7 +744,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="b4c90bb1" class="cell markdown">
+<div id="baae6ec5" class="cell markdown">
 <section id="sec-data-consensus" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-consensus">Consensus on Involvement Status</h2>
 <p>Pathological involvement is available only for the subset of surgical patients and only for the dissected levels. For the remaining patients, only clinical involvement is available. For the analysis performed in this paper, all available diagnostic information has been combined into a consensus decision representing the most likely state of involvement for each patient and LNL, using literature values for sensitivity and specificity of different modalities <span class="citation" data-cites="de_bondt_detection_2007 kyzas_18f-fluorodeoxyglucose_2008">(<a href="#ref-de_bondt_detection_2007" role="doc-biblioref">De Bondt and Others 2007</a>; <a href="#ref-kyzas_18f-fluorodeoxyglucose_2008" role="doc-biblioref">Kyzas and Others 2008</a>)</span>. How this consensus is formed is described in detail in <a href="#sec-consensus" class="quarto-xref">section&nbsp;10</a>. In brief, pathology after neck dissection is taken as the ground truth if available, overwriting any contradicting clinical involvement diagnoses. If a level was not dissected, the most likely state is determined by PET-CT in most cases.</p>
@@ -1176,7 +1176,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="6035e825" class="cell markdown">
+<div id="ebeddb8c" class="cell markdown">
 <section id="illustration-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="illustration-of-the-model">Illustration of the model</h2>
 <p>In this subsection we illustrate parts of the mathematical framework defined in the previous section. In <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a> (top panel), we visualize the prior distribution over diagnose times <span class="math inline">\(P(t)\)</span>. By parameter choice, early T-category tumors are diagnosed on average after 3 time steps. Advanced T-category tumors are diagnosed on average after 4.5 time steps, because the parameter <span class="math inline">\(p_\text{adv.}\)</span> was learned to be 44.98% for advanced T-category tumors. The probability per time step for the tumor to grow over the midline (<span class="math inline">\(p_\epsilon\)</span>) was on average 8.16%. Using this, one can compute the probability of midline extension <span class="math inline">\(P(\epsilon \mid t)\)</span> at a given time step <span class="math inline">\(t\)</span> (red line in <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a>). The bottom panel in this figure shows the joint probability <span class="math inline">\(P(\epsilon, t)\)</span> to be diagnosed at time step <span class="math inline">\(t\)</span> with a given state of midline extension and T-category.</p>
@@ -1771,7 +1771,7 @@ Table&nbsp;4: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="8f2a5a03" class="cell markdown">
+<div id="7464740c" class="cell markdown">
 <section id="sec-prevalence-midext" class="level1 appendix">
 <h1 class="appendix">Prevalence of Midline Extension</h1>
 <!-- I moved this here, because we think this is probably irrelevant or distracting w.r.t. the main findings of the paper. But I do think it is somewhat interesting. -->
@@ -2281,7 +2281,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":false,"selector":".lightbox","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
