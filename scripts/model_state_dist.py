@@ -1,93 +1,63 @@
-"""Plot the term P(X_i | t)^T @ P(t) @ P(X_c | t) for the simple model."""
+"""Plot the bilateral state distribution of the model."""
 
-import operator
-from matplotlib.gridspec import GridSpec
 import matplotlib.pyplot as plt
 import numpy as np
 import shared
-from matplotlib.colors import LinearSegmentedColormap
-
-from lyscripts.plot.utils import COLORS
+from mpl_toolkits.axes_grid1 import AxesGrid
 
 
 def main():
     """Plot figure."""
-    # use the full model's parameters in the smaller, simple model
-    smpl_model = shared.get_model(which="simple", load_samples=False)
-    full_model = shared.get_model(which="full", load_samples=True)
-    smpl_model.set_params(**full_model.get_params())
+    model = shared.get_model(which="simple", load_samples=True)
+    state_dist = 100 * model.state_dist(t_stage="late")
+    state_labels = model.ext.ipsi.graph.state_list
 
-    ipsi_state_dist_evo = smpl_model.ext.ipsi.state_dist_evo() * 100.0
-    _, contra_state_dist_evo = smpl_model.contra_state_dist_evo()
-    contra_state_dist_evo *= 100.0
-    time_prior = np.diag(smpl_model.get_distribution("late").pmf) * 100.0
+    nrows, ncols = 1, 2
 
-    vmin = np.min(
-        [
-            ipsi_state_dist_evo.min(),
-            time_prior.min(),
-            contra_state_dist_evo.min(),
-        ]
-    )
-    vmax = np.max(
-        [
-            ipsi_state_dist_evo.max(),
-            time_prior.max(),
-            contra_state_dist_evo.max(),
-        ]
-    )
-
-    nrows, ncols = 1, 3
     plt.rcParams.update(shared.get_fontsizes())
     plt.rcParams.update(
         shared.get_figsizes(
             nrows=nrows,
             ncols=ncols,
-            aspect_ratio=0.7675,
+            aspect_ratio=1.0,
             width=17,
         )
     )
 
     fig = plt.figure()
-    gs = GridSpec(nrows + 1, 2 * ncols, figure=fig, height_ratios=[1, 0.075])
-
-    ipsi = fig.add_subplot(gs[0, 0:2])
-    ipsi.set_aspect(operator.truediv(*ipsi_state_dist_evo.shape))
-
-    time = fig.add_subplot(gs[0, 2:4])
-    time.set_aspect(operator.truediv(*time_prior.shape))
-
-    contra = fig.add_subplot(gs[0, 4:6], sharey=time)
-    contra.set_aspect(operator.truediv(*contra_state_dist_evo.shape))
-
-    cbar_ax = fig.add_subplot(gs[1, 1:5])
+    grid = AxesGrid(
+        fig,
+        111,
+        nrows_ncols=(nrows, ncols),
+        axes_pad=0.2,
+        cbar_location="right",
+        cbar_mode="single",
+        cbar_size="8%",
+    )
+    noext, midext = grid
 
     kwargs = {
-        "vmin": vmin,
-        "vmax": vmax,
-        "cmap": "turbo",
+        "vmin": 0.0,
+        "vmax": np.max(state_dist),
+        "cmap": "turbo"
     }
 
-    im = ipsi.imshow(ipsi_state_dist_evo.T, **kwargs)
-    im = time.imshow(time_prior, **kwargs)
-    im = contra.imshow(contra_state_dist_evo, **kwargs)
+    im = noext.imshow(state_dist[0], **kwargs)
+    im = midext.imshow(state_dist[1], **kwargs)
+    grid.cbar_axes[0].colorbar(im)
+    grid.cbar_axes[0].set_ylabel("Probability [%]")
 
-    cbar = plt.colorbar(im, cax=cbar_ax, orientation="horizontal")
+    noext.set_title(r"$P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\text{False} \right)$")
+    midext.set_title(r"$P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\text{True} \right)$")
 
-    state_list = smpl_model.ext.ipsi.graph.state_list
-    ipsi.set_yticks(range(8), labels=state_list)
-    ipsi.set_ylabel("ipsi state $\\mathbf{X}^\\text{i}$")
-    ipsi.set_xlabel("time $t$")
+    noext.set_yticks(range(len(state_labels)), labels=state_labels)
+    noext.set_ylabel(r"ipsi state $\mathbf{X}^\text{i}$")
+    noext.set_xticks(range(len(state_labels)), labels=state_labels, rotation=90)
+    noext.set_xlabel(r"contra state state $\mathbf{X}^\text{c}$")
 
-    time.set_xlabel("time $t$")
-
-    contra.set_xticks(range(8), labels=state_list, rotation=90)
-    contra.set_xlabel("contra state $\\mathbf{X}^\\text{c}$")
-    contra.yaxis.tick_right()
-    contra.yaxis.set_label_position("right")
-    contra.set_ylabel("time $t$")
-
-    cbar.set_label("probability (%)")
+    midext.tick_params(axis="y", which="both", left=False, labelleft=False)
+    midext.set_xlabel(r"contra state state $\mathbf{X}^\text{c}$")
+    midext.set_xticks(range(len(state_labels)), labels=state_labels, rotation=90)
 
     plt.savefig(shared.get_figure_path(__file__))
 

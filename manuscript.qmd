@@ -60,7 +60,7 @@ The main contributions of this paper are as follows:
 
 # Data on Lymphatic Progression Patterns {#sec-data}
 
-To be able to create models for lymphatic tumor progression that include all relevant LNLs including the contralateral side, we have collected a detailed dataset of {{< var data.num_patients >}} patients with newly diagnosed oropharyngeal squamous cell carcinomas [@ludwig_dataset_2022;@ludwig_multi-centric_2023]. It reports the lymph node involvement per LNL of every patient individually in tabular form, in addition to other primary tumor and patient characteristics such as T-category, subsite, lateralization of the primary tumor, and HPV p16 status. Their patient records have been collected at four different institutions and a brief overview over some of their patients' characteristics are shown in @tbl-data-overview. The data from the Inselspital Bern (ISB) and the Centre Léon Bérard (CLB) only consist of patients who all received a neck dissection. The majority of patients from the University Hospital Zürich (USZ) and the Vall d'Hebron Barcelona Hospital (VBH) was treated with definitive radiotherapy. Since sugical treatment is more common for early T-category patients, the ISB and CLB datasets contain a larger portion of early T-category patients compared to the USZ and VBH dataset. For a subset of 83 patients in the CLB dataset, the lateralization of the primary tumor was not reported.
+To be able to create models for lymphatic tumor progression that include all relevant LNLs including the contralateral side, we have collected a detailed dataset of {{< var data.num_patients >}} patients with newly diagnosed oropharyngeal squamous cell carcinomas [@ludwig_dataset_2022;@ludwig_multi-centric_2023]. It reports the lymph node involvement per LNL of every patient individually in tabular form, in addition to other primary tumor and patient characteristics such as T-category, subsite, lateralization of the primary tumor, and HPV p16 status. Their patient records have been collected at four different institutions and a brief overview over some of their patients' characteristics are shown in @tbl-data-overview. The data from the Inselspital Bern (ISB) and the Centre Léon Bérard (CLB) only consist of patients who all received a neck dissection. The majority of patients from the University Hospital Zürich (USZ) and the Hospital Vall d'Hebron (HVH) was treated with definitive radiotherapy. Since sugical treatment is more common for early T-category patients, the ISB and CLB datasets contain a larger portion of early T-category patients compared to the USZ and HVH dataset. For a subset of 83 patients in the CLB dataset, the lateralization of the primary tumor was not reported.
 
 ```{python}
 #| echo: false
@@ -161,13 +161,12 @@ grouped.index.name = "Institution"
 
 ## Consensus on Involvement Status {#sec-data-consensus}
 
-Pathological involvement is available only for the subset of surgical patients and only for the dissected levels. For the remaining patients, only clinical involvement is available. For the analysis performed in this paper, all available diagnostic information has been combined into a consensus decision representing the most likely state of involvement for each patient and LNL, using literature values for sensitivity and specificity of different modalities [@de_bondt_detection_2007;@kyzas_18f-fluorodeoxyglucose_2008]. How this consensus is formed is described in detail in appendix XXX. In brief, pathology after neck dissection is taken as the ground truth if available, overwriting any contradicting clinical involvement diagnoses. If a level was not dissected, the most likely state is determined by PET-CT in most cases.
-
+Pathological involvement is available only for the subset of surgical patients and only for the dissected levels. For the remaining patients, only clinical involvement is available. For the analysis performed in this paper, all available diagnostic information has been combined into a consensus decision representing the most likely state of involvement for each patient and LNL, using literature values for sensitivity and specificity of different modalities [@de_bondt_detection_2007;@kyzas_18f-fluorodeoxyglucose_2008]. How this consensus is formed is described in detail in @sec-consensus. In brief, pathology after neck dissection is taken as the ground truth if available, overwriting any contradicting clinical involvement diagnoses. If a level was not dissected, the most likely state is determined by PET-CT in most cases.
 
 
 ## Data Availability
 
-The entire data, including additional patients with tumors in other primary locations than the oropharynx, is publicly available: It may be [downloaded from LyProX](https://lyprox.org/patients/dataset) where it can be interactively explored too, [from GitHub](https://github.com/rmnldwg/lydata), [from zenodo](https://zenodo.org/search?q=lydata), or via the *Data-in-Brief* publications @ludwig_dataset_2022 and @ludwig_multi-centric_2023. The Data-in-Brief publications contain a detailed description of the datasets and the data format. These publications do not include the most recent dataset addition from Vall d'Hebron Barcelona Hospital, which will be described in a future publication.
+The entire data, including additional patients with tumors in other primary locations than the oropharynx, is publicly available: It may be [downloaded from LyProX](https://lyprox.org/patients/dataset) where it can be interactively explored too, [from GitHub](https://github.com/rmnldwg/lydata), [from zenodo](https://zenodo.org/search?q=lydata), or via the *Data-in-Brief* publications @ludwig_dataset_2022 and @ludwig_multi-centric_2023. The Data-in-Brief publications contain a detailed description of the datasets and the data format. These publications do not include the most recent dataset addition from HVH, which will be described in a future publication.
 
 
 ## Patterns of Contralateral Involvement {#sec-data-strat}
@@ -310,7 +309,7 @@ This assumption makes intuitive sense: The state of the ipsilateral and contrala
 
 <!-- There may, however, be diffusion of lymph fluid accross this line or bulky involvement that redirects lymphatic drainage significantly.-->
 
-Using {#eq-bilateral-marginal} along with @eq-lambda-matrix, we can write the above distribution algebraically as a product:
+Using @eq-bilateral-marginal along with @eq-lambda-matrix, we can write the above distribution algebraically as a product:
 
 $$
 P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsymbol{\xi}_m \right) = \left[ \boldsymbol{\Lambda}^\intercal_\text{i} \cdot \operatorname{diag} P(\mathbf{t}) \cdot \boldsymbol{\Lambda}_\text{c} \right]_{n,m}
@@ -421,8 +420,14 @@ Our stated goal is to compute the risk for a patient's true ipsi- and contralate
 $$
 P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid d, \boldsymbol{\hat{\theta}} \big)
 = \frac{P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right) P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right) P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}
-{\sum_{i=0}^{2^V} \sum_{j=0}^{2^V} P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i}=\boldsymbol{\xi}^\text{i}_i \right) P \big( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c}=\boldsymbol{\xi}^\text{c}_j \big) P \big( \mathbf{X}^\text{i}=\boldsymbol{\xi}^\text{i}_i, \mathbf{X}^\text{c}=\boldsymbol{\xi}^\text{c}_j, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}
+{\sum_{i=0}^{2^V} \sum_{j=0}^{2^V} \mathcal{C}_{ij}}
 $$ {#eq-uni-bayes-law}
+
+with the normalization constants
+
+$$
+\mathcal{C}_{ij} = P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i}=\boldsymbol{\xi}^\text{i}_i \right) P \big( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c}=\boldsymbol{\xi}^\text{c}_j \big) P \big( \mathbf{X}^\text{i}=\boldsymbol{\xi}^\text{i}_i, \mathbf{X}^\text{c}=\boldsymbol{\xi}^\text{c}_j, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)
+$$
 
 The terms $P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right)$ and $P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right)$ are defined solely by sensitivity and specificity of the diagnostic modality. Terms like these already appeared in the definition of the observation matrx in @eq-obs-matrix. The *prior* $P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)$ in the above equation is the crucial term that is supplied by a trained model and its parameters $\boldsymbol{\hat{\theta}}$.
 
@@ -442,7 +447,7 @@ In this section, we detail how the experiments were performed. Every figure, tab
 [`rmnldwg/bilateral-paper`]: https://github.com/rmnldwg/bilateral-paper
 
 
-## Involvement Data Consensus
+## Involvement Data Consensus {#sec-methods-consensus}
 
 It is possible to provide our model with multiple different diagnostic modalities, each being characterized by different pairs of sensitivity and specificity. However, we instead chose to combine them into a single "consensus" diagnosis before parameter inference, as introduced in @sec-data-consensus. We opted for this because the literature values of sensitivity and specificity [@de_bondt_detection_2007;@kyzas_18f-fluorodeoxyglucose_2008] of imaging modalities like MRI and CT do not plausibly match some of our observations: In the USZ cohort, 78% of OPSCC patients where diagnosed with ipsilateral LNL II involvement via diagnostic imaging. This is virtually impossible with sensitivities around 80% and specificities lower than 100%.
 
@@ -544,14 +549,13 @@ In this subsection we illustrate parts of the mathematical framework defined in 
 
 ![The top panel shows the prior probability to get diagnosed at time-step $t$ for early and late T-category tumors as bars. Also in the top panel, we plot the conditional probability of the tumor's midline extension ($\epsilon=\texttt{True}$), given the time-step $t$ as a line plot. In the bottom panel, we show the joint probability of getting diagnosed in time-step $t$ *and* having a tumor that crosses the midline.](figures/fig_model_midext_evo.svg){#fig-model-midext-evo width="50%"}
 
-The model introduced in the previous section defines a model of the joint probability distribution over midline extension and ipsi- and contralateral lymph node involvement, $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)$. How this quantity is computed is illustrated in @fig-model-state-dist, visually representing @eq-bilateral-marginal-algebra. To keep it manageable to interpret, this example only considers the LNLs II, III, and IV ipsi- and contralaterally, resulting in $2^3 = 16$ distinct states per side and thus $2 \times 8 \times 8 = 128$ total states. LNLs I, V, and VII and the associated spread parameters have been removed from the model while the remaining parameters are set to the mean values in table XXX. 
+The model introduced in the previous section defines a model of the joint probability distribution over midline extension and ipsi- and contralateral lymph node involvement, $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)$. How this quantity is computed is illustrated in @fig-model-algebra-equation, visually representing @eq-bilateral-marginal-algebra. To keep it manageable to interpret, this example only considers the LNLs II, III, and IV ipsi- and contralaterally, resulting in $2^3 = 16$ distinct states per side and thus $2 \times 8 \times 8 = 128$ total states. LNLs I, V, and VII and the associated spread parameters have been removed from the model while the remaining parameters are set to the mean values in @tbl-midline-params. 
 
-The matrix on the left side of @fig-model-state-dist shows the time evolution of the probability distribution over the ipsilateral involvement state, starting from the healthy state $[0,0,0]$ with probability one. The two matrices on the right side shows the time evolution of the probability distribution over the contralateral involvement state, where we need to distinguish the two cases with and without midline extension. At time step $t=0$, the contralateral neck starts from the healthy state $[0,0,0]$ without midline extension. The matrix in the center shows the time prior for EARLYorLATE T-category. The result of the matrix multiplication is the joint probability distribution over midline extension and ipsi- and contralateral lymph node involvement, $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)$ shown in figure XXX. The joint distribution is shown as two separate heatmaps for the two midline extension states. The most likely state is a lateralized tumor with involvement of ipsilateral level II and no contralateral involvement, which has a probability of approximately 25%. The second most probable state is a lateralized tumor with ipsilateral involvement of levels II and III and no contralateral involvement. The most likely state with contralateral involvement are tumors with midline extension with involvement of contralateral level II and ipsilateral level II and III.
+![Visual representation of @eq-bilateral-marginal-algebra for the case of midline extention. The left and right matrices represent the evolution of the possible hidden states for the ipsi- and contralateral neck respectively. In particular, the right matrices describe the evolution of the contralateral hidden states once for the case of no midline extension (top) and once for the case where the tumor does extend over the mid-sagittal line (bottom). In the center, the time-prior for late T-category is plotted as a diagonal matrix. The result of this matrix computation is the joint distribution $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \right)$, visualized in @fig-model-state-dist](figures/fig_model_algebra_equation.svg){#fig-model-algebra-equation}
 
+The matrix on the left side of @fig-model-algebra-equation shows the time evolution of the probability distribution over the ipsilateral involvement state, starting from the healthy state $[0,0,0]$ with probability one. The two matrices on the right side show the time evolution of the probability distribution over the contralateral involvement state, where we need to distinguish the two cases with and without midline extension. At time step $t=0$, the contralateral neck starts from the healthy state $[0,0,0]$ without midline extension. The matrix in the center shows the time prior for late T-category. The result of the matrix multiplication is the joint probability distribution over midline extension and ipsi- and contralateral lymph node involvement, $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)$ shown in figure @fig-model-state-dist. The joint distribution is shown as two separate heatmaps for the two midline extension states. The most likely state is a lateralized tumor with involvement of ipsilateral level II and no contralateral involvement, which has a probability of approximately 25%. The second most probable state is a lateralized tumor with ipsilateral involvement of levels II and III and no contralateral involvement. The most likely state with contralateral involvement are tumors with midline extension with involvement of contralateral level II and ipsilateral level II and III.
 
-![Visual representation of @eq-bilateral-marginal-algebra for the case of midline extention. The left and right matrix represent the evolution of the possible hidden states for the ipsi- and contralateral neck respectively. In particular, the right matrix describes the evolution of the contralateral hidden states *and* midline extension. In the center, the time-prior for EARLYorLATE T-category is plotted as a diagonal matrix. The result of this matrix computation is the joint distribution $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\texttt{True} \right)$](figures/fig_model_state_dist.svg){#fig-model-state-dist}
-
-
+![The full distribution $P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon=\text{False} \right)$ over the ipsi- and contralateral states, as well as midline extension as computed by a model considering the LNLs II, III, and IV for a late T-category tumor. Since this is a three-dimensional object with one dimension being the binary random variable representing midline extension $\epsilon$, we show this distribution as separate two-dimensional heatmaps. These two matrices are the result of @eq-bilateral-marginal-algebra, which we visualized as well in @fig-model-algebra-equation.](figures/fig_model_state_dist.svg){#fig-model-state-dist}
 
 
 ## Prevalence predictions for contralateral involvement
@@ -567,8 +571,7 @@ In @fig-model-prevalences-overall, we plot the prevalence of contralateral invol
 
 @Fig-model-prevalences-overall shows that the model is capable of accurately accounting for the most important risk factors, i.e. T-category and midline extension. As observed in the data, the model predicts that the prevalence of contralateral LNL II involvement increases from {{< var prevalence.early_noext_iN0_cII.predicted >}}% for early T-category lateralized tumors to {{< var prevalence.late_ext_iN0_cII.predicted >}}% when the tumor is of advanced T-category and crosses the mid-sagittal line. Similarly, the prevalence of contralateral LNL III involvement increases from around {{< var prevalence.early_noext_iN0_cIII.predicted >}}% for early T-category lateralized tumors to almost {{< var prevalence.late_ext_iN0_cIII.predicted >}}% when the tumor is of advanced T-category and crosses the mid-sagittal line.
 
-<!--  However, for early T-category scenarios with midline extension, the model does seem to overestimate contralateral LNL II and III invovlement. This likely stems from the the small sample size of this relatively rare scenario as hinted at by the wide beta posteriors. -->
-
+<!-- However, for early T-category scenarios with midline extension, the model does seem to overestimate contralateral LNL II and III invovlement. This likely stems from the the small sample size of this relatively rare scenario as hinted at by the wide beta posteriors. -->
 
 
 ### Influence of Upstream Involvement on Contralateral Metastasis
@@ -576,7 +579,6 @@ In @fig-model-prevalences-overall, we plot the prevalence of contralateral invol
 ![The influence of the upstream LNL II's involvement on the prevalence of contralateral level III for the four combinations of tumor lateralization (lateralized or extending over midline) and T-ctageory (early or advanced). Our model predictions (histograms) are plotted against the observations in the data (beta posteriors).](figures/fig_model_prevalences_upstream.svg){#fig-model-prevalences-upstream}
 
 @Fig-model-prevalences-upstream illustrates how rarely the contralateral LNL III harbors metastases when its upstream level II is healthy. Also, the model can capture this correlation rather well, with the exception of early T-category tumors that extend over the mid-sagittal line. As in @fig-model-prevalences-overall and @fig-model-prevalences-with-ipsi, these cases are relatively rare resulting in a broad distribution over the true prevalence.
-
 
 
 ### Correlation between Ipsi- and Contralateral Involvement
@@ -590,8 +592,7 @@ In @fig-model-prevalences-with-ipsi we display the model's ability to capture th
 <!-- NOTE: This last sentence is purely speculative! We need to discuss this. -->
 
 
-
-# Results: Prediction of Risk for Occult Disease
+# Results: Prediction of Risk for Occult Disease {#sec-results-risk}
 
 For a clinical application of the model we are interested in the risk of occult metastases rather than the observed patterns of lymph node involvement. We want to estimate the risk for occult disease in clinically negative LNLs, given the patient's individual diagnosis. In terms of our model, the diagnosis consists of the T-category, the lateralization of the tumor (if it extend over the mid-sagittal plane), and which LNLs are clinically involved based on imaging and possibly fine needle aspiration (FNA). For the results shown in this section, we assume that involvement of a LNL is clinically diagnosed through imaging with a sensitivity of 81% and a specificity of 76% [@de_bondt_detection_2007]. For FNA we assume a specificity of 98% and a sensitivity of 80%. This amounts to the assumption that lymph node involvement confirmed by FNA is almost certainly true involvement, i.e. there are almost no false positive diagnoses.
 
@@ -633,7 +634,6 @@ In this work we present a formalism to model the ipsi- and contralateral lymph n
 To the best of our knowledge, this is the most comprehensive and detailed model of lymphatic tumor progression in oropharyngeal SCC available. The underlying data as well as the code is publicly available. While there was work on regional tumor spread, these models were conceptually different, more limited in the LNLs for which they make predictions, and not trained with real patient data [@benson_markov_2006;@jung_development_2017].
 
 
-
 ## Implications for Contralateral Elective Nodal Treatment
 
 The predictions of this model are being used to inform a clinical trial on volume deescalation at the University Hospital Zurich [clinicaltrials.gov, NCT06563362 (DeEscO)<!-- TODO: add -->]. When accepting a 5% risk of occult disease in any given LNL, the model suggests the following contralateral elective irradiation (assuming the respective LNL is clinically healthy):
@@ -645,17 +645,19 @@ The predictions of this model are being used to inform a clinical trial on volum
 - LNL V is not electively irradiated in most patients. Only in the most extreme cases, i.e., for advanced T-category tumors with midline extension and confirmed involvement of contralateral LNLs II to IV, LNL V may be irradiated.
 - LNLs I and VII are not irradiated unless clinically involved.
 
+In essence, this is a summary of the results in @sec-results-risk. However, it should be considered in light of the limitations outlined in @sec-discussion-limitations below.
 
-## Limitations and Future Work
+
+## Limitations and Future Work {#sec-discussion-limitations}
 
 ### T-Category Dependence
 
-The model has only one parameter, $p_\text{adv.}$, to describe differences in the patterns of involvement between early and advanced T-category. Higher involvement for advanced T-category is described by evolving the state of involvement overr a larger number of time-steps, while the probability of spread per time step, here the $b_v$ parameters, remains constant. Overall, the model captures the differences between early and advanced T-category very well as seen in @Fig-model-prevalences-overall. However, for some situations the observed difference between early vs advanced T-category in the data is greater or smaller than what our model predicts. This has previously been discussed for the involvement of ipsilateral LNL I [cite 2024 graph extension paper]. In the context of contralateral spread, the prevalence of midline extension is overestimated for early T-category tumors and underestimated for advanced T-category tumors, which is further discussed in appendix XXX.
+The model has only one parameter, $p_\text{adv.}$, to describe differences in the patterns of involvement between early and advanced T-category. Higher involvement for advanced T-category is described by evolving the state of involvement overr a larger number of time-steps, while the probability of spread per time step, here the $b_v$ parameters, remains constant. Overall, the model captures the differences between early and advanced T-category very well as seen in @Fig-model-prevalences-overall. However, for some situations the observed difference between early vs advanced T-category in the data is greater or smaller than what our model predicts. This has previously been discussed for the involvement of ipsilateral LNL I [@ludwig_modelling_2023]. In the context of contralateral spread, the prevalence of midline extension is overestimated for early T-category tumors and underestimated for advanced T-category tumors, which is further discussed in @sec-prevalence-midext.
 
 
 ### Sensitivity and Specificity
 
-As discussed in section XXX, we assumed for model training that the consensus across all diagnostic modalities represents the true state $X_v$ of lymph node involvement. This is appropriate for pathologically confirmed involvement but is an approximation for clinically diagnosed involvement, as the latter is - by definition - incapable of detecting occult disease. In principle, the model can be trained while  differentiating between pathologically confirmed and clinically diagnosed involvement, using a lower sensitivity and specificity for clinical diagnosis. This was not done here for two reasons: 1) this simplification allowed us to compare the observed prevalence of involvement to the model's prediction, and thereby investigate the model's capability to describe data with few interpretable parameters; and 2) the literature values for sensitivity and specificity of the diagnostic modalities are inconsistent with some aspects of the observed data. Future work may aim at developing novel concepts to rigorously differentiating between pathologically confirmed and clinically diagnosed involvement. 
+As discussed in @sec-methods-consensus (and in more detail in @sec-consensus), we assumed for model training that the consensus across all diagnostic modalities represents the true state $X_v$ of lymph node involvement. This is appropriate for pathologically confirmed involvement but is an approximation for clinically diagnosed involvement, as the latter is - by definition - incapable of detecting occult disease. In principle, the model can be trained while  differentiating between pathologically confirmed and clinically diagnosed involvement, using a lower sensitivity and specificity for clinical diagnosis. This was not done here for two reasons: 1) this simplification allowed us to compare the observed prevalence of involvement to the model's prediction, and thereby investigate the model's capability to describe data with few interpretable parameters; and 2) the literature values for sensitivity and specificity of the diagnostic modalities are inconsistent with some aspects of the observed data. Future work may aim at developing novel concepts to rigorously differentiating between pathologically confirmed and clinically diagnosed involvement. 
 
 ### Tumor Subsites
 
@@ -670,7 +672,7 @@ This work was supported by:
 - the Swiss Cancer Research Foundation under grant number KFS 5645-08-2022
 
 
-# Consensus on most likely involvement {.appendix}
+# Consensus on most likely involvement {#sec-consensus .appendix}
 
 The consensus on the most likely involvement state of a LNL was formed as follows: Suppose the involvement status $X_v$ of LNL $v$ was assessed using different diagnostic modalities $\mathcal{O} = \{ \text{MRI}, \text{CT}, \text{pathology}, \ldots \}$, each characterized by their own pair of sensitivity and specificity values $s_N^{\mathcal{o}}$ and $s_P^{\mathcal{o}}$, with $\mathcal{o} \in \mathcal{O}$. These values are tabulated in @tbl-spec-sens. Then we have $|\mathcal{O}|$ observations $z_v^{\mathcal{o}} \in \left[ 0, 1 \right]$, where 0 stands for "healthy" and 1 for "involved". We can then compute the most likely true involvement $X_v$ using the likelihood function
 
@@ -764,7 +766,7 @@ involved["total", "n"] = total["I"]
 ```
 
 
-# Prevalence of Midline Extension {.appendix}
+# Prevalence of Midline Extension {#sec-prevalence-midext .appendix}
 
 <!-- I moved this here, because we think this is probably irrelevant or distracting w.r.t. the main findings of the paper. But I do think it is somewhat interesting. -->
 
