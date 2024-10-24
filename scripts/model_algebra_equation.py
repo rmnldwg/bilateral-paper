@@ -2,10 +2,10 @@
 
 import operator
 
-from matplotlib import patches
 import matplotlib.pyplot as plt
 import numpy as np
 import shared
+from matplotlib import patches
 from matplotlib.gridspec import GridSpec
 
 
