@@ -188,12 +188,13 @@ pyrightconfig.json
 
 # Quarto generated files
 /.quarto/
-/.output/
+/.output/*
+!/.output/_tex/
 /*_files/
 /*_files/
 manuscript.*
-!manuscript.tex
 !manuscript.qmd
+!manuscript.tex
 data.*
 !data.qmd
 model.*

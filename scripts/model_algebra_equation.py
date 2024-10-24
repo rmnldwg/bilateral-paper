@@ -106,7 +106,7 @@ def main():
     noext_contra.yaxis.set_label_position("right")
     noext_contra.set_ylabel("time $t$")
 
-    midext_contra.set_title("$P(\\mathbf{X}^\\text{c}, \\epsilon=\\text{False} \\mid \\mathbf{t})$")
+    midext_contra.set_title("$P(\\mathbf{X}^\\text{c}, \\epsilon=\\text{True} \\mid \\mathbf{t})$")
     midext_contra.set_xticks(range(8), labels=state_list, rotation=90)
     midext_contra.set_xlabel("contra state $\\mathbf{X}^\\text{c}$")
     midext_contra.yaxis.tick_right()

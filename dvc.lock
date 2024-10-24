@@ -6094,8 +6094,8 @@ stages:
       size: 557587
     - path: figures
       hash: md5
-      md5: bd29966328f860cbc8c228a3e93bd053.dir
-      size: 994348
+      md5: 148d42a6ab07a1ac2372147cbf24e946.dir
+      size: 994838
       nfiles: 11
     - path: manuscript.qmd
       hash: md5
@@ -6113,8 +6113,8 @@ stages:
       size: 91586
     - path: .output/manuscript.pdf
       hash: md5
-      md5: 4ba65bed300d5687831fadb83a716acc
-      size: 928705
+      md5: 9430ada690851c41355a4fdf7c44ee56
+      size: 928202
     - path: manuscript.tex
       hash: md5
       md5: b994e343fdf2deb09415b83a28582d56
@@ -10481,8 +10481,8 @@ stages:
       size: 14257
     - path: scripts/model_algebra_equation.py
       hash: md5
-      md5: ad5bcb2a6c8a14f1641d06692ca74b9f
-      size: 4183
+      md5: 2ac8270e0e92150d083cd5688c48239f
+      size: 4182
     - path: scripts/paths.py
       hash: md5
       md5: d3ba5ea3977c19b48d8649337fb952cd
@@ -10494,5 +10494,5 @@ stages:
     outs:
     - path: figures/fig_model_algebra_equation.svg
       hash: md5
-      md5: c5f793bf0406b446b00374cb3d5c6a10
-      size: 64563
+      md5: 68519078fa7bc20a3c041dcecf9ff597
+      size: 65053
