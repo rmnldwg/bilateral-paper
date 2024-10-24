@@ -89,7 +89,7 @@ def main():
     cbar = plt.colorbar(im, cax=cbar_ax, orientation="horizontal")
 
     state_list = smpl_model.ext.ipsi.graph.state_list
-    ipsi.set_title("$P(\\mathbf{X}^\\text{i} | \\mathbf{t})^T$")
+    ipsi.set_title("$P(\\mathbf{X}^\\text{i} \\mid \\mathbf{t})^T$")
     ipsi.set_yticks(range(8), labels=state_list)
     ipsi.set_ylabel("ipsi state $\\mathbf{X}^\\text{i}$")
     ipsi.set_xlabel("time $t$")
@@ -100,13 +100,13 @@ def main():
     time.yaxis.tick_right()
     time.yaxis.set_label_position("right")
 
-    noext_contra.set_title("$P(\\mathbf{X}^\\text{c} | \\mathbf{t}, \\epsilon=\\text{False})$")
+    noext_contra.set_title("$P(\\mathbf{X}^\\text{c}, \\epsilon=\\text{False} \\mid \\mathbf{t})$")
     noext_contra.set_xticks([], labels=[])
     noext_contra.yaxis.tick_right()
     noext_contra.yaxis.set_label_position("right")
     noext_contra.set_ylabel("time $t$")
 
-    midext_contra.set_title("$P(\\mathbf{X}^\\text{c} | \\mathbf{t}, \\epsilon=\\text{True})$")
+    midext_contra.set_title("$P(\\mathbf{X}^\\text{c}, \\epsilon=\\text{False} \\mid \\mathbf{t})$")
     midext_contra.set_xticks(range(8), labels=state_list, rotation=90)
     midext_contra.set_xlabel("contra state $\\mathbf{X}^\\text{c}$")
     midext_contra.yaxis.tick_right()

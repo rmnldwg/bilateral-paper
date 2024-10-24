@@ -192,6 +192,7 @@ pyrightconfig.json
 /*_files/
 /*_files/
 manuscript.*
+!manuscript.tex
 !manuscript.qmd
 data.*
 !data.qmd

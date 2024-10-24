@@ -164,6 +164,7 @@ stages:
         - model_prevalences_with_ipsi
         - model_risks
         - model_algebra_equation
+        - model_state_dist
         - data_strat
         - data_upset_ipsi
     cmd: >
@@ -211,6 +212,7 @@ stages:
   render-pdf:
     cmd: >
       quarto render manuscript.qmd --to nature-pdf
+      && cp .output/_tex/manuscript.tex manuscript.tex
     deps:
     - models
     - figures
@@ -220,3 +222,5 @@ stages:
     outs:
     - .output/manuscript.pdf
     - .output/_tex/manuscript.tex
+    - manuscript.tex:
+        persist: true
