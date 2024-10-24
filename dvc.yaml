@@ -224,3 +224,4 @@ stages:
     - .output/_tex/manuscript.tex
     - manuscript.tex:
         persist: true
+        cache: false
