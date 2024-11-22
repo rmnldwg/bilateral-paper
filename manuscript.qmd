@@ -60,7 +60,9 @@ The main contributions of this paper are as follows:
 
 # Data on Lymphatic Progression Patterns {#sec-data}
 
-To be able to create models for lymphatic tumor progression that include all relevant LNLs including the contralateral side, we have collected a detailed dataset of {{< var data.num_patients >}} patients with newly diagnosed oropharyngeal squamous cell carcinomas [@ludwig_dataset_2022;@ludwig_multi-centric_2023]. It reports the lymph node involvement per LNL of every patient individually in tabular form, in addition to other primary tumor and patient characteristics such as T-category, subsite, lateralization of the primary tumor, and HPV p16 status. Their patient records have been collected at four different institutions and a brief overview over some of their patients' characteristics are shown in @tbl-data-overview. The data from the Inselspital Bern (ISB) and the Centre Léon Bérard (CLB) only consist of patients who all received a neck dissection. The majority of patients from the University Hospital Zürich (USZ) and the Hospital Vall d'Hebron (HVH) was treated with definitive radiotherapy. Since sugical treatment is more common for early T-category patients, the ISB and CLB datasets contain a larger portion of early T-category patients compared to the USZ and HVH dataset. For a subset of 83 patients in the CLB dataset, the lateralization of the primary tumor was not reported.
+To develop models for lymphatic tumor progression for all relevant LNLs, including contralateral regions, we compiled a detailed dataset of {{< var data.num_patients >}} patients with newly diagnosed oropharyngeal squamous cell carcinomas (OPSCC) [@ludwig_dataset_2022;@ludwig_multi-centric_2023]. The dataset includes lymph node involvement per LNL for each patient in tabular form, along with primary tumor and patient characteristics such as T-category, subsite, primary tumor lateralization, and HPV p16 status. Patient records were collected from four institutions, and an overview of patient characteristics is provided in @tbl-data-overview.
+
+Data from Inselspital Bern (ISB) and Centre Léon Bérard (CLB) consist exclusively of patients who underwent neck dissections. In contrast, the majority of patients from the University Hospital Zürich (USZ) and the Hospital Vall d'Hebron (HVH) were treated with definitive radiotherapy. Since surgical treatment is more common for early T-category patients, ISB and CLB datasets include a higher proportion of these cases compared to USZ and HVH. For 83 patients in the CLB dataset, the primary tumor's lateralization was not reported.
 
 ```{python}
 #| echo: false
@@ -161,36 +163,48 @@ grouped.index.name = "Institution"
 
 ## Consensus on Involvement Status {#sec-data-consensus}
 
-Pathological involvement is available only for the subset of surgical patients and only for the dissected levels. For the remaining patients, only clinical involvement is available. For the analysis performed in this paper, all available diagnostic information has been combined into a consensus decision representing the most likely state of involvement for each patient and LNL, using literature values for sensitivity and specificity of different modalities [@de_bondt_detection_2007;@kyzas_18f-fluorodeoxyglucose_2008]. How this consensus is formed is described in detail in @sec-consensus. In brief, pathology after neck dissection is taken as the ground truth if available, overwriting any contradicting clinical involvement diagnoses. If a level was not dissected, the most likely state is determined by PET-CT in most cases.
+Pathological involvement is available only for surgically treated patients and for the levels that were dissected. For non-surgical patients, involvement status is determined clinically, i.e. using imaging. To ensure uniformity in analysis, diagnostic information was synthesized into a consensus decision for each patient and LNL. This consensus reflects the most likely state of involvement and accounts for the sensitivity and specificity of various diagnostic modalities, as reported in the literature [@de_bondt_detection_2007;@kyzas_18f-fluorodeoxyglucose_2008].
+
+The consensus process is detailed in @sec-consensus. Briefly, pathological findings from neck dissections are treated as the gold standard, overriding any conflicting clinical diagnoses. For levels not dissected, PET-CT is typically the primary source for determining the most likely state of involvement.
 
 
 ## Data Availability
 
-The entire data, including additional patients with tumors in other primary locations than the oropharynx, is publicly available: It may be [downloaded from LyProX](https://lyprox.org/patients/dataset) where it can be interactively explored too, [from GitHub](https://github.com/rmnldwg/lydata), [from zenodo](https://zenodo.org/search?q=lydata), or via the *Data-in-Brief* publications @ludwig_dataset_2022 and @ludwig_multi-centric_2023. The Data-in-Brief publications contain a detailed description of the datasets and the data format. These publications do not include the most recent dataset addition from HVH, which will be described in a future publication.
+The complete dataset, including additional patients with tumors in primary sites other than the oropharynx, is publicly accessible. It can be [downloaded from LyProX](https://lyprox.org/patients/dataset), where it is also available for interactive exploration, [from GitHub](https://github.com/rmnldwg/lydata), or [from Zenodo](https://zenodo.org/search?q=lydata). Additional details about the datasets and data format are provided in designated Data-in-Brief publications [@ludwig_dataset_2022;@ludwig_multi-centric_2023]. These publications do not include the latest data from HVH, which will be described in a future publication.
 
 
 ## Patterns of Contralateral Involvement {#sec-data-strat}
 
-These datasets allow us to investigate correlations between the involvement of individual LNLs, or between risk factors and involvement. In @fig-data-strat, we have plotted the prevalence of each contralateral LNL's involvement, stratified by the risk factors T-category, number of ipsilaterally involved LNLs, and whether the tumor extended over the mid-sagittal plane. 
+The datasets enable analysis of correlations between LNL involvement and key risk factors. In @fig-data-strat, we illustrate the prevalence of contralateral LNL involvement, stratified by T-category, the number of ipsilaterally involved LNLs, and whether the tumor extends across the mid-sagittal plane.
 
 ![Contralateral involvement stratified by T-category (top left panel), the number of metastatic LNLs ipsilaterally (top right panel), and whether the primary tumor extended over the mid-sagittal line or was clearly lateralized (bottom left panel). Additionally, in the bottom right, we show that even for lateralized tumors, T-category and ipsilateral involvement are correlated with contralateral metastasis by comparing the contralateral involvement prevalence for selected scenarios that vary in their T-category and ipsilateral involvement extent.](figures/fig_data_strat.svg){#fig-data-strat}
 
-The bottom left panel in @fig-data-strat shows that patients with a tumor crossing the mid-sagittal plane show contralateral involvement vastly more often compared to patients with clearly lateralized tumors. This makes intuitive sense, because the lymphatic system in the head and neck region is typically symmetric and no major lymph vessels cross the midline. Therefore, interstitial fluids from the primary tumor -- which we assume to carry living malignant cells -- may only reach the blind-ended lymphatic vessels in the contralateral neck via short-ranged diffusion. Which in turn is only possible when the primary tumor is close enough to the mid-sagittal line or crosses it. <!-- citation(s) needed? or is this intuition good enough? -->
+### Midline Extension
 
-The top left panel in @fig-data-strat indicates that T-category is correlated with contralateral involvement (as it is with overal involvement). This is because T-category may be considered a surrogate for the time between onset of disease and diagnosis. I.e., a patient with a T4 tumor was -- on average -- diagnosed later than a patient with a T1 tumor. Thus, the former did have more time to develop metastases.
+The bottom left panel of @fig-data-strat shows that tumors crossing the mid-sagittal plane have a substantially higher prevalence of contralateral involvement compared to clearly lateralized tumors. This aligns with the anatomy of the head and neck lymphatic system, which is symmetric, with no major lymph vessels crossing the midline. Interstitial fluids from the primary tumor, presumed to carry malignant cells, can merely diffuse to contralateral lymphatic vessels over short distances. Thus, contralateral spread is more likely when the tumor approaches or crosses the midline. <!-- citation(s) needed? or is this intuition good enough? -->
 
-Similarly, ipsilateral involvement correlates with contralateral metastasis (top right panel). The tumor of a patient with many metastases in ipsilateral LNLs was probably able to spread for longer (or faster) compared to a tumor in a patient with no nodal disease. The degree of ipsilateral involvement, too, may therefore be considered a surrogate for the duration of the disease. In addition, it has been hypothesized that bulky nodal disease ipsilaterally may also redirect lymph fluids to the contralateral side. <!-- citation needed? -->
+### T-Category
 
-The three risk factors for contralateral involvement, midline extension, T-category, and ipsilateral involvement are correlated. For example, midline extension was present in {{< var data.late_with_midext_percent >}}% of advanced T-category tumors but only in {{< var data.early_with_midext_percent >}}% of early T-category tumors. The higher prevalence of contralateral metastases in advanced T-category tumors may thus be partially explained by a higher rate of midline extension in these tumors. However, the bottom right panel of @fig-data-strat indicates that advanced T-category and severe ipsilateral involvement do represent additional risk factors. The figure considers only patients with lateralized tumors not extending over the midline. For early T-category and healthy ipsilateral levels I-V, only {{< var data.early_ipsin0_cII_percent >}}% ({{< var data.early_ipsin0_cII_match >}} out of {{< var data.early_ipsin0_cII_total >}} patients) shows involvement of contralateral level II. This increases to {{< var data.early_ipsiII_cII_percent >}}% ({{< var data.early_ipsiII_cII_match >}} out of {{< var data.early_ipsiII_cII_total >}} patients) if ipsilateral level II is involved, to {{< var data.early_ipsiIIandIII_cII_percent >}}% ({{< var data.early_ipsiIIandIII_cII_match >}} out of {{< var data.early_ipsiIIandIII_cII_total >}} patients) if ipsilateral levels II and III are involved, and to {{< var data.late_ipsiIIandIII_cII_percent >}}% ({{< var data.late_ipsiIIandIII_cII_match >}} out of {{< var data.late_ipsiIIandIII_cII_total >}} patients) for advanced T-category with ipsilateral levels II and III involved.
+The top left panel shows a correlation between T-category and contralateral involvement, reflecting T-category's role as a surrogate for the time elapsed between disease onset and diagnosis. Advanced T-category tumors (e.g., T4) generally represent a longer disease progression timeline, providing more opportunity for metastatic spread compared to smaller tumors (e.g., T1).
+
+### Ipsilateral Involvement
+
+The top right panel reveals a positive correlation between ipsilateral and contralateral metastases. Extensive ipsilateral involvement likely indicates a longer or faster disease progression. Additionally, it has been hypothesized that bulky ipsilateral nodal disease may reroute lymphatic drainage toward the contralateral side, potentially facilitating contralateral metastasis. <!-- citation needed? -->
+
+### Interplay of Risk Factors
+
+Midline extension, T-category, and ipsilateral involvement are interrelated risk factors for contralateral metastasis. For instance, {{< var data.late_with_midext_percent >}}% of advanced T-category tumors exhibit midline extension compared to {{< var data.early_with_midext_percent >}}% of early T-category tumors. While the higher fraction of midline extensions in advanced T-category patients partially accounts for the higher contralateral metastasis rates, T-category itself and ipsilateral involvement also play an additional role.
+
+The bottom right panel of @fig-data-strat isolates patients with lateralized tumors that do not cross the midline, further demonstrating these relationships. Among early T-category patients with no ipsilateral nodal involvement (levels I-V), only {{< var data.early_ipsin0_cII_percent >}}% ({{< var data.early_ipsin0_cII_match >}} of {{< var data.early_ipsin0_cII_total >}} patients) show involvement in contralateral level II. This proportion increases to {{< var data.early_ipsiII_cII_percent >}}% ({{< var data.early_ipsiII_cII_match >}} of {{< var data.early_ipsiII_cII_total >}}) if ipsilateral level II is involved, to {{< var data.early_ipsiIIandIII_cII_percent >}}% ({{< var data.early_ipsiIIandIII_cII_match >}} of {{< var data.early_ipsiIIandIII_cII_total >}}) if ipsilateral levels II and III are involved, and further to {{< var data.late_ipsiIIandIII_cII_percent >}}% ({{< var data.late_ipsiIIandIII_cII_match >}} of {{< var data.late_ipsiIIandIII_cII_total >}}) for advanced T-category tumors with ipsilateral levels II and III involved.
 
 
 ## Requirements for a Bilateral Model {#sec-requirements}
 
-Based on the observations of the [previous section](#sec-data-strat), any model to predict the risk for contralateral nodal involvement, should be able to describe the following:
+Based on the observations in @sec-data-strat above, any model predicting the risk of contralateral nodal involvement should account for the following:
 
-1. A tumor that extends over the mid-sagittal line should yield contralateral metastases with much higher probability.
-2. More advanced T-category should lead to higher risk for nodal disease. One approach to achieve this via the expected time of diagnosis has already been developed in the form of a hidden Markov model [@ludwig_hidden_2021].
-3. The degree of ipsilateral involvement should give the model information on the time that may have passed between onset and diagnosis of the disease. This should come in addition to what can be inferred about the time from T-category alone.
+1. **Midline Extension:** Tumors extending across the mid-sagittal plane should result in a significantly higher probability of contralateral metastases.
+2. **T-Category and Disease Progression:** Advanced T-category should correspond to an increased risk of nodal disease. This can be modeled using the expected time of diagnosis, as demonstrated in a prior hidden Markov model [@ludwig_hidden_2021].
+3. **Ipsilateral Involvement as a Progression Marker:** The extent of ipsilateral involvement should provide additional information on the time elapsed between disease onset and diagnosis, supplementing the insights gained from T-category alone.
 
 <!-- Over the course of this work, we will first briefly recap the HMM in @sec-unilateral, which was so far used to model ipsilateral lymphatic progression only. Then, we intuitively extend it to include the contralateral side as well in @sec-ext-to-contra. In this section, we also introduce a way of modelling the tumor's midline extension as a random variable (@sec-midline) and lastly talk about how it may affect the contralateral spread in @sec-params-symmetry. -->
 
@@ -199,13 +213,13 @@ Based on the observations of the [previous section](#sec-data-strat), any model 
 
 # Unilateral Model for Lymphatic Progression {#sec-unilateral}
 
-This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [cite 2024 graph extension paper]. In this section we provide a brief recap of the unilateral model to introduce the notation needed to extend the framework to a bilateral model describing both ipsilateral and contralateral lymph node involvement in @sec-ext-to-contra. For further details in the ipsilateral model, the reader is referred to the earlier publications [@ludwig_hidden_2021, cite 2024 graph extension paper]
+This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [cite 2024 graph extension paper]. Below, we briefly recap the unilateral model to introduce the notation required for extending the framework to a bilateral model, described in @sec-ext-to-contra. For further details on the ipsilateral model, refer to earlier publications [@ludwig_hidden_2021; cite 2024 graph extension paper].
 
 <!--
 Our first model to predict the lymphatic progression of HNSCC was introduced using Bayesian networks [@pouymayou_bayesian_2019]. We subsequently extended this work to a hidden Markov model (HMM) [@ludwig_hidden_2021] to allow an intuitive inclusion of T-category into the predictions. We will briefly summarize this HMM's formalism before building on it to include the contralateral spread in @sec-ext-to-contra.
 -->
 
-We model a patient's state of involvement at an abstract time-step $t$ as a vector of hidden binary random variables:
+We represent a patient’s state of involvement at an abstract time-step $t$ as a vector of hidden binary random variables, where each variable corresponds to a lymph node level (LNL):
 
 $$
 \mathbf{X}[t] = \begin{pmatrix} X_v[t] \end{pmatrix} \qquad v \in \left\{ 1, 2, \ldots, V \right\}
@@ -213,7 +227,7 @@ $$ {#eq-state-def}
 
 Here, $V$ is the number of LNLs the model considers. The values a LNL's hidden binary random variables may take on are $X_v[t] = 0$ (`False`), meaning the LNL $v$ is healthy or free of metastatic disease, or $X_v[t] = 1$ (`True`), corresponding to some form of tumor presence (i.e., occult or clinically detected). Since the state vector $\mathbf{X}[t]$ is $V$-dimensional and binary, there are $2^V$ distinct possible lymphatic involvement patterns, which we enumerate from $\boldsymbol{\xi}_0 = \begin{pmatrix} 0 & 0 & \cdots & 0 \end{pmatrix}$ to $\boldsymbol{\xi}_{2^V} = \begin{pmatrix} 1 & 1 & \cdots & 1 \end{pmatrix}$. In addition, each LNL is associated with an observed binary random variable $Z_v$ that describes the clinical involvement of a LNL based on imaging: $Z_v = 0$ (`False`) indicates that the LNL $v$ is healthy based on clinical diagnosis, and $Z_v = 1$ (`True`) indicates that suspicious lymph nodes were detected that are deemed metastatic.
 
-Any hidden Markov model is fully described by three quantities:
+A hidden Markov model (HMM) is defined by three key components:
 
 1. A starting state $\mathbf{X}[t=0]$ at time $t=0$ just before the patient's tumor formed. In our case, this is always the state where all LNLs are still healthy $\boldsymbol{\xi}_0$.
 2. The *transition matrix*
