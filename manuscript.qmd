@@ -258,7 +258,7 @@ $$ {#eq-lambda-matrix}
 
 Where the $k$-th row in this matrix corresponds to the probability distribution over hidden states after $t=k-1$ time-steps.
 
-At the time of the diagnosis $0 \leq t_D \leq t_\text{max}$, we multiply the result with the observation matrix $\mathbf{B}$ to get the distribution over all possible diagnoses. However, the time of diagnosis $t_D$ is unknown, i.e. we do not know over how many time-steps to evolve the HMM. We solve this problem by marginalizing over the time of diagnosis, possible allowing the diagnosis at any time-step, albeit with different weights. Different distributions over the diagnosis times can then be choosen based on T-category. For instance, the mean of the time-prior to marginalize over the diagnosis time for early T-category patients $P\left( t_D \mid \text{early} \right)$ may be shifted towards earlier times than the one for advanced T-category patients $P\left( t_D \mid \text{early} \right)$. This gives us for example:
+At the time of diagnosis, $0 \leq t_D \leq t_\text{max}$, we multiply the evolved state distribution with the observation matrix $\mathbf{B}$ to obtain the distribution over all possible diagnoses. However, the exact time of diagnosis, $t_D$, is unknown; that is, we do not know the number of time-steps over which the HMM should be evolved. To address this, we marginalize over all possible diagnosis times, allowing the diagnosis to occur at any time-step, albeit with different weights. These weights are defined by a prior distribution over $t_D$, which can vary depending on the patient's T-category. For example, the time-prior for early T-category patients, $P(t_D \mid \text{early})$, may put more weight on earlier time-steps, reflecting -- on average -- earlier detection, compared to the prior for advanced T-category patients, $P(t_D \mid \text{advanced})$.
 
 $$
 P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{max}} P \left( \mathbf{X} \mid t \right) \cdot P(t \mid \text{early})
@@ -269,13 +269,13 @@ In this work, we use binomial distributions $\mathfrak{B} \left( t_D, p_{\text{T
 
 ## Likelihood Function of the Unilateral Model
 
-With the formalism introduced above, we can write the likelihood function for a patient to present with a diagnosis consisting of an observed state and a T-category $d = \left( \boldsymbol{\zeta}_i, \text{T}x \right)$ as follows:
+The likelihood function for a patient to present with a diagnosis $\boldsymbol{\zeta}_i$ a T-category $\text{T}x$ tumor can now be written as:
 
 $$
 \ell = P \left( \mathbf{Z} = \boldsymbol{\zeta}_i \mid \text{T}x \right) = \sum_{t=0}^{t_\text{max}} \left[ \boldsymbol{\xi}_0 \cdot \mathbf{A}^t \cdot \mathbf{B} \right]_i \cdot P \left( t \mid \text{T}x \right)
 $$ {#eq-single-patient-llh}
 
-Above, the quantity inside $\left[ \ldots \right]_i$ denotes the $i$-th component of the vector that is the result of the vector and matrix multiplications in the square brackets. Note that it is also possible to account for missing involvement information: If a diagnosis (like fine needle aspiration (FNA)) is only available for a subset of all LNLs, we can sum over all those possible complete observed states $\boldsymbol{\zeta}_j$ that match the provided diagnosis.
+With $\left[ \ldots \right]_i$ we denote the $i$-th component of the vector in the square brackets. Note that it is also possible to account for missing involvement information: If a diagnosis (like fine needle aspiration (FNA)) is only available for a subset of all LNLs, we can sum over all those possible complete observed states $\boldsymbol{\zeta}_j$ that match the provided diagnosis.
 
 The single-patient likelihood $\ell$ in @eq-single-patient-llh depends on the spread parameters shown in @fig-full-graph via the transition matrix $\mathbf{A}$ and on the binomial parameters $p_{\text{T}x}$ via time-priors. In this work, we will only differentiate between "early" (T1 & T2) and "advanced" (T3 & T4) T-categories. Therefore, the parameter space of the unilateral model is:
 
@@ -283,7 +283,7 @@ $$
 \boldsymbol{\theta} = \left( \left\{ b_v \right\}, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.} \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
 $$ {#eq-param-space}
 
-And it is our goal to infer the values of these parameters for a given dataset $\mathcal{D} = \left( d_1, d_2, \ldots, d_N \right)$ of OPSCC patients. The likelihood of these $N$ diagnoses is simply the product of their individual likelihoods as defined in @eq-single-patient-llh. For numerical reasons, we typically compute the data likelihood in log space:
+And it is our goal to infer optimal parameter values of from a given dataset $\mathcal{D}$ (consisting of diagnoses and T-categories) of OPSCC patients. The likelihood to observe this cohort of $N$ patients, given a set of parameters $\boldsymbol{\theta}$ is simply the product of their individual likelihoods as defined in @eq-single-patient-llh. For numerical reasons, we typically compute the data likelihood in log space:
 
 $$
 \log \mathcal{L} \left( \mathcal{D} \mid \boldsymbol{\theta} \right) = \sum_{i=1}^N \log \ell_i
