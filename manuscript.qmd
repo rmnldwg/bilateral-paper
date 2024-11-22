@@ -219,17 +219,17 @@ This paper builds on the previously developed unilateral model for ipsilateral l
 Our first model to predict the lymphatic progression of HNSCC was introduced using Bayesian networks [@pouymayou_bayesian_2019]. We subsequently extended this work to a hidden Markov model (HMM) [@ludwig_hidden_2021] to allow an intuitive inclusion of T-category into the predictions. We will briefly summarize this HMM's formalism before building on it to include the contralateral spread in @sec-ext-to-contra.
 -->
 
-We represent a patient’s state of involvement at an abstract time-step $t$ as a vector of hidden binary random variables, where each variable corresponds to a lymph node level (LNL):
+We represent a patient’s state of involvement at an abstract time-step $t$ as a vector of hidden binary random variables, where each component corresponds to a lymph node level (LNL):
 
 $$
 \mathbf{X}[t] = \begin{pmatrix} X_v[t] \end{pmatrix} \qquad v \in \left\{ 1, 2, \ldots, V \right\}
 $$ {#eq-state-def}
 
-Here, $V$ is the number of LNLs the model considers. The values a LNL's hidden binary random variables may take on are $X_v[t] = 0$ (`False`), meaning the LNL $v$ is healthy or free of metastatic disease, or $X_v[t] = 1$ (`True`), corresponding to some form of tumor presence (i.e., occult or clinically detected). Since the state vector $\mathbf{X}[t]$ is $V$-dimensional and binary, there are $2^V$ distinct possible lymphatic involvement patterns, which we enumerate from $\boldsymbol{\xi}_0 = \begin{pmatrix} 0 & 0 & \cdots & 0 \end{pmatrix}$ to $\boldsymbol{\xi}_{2^V} = \begin{pmatrix} 1 & 1 & \cdots & 1 \end{pmatrix}$. In addition, each LNL is associated with an observed binary random variable $Z_v$ that describes the clinical involvement of a LNL based on imaging: $Z_v = 0$ (`False`) indicates that the LNL $v$ is healthy based on clinical diagnosis, and $Z_v = 1$ (`True`) indicates that suspicious lymph nodes were detected that are deemed metastatic.
+Here, $V$ is the number of LNLs the model considers. The values a LNL's may take on are $X_v[t] = 0$ (`False`), meaning the LNL $v$ is healthy or free of metastatic disease, or $X_v[t] = 1$ (`True`), corresponding to some form of tumor presence (i.e., occult or macroscopic disease). In total, there are $2^V$ distinct possible lymphatic involvement patterns, which we enumerate from $\boldsymbol{\xi}_0 = \begin{pmatrix} 0 & 0 & \cdots & 0 \end{pmatrix}$ to $\boldsymbol{\xi}_{2^V} = \begin{pmatrix} 1 & 1 & \cdots & 1 \end{pmatrix}$. Each LNL's state is observed via another binary random variable $Z_v$ that describes the clinical involvement of a LNL based on imaging: $Z_v = 0$ (`False`) indicates that the LNL $v$ is healthy based on clinical diagnosis, and $Z_v = 1$ (`True`) indicates that LNL $v$ was classified as involved. $X_v$ and $Z_v$ are connected through the sensitivity and specificity of the diagnositc modality.
 
-A hidden Markov model (HMM) is defined by three key components:
+Based on this, our HMM is fully described by defining the following three quantities:
 
-1. A starting state $\mathbf{X}[t=0]$ at time $t=0$ just before the patient's tumor formed. In our case, this is always the state where all LNLs are still healthy $\boldsymbol{\xi}_0$.
+1. A starting state $\mathbf{X}[t=0]$ at time $t=0$ just before the patient's tumor formed. In our case, this is always the state $\boldsymbol{\xi}_0$ where all LNLs are still healthy.
 2. The *transition matrix*
    $$
    \mathbf{A} = \left( A_{ij} \right) = \big( P \left( \mathbf{X}[t+1] = \boldsymbol{\xi}_j \mid \mathbf{X}[t] = \boldsymbol{\xi}_i \right) \big)
@@ -241,11 +241,11 @@ A hidden Markov model (HMM) is defined by three key components:
    $$ {#eq-obs-matrix}
    where in row $i$ and at column $j$ we find the probability to *observe* a lymphatic involvement pattern $\mathbf{Z} = \boldsymbol{\zeta}_j$, given that the true (but hidden) state of involvement at the time of diagnosis $t_D$ is $\mathbf{X}[t_D] = \boldsymbol{\xi}_i$.
 
-The transition matrix $\mathbf{A}$ is parameterized using a directed acyclic graph (DAG) as an abstract representation of the underlying lymphatic network. Edges from the primary tumor to an LNL are associated with a probability $b_v$ for direct spread to LNL $v$ during one time step. Arcs from a LNL $v$ to a LNL $r$ represent the probability $t_{vr}$ for inter-nodal progression. In this paper, we build on the DAG shown in @fig-full-graph which was obtained by maximizing the model evidence as described in [@ludwig_modelling_2024].
+The transition matrix $\mathbf{A}$ is parameterized using a directed acyclic graph (DAG) that represents the underlying lymphatic network. Edges from the primary tumor to an LNL are associated with a probability $b_v$ for direct spread to LNL $v$ during one time step. Arcs from a LNL $v$ to a LNL $r$ are parameterized with the probability rate $t_{vr}$ for inter-nodal progression. In this paper, we build on the DAG shown in @fig-full-graph which was obtained by maximizing the model evidence as described in [@ludwig_modelling_2024].
 
 ![Directed acyclic graph (DAG) representing the abstract lymphatic network in the head and neck region. Blue nodes are the LNLs' hidden random variables, the red node represents the tumor, and the orange square nodes depict the binary observed variables. Red and blue arcs symbolize the probability of lymphatic spread along that edge during one time-step. The orange arcs represent the sensitivity and specificity of the observational modality (e.g. CT, MRI, pathology, ...).](static/full-graph.svg){#fig-full-graph width=40%}
 
-Using the introduced quantities, we can evolve the distribution of all possible hidden states from $\mathbf{X}[t=0] = \boldsymbol{\xi}_0$ step by step, by successively multiplying this vector with the transition matrix $\mathbf{A}$. For later use, we define at this point the matrices of the dsitributions over all hidden states, given all time-steps $\boldsymbol{\Lambda}$:
+We can evolve the distribution of all possible hidden states from $\mathbf{X}[t=0] = \boldsymbol{\xi}_0$ step by step, by successively multiplying this vector with the transition matrix $\mathbf{A}$: $\mathbf{X}[t+1] = \mathbf{X}[t] \cdot \mathbf{A}$. For later use, we define at this point a matrix $\boldsymbol{\Lambda}$ that collects these distributions for all considered time-steps:
 
 $$
 \boldsymbol{\Lambda} = P \left( \mathbf{X} \mid \mathbf{t} \right) = \begin{pmatrix}
@@ -258,7 +258,7 @@ $$ {#eq-lambda-matrix}
 
 Where the $k$-th row in this matrix corresponds to the probability distribution over hidden states after $t=k-1$ time-steps.
 
-At the time of the diagnosis $t_D$, we multiply the result with the observation matrix $\mathbf{B}$. We may then look up the likelihood of a patient presenting with the diagnosis $\mathbf{Z}=\boldsymbol{\zeta}_i$ in the $i$-th entry of the final result. However, the remaining issue is that the value of $t_D$ is unknown, i.e. over how many time-steps the HMM should be evolved. We solve this problem by marginalizing over the time of diagnosis. Different distributions over the diagnosis times can then be choosen based on T-category. For instance, the mean of the time-prior to marginalize over the diagnosis time for early T-category patients $P\left( t_D \mid \text{early} \right)$ may be shifted towards earlier times than the one for advanced T-category patients $P\left( t_D \mid \text{early} \right)$. This gives us for example
+At the time of the diagnosis $0 \leq t_D \leq t_\text{max}$, we multiply the result with the observation matrix $\mathbf{B}$ to get the distribution over all possible diagnoses. However, the time of diagnosis $t_D$ is unknown, i.e. we do not know over how many time-steps to evolve the HMM. We solve this problem by marginalizing over the time of diagnosis, possible allowing the diagnosis at any time-step, albeit with different weights. Different distributions over the diagnosis times can then be choosen based on T-category. For instance, the mean of the time-prior to marginalize over the diagnosis time for early T-category patients $P\left( t_D \mid \text{early} \right)$ may be shifted towards earlier times than the one for advanced T-category patients $P\left( t_D \mid \text{early} \right)$. This gives us for example:
 
 $$
 P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{max}} P \left( \mathbf{X} \mid t \right) \cdot P(t \mid \text{early})
