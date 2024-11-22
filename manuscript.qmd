@@ -213,7 +213,7 @@ Based on the observations in @sec-data-strat above, any model predicting the ris
 
 # Unilateral Model for Lymphatic Progression {#sec-unilateral}
 
-This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [cite 2024 graph extension paper]. Below, we briefly recap the unilateral model to introduce the notation required for extending the framework to a bilateral model, described in @sec-ext-to-contra. For further details on the ipsilateral model, refer to earlier publications [@ludwig_hidden_2021; cite 2024 graph extension paper].
+This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [@ludwig_modelling_2024]. Below, we briefly recap the unilateral model to introduce the notation required for extending the framework to a bilateral model, described in @sec-ext-to-contra. For further details on the ipsilateral model, refer to earlier publications [@ludwig_hidden_2021; @ludwig_modelling_2024].
 
 <!--
 Our first model to predict the lymphatic progression of HNSCC was introduced using Bayesian networks [@pouymayou_bayesian_2019]. We subsequently extended this work to a hidden Markov model (HMM) [@ludwig_hidden_2021] to allow an intuitive inclusion of T-category into the predictions. We will briefly summarize this HMM's formalism before building on it to include the contralateral spread in @sec-ext-to-contra.
@@ -241,7 +241,7 @@ A hidden Markov model (HMM) is defined by three key components:
    $$ {#eq-obs-matrix}
    where in row $i$ and at column $j$ we find the probability to *observe* a lymphatic involvement pattern $\mathbf{Z} = \boldsymbol{\zeta}_j$, given that the true (but hidden) state of involvement at the time of diagnosis $t_D$ is $\mathbf{X}[t_D] = \boldsymbol{\xi}_i$.
 
-The transition matrix $\mathbf{A}$ is parameterized using a directed acyclic graph (DAG) as an abstract representation of the underlying lymphatic network. Edges from the primary tumor to an LNL are associated with a probability $b_v$ for direct spread to LNL $v$ during one time step. Arcs from a LNL $v$ to a LNL $r$ represent the probability $t_{vr}$ for inter-nodal progression. In this paper, we build on the DAG shown in @fig-full-graph which was obtained by maximizing the model evidence as described in [cite 2024 graph extension paper].
+The transition matrix $\mathbf{A}$ is parameterized using a directed acyclic graph (DAG) as an abstract representation of the underlying lymphatic network. Edges from the primary tumor to an LNL are associated with a probability $b_v$ for direct spread to LNL $v$ during one time step. Arcs from a LNL $v$ to a LNL $r$ represent the probability $t_{vr}$ for inter-nodal progression. In this paper, we build on the DAG shown in @fig-full-graph which was obtained by maximizing the model evidence as described in [@ludwig_modelling_2024].
 
 ![Directed acyclic graph (DAG) representing the abstract lymphatic network in the head and neck region. Blue nodes are the LNLs' hidden random variables, the red node represents the tumor, and the orange square nodes depict the binary observed variables. Red and blue arcs symbolize the probability of lymphatic spread along that edge during one time-step. The orange arcs represent the sensitivity and specificity of the observational modality (e.g. CT, MRI, pathology, ...).](static/full-graph.svg){#fig-full-graph width=40%}
 
@@ -675,7 +675,7 @@ As discussed in @sec-methods-consensus (and in more detail in @sec-consensus), w
 
 ### Tumor Subsites
 
-Within the cohort of patients with oropharyngeal tumors, subgroups can be identified whose tumors are located in different subsites, e.g. at the base of the tongue or on the tonsils. The lymphatic metastatic spread patterns of these subgroups may differ slightly. If so, the model could benefit from more fine-grained information about the precise tumor subsite for its training and prediction. We have conducted preliminary work to show that a mixture model may be a promising approach to capture the subsite specific spread patterns [cite ICCR paper, @zora231470]. The additionally represents an approach to extend the model towards tumor locations in the oral cavity, hypopharynx, and larynx.
+Within the cohort of patients with oropharyngeal tumors, subgroups can be identified whose tumors are located in different subsites, e.g. at the base of the tongue or on the tonsils. The lymphatic metastatic spread patterns of these subgroups may differ slightly. If so, the model could benefit from more fine-grained information about the precise tumor subsite for its training and prediction. We have conducted preliminary work to show that a mixture model may be a promising approach to capture the subsite specific spread patterns [@noauthor_proceedings_2024, @zora231470]. The additionally represents an approach to extend the model towards tumor locations in the oral cavity, hypopharynx, and larynx.
 
 
 # Acknowledgement {.appendix}
