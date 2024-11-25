@@ -465,51 +465,44 @@ $$ {#eq-marg-over-posterior}
 
 # Computational methods {#sec-methods}
 
-<!-- Maybe I should break this apart into separate chapters on data, sampling, etc. -->
+This section details the experimental setup. All figures, tables, and results are fully reproducible via the GitHub repository [rmnldwg/bilateral-paper].
 
-In this section, we detail how the experiments were performed. Every figure, table, and result is fully reproducible via the GitHub repository [`rmnldwg/bilateral-paper`]. It also contains the raw manuscript and instructions on how to recreate all figures, tables, and the final document.
-
-[`rmnldwg/bilateral-paper`]: https://github.com/rmnldwg/bilateral-paper
-
+[rmnldwg/bilateral-paper]: https://github.com/rmnldwg/bilateral-paper
 
 ## Involvement Data Consensus {#sec-methods-consensus}
 
-It is possible to provide our model with multiple different diagnostic modalities, each being characterized by different pairs of sensitivity and specificity. However, we instead chose to combine them into a single "consensus" diagnosis before parameter inference, as introduced in @sec-data-consensus. We opted for this because the literature values of sensitivity and specificity [@debondt_detection_2007;@kyzas_18ffluorodeoxyglucose_2008] of imaging modalities like MRI and CT do not plausibly match some of our observations: In the USZ cohort, 78% of OPSCC patients where diagnosed with ipsilateral LNL II involvement via diagnostic imaging. This is virtually impossible with sensitivities around 80% and specificities lower than 100%.
-
+Rather than providing the model with a patient's diagnoses from multiple modalities with different sensitivities and specificities (e.g. PET-CT *and* MRI), we combined them into a single "consensus" diagnosis before inference. This approach was necessary because literature-reported diagnostic imaging sensitivities and specificities did not plausibly match our observations. For instance, in the USZ cohort, 78% of OPSCC patients were diagnosed with ipsilateral LNL II involvement -— a finding difficult to reconcile with typical imaging sensitivities around 80% and specificities below 100% [@debondt_detection_2007;@kyzas_18ffluorodeoxyglucose_2008].
 
 ## MCMC Sampling {#sec-sampling}
 
-For parameter inference, we used the Python package [`emcee`] [@foreman-mackey_emcee_2013]. It implements efficient MCMC sampling algorithms that employ multiple parallel samplers for affine invariance and better performance on multi-core CPUs. The sample proposal algirothms used by us are based on differential evolution moves [@terbraak_differential_2008;@nelson_run_2013]. The [`emcee`] library was provided with the likelihood implemented by our [`lymph-model`] Python package.
+We used the Python package [`emcee`] [@foreman-mackey_emcee_2013] for parameter inference, implementing efficient MCMC sampling with parallel affine-invariant samplers. The sampling algorithms employed differential evolution moves [@terbraak_differential_2008;@nelson_run_2013], with the likelihood implemented by our [`lymph-model`] Python package.
 
-For each dimension in the parameter space of the model, we initialized {{< var sampling.walkers_per_dim >}} of these parallel samplers, called "walkers", with random values in the unit cube. Every time all of these walkers advanced {{< var sampling.check_interval >}} steps, the autocorrelation time of the chains was estimated. For short chains, this estimate is not trustworthy, but stabilizes for longer chains. We therefore considered a sampling to be converged when two criteria were met:
+We initialized {{< var sampling.walkers_per_dim >}} parallel samplers ("walkers") with random values from the unit cube, effectively representing a uniform prior distribution over the model parameters. Convergence was determined by two criteria:
 
-1. The change in the autocorrelation time was less then {{< var sampling.rel_thresh >}}.
-2. The estimate of the autocorrelation dropped below $n$ / {{< var sampling.trust_fac >}} where $n$ is the length of the chain up to that point.
+1. The change in autocorrelation time was less than {{< var sampling.rel_thresh >}}.
+2. The autocorrelation estimate dropped below $n$ / {{< var sampling.trust_fac >}}, where $n$ is the chain length. Earlier autocorrelation estimates might not be trustworthy.
 
-All samples up to this convergence - called the *burn-in phase* - were discarded. We only kept another {{< var sampling.nsteps >}} samples after that, which were spaced {{< var sampling.thin >}} steps apart.
+Samples from this *burn-in phase* before convergence were discarded. After that, we drew {{< var sampling.nsteps >}} additional samples, spaced {{< var sampling.thin >}} steps apart.
+
+We verified sampling convergence in @fig-model-burnin-history by examining the MCMC chain's autocorrelation time and walker acceptance fractions.
 
 [`emcee`]: https://emcee.readthedocs.io/en/stable/
 [`lymph-model`]: https://lymph-model.readthedocs.io/en/stable/
 
-First, in @fig-model-burnin-history, we verify the sampling converged successfully by inspecting two monitoring quantities: The autocorrelation time of the MCMC chain and the acceptance fractions of the parallel walkers.
-
-![Monitoring quantities during the burn-in phase of the parameter sampling. Left: The autocorrelation time of the sampling chain estimated at different sampling steps. We consider the chain converged when the estimate of the autocorrelation time is stable and drops below the trust threshold of $n/50$ where $n$ is the number of steps. Right: Fraction of accepted MCMC proposals averaged over all parallel walkers. Values around 30% indicate good mixing of the walkers.](figures/fig_model_burnin_history.svg){#fig-model-burnin-history}
-
+![Burn-in phase monitoring of MCMC sampling. Left: Estimated autocorrelation time, indicating converging when stable and below the trust threshold. Right: Average acceptance fraction of parallel walkers, with ~30% indicating good mixing.](figures/fig_model_burnin_history.svg){#fig-model-burnin-history}
 
 
 ## Computing the Observed and Predicted Prevalence of Involvement Patterns {#sec-prevalence}
 
-We want to assess the model's capability to approximate the distribution of lymphatic involvement patterns seen in the data. To that end, we compare the prevalence of some invovlement patterns under selected scenarios with the model's prediction for how often these involvements it expects to see, given these scenarios.
+We evaluate the model's ability to approximate the observed distribution of lymphatic involvement patterns. We compare the prevalence of selected involvement patterns in the data to the model's predicted prevalence, given patient scenarios.
 
-In this context, a "scenario" includes the patient's T-category $\text{T}x$ and whether the patient's tumor extended over the mid-sagittal line, i.e. $\epsilon=\texttt{True}$ or $\epsilon=\texttt{False}$.
+A "scenario" includes the patient's T-category $\text{T}x$ and whether the tumor extended over the mid-sagittal line, i.e. $\epsilon=\texttt{True}$ or $\epsilon=\texttt{False}$. An involvement pattern specifies all ipsi- and contralateral LNLs' status as "healthy", "involved", or "masked" (ignored). 
 
-An involvement pattern specifies for each ipsi- and contralateral LNL whether it is "healthy", "involved", or "masked". If it is "masked", we essentially state that we are not interested in the involvement of that LNL and the prevalence will be marginalized over this LNL's involvement.
+For example, we may assess contralateral LNL II involvement prevalence under early T-category (T0-T2) and no midline extension ($\epsilon=\texttt{False}$). In the data, {{< var data.early_nomidext_cII_total >}} such patients were observed, with {{< var data.early_nomidext_cII_match >}} exhibiting contralateral LNL II involvement -- a prevalence of {{< var data.early_nomidext_cII_percent >}}%.
 
-For example, we may be interested in the prevalence of contralateral LNL II involvement (i.e., contra LNL II "involved" and all other LNLs "masked") under the scenario of early T-category (T0-T2) and no midline extension ($\epsilon=\texttt{False}$). To compute this prevalence in the data, we select all patients of this scenario (in our data, this amounts to {{< var data.early_nomidext_cII_total >}} patients). Of those, {{< var data.early_nomidext_cII_match >}} were found to harbor metastases in their contralateral LNL II. Therefore, the prevalence is {{< var data.early_nomidext_cII_percent >}}%.
+To visualize the data prevalence, we plot a *beta posterior* over the true prevalence $q$. It is the result of a uniform beta prior over $q$, multiplied with the binomial likelihood for $k$ out of $n$ patients, given $q$. The resulting distribution has its maximum at $q=k / n$ and nicely captures the uncertainty in the observed cohort: if only 3 out of 10 patients are observed with a specific pattern, the distribution is much wider than if we observe 300 out of 1000.
 
-When displaying this data prevalence, we often choose to draw a *beta posterior* over the "true" prevalence, hinting at the fact that our data merely represents a limited sample. The beta posterior follows from a uniform beta distribution as prior and a binomial likelihood for the number of patients with the involvement of interest, given the parameer for the "true" prevalence. The resulting distribution has its maximum at the observed prevalence, but in addition gives a visual intuition for the variance of of the observed quantity. I.e., when we observe 3 out of 10 events, the beta posterior is much wider than if we observe 300 out of 1000 for he same prevalence. It also allows us to check not only if the model is accurate, but also whether it reflects the uncertainty contained in the data.
-
-Predicting the prevalence using our model amounts to computing the following probability:
+The model's predicted prevalence to compare it with is computed as:
 
 $$
 P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early} \right) = \frac{P \left( \text{II}^\text{c}, \epsilon=\texttt{False} \mid \text{T}x=\text{early} \right)}{P \left( \epsilon=\texttt{False} \mid \text{T}x=\text{early} \right)}
@@ -517,16 +510,14 @@ $$
 
 In the enumator, we marginalize over all ipsi- and contralateral LNLs' involvements, except for LNL II contralaterally. This is similar to the marginalization in @eq-marg-over-posterior, although we are summing over different quantities. In the denominator, we can simply insert the joint distribution over midline extension and diagnose time $P \left( \epsilon, t \right)$ marginalized over $t$ using the early T-category's time-prior.
 
-Since we compare it to the data, which does not report true but only observed involvement -- although pathologically investigated LNLs may be as close as possible to the ground truth -- we do not consider posteriors of the form $P \left( \mathbf{X} \mid \mathbf{Z} \right)$ here. Instead, we compute probabilities of observed involvement $P \left( \mathbf{Z} \right)$, as in the likelihood @eq-single-patient-llh.
+We display model predictions as histograms, each value computed from one of the MCMC samples. Ideally, these approximate the location and width of the beta posteriors from the data showing an accurate and precise fit.
 
-When plotted, we usually display histograms over the model's predictions. Each of their values was computed from a different parameter set drawn during MCMC sampling, effectively giving us a distribution over the prevalences. Ideally, the histograms approximate the location and width of the Beta posteriors when attempting to describe the data they were trained on.
-
-Note that we decided to omit the y-axis ticks and labels in these figures over prevalences and risks. The y-axis in these plots measures the probability density and its numerical values are not intuitively interpretable. Instead, we occasionally use the freed space to label e.g. rows of subplots.
+Note that we omit the y-axis in these figures, as their numerical value is not intuitively interpretable. We instead use the free space to label e.g. rows in an array of subplots.
 
 
 # Results: Model evaluation {#sec-results}
 
-In @tbl-midline-params, we tabulate the mean and standard deviation of the sampled parameters for the full midline model. Considering the parameters of the bilateral model that describe the ipsilateral spread ($b^i_v$, $t_{vr}$ and $p_\text{adv.}$), we note that the bilateral model mostly reproduces the parameter values reported in the earlier publication [@ludwig_modelling_2023] for the unilateral model. The small differences may be mostly due to the differences in the training dataset. Therefore, the analysis of the model's capability to adequately describe ipsilateral lymph node involvement is not repeated here and we focus instead on the analysis of contralateral involvement. We can further note that the contralateral spread parameters $b^c_v$ are small compared to the ipsilateral parameters $b^i_v$, reflecting the low prevalence of contralateral lymph node involvement for lateralized tumors.
+In @tbl-midline-params, we tabulate the mean and standard deviation of the sampled parameters. The bilateral model mostly reproduces the ipsilateral spread parameter values reported in the earlier publication on the unilateral model [@ludwig_modelling_2023]. Any discrepancies may be due to differences in the patient cohorts. Therefore, we omit the analysis of the ipsilateral spread patterns and focus instead on the analysis of contralateral involvement. Lastly, note the relatively small contralateral spread parameters $b^c_v$ compared to the ipsilateral parameters $b^i_v$. This accurately reflects the low prevalence of contralateral lymph node involvement for lateralized tumors.
 
 ```{python}
 #| echo: false
