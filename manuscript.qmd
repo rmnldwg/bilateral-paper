@@ -51,11 +51,11 @@ To better quantify individualized risk of occult disease, we previously develope
 
 The main contributions of this paper are as follows:
 
-1. Section @sec-data presents a multi-centric dataset on lymph node involvement in {{< var data.num_patients >}} OPSCC patients, identifying key risk factors for contralateral lymph node involvement and outlining requirements for a bilateral model extension (@sec-requirements).
+1. @Sec-data presents a multi-centric dataset on lymph node involvement in {{< var data.num_patients >}} OPSCC patients, identifying key risk factors for contralateral lymph node involvement and outlining requirements for a bilateral model extension (@sec-requirements).
 
-2. Section @sec-ext-to-contra introduces a bilateral HMM that incorporates primary tumor lateralization, T-category, and clinical involvement as risk factors for contralateral involvement. Model training and computational experiments are described in @sec-methods.
+2. @Sec-ext-to-contra introduces a bilateral HMM that incorporates primary tumor lateralization, T-category, and clinical involvement as risk factors for contralateral involvement. Model training and computational experiments are described in @sec-methods.
 
-3. Section @sec-results demonstrates the model's ability to replicate observed contralateral lymph node involvement patterns and estimates occult disease risk for typical patients. Implications for volume-deescalated radiotherapy are discussed in @sec-discussion.
+3. @Sec-results demonstrates the model's ability to replicate observed contralateral lymph node involvement patterns and estimates occult disease risk for typical patients. Implications for volume-deescalated radiotherapy are discussed in @sec-discussion.
 
 
 # Data on Lymphatic Progression Patterns {#sec-data}
@@ -284,7 +284,7 @@ The methodology we use to infer the model's parameters is detailed in @sec-sampl
 
 # Extension to a Bilateral Model {#sec-ext-to-contra}
 
-A straightforward approach to modeling contralateral lymphatic spread would be to use two independent unilateral models, as described in Section @sec-unilateral, with shared parameters such as the distribution of diagnosis times or spread between LNLs ($t_{vr}$). However, this method would fail to capture the correlation between ipsilateral and contralateral involvement discussed in @sec-data-strat, particularly the observed increase in contralateral involvement with greater severity of ipsilateral spread.
+A straightforward approach to modeling contralateral lymphatic spread would be to use two independent unilateral models, as described in @sec-unilateral, with shared parameters such as the distribution of diagnosis times or spread between LNLs ($t_{vr}$). However, this method would fail to capture the correlation between ipsilateral and contralateral involvement discussed in @sec-data-strat, particularly the observed increase in contralateral involvement with greater severity of ipsilateral spread.
 
 <!-- This is displayed in @tbl-data-strat and shows how often the contralateral LNLs I, II, III, and IV were involved, given all possible combinations of midline extension, T-category, and ipsilateral LNL III involvement. Unsurprisingly, the prevalence for contralateral involvement is consistently higher when the tumor extends over the mid-sagittal line or is of later T-category. But it is also more frequent when the ipsilateral side shows more severe involvement, which is here shown via the surrogate LNL III. -->
 

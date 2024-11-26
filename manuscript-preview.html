@@ -588,7 +588,7 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="60769d6a" class="cell markdown">
+<div id="f21958e1" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>In treating head and neck squamous cell carcinomas (HNSCC) with radiotherapy or surgery, both the primary tumor and clinically detected lymph node metastases are targeted. Current guidelines also include large portions of the neck in the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ctbased_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensitymodulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ctbased_2003" role="doc-biblioref">Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>, <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">2018</a>; <a href="#ref-eisbruch_intensitymodulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span> to mitigate the risk of regional recurrences from untreated microscopic disease undetectable by in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET). However, this approach must balance minimizing the risk of occult disease in the lymphatic drainage region against the toxicity of unnecessarily irradiating healthy tissue.</p>
@@ -596,9 +596,9 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <p>To better quantify individualized risk of occult disease, we previously developed an intuitive probabilistic hidden Markov model (HMM) <span class="citation" data-cites="ludwig_hidden_2021 ludwig_modelling_2023">(<a href="#ref-ludwig_hidden_2021" role="doc-biblioref">Ludwig et al. 2021</a>, <a href="#ref-ludwig_modelling_2023" role="doc-biblioref">2023</a>)</span>, originally based on a conceptually similar a Bayesian network model <span class="citation" data-cites="pouymayou_bayesian_2019">(<a href="#ref-pouymayou_bayesian_2019" role="doc-biblioref">Pouymayou et al. 2019</a>)</span>. However, these models have been limited to predicting ipsilateral nodal involvement. This work extends the model to include contralateral risk predictions, enabling more personalized radiation volume recommendations. By identifying patients with low contralateral risk, the model could guide reductions in contralateral CTV-N, thereby decreasing radiation-induced toxicity and improving quality of life.</p>
 <p>The main contributions of this paper are as follows:</p>
 <ol type="1">
-<li><p>Section <a href="#sec-data" class="quarto-xref">section&nbsp;2</a> presents a multi-centric dataset on lymph node involvement in 833 OPSCC patients, identifying key risk factors for contralateral lymph node involvement and outlining requirements for a bilateral model extension (<a href="#sec-requirements" class="quarto-xref">section&nbsp;2.4</a>).</p></li>
-<li><p>Section <a href="#sec-ext-to-contra" class="quarto-xref">section&nbsp;4</a> introduces a bilateral HMM that incorporates primary tumor lateralization, T-category, and clinical involvement as risk factors for contralateral involvement. Model training and computational experiments are described in <a href="#sec-methods" class="quarto-xref">section&nbsp;5</a>.</p></li>
-<li><p>Section <a href="#sec-results" class="quarto-xref">section&nbsp;6</a> demonstrates the model’s ability to replicate observed contralateral lymph node involvement patterns and estimates occult disease risk for typical patients. Implications for volume-deescalated radiotherapy are discussed in <a href="#sec-discussion" class="quarto-xref">section&nbsp;8</a>.</p></li>
+<li><p><a href="#sec-data" class="quarto-xref">Section&nbsp;2</a> presents a multi-centric dataset on lymph node involvement in 833 OPSCC patients, identifying key risk factors for contralateral lymph node involvement and outlining requirements for a bilateral model extension (<a href="#sec-requirements" class="quarto-xref">section&nbsp;2.4</a>).</p></li>
+<li><p><a href="#sec-ext-to-contra" class="quarto-xref">Section&nbsp;4</a> introduces a bilateral HMM that incorporates primary tumor lateralization, T-category, and clinical involvement as risk factors for contralateral involvement. Model training and computational experiments are described in <a href="#sec-methods" class="quarto-xref">section&nbsp;5</a>.</p></li>
+<li><p><a href="#sec-results" class="quarto-xref">Section&nbsp;6</a> demonstrates the model’s ability to replicate observed contralateral lymph node involvement patterns and estimates occult disease risk for typical patients. Implications for volume-deescalated radiotherapy are discussed in <a href="#sec-discussion" class="quarto-xref">section&nbsp;8</a>.</p></li>
 </ol>
 </section>
 <section id="sec-data" class="level1">
@@ -767,7 +767,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="0f0dbacc" class="cell markdown">
+<div id="cf1f4a68" class="cell markdown">
 <section id="sec-data-consensus" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-consensus">Consensus on Involvement Status</h2>
 <p>Pathological involvement is available only for surgically treated patients and for the levels that were dissected. For non-surgical patients, involvement status is determined clinically, i.e.&nbsp;using imaging. To ensure uniformity in analysis, diagnostic information was synthesized into a consensus decision for each patient and LNL. This consensus reflects the most likely state of involvement and accounts for the sensitivity and specificity of various diagnostic modalities, as reported in the literature <span class="citation" data-cites="debondt_detection_2007 kyzas_18ffluorodeoxyglucose_2008">(<a href="#ref-debondt_detection_2007" role="doc-biblioref">De Bondt et al. 2007</a>; <a href="#ref-kyzas_18ffluorodeoxyglucose_2008" role="doc-biblioref">Kyzas et al. 2008</a>)</span>.</p>
@@ -881,7 +881,7 @@ P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{m
 </section>
 <section id="sec-ext-to-contra" class="level1">
 <h1>Extension to a Bilateral Model</h1>
-<p>A straightforward approach to modeling contralateral lymphatic spread would be to use two independent unilateral models, as described in Section <a href="#sec-unilateral" class="quarto-xref">section&nbsp;3</a>, with shared parameters such as the distribution of diagnosis times or spread between LNLs (<span class="math inline">\(t_{vr}\)</span>). However, this method would fail to capture the correlation between ipsilateral and contralateral involvement discussed in <a href="#sec-data-strat" class="quarto-xref">section&nbsp;2.3</a>, particularly the observed increase in contralateral involvement with greater severity of ipsilateral spread.</p>
+<p>A straightforward approach to modeling contralateral lymphatic spread would be to use two independent unilateral models, as described in <a href="#sec-unilateral" class="quarto-xref">section&nbsp;3</a>, with shared parameters such as the distribution of diagnosis times or spread between LNLs (<span class="math inline">\(t_{vr}\)</span>). However, this method would fail to capture the correlation between ipsilateral and contralateral involvement discussed in <a href="#sec-data-strat" class="quarto-xref">section&nbsp;2.3</a>, particularly the observed increase in contralateral involvement with greater severity of ipsilateral spread.</p>
 <!-- This is displayed in @tbl-data-strat and shows how often the contralateral LNLs I, II, III, and IV were involved, given all possible combinations of midline extension, T-category, and ipsilateral LNL III involvement. Unsurprisingly, the prevalence for contralateral involvement is consistently higher when the tumor extends over the mid-sagittal line or is of later T-category. But it is also more frequent when the ipsilateral side shows more severe involvement, which is here shown via the surrogate LNL III. -->
 <!-- Additionally, we could think of an approach to incorporate the primary tumor's mid-sagittal extension as a risk factor. -->
 <p>Thus, we extend the formalism in <a href="#sec-unilateral" class="quarto-xref">section&nbsp;3</a> in such a way that the model’s ipsi- and contralateral side evolve synchronously over time. To achieve that, we start by writing down the posterior distribution of involvement in analogy to <a href="#eq-uni-bayes-law" class="quarto-xref">equation&nbsp;15</a>, which is now a joint probability of an involvement <span class="math inline">\(\mathbf{X}^\text{i}\)</span> ipsilaterally <em>and</em> an involvement <span class="math inline">\(\mathbf{X}^\text{c}\)</span> contralaterally, given a diagnosis of the ipsilateral LNLs <span class="math inline">\(\mathbf{Z}^\text{i}\)</span> and of the contralateral ones <span class="math inline">\(\mathbf{Z}^\text{c}\)</span>:</p>
@@ -1211,7 +1211,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="4226e360" class="cell markdown">
+<div id="2d78df0f" class="cell markdown">
 <section id="illustration-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="illustration-of-the-model">Illustration of the model</h2>
 <p>In this subsection, we illustrate key aspects of the mathematical framework introduced earlier. The top panel of <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a> shows the prior distribution over diagnosis times, <span class="math inline">\(P(t)\)</span>. Based on the parameterization, early T-category tumors are on average diagnosed after 3 time steps, while advanced T-category tumors are diagnosed later, averaging 4.5 time steps. This is due to the learned value of <span class="math inline">\(p_\text{adv.}\)</span>, which is 44.98% for advanced T-category tumors. The tumor’s average probability per time step of growing over the midline, <span class="math inline">\(p_\epsilon\)</span>, was found to be 8.16%. Using this value, the conditional probability of midline extension, <span class="math inline">\(P(\epsilon \mid t)\)</span>, can be computed for a given time step <span class="math inline">\(t\)</span> (red line in the top panel of <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a>). The bottom panel visualizes the joint probability <span class="math inline">\(P(\epsilon, t)\)</span>, showing the likelihood of diagnosis at time <span class="math inline">\(t\)</span> with specific states of midline extension and T-category.</p>
@@ -1845,7 +1845,7 @@ Table&nbsp;4: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="aaf83a2d" class="cell markdown">
+<div id="0ea3c7fd" class="cell markdown">
 <section id="sec-prevalence-midext" class="level1 appendix">
 <h1 class="appendix">Prevalence of Midline Extension</h1>
 <!-- I moved this here, because we think this is probably irrelevant or distracting w.r.t. the main findings of the paper. But I do think it is somewhat interesting. -->
@@ -2364,7 +2364,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":false,"openEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false,"openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

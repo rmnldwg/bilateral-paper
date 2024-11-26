@@ -284,19 +284,18 @@ The main contributions of this paper are as follows:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Section section~\ref{sec-data} presents a multi-centric dataset on
-  lymph node involvement in 833 OPSCC patients, identifying key risk
-  factors for contralateral lymph node involvement and outlining
-  requirements for a bilateral model extension
-  (section~\ref{sec-requirements}).
+  Section~\ref{sec-data} presents a multi-centric dataset on lymph node
+  involvement in 833 OPSCC patients, identifying key risk factors for
+  contralateral lymph node involvement and outlining requirements for a
+  bilateral model extension (section~\ref{sec-requirements}).
 \item
-  Section section~\ref{sec-ext-to-contra} introduces a bilateral HMM
-  that incorporates primary tumor lateralization, T-category, and
-  clinical involvement as risk factors for contralateral involvement.
-  Model training and computational experiments are described in
+  Section~\ref{sec-ext-to-contra} introduces a bilateral HMM that
+  incorporates primary tumor lateralization, T-category, and clinical
+  involvement as risk factors for contralateral involvement. Model
+  training and computational experiments are described in
   section~\ref{sec-methods}.
 \item
-  Section section~\ref{sec-results} demonstrates the model's ability to
+  Section~\ref{sec-results} demonstrates the model's ability to
   replicate observed contralateral lymph node involvement patterns and
   estimates occult disease risk for typical patients. Implications for
   volume-deescalated radiotherapy are discussed in
@@ -694,7 +693,7 @@ section~\ref{sec-sampling}.
 
 A straightforward approach to modeling contralateral lymphatic spread
 would be to use two independent unilateral models, as described in
-Section section~\ref{sec-unilateral}, with shared parameters such as the
+section~\ref{sec-unilateral}, with shared parameters such as the
 distribution of diagnosis times or spread between LNLs (\(t_{vr}\)).
 However, this method would fail to capture the correlation between
 ipsilateral and contralateral involvement discussed in
