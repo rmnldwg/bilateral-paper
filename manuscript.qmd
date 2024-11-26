@@ -207,7 +207,7 @@ Based on the observations in @sec-data-strat above, any model predicting the ris
 
 # Unilateral Model for Lymphatic Progression {#sec-unilateral}
 
-This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [@ludwig_modelling_2024]. Below, we briefly recap the unilateral model to introduce the notation required for extending the framework to a bilateral model, described in @sec-ext-to-contra. For further details on the ipsilateral model, refer to earlier publications [@ludwig_hidden_2021; @ludwig_modelling_2024].
+This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [@ludwig_modelling_2024]. Below, we briefly recap the unilateral model to introduce the notation required for extending the framework to a bilateral model, described in @sec-ext-to-contra. For further details on the ipsilateral model, refer to earlier publications [@ludwig_hidden_2021;@ludwig_modelling_2024].
 
 We represent a patient’s state of involvement at an abstract time-step $t$ as a vector of hidden binary random variables, where each component corresponds to a lymph node level (LNL):
 
@@ -696,7 +696,7 @@ Future efforts could focus on developing methods to rigorously differentiate bet
 
 ### Tumor Subsites
 
-Oropharyngeal tumors occur in distinct subsites, such as the base of the tongue or the tonsils, which may exhibit slightly different lymphatic metastatic patterns. Incorporating subsite-specific information into the model could enhance its predictive accuracy. Preliminary investigations suggest that a mixture model may effectively capture these subsite-specific spread patterns [@_proceedings_2024; @zora231470]. 
+Oropharyngeal tumors occur in distinct subsites, such as the base of the tongue or the tonsils, which may exhibit slightly different lymphatic metastatic patterns. Incorporating subsite-specific information into the model could enhance its predictive accuracy. Preliminary investigations suggest that a mixture model may effectively capture these subsite-specific spread patterns [@sarrut_proceedings_2024;@ludwig_modelling_2023a]. 
 
 This approach could also facilitate extending the model to other tumor locations, such as the oral cavity, hypopharynx, and larynx. Including these additional tumor sites would broaden the model's applicability and improve its clinical utility for head and neck cancer patients.
 
