@@ -6094,31 +6094,31 @@ stages:
       size: 557587
     - path: figures
       hash: md5
-      md5: 148d42a6ab07a1ac2372147cbf24e946.dir
+      md5: 95af8d3372ec6962441526a3f0622582.dir
       size: 994838
       nfiles: 11
     - path: manuscript.qmd
       hash: md5
-      md5: 70c51bebe81afb61b27c30181b386a5e
-      size: 86707
+      md5: 792e4904ac4887846a50c84b23c43f16
+      size: 77493
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     outs:
     - path: .output/_tex/manuscript.tex
       hash: md5
-      md5: b994e343fdf2deb09415b83a28582d56
-      size: 91586
+      md5: aabe882f0a89da1cfd873ec7344a5e5c
+      size: 85623
     - path: .output/manuscript.pdf
       hash: md5
-      md5: 9430ada690851c41355a4fdf7c44ee56
-      size: 928202
+      md5: adbacd8fc02dea4cd8a98e1030c9108b
+      size: 923498
     - path: manuscript.tex
       hash: md5
-      md5: b994e343fdf2deb09415b83a28582d56
-      size: 91586
+      md5: aabe882f0a89da1cfd873ec7344a5e5c
+      size: 85623
   compute-priors@contra-base:
     cmd: "lyscripts compute priors --samples models/contra/samples.hdf5 --priors models/contra/priors.hdf5
       --params models/contra/params.yaml --scenarios scenarios/base.yaml\n"
@@ -10103,9 +10103,9 @@ stages:
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10125,16 +10125,16 @@ stages:
     outs:
     - path: figures/fig_model_burnin_history.svg
       hash: md5
-      md5: cbbff91973281f7f533a431dd9f37a81
+      md5: abb751faec69cda713fc68ac642c90f6
       size: 53310
   plot-figures@model_midext_evo:
     cmd: "python scripts/model_midext_evo.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10154,16 +10154,16 @@ stages:
     outs:
     - path: figures/fig_model_midext_evo.svg
       hash: md5
-      md5: 5b63c9615ff5762668b8fa2b10bc237f
+      md5: f17bee43cab6489c9ae7c549cf1e8195
       size: 77047
   plot-figures@model_prevalences_midext:
     cmd: "python scripts/model_prevalences_midext.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10183,16 +10183,16 @@ stages:
     outs:
     - path: figures/fig_model_prevalences_midext.svg
       hash: md5
-      md5: b516b93a7be5ab3631b1312c2861f982
+      md5: 06267d866c22fb95e79a5104061cdc41
       size: 47069
   plot-figures@model_prevalences_overall:
     cmd: "python scripts/model_prevalences_overall.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10212,16 +10212,16 @@ stages:
     outs:
     - path: figures/fig_model_prevalences_overall.svg
       hash: md5
-      md5: 06bd7306253cf20157dc86579816dd57
+      md5: f03a3117d6b7f5e56e9e976ac07ee877
       size: 161312
   plot-figures@model_prevalences_upstream:
     cmd: "python scripts/model_prevalences_upstream.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10241,16 +10241,16 @@ stages:
     outs:
     - path: figures/fig_model_prevalences_upstream.svg
       hash: md5
-      md5: 3f35dbc9ead4abc4c276dbe53c9d5292
+      md5: c0a1ab55bdfc2960ec4db54e79b4a4bf
       size: 135334
   plot-figures@model_prevalences_with_ipsi:
     cmd: "python scripts/model_prevalences_with_ipsi.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10270,16 +10270,16 @@ stages:
     outs:
     - path: figures/fig_model_prevalences_with_ipsi.svg
       hash: md5
-      md5: 5d909cee05b29d46ae913a6988ddfe32
+      md5: 6fba69b9039da3a20e50fc8e992b9723
       size: 171953
   plot-figures@model_risks:
     cmd: "python scripts/model_risks.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10299,16 +10299,16 @@ stages:
     outs:
     - path: figures/fig_model_risks.svg
       hash: md5
-      md5: b52ff172a0485ed01356120e3e5490e6
+      md5: 8d06138fc39fce15b906e4739790dde7
       size: 116412
   plot-figures@model_state_dist:
     cmd: "python scripts/model_state_dist.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10328,16 +10328,16 @@ stages:
     outs:
     - path: figures/fig_model_state_dist.svg
       hash: md5
-      md5: 6a966b41b7e1c5d3dea083fc09f2417b
+      md5: 7121212675c45ec66cc38a8261b22526
       size: 49701
   plot-figures@data_strat:
     cmd: "python scripts/data_strat.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10357,16 +10357,16 @@ stages:
     outs:
     - path: figures/fig_data_strat.svg
       hash: md5
-      md5: 2c78f39b221892f0c39d5feb79b49b82
+      md5: f6a5a5f8c9950760a40656855ac1ec09
       size: 79707
   plot-figures@data_upset_ipsi:
     cmd: "python scripts/data_upset_ipsi.py\n"
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10386,7 +10386,7 @@ stages:
     outs:
     - path: figures/fig_data_upset_ipsi.svg
       hash: md5
-      md5: 8ea811e0b41499a34512cf229864fc6a
+      md5: 9114a8917ac5e0652d7a949d330371ed
       size: 37940
   plot-figures@data_strat_uncorr:
     cmd: "python scripts/data_strat_uncorr.py\n"
@@ -10472,9 +10472,9 @@ stages:
     deps:
     - path: models
       hash: md5
-      md5: e30a9ef0ae52f585197cc202edabacb0.dir
-      size: 1814318911
-      nfiles: 20
+      md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
+      size: 1812693247
+      nfiles: 17
     - path: requirements.txt
       hash: md5
       md5: e4258d0fd089db8429c8b411835b66af
@@ -10494,5 +10494,5 @@ stages:
     outs:
     - path: figures/fig_model_algebra_equation.svg
       hash: md5
-      md5: 68519078fa7bc20a3c041dcecf9ff597
+      md5: 7e8deaf549e595b724d16ea0be9ae8e6
       size: 65053
