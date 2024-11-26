@@ -606,34 +606,53 @@ For example, the model accurately predicts that contralateral LNL II involvement
 
 # Results: Prediction of Risk for Occult Disease {#sec-results-risk}
 
-For a clinical application of the model we are interested in the risk of occult metastases rather than the observed patterns of lymph node involvement. We want to estimate the risk for occult disease in clinically negative LNLs, given the patient's individual diagnosis. In terms of our model, the diagnosis consists of the T-category, the lateralization of the tumor (if it extend over the mid-sagittal plane), and which LNLs are clinically involved based on imaging and possibly fine needle aspiration (FNA). For the results shown in this section, we assume that involvement of a LNL is clinically diagnosed through imaging with a sensitivity of 81% and a specificity of 76% [@debondt_detection_2007]. For FNA we assume a specificity of 98% and a sensitivity of 80%. This amounts to the assumption that lymph node involvement confirmed by FNA is almost certainly true involvement, i.e. there are almost no false positive diagnoses.
+For clinical applications, the model needs to estimate the risk of occult metastases in clinically negative LNLs based on a patient's diagnosis. The diagnosis includes the T-category, tumor lateralization (whether it extends over the mid-sagittal plane), and the clinically detected involvement of LNLs based on imaging and possibly fine needle aspiration (FNA). 
 
-![Histograms over the predicted risk of occult involvement in contralateral LNL II (left), III (middle), and IV (right), shown for various combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, where assumed to be clinically negative (specificity 76%, sensitivity 81%).](figures/fig_model_risks.svg){#fig-model-risks}
+We assume imaging detects lymph node involvement with a sensitivity of 81% and a specificity of 76% [@debondt_detection_2007], while FNA has a sensitivity of 80% and a specificity of 98%. This implies that FNA-confirmed involvement is highly reliable, with almost no false positives. 
 
+![Histograms over the predicted risk of occult involvement in contralateral LNL II (left), III (middle), and IV (right), shown for various combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, were assumed to be clinically negative (specificity 76%, sensitivity 81%).](figures/fig_model_risks.svg){#fig-model-risks}
 
 ## Contralateral LNL II
 
-@Fig-model-risks (left panel) shows the predicted risk of occult disease in contralateral LNL II. The most important variable impacting the prediction for contralateral level II involvement in our model is the tumor's lateralization. A patient with a clearly lateralized early T-category tumor and clinically detected metastases in ipsilateral LNL II is predicted to have a 1-2% <!-- TODO: make this dynamic --> risk for occult disease in contralateral LNL II (green histogram). For a cN0 patient with a clearly lateralized early T-category tumor but *with* mid-sagittal extension, the risk increases to {{< var risk.early_ext_iN0_cN0_II >}}% (orange histogram).
+The predicted risk of occult disease in contralateral LNL II is shown in the left panel of @fig-model-risks. Tumor lateralization is the strongest determinant of risk. For example:  
 
-Also advanced T-category increases the risk of occult disease but plays a lesser role. Considering the scenario of an early T-category tumor that crosses the midline and an ipsilateral neck where the LNLs II and III are clinically involved, the risk for occult contralateral LNL II disease is around {{< var risk.early_ext_iII+III_cN0_II >}}% (red histogram). For the same scenario and an advanced T-category tumor, the risk increases to {{< var risk.late_ext_iII+III_cN0_II >}}% (purple histogram).
+- A patient with a lateralized early T-category tumor and ipsilateral LNL II involvement has a predicted risk of 1–2% <!-- TODO: make this dynamic --> for occult contralateral LNL II disease (green histogram).  
+- If the same tumor extends over the midline, the risk increases to {{< var risk.early_ext_iN0_cN0_II >}}% (orange histogram).  
 
-Lastly, the predicted risk of occult contralateral LNL II involvement also increases with the degree of ipsilateral involvement. When an early T-category patient with a tumor that extends over the mid-sagittal line presents with a clinically N0 ipsilateral neck instead of involvement in the levels II and III, the risk is {{< var risk.early_ext_iN0_cN0_II >}}% instead of {{< var risk.early_ext_iII+III_cN0_II >}}%.
+Advanced T-category further increases risk but has less impact than midline extension. For instance:  
 
-Taken together, for lateralized tumors, the risk of occult contralateral involvement remains low even for patients with advanced T-category tumors and ipsilateral involvement of LNLs II and III (blue histogram), making midline extension the main risk factor. However, advanced T-category and severe ipsilateral involvement may still considerably increase the predicted risk for contralateral involvement. 
+- An early T-category tumor crossing the midline with ipsilateral involvement of LNLs II and III has a {{< var risk.early_ext_iII+III_cN0_II >}}% risk of contralateral LNL II disease (red histogram).  
+- For the same scenario with an advanced T-category tumor, the risk rises to {{< var risk.late_ext_iII+III_cN0_II >}}% (purple histogram).  
 
+The degree of ipsilateral involvement also influences risk. For a midline-extending early T-category tumor, a clinically N0 ipsilateral neck predicts a risk of {{< var risk.early_ext_iN0_cN0_II >}}%, compared to {{< var risk.early_ext_iII+III_cN0_II >}}% when LNLs II and III are involved.  
 
-## Contralalteral LNL III
+In summary, midline extension is the primary risk factor for contralateral LNL II involvement, but advanced T-category and extensive ipsilateral involvement also contribute significantly. 
 
-As shown in the center subplot of @fig-model-risks, the risk for occult disease in the contralateral LNL III may only cross a 5% threshold if the upstream level II is clinically involved. Even for advanced T-category tumors extending over the midline with extensive ipsilateral involvement (green histogram), the risk of occult metastases in contralateral LNL III is only 2% <!-- TODO: make this dynamic --> if the upstream LNL II is clinically negative. For an advanced T-category tumors extending over the midline with clinical involvement of both ispilateral and contralateral LNL II involvement, the predicted risk in contralateral LNL III increases to 4-5% <!-- TODO: make this dynamic --> (blue histogram). If the clinical diagnosis of the contralateral upstream level II is pathologically confirmed by FNA the risk increases to {{< var risk.late_ext_iII_cII_FNA_III >}}% (red histogram). This is because the possibility that the clinical involvement in contralateral LNL II is a false positive diagnoses is almost excluded. If contralateral LNL II is involved, the predicted risk in contralateral LNL III is {{< var risk.late_noext_iII_cII_FNA_III >}}% even for lateralized tumors (orange histogram).
+## Contralateral LNL III
+
+As shown in the center panel of @fig-model-risks, the risk of occult contralateral LNL III involvement rarely exceeds 5% and depends strongly on upstream LNL II involvement:  
+
+- For an advanced T-category tumor extending over the midline with a clinically negative contralateral LNL II, the risk is only 2% <!-- TODO: make this dynamic --> (green histogram).  
+- If contralateral LNL II is clinically involved, the risk for contralateral LNL III rises to 4–5% <!-- TODO: make this dynamic --> (blue histogram).  
+- When contralateral LNL II involvement is confirmed by FNA, the risk further increases to {{< var risk.late_ext_iII_cII_FNA_III >}}% (red histogram).  
+
+Even for lateralized tumors, FNA-confirmed involvement in contralateral LNL II predicts a {{< var risk.late_noext_iII_cII_FNA_III >}}% risk for LNL III involvement (orange histogram). This highlights the importance of upstream LNL II involvement in determining the risk for LNL III.
 
 ## Contralateral LNL IV
 
-Our model's prediction for the risk in contralateral LNL IV is below 1% <!-- TODO: make this dynamic --> if the upstream LNL III is clinically negative, that even in the most extreme case of an advanced T-category tumor extending over the mid-sagittal line with metastases in the ipsilateral LNLs II-IV and the contralateral level II (green histogram). If additionally contralateral LNL III is clinically involved, the risk increases to {{< var risk.late_ext_iII+III+IV_cII+III_IV >}}% (blue histogram). Only when the involvement of the upstream level III is pathologically confirmed using FNA, we predict a substantially higher risk of {{< var risk.late_ext_iII+III+IV_cII+III_FNA_IV >}}% (orange histogram). This is because the prior probability for contralateral LNL III and IV involvement is so low that, even given a clinically positive diagnosis in LNL III, it is likely that the involvement in LNL III is a false possitive diagnosis both LNLs III and IV are negative. This possibility, however, is virtually excluded when the involvement in contralateral level III is confirmed by FNA.
+For contralateral LNL IV, the predicted risk is below 1% <!-- TODO: make this dynamic --> in most scenarios, even for advanced T-category tumors extending over the midline with extensive ipsilateral and contralateral involvement (green histogram).  
 
+- If contralateral LNL III is also clinically involved, the risk increases to {{< var risk.late_ext_iII+III+IV_cII+III_IV >}}% (blue histogram).  
+- When contralateral LNL III involvement is confirmed by FNA, the risk rises significantly to {{< var risk.late_ext_iII+III+IV_cII+III_FNA_IV >}}% (orange histogram).  
+
+This higher risk occurs because FNA confirmation eliminates the possibility of false-positive diagnoses for contralateral LNL III, strongly increasing the likelihood of downstream LNL IV involvement.
 
 ## Contralateral LNLs I, V, and VII
 
-Even for advanced T-category patients whose tumor crosses the midline and who present with extensive ipsi- and contralateral clinical involvement, the risk for involvement in the LNLs I and VII never exceeds 3%. Contralateral LNL V also shows only a very low risk for occult disease. Only in the extreme case of severe contralateral involvement including LNL IV, confirmed by FNA, the predicted risk is {{< var risk.late_ext_iI+II+III+IV+V+VII_cII+III+IV_FNA_V >}}%.
+Contralateral LNLs I, V, and VII show very low predicted risks for occult disease. Even in advanced T-category tumors extending over the midline with extensive ipsi- and contralateral involvement, the risk for LNLs I and VII remains below 3%.  
+
+For contralateral LNL V, the risk is negligible unless there is severe contralateral involvement, including LNL IV, confirmed by FNA. In such extreme cases, the risk increases to {{< var risk.late_ext_iI+II+III+IV+V+VII_cII+III+IV_FNA_V >}}%.
+
 
 
 # Discussion {#sec-discussion}
