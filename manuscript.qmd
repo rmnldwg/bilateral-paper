@@ -197,7 +197,6 @@ Midline extension, T-category, and ipsilateral involvement are interrelated risk
 
 The bottom right panel of @fig-data-strat isolates patients with lateralized tumors that do not cross the midline, further demonstrating these relationships. Among early T-category patients with no ipsilateral nodal involvement (levels I-V), only {{< var data.early_ipsin0_cII_percent >}}% ({{< var data.early_ipsin0_cII_match >}} of {{< var data.early_ipsin0_cII_total >}} patients) show involvement in contralateral level II. This proportion increases to {{< var data.early_ipsiII_cII_percent >}}% ({{< var data.early_ipsiII_cII_match >}} of {{< var data.early_ipsiII_cII_total >}}) if ipsilateral level II is involved, to {{< var data.early_ipsiIIandIII_cII_percent >}}% ({{< var data.early_ipsiIIandIII_cII_match >}} of {{< var data.early_ipsiIIandIII_cII_total >}}) if ipsilateral levels II and III are involved, and further to {{< var data.late_ipsiIIandIII_cII_percent >}}% ({{< var data.late_ipsiIIandIII_cII_match >}} of {{< var data.late_ipsiIIandIII_cII_total >}}) for advanced T-category tumors with ipsilateral levels II and III involved.
 
-
 ## Requirements for a Bilateral Model {#sec-requirements}
 
 Based on the observations in @sec-data-strat above, any model predicting the risk of contralateral nodal involvement should account for the following:
@@ -206,18 +205,9 @@ Based on the observations in @sec-data-strat above, any model predicting the ris
 2. **T-Category and Disease Progression:** Advanced T-category should correspond to an increased risk of nodal disease. This can be modeled using the expected time of diagnosis, as demonstrated in a prior hidden Markov model [@ludwig_hidden_2021].
 3. **Ipsilateral Involvement as a Progression Marker:** The extent of ipsilateral involvement should provide additional information on the time elapsed between disease onset and diagnosis, supplementing the insights gained from T-category alone.
 
-<!-- Over the course of this work, we will first briefly recap the HMM in @sec-unilateral, which was so far used to model ipsilateral lymphatic progression only. Then, we intuitively extend it to include the contralateral side as well in @sec-ext-to-contra. In this section, we also introduce a way of modelling the tumor's midline extension as a random variable (@sec-midline) and lastly talk about how it may affect the contralateral spread in @sec-params-symmetry. -->
-
-<!-- TODO: Hint at methods and results... -->
-
-
 # Unilateral Model for Lymphatic Progression {#sec-unilateral}
 
 This paper builds on the previously developed unilateral model for ipsilateral lymph node involvement presented in [@ludwig_modelling_2024]. Below, we briefly recap the unilateral model to introduce the notation required for extending the framework to a bilateral model, described in @sec-ext-to-contra. For further details on the ipsilateral model, refer to earlier publications [@ludwig_hidden_2021; @ludwig_modelling_2024].
-
-<!--
-Our first model to predict the lymphatic progression of HNSCC was introduced using Bayesian networks [@pouymayou_bayesian_2019]. We subsequently extended this work to a hidden Markov model (HMM) [@ludwig_hidden_2021] to allow an intuitive inclusion of T-category into the predictions. We will briefly summarize this HMM's formalism before building on it to include the contralateral spread in @sec-ext-to-contra.
--->
 
 We represent a patient’s state of involvement at an abstract time-step $t$ as a vector of hidden binary random variables, where each component corresponds to a lymph node level (LNL):
 
@@ -616,7 +606,7 @@ We assume imaging detects lymph node involvement with a sensitivity of 81% and a
 
 The predicted risk of occult disease in contralateral LNL II is shown in the left panel of @fig-model-risks. Tumor lateralization is the strongest determinant of risk. For example:  
 
-- A patient with a lateralized early T-category tumor and ipsilateral LNL II involvement has a predicted risk of 1–2% <!-- TODO: make this dynamic --> for occult contralateral LNL II disease (green histogram).  
+- A patient with a lateralized early T-category tumor and ipsilateral LNL II involvement has a predicted risk of {{< var risk.early_noext_iII_cN0_II >}}% for occult contralateral LNL II disease (green histogram).  
 - If the same tumor extends over the midline, the risk increases to {{< var risk.early_ext_iN0_cN0_II >}}% (orange histogram).  
 
 Advanced T-category further increases risk but has less impact than midline extension. For instance:  
@@ -632,15 +622,15 @@ In summary, midline extension is the primary risk factor for contralateral LNL I
 
 As shown in the center panel of @fig-model-risks, the risk of occult contralateral LNL III involvement rarely exceeds 5% and depends strongly on upstream LNL II involvement:  
 
-- For an advanced T-category tumor extending over the midline with a clinically negative contralateral LNL II, the risk is only 2% <!-- TODO: make this dynamic --> (green histogram).  
-- If contralateral LNL II is clinically involved, the risk for contralateral LNL III rises to 4–5% <!-- TODO: make this dynamic --> (blue histogram).  
+- For an advanced T-category tumor extending over the midline and with extensive clinical involvement in the ipsilateral LNLs II, III, and IV, but a clinically negative contralateral neck, the risk is only {{< var risk.late_ext_iII+III+IV_cN0_III >}}% (green histogram).  
+- If contralateral LNL II is clinically involved, the risk for contralateral LNL III rises to {{< var risk.late_ext_iII_cII_III >}}% (blue histogram).  
 - When contralateral LNL II involvement is confirmed by FNA, the risk further increases to {{< var risk.late_ext_iII_cII_FNA_III >}}% (red histogram).  
 
 Even for lateralized tumors, FNA-confirmed involvement in contralateral LNL II predicts a {{< var risk.late_noext_iII_cII_FNA_III >}}% risk for LNL III involvement (orange histogram). This highlights the importance of upstream LNL II involvement in determining the risk for LNL III.
 
 ## Contralateral LNL IV
 
-For contralateral LNL IV, the predicted risk is below 1% <!-- TODO: make this dynamic --> in most scenarios, even for advanced T-category tumors extending over the midline with extensive ipsilateral and contralateral involvement (green histogram).  
+For contralateral LNL IV, the predicted risk is below 1% in most scenarios, even for advanced T-category tumors extending over the midline with extensive ipsilateral and contralateral involvement (green histogram).  
 
 - If contralateral LNL III is also clinically involved, the risk increases to {{< var risk.late_ext_iII+III+IV_cII+III_IV >}}% (blue histogram).  
 - When contralateral LNL III involvement is confirmed by FNA, the risk rises significantly to {{< var risk.late_ext_iII+III+IV_cII+III_FNA_IV >}}% (orange histogram).  
