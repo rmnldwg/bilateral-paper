@@ -606,7 +606,7 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="368a2ed7" class="cell markdown">
+<div id="b1276455" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>In treating head and neck squamous cell carcinomas (HNSCC) with radiotherapy or surgery, both the primary tumor and clinically detected lymph node metastases are targeted. Current guidelines also include large portions of the neck in the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ctbased_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensitymodulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ctbased_2003" role="doc-biblioref">Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>, <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">2018</a>; <a href="#ref-eisbruch_intensitymodulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span> to mitigate the risk of regional recurrences from untreated microscopic disease undetectable by in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET). However, this approach must balance minimizing the risk of occult disease in the lymphatic drainage region against the toxicity of unnecessarily irradiating healthy tissue.</p>
@@ -785,7 +785,7 @@ Table&nbsp;1: Overview over the five datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="8b8690db" class="cell markdown">
+<div id="4aa413bd" class="cell markdown">
 <section id="sec-data-consensus" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-consensus">Consensus on Involvement Status</h2>
 <p>Pathological involvement is available only for surgically treated patients and for the levels that were dissected. For non-surgical patients, involvement status is determined clinically, i.e.&nbsp;using imaging. To ensure uniformity in analysis, diagnostic information was synthesized into a consensus decision for each patient and LNL. This consensus reflects the most likely state of involvement and accounts for the sensitivity and specificity of various diagnostic modalities, as reported in the literature <span class="citation" data-cites="debondt_detection_2007 kyzas_18ffluorodeoxyglucose_2008">(<a href="#ref-debondt_detection_2007" role="doc-biblioref">De Bondt et al. 2007</a>; <a href="#ref-kyzas_18ffluorodeoxyglucose_2008" role="doc-biblioref">Kyzas et al. 2008</a>)</span>.</p>
@@ -1229,7 +1229,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="ff62ed7e" class="cell markdown">
+<div id="7060b73e" class="cell markdown">
 <section id="illustration-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="illustration-of-the-model">Illustration of the model</h2>
 <p>In this subsection, we illustrate key aspects of the mathematical framework introduced earlier. The top panel of <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a> shows the prior distribution over diagnosis times, <span class="math inline">\(P(t)\)</span>. Based on the parameterization, early T-category tumors are on average diagnosed after 3 time steps, while advanced T-category tumors are diagnosed later, averaging 4.5 time steps. This is due to the learned value of <span class="math inline">\(p_\text{adv.}\)</span>, which is 44.98% for advanced T-category tumors. The tumor’s average probability per time step of growing over the midline, <span class="math inline">\(p_\epsilon\)</span>, was found to be 8.16%. Using this value, the conditional probability of midline extension, <span class="math inline">\(P(\epsilon \mid t)\)</span>, can be computed for a given time step <span class="math inline">\(t\)</span> (red line in the top panel of <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a>). The bottom panel visualizes the joint probability <span class="math inline">\(P(\epsilon, t)\)</span>, showing the likelihood of diagnosis at time <span class="math inline">\(t\)</span> with specific states of midline extension and T-category.</p>
@@ -1863,7 +1863,7 @@ Table&nbsp;4: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="fe8b7818" class="cell markdown">
+<div id="63c69d94" class="cell markdown">
 <section id="sec-prevalence-midext" class="level1 appendix">
 <h1 class="appendix">Prevalence of Midline Extension</h1>
 <!-- I moved this here, because we think this is probably irrelevant or distracting w.r.t. the main findings of the paper. But I do think it is somewhat interesting. -->
