@@ -659,39 +659,57 @@ For contralateral LNL V, the risk is negligible unless there is severe contralat
 
 ## Summary
 
-In this work we present a formalism to model the ipsi- and contralateral lymph node involvement in oropharyngeal SCC patients. An ipsilateral model has been previously developed and published [@ludwig_hidden_2021;@ludwig_modelling_2023]. Based on this, we introduce an extension that leaves the ipsilateral model unchanged, but extends it to the contralateral side in an intuitive and comprehensible manner. The model parameters are learned from a dataset of {{< var data.num_patients >}} patients from four institutions in whom ipsilateral and contralateral involvement was reported per per patient and LNL. The model takes the clincally diagnosed involvement of the LNLs and the primary tumor's T-category and lateralization into account when predicting the personalized risk for occult disease in any LNL of interest. Owing to the relatively few parameters, the model is highly interpretable and every parameter can be intuitively explained, while still being able to accurately describe the data on both ipsilateral and contralateral nodal involvement observed in the dataset.
+This work introduces a formalism to model ipsi- and contralateral lymph node involvement in oropharyngeal SCC patients. Building on a previously developed ipsilateral model [@ludwig_hidden_2021;@ludwig_modelling_2023], we extend it to the contralateral side while preserving the original model's structure. Our extension is both intuitive and interpretable, with parameters learned from a dataset of {{< var data.num_patients >}} patients across four institutions. The model uses clinically diagnosed LNL involvement, tumor T-category, and lateralization to provide personalized risk predictions for occult disease in any LNL of interest.
 
-To the best of our knowledge, this is the most comprehensive and detailed model of lymphatic tumor progression in oropharyngeal SCC available. The underlying data as well as the code is publicly available. While there was work on regional tumor spread, these models were conceptually different, more limited in the LNLs for which they make predictions, and not trained with real patient data [@benson_markov_2006;@jung_development_2017].
-
+Despite its relatively few parameters, the model is highly interpretable, with each parameter having a clear, intuitive explanation. At the same time, it effectively describes the observed data on ipsilateral and contralateral nodal involvement. To our knowledge, this represents the most comprehensive model of lymphatic tumor progression in oropharyngeal SCC, surpassing prior efforts, which were conceptually different, limited in scope, or not trained on real patient data [@benson_markov_2006;@jung_development_2017]. The underlying dataset and code are publicly available, supporting reproducibility and further development.
 
 ## Implications for Contralateral Elective Nodal Treatment
 
-The predictions of this model are being used to inform a clinical trial on volume deescalation at the University Hospital Zurich [@universityofzurich_personalized_2024]. When accepting a 5% risk of occult disease in any given LNL, the model suggests the following contralateral elective irradiation (assuming the respective LNL is clinically healthy):
+The model's predictions are already guiding a clinical trial on volume de-escalation at the University Hospital Zurich [@universityofzurich_personalized_2024]. Based on a 5% acceptable risk threshold for occult disease in any LNL, the model recommends the following approach for contralateral elective irradiation, assuming the respective LNL is clinically healthy:
 
-- For patients with lateralized tumors and without clinical involvement of contralateral LNLs, unilateral radiotherapy is performed. No contralateral LNLs are electively irradiated, irrespective of T-category and ipsilateral involvement.
-- For patients without clinical involvement of contralateral LNLs but with tumors extending over the midline, only LNL II is electively irradiated. 
-- LNL III is irradiated when LNL II is involved, irrespective of lateralization, T-category, and ipsilateral involvement. When the upstream LNL II is clinically negative, LNL III is not irradiated, except for the unlikely situation that contralateral LNL IV is involved.
-- Irradiate LNL IV only when the upstream level III is confirmed to be involved.
-- LNL V is not electively irradiated in most patients. Only in the most extreme cases, i.e., for advanced T-category tumors with midline extension and confirmed involvement of contralateral LNLs II to IV, LNL V may be irradiated.
-- LNLs I and VII are not irradiated unless clinically involved.
+- **Lateralized tumors with no contralateral clinical involvement:**  
+  Unilateral radiotherapy is sufficient, regardless of T-category or ipsilateral involvement.  
+- **Tumors extending over the midline with no contralateral clinical involvement:**  
+  Elective irradiation is limited to LNL II.  
+- **Contralateral LNL III:**  
+  Irradiate only if LNL II is involved, regardless of tumor lateralization, T-category, or ipsilateral involvement. If contralateral LNL II is clinically negative, LNL III is not irradiated unless LNL IV is involved.  
+- **Contralateral LNL IV:**  
+  Irradiate only when LNL III involvement is confirmed.  
+- **Contralateral LNL V:**  
+  Elective irradiation is generally unnecessary. Only in extreme cases, such as advanced T-category tumors with midline extension and confirmed contralateral involvement in LNLs II to IV, is irradiation of LNL V considered.  
+- **Contralateral LNLs I and VII:**  
+  Elective irradiation is not recommended unless these nodes are clinically involved.
 
-In essence, this is a summary of the results in @sec-results-risk. However, it should be considered in light of the limitations outlined in @sec-discussion-limitations below.
+These recommendations align with the model results discussed in @sec-results-risk, providing a basis for refined treatment guidelines. However, they should be interpreted in light of the limitations discussed in @sec-discussion-limitations below.
 
 
 ## Limitations and Future Work {#sec-discussion-limitations}
 
 ### T-Category Dependence
 
-The model has only one parameter, $p_\text{adv.}$, to describe differences in the patterns of involvement between early and advanced T-category. Higher involvement for advanced T-category is described by evolving the state of involvement overr a larger number of time-steps, while the probability of spread per time step, here the $b_v$ parameters, remains constant. Overall, the model captures the differences between early and advanced T-category very well as seen in @Fig-model-prevalences-overall. However, for some situations the observed difference between early vs advanced T-category in the data is greater or smaller than what our model predicts. This has previously been discussed for the involvement of ipsilateral LNL I [@ludwig_modelling_2023]. In the context of contralateral spread, the prevalence of midline extension is overestimated for early T-category tumors and underestimated for advanced T-category tumors, which is further discussed in @sec-prevalence-midext.
+The model uses a single parameter, $p_\text{adv.}$, to account for differences in lymph node involvement patterns between early and advanced T-category tumors. Advanced T-category tumors are modeled as evolving over more time steps, while the probability of spread per time step, governed by the $b_v$ parameters, remains constant. While this approach captures the overall differences between early and advanced T-category tumors well (as seen in @fig-model-prevalences-overall), it is not perfect. 
+
+For example:
+- The observed differences between early and advanced T-category tumors may sometimes be greater or smaller than the model's predictions. This has been previously noted for ipsilateral LNL I involvement [@ludwig_modelling_2023].
+- For contralateral spread, the prevalence of midline extension is slightly overestimated for early T-category tumors and underestimated for advanced T-category tumors, as discussed in @sec-prevalence-midext. 
 
 
 ### Sensitivity and Specificity
 
-As discussed in @sec-methods-consensus (and in more detail in @sec-consensus), we assumed for model training that the consensus across all diagnostic modalities represents the true state $X_v$ of lymph node involvement. This is appropriate for pathologically confirmed involvement but is an approximation for clinically diagnosed involvement, as the latter is - by definition - incapable of detecting occult disease. In principle, the model can be trained while  differentiating between pathologically confirmed and clinically diagnosed involvement, using a lower sensitivity and specificity for clinical diagnosis. This was not done here for two reasons: 1) this simplification allowed us to compare the observed prevalence of involvement to the model's prediction, and thereby investigate the model's capability to describe data with few interpretable parameters; and 2) the literature values for sensitivity and specificity of the diagnostic modalities are inconsistent with some aspects of the observed data. Future work may aim at developing novel concepts to rigorously differentiating between pathologically confirmed and clinically diagnosed involvement. 
+As noted in @sec-methods-consensus and further detailed in @sec-consensus, we assumed that the consensus across diagnostic modalities reflects the true state $X_v$ of lymph node involvement. While this assumption is reasonable for pathologically confirmed diagnoses, it is an approximation for clinically diagnosed involvement, which cannot detect occult disease by definition.
+
+The model could, in principle, distinguish between pathologically confirmed and clinically diagnosed involvement by incorporating different sensitivity and specificity values for each diagnostic modality. However, this was not implemented in the current work for two reasons:
+1. **Simplified evaluation:** This approximation allowed for direct comparison between the observed prevalence of involvement and the model's predictions, enabling an evaluation of the model's ability to describe the data with few interpretable parameters.
+2. **Inconsistent literature values:** Reported sensitivity and specificity values for diagnostic modalities show inconsistencies with some observed data patterns, complicating their integration into the model.  
+
+Future efforts could focus on developing methods to rigorously differentiate between pathologically confirmed and clinically diagnosed involvement, potentially improving model accuracy for clinical settings.
 
 ### Tumor Subsites
 
-Within the cohort of patients with oropharyngeal tumors, subgroups can be identified whose tumors are located in different subsites, e.g. at the base of the tongue or on the tonsils. The lymphatic metastatic spread patterns of these subgroups may differ slightly. If so, the model could benefit from more fine-grained information about the precise tumor subsite for its training and prediction. We have conducted preliminary work to show that a mixture model may be a promising approach to capture the subsite specific spread patterns [@_proceedings_2024, @zora231470]. The additionally represents an approach to extend the model towards tumor locations in the oral cavity, hypopharynx, and larynx.
+Oropharyngeal tumors occur in distinct subsites, such as the base of the tongue or the tonsils, which may exhibit slightly different lymphatic metastatic patterns. Incorporating subsite-specific information into the model could enhance its predictive accuracy. Preliminary investigations suggest that a mixture model may effectively capture these subsite-specific spread patterns [@_proceedings_2024; @zora231470]. 
+
+This approach could also facilitate extending the model to other tumor locations, such as the oral cavity, hypopharynx, and larynx. Including these additional tumor sites would broaden the model's applicability and improve its clinical utility for head and neck cancer patients.
+
 
 
 # Acknowledgement {.appendix}
