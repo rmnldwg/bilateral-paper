@@ -221,7 +221,9 @@ stages:
     - _variables.yml
     outs:
     - .output/manuscript.pdf
-    - .output/_tex/manuscript.tex
+    - .output/_tex/manuscript.tex:
+        persist: true
+        cache: false
     - manuscript.tex:
         persist: true
         cache: false
