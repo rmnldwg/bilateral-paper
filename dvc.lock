@@ -6099,8 +6099,8 @@ stages:
       nfiles: 11
     - path: manuscript.qmd
       hash: md5
-      md5: 744d23a491cf31963c917402fad72b48
-      size: 77480
+      md5: 360b1d179ad655bd1d1e6091876c30db
+      size: 77448
     - path: models
       hash: md5
       md5: e5e9cb7db556d61c0f5a4979001d5c4b.dir
@@ -6109,16 +6109,16 @@ stages:
     outs:
     - path: .output/_tex/manuscript.tex
       hash: md5
-      md5: 1d3eab34b9c02a1c6c01c7e0ff4b5ceb
-      size: 85610
+      md5: c864d5e469fdd0eb0edc8a3e10d7f515
+      size: 85802
     - path: .output/manuscript.pdf
       hash: md5
-      md5: c99347cb61e707306fe6bb6c438795fa
-      size: 923748
+      md5: 6c62bc21924fde1a65878556e49e4e67
+      size: 924363
     - path: manuscript.tex
       hash: md5
-      md5: 1d3eab34b9c02a1c6c01c7e0ff4b5ceb
-      size: 85610
+      md5: c864d5e469fdd0eb0edc8a3e10d7f515
+      size: 85802
   compute-priors@contra-base:
     cmd: "lyscripts compute priors --samples models/contra/samples.hdf5 --priors models/contra/priors.hdf5
       --params models/contra/params.yaml --scenarios scenarios/base.yaml\n"

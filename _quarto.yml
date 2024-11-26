@@ -54,20 +54,32 @@ authors:
       - ref: 2
   - name: Yoel Perez Haas
     email: yoel.perezhaas@usz.ch
-    corresponsing: false
+    corresponding: false
     affiliations:
       - ref: 1
+      - ref: 2
+  - name: Sergi Benavente
+    orcid: 0000-0002-2700-3522
+    email: sergi.benavente@vallhebron.cat
+    corresponding: false
+    affiliations:
+      - ref: 3
+  - name: Panagiotis Balermpas
+    orcid: 0000-0001-5261-6446
+    email: panagiotis.balermpas@usz.ch
+    corresponding: false
+    affiliations:
       - ref: 2
   - name: Jan Unkelbach
     orcid: 0000-0002-4275-990X
     email: jan.unkelbach@usz.ch
-    corresponsing: false
+    corresponding: false
     affiliations:
       - ref: 1
       - ref: 2
 affiliations:
   - id: 1
-    department: Department of Physics
+    department: Physics
     name: University of Zurich
     city: Zurich
     country: Switzerland
@@ -76,6 +88,11 @@ affiliations:
     name: University Hospital Zurich
     city: Zurich
     country: Switzerland
+  - id: 3
+    department: Radiation Oncology
+    name: University Hospital Vall d'Hebron
+    city: Barcelona
+    country: Spain
 bibliography: references.bib
 crossref:
   fig-prefix: "figure"
