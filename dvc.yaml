@@ -212,7 +212,6 @@ stages:
   render-pdf:
     cmd: >
       quarto render manuscript.qmd --to nature-pdf
-      && cp .output/_tex/manuscript.tex manuscript.tex
     deps:
     - models
     - figures
@@ -222,8 +221,5 @@ stages:
     outs:
     - .output/manuscript.pdf
     - .output/_tex/manuscript.tex:
-        persist: true
-        cache: false
-    - manuscript.tex:
         persist: true
         cache: false

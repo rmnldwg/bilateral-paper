@@ -6081,8 +6081,7 @@ stages:
       md5: 036a0288002f90e9db5b85402b463163
       size: 131872
   render-pdf:
-    cmd: "quarto render manuscript.qmd --to nature-pdf && cp .output/_tex/manuscript.tex
-      manuscript.tex\n"
+    cmd: "quarto render manuscript.qmd --to nature-pdf\n"
     deps:
     - path: _variables.yml
       hash: md5
@@ -6113,12 +6112,8 @@ stages:
       size: 85802
     - path: .output/manuscript.pdf
       hash: md5
-      md5: 6c62bc21924fde1a65878556e49e4e67
-      size: 924363
-    - path: manuscript.tex
-      hash: md5
-      md5: c864d5e469fdd0eb0edc8a3e10d7f515
-      size: 85802
+      md5: 6e2f7a423e0ba36c60e4053eeff6541f
+      size: 924368
   compute-priors@contra-base:
     cmd: "lyscripts compute priors --samples models/contra/samples.hdf5 --priors models/contra/priors.hdf5
       --params models/contra/params.yaml --scenarios scenarios/base.yaml\n"

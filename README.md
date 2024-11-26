@@ -119,5 +119,5 @@ quarto preview
 And now you should be able to read the beautifully displayed HTML version of our paper in you browser. For a LaTeX/PDF output, run this:
 
 ```sh
-quarto render --to pdf
+quarto render manuscript.qmd --to nature-pdf
 ```

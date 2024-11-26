@@ -2,7 +2,7 @@ project:
   type: manuscript
   output-dir: .output
   render: 
-    - "*.qmd"
+    - manuscript.qmd
   preview: 
     browser: false
     port: 8000
@@ -22,8 +22,6 @@ manuscript:
 
 # which formats should be rendered?
 format:
-  html:
-    toc: true
   nature-pdf:
     journal:
       cite-style: sn-mathphys-num
@@ -34,6 +32,12 @@ format:
     - text: |
         \usepackage{multirow}
         \usepackage{centernot}
+  docx:
+    toc: true
+    number-sections: true
+    highlight-style: github
+  html:
+    toc: true
 
 # how to execute the python code?
 jupyter: python3
