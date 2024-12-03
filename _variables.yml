@@ -27,121 +27,121 @@ sampling:
 ########################################################################################
 # Below the dynamically computed values are inserted
 data:
-  early_ipsiII_cII_match: 14
-  early_ipsiII_cII_percent: 6.73
-  early_ipsiII_cII_total: 208
-  early_ipsiIIandIII_cII_match: 10
-  early_ipsiIIandIII_cII_percent: 14.29
-  early_ipsiIIandIII_cII_total: 70
-  early_ipsin0_cII_match: 2
-  early_ipsin0_cII_percent: 1.85
-  early_ipsin0_cII_total: 108
-  early_nomidext_cII_match: 27
-  early_nomidext_cII_percent: 7.12
-  early_nomidext_cII_total: 379
+  early_lateral_cII_match: 27
+  early_lateral_cII_percent: 7.1
+  early_lateral_cII_total: 379
+  early_lateral_ipsiII_cII_match: 24
+  early_lateral_ipsiII_cII_percent: 8.8
+  early_lateral_ipsiII_cII_total: 272
+  early_lateral_ipsiIIandIII_cII_match: 14
+  early_lateral_ipsiIIandIII_cII_percent: 15.7
+  early_lateral_ipsiIIandIII_cII_total: 89
+  early_lateral_ipsin0_cII_match: 1
+  early_lateral_ipsin0_cII_percent: 1.2
+  early_lateral_ipsin0_cII_total: 86
   early_with_midext_match: 29
-  early_with_midext_percent: 6.13
+  early_with_midext_percent: 6.1
   early_with_midext_total: 473
-  late_ipsiIIandIII_cII_match: 25
-  late_ipsiIIandIII_cII_percent: 39.68
-  late_ipsiIIandIII_cII_total: 63
+  late_lateral_ipsiIIandIII_cII_match: 12
+  late_lateral_ipsiIIandIII_cII_percent: 22.2
+  late_lateral_ipsiIIandIII_cII_total: 54
   late_with_midext_match: 164
-  late_with_midext_percent: 45.56
+  late_with_midext_percent: 45.6
   late_with_midext_total: 360
   num_patients: 833
 model:
   early_expected_time: 3.0
   late_expected_time: 4.5
   params:
-    IIItoIV_spread: 0.16
-    IItoIII_spread: 0.14
-    IVtoV_spread: 0.15
-    ItoII_spread: 0.62
+    IIItoIV_spread: 0.2
+    IItoIII_spread: 0.1
+    IVtoV_spread: 0.1
+    ItoII_spread: 0.6
     contra_TtoIII_spread: 0.0
-    contra_TtoII_spread: 0.02
+    contra_TtoII_spread: 0.0
     contra_TtoIV_spread: 0.0
     contra_TtoI_spread: 0.0
     contra_TtoVII_spread: 0.0
     contra_TtoV_spread: 0.0
-    ipsi_TtoIII_spread: 0.05
-    ipsi_TtoII_spread: 0.35
-    ipsi_TtoIV_spread: 0.01
-    ipsi_TtoI_spread: 0.03
-    ipsi_TtoVII_spread: 0.02
-    ipsi_TtoV_spread: 0.02
-    late_p: 0.45
-    midext_prob: 0.08
-    mixing: 0.34
+    ipsi_TtoIII_spread: 0.1
+    ipsi_TtoII_spread: 0.3
+    ipsi_TtoIV_spread: 0.0
+    ipsi_TtoI_spread: 0.0
+    ipsi_TtoVII_spread: 0.0
+    ipsi_TtoV_spread: 0.0
+    late_p: 0.4
+    midext_prob: 0.1
+    mixing: 0.3
   params_percent:
-    IIItoIV_spread: 15.86
-    IItoIII_spread: 14.23
-    IVtoV_spread: 14.58
+    IIItoIV_spread: 15.9
+    IItoIII_spread: 14.2
+    IVtoV_spread: 14.6
     ItoII_spread: 62.5
-    contra_TtoIII_spread: 0.14
-    contra_TtoII_spread: 2.46
-    contra_TtoIV_spread: 0.19
-    contra_TtoI_spread: 0.29
+    contra_TtoIII_spread: 0.1
+    contra_TtoII_spread: 2.5
+    contra_TtoIV_spread: 0.2
+    contra_TtoI_spread: 0.3
     contra_TtoVII_spread: 0.5
-    contra_TtoV_spread: 0.05
-    ipsi_TtoIII_spread: 5.45
-    ipsi_TtoII_spread: 34.89
-    ipsi_TtoIV_spread: 0.94
+    contra_TtoV_spread: 0.1
+    ipsi_TtoIII_spread: 5.5
+    ipsi_TtoII_spread: 34.9
+    ipsi_TtoIV_spread: 0.9
     ipsi_TtoI_spread: 2.8
-    ipsi_TtoVII_spread: 2.32
-    ipsi_TtoV_spread: 1.83
-    late_p: 44.98
-    midext_prob: 8.16
-    mixing: 33.87
+    ipsi_TtoVII_spread: 2.3
+    ipsi_TtoV_spread: 1.8
+    late_p: 45.0
+    midext_prob: 8.2
+    mixing: 33.9
 prevalence:
   early_ext_iN0_cII:
-    observed: 20.69
+    observed: 20.7
     predicted: 31.3
   early_ext_iN0_cIII:
-    observed: 17.24
-    predicted: 9.43
+    observed: 17.2
+    predicted: 9.4
   early_ext_iN0_cIV:
-    observed: 3.45
-    predicted: 2.58
+    observed: 3.4
+    predicted: 2.6
   early_noext_iN0_cII:
-    observed: 7.12
+    observed: 7.1
     predicted: 7.1
   early_noext_iN0_cIII:
-    observed: 1.32
-    predicted: 1.55
+    observed: 1.3
+    predicted: 1.5
   early_noext_iN0_cIV:
-    observed: 1.06
-    predicted: 0.73
+    observed: 1.1
+    predicted: 0.7
   late_ext_iN0_cII:
-    observed: 40.85
-    predicted: 39.17
+    observed: 40.9
+    predicted: 39.2
   late_ext_iN0_cIII:
-    observed: 14.02
-    predicted: 14.25
+    observed: 14.0
+    predicted: 14.2
   late_ext_iN0_cIV:
-    observed: 5.49
+    observed: 5.5
     predicted: 4.4
   late_noext_iN0_cII:
-    observed: 11.93
-    predicted: 10.72
+    observed: 11.9
+    predicted: 10.7
   late_noext_iN0_cIII:
-    observed: 3.98
-    predicted: 3.11
+    observed: 4.0
+    predicted: 3.1
   late_noext_iN0_cIV:
-    observed: 2.27
-    predicted: 1.37
+    observed: 2.3
+    predicted: 1.4
 risk:
-  early_ext_iII+III_cN0_II: 9.06
-  early_ext_iN0_cN0_II: 7.58
-  early_noext_iII_cN0_II: 1.55
-  late_ext_iI+II+III+IV+V+VII_cII+III+IV+V_I: 2.04
-  late_ext_iI+II+III+IV+V+VII_cII+III+IV+V_VII: 1.52
-  late_ext_iI+II+III+IV+V+VII_cII+III+IV_FNA_V: 5.49
-  late_ext_iII+III+IV_cII+III_FNA_IV: 5.68
-  late_ext_iII+III+IV_cII+III_IV: 2.81
-  late_ext_iII+III+IV_cII_IV: 0.69
-  late_ext_iII+III+IV_cN0_III: 2.07
-  late_ext_iII+III_cN0_II: 11.25
-  late_ext_iII_cII_FNA_III: 6.94
-  late_ext_iII_cII_III: 4.77
-  late_noext_iII+III_cN0_II: 2.34
-  late_noext_iII_cII_FNA_III: 5.58
+  early_ext_iII+III_cN0_II: 9.1
+  early_ext_iN0_cN0_II: 7.6
+  early_noext_iII_cN0_II: 1.6
+  late_ext_iI+II+III+IV+V+VII_cII+III+IV+V_I: 2.0
+  late_ext_iI+II+III+IV+V+VII_cII+III+IV+V_VII: 1.5
+  late_ext_iI+II+III+IV+V+VII_cII+III+IV_FNA_V: 5.5
+  late_ext_iII+III+IV_cII+III_FNA_IV: 5.7
+  late_ext_iII+III+IV_cII+III_IV: 2.8
+  late_ext_iII+III+IV_cII_IV: 0.7
+  late_ext_iII+III+IV_cN0_III: 2.1
+  late_ext_iII+III_cN0_II: 11.3
+  late_ext_iII_cII_FNA_III: 6.9
+  late_ext_iII_cII_III: 4.8
+  late_noext_iII+III_cN0_II: 2.3
+  late_noext_iII_cII_FNA_III: 5.6

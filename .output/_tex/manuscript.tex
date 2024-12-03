@@ -342,7 +342,7 @@ midline extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_561f9}\tabularnewline
+\caption{}\label{T_20ee3}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -462,8 +462,8 @@ Factors}\label{interplay-of-risk-factors}
 
 Midline extension, T-category, and ipsilateral involvement are
 interrelated risk factors for contralateral metastasis. For instance,
-45.56\% of advanced T-category tumors exhibit midline extension compared
-to 6.13\% of early T-category tumors. While the higher fraction of
+45.6\% of advanced T-category tumors exhibit midline extension compared
+to 6.1\% of early T-category tumors. While the higher fraction of
 midline extensions in advanced T-category patients partially accounts
 for the higher contralateral metastasis rates, T-category itself and
 ipsilateral involvement also play an additional role.
@@ -471,11 +471,11 @@ ipsilateral involvement also play an additional role.
 The bottom right panel of figure~\ref{fig-data-strat} isolates patients
 with lateralized tumors that do not cross the midline, further
 demonstrating these relationships. Among early T-category patients with
-no ipsilateral nodal involvement (levels I-V), only 1.85\% (2 of 108
+no ipsilateral nodal involvement (levels I-V), only 1.2\% (1 of 86
 patients) show involvement in contralateral level II. This proportion
-increases to 6.73\% (14 of 208) if ipsilateral level II is involved, to
-14.29\% (10 of 70) if ipsilateral levels II and III are involved, and
-further to 39.68\% (25 of 63) for advanced T-category tumors with
+increases to 8.8\% (24 of 272) if ipsilateral level II is involved, to
+15.7\% (14 of 89) if ipsilateral levels II and III are involved, and
+further to 22.2\% (12 of 54) for advanced T-category tumors with
 ipsilateral levels II and III involved.
 
 \subsection{Requirements for a Bilateral Model}\label{sec-requirements}
@@ -1077,7 +1077,7 @@ For example, we may assess contralateral LNL II involvement prevalence
 under early T-category (T0-T2) and no midline extension
 (\(\epsilon=\texttt{False}\)). In the data, 379 such patients were
 observed, with 27 exhibiting contralateral LNL II involvement -- a
-prevalence of 7.12\%.
+prevalence of 7.1\%.
 
 To visualize the data prevalence, we plot a \emph{beta posterior} over
 the true prevalence \(q\). It is the result of a uniform beta prior over
@@ -1138,7 +1138,7 @@ and the time prior parameter for early T-category patients
 
 \tabularnewline
 
-\caption{}\label{T_d0076}\tabularnewline
+\caption{}\label{T_651fd}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1184,9 +1184,9 @@ diagnosis times, \(P(t)\). Based on the parameterization, early
 T-category tumors are on average diagnosed after 3 time steps, while
 advanced T-category tumors are diagnosed later, averaging 4.5 time
 steps. This is due to the learned value of \(p_\text{adv.}\), which is
-44.98\% for advanced T-category tumors. The tumor's average probability
-per time step of growing over the midline, \(p_\epsilon\), was found to
-be 8.16\%. Using this value, the conditional probability of midline
+45\% for advanced T-category tumors. The tumor's average probability per
+time step of growing over the midline, \(p_\epsilon\), was found to be
+8.2\%. Using this value, the conditional probability of midline
 extension, \(P(\epsilon \mid t)\), can be computed for a given time step
 \(t\) (red line in the top panel of figure~\ref{fig-model-midext-evo}).
 The bottom panel visualizes the joint probability \(P(\epsilon, t)\),
@@ -1326,10 +1326,10 @@ Figure~\ref{fig-model-prevalences-overall} demonstrates the model's
 ability to account for key risk factors, such as T-category and midline
 extension. Consistent with the data, the model predicts that the
 prevalence of contralateral LNL II involvement increases from 7.1\% for
-early T-category lateralized tumors to 39.17\% for advanced T-category
+early T-category lateralized tumors to 39.2\% for advanced T-category
 tumors that cross the midline. Similarly, contralateral LNL III
-involvement rises from around 1.55\% for early T-category lateralized
-tumors to nearly 14.25\% for advanced T-category midline-extending
+involvement rises from around 1.5\% for early T-category lateralized
+tumors to nearly 14.2\% for advanced T-category midline-extending
 tumors.
 
 \subsubsection{Influence of Upstream Involvement on Contralateral
@@ -1449,11 +1449,11 @@ the strongest determinant of risk. For example:
 \tightlist
 \item
   A patient with a lateralized early T-category tumor and ipsilateral
-  LNL II involvement has a predicted risk of 1.55\% for occult
+  LNL II involvement has a predicted risk of 1.6\% for occult
   contralateral LNL II disease (green histogram).\\
 \item
   If the same tumor extends over the midline, the risk increases to
-  7.58\% (orange histogram).
+  7.6\% (orange histogram).
 \end{itemize}
 
 Advanced T-category further increases risk but has less impact than
@@ -1463,16 +1463,16 @@ midline extension. For instance:
 \tightlist
 \item
   An early T-category tumor crossing the midline with ipsilateral
-  involvement of LNLs II and III has a 9.06\% risk of contralateral LNL
+  involvement of LNLs II and III has a 9.1\% risk of contralateral LNL
   II disease (red histogram).\\
 \item
   For the same scenario with an advanced T-category tumor, the risk
-  rises to 11.25\% (purple histogram).
+  rises to 11.3\% (purple histogram).
 \end{itemize}
 
 The degree of ipsilateral involvement also influences risk. For a
 midline-extending early T-category tumor, a clinically N0 ipsilateral
-neck predicts a risk of 7.58\%, compared to 9.06\% when LNLs II and III
+neck predicts a risk of 7.6\%, compared to 9.1\% when LNLs II and III
 are involved.
 
 In summary, midline extension is the primary risk factor for
@@ -1491,19 +1491,19 @@ depends strongly on upstream LNL II involvement:
   For an advanced T-category tumor extending over the midline and with
   extensive clinical involvement in the ipsilateral LNLs II, III, and
   IV, but a clinically negative contralateral neck, the risk is only
-  2.07\% (green histogram).\\
+  2.1\% (green histogram).\\
 \item
   If contralateral LNL II is clinically involved, the risk for
-  contralateral LNL III rises to 4.77\% (blue histogram).\\
+  contralateral LNL III rises to 4.8\% (blue histogram).\\
 \item
   When contralateral LNL II involvement is confirmed by FNA, the risk
-  further increases to 6.94\% (red histogram).
+  further increases to 6.9\% (red histogram).
 \end{itemize}
 
 Even for lateralized tumors, FNA-confirmed involvement in contralateral
-LNL II predicts a 5.58\% risk for LNL III involvement (orange
-histogram). This highlights the importance of upstream LNL II
-involvement in determining the risk for LNL III.
+LNL II predicts a 5.6\% risk for LNL III involvement (orange histogram).
+This highlights the importance of upstream LNL II involvement in
+determining the risk for LNL III.
 
 \subsection{Contralateral LNL IV}\label{contralateral-lnl-iv}
 
@@ -1516,10 +1516,10 @@ histogram).
 \tightlist
 \item
   If contralateral LNL III is also clinically involved, the risk
-  increases to 2.81\% (blue histogram).\\
+  increases to 2.8\% (blue histogram).\\
 \item
   When contralateral LNL III involvement is confirmed by FNA, the risk
-  rises significantly to 5.68\% (orange histogram).
+  rises significantly to 5.7\% (orange histogram).
 \end{itemize}
 
 This higher risk occurs because FNA confirmation eliminates the
@@ -1536,7 +1536,7 @@ LNLs I and VII remains below 3\%.
 
 For contralateral LNL V, the risk is negligible unless there is severe
 contralateral involvement, including LNL IV, confirmed by FNA. In such
-extreme cases, the risk increases to 5.49\%.
+extreme cases, the risk increases to 5.5\%.
 
 \section{Discussion}\label{sec-discussion}
 
@@ -1767,7 +1767,7 @@ healthy.}
 
 \tabularnewline
 
-\caption{}\label{T_7a9be}\tabularnewline
+\caption{}\label{T_9c098}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%

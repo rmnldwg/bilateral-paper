@@ -188,6 +188,7 @@ stages:
       --prevalence_hdf5 models/full/prevalences_overall.hdf5
       --prevalence_scenarios scenarios/overall.yaml
       --output _variables.dynamic.yml
+      --precision 1
     deps:
     - scripts/compile_variables.py
     - data/reduced.csv

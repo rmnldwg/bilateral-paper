@@ -138,27 +138,29 @@ def main():
 
     late = lateral[lateral[shared.COL.t_stage] > 2]
     late_II = late[late["max_llh", "ipsi", "II"] == True]
+    late_II_and_III = late_II[late["max_llh", "ipsi", "III"] == True]
 
     early_n0 = early_n0[shared.CONTRA_LNLS]["max_llh", "contra"].mean(axis=0)
     early_II = early_II[shared.CONTRA_LNLS]["max_llh", "contra"].mean(axis=0)
     early_II_and_III = early_II_and_III[shared.CONTRA_LNLS]["max_llh", "contra"].mean(axis=0)
     late_II = late_II[shared.CONTRA_LNLS]["max_llh", "contra"].mean(axis=0)
+    late_II_and_III = late_II_and_III[shared.CONTRA_LNLS]["max_llh", "contra"].mean(axis=0)
 
     pos = np.arange(len(early_n0))
     kwargs = {"width": 0.6, "zorder": 2}
 
     uncorr_ax.bar(
         x=pos+0.2,
-        height=100 * early_II_and_III,
+        height=100 * late_II_and_III,
         color=COLORS["red"],
-        label="early; ipsi II and III",
+        label="late; ipsi II and III",
         **kwargs,
     )
     uncorr_ax.bar(
         x=pos+0.1,
-        height=100 * late_II,
+        height=100 * early_II_and_III,
         color=COLORS["orange"],
-        label="late; ipsi II",
+        label="early; ipsi II and III",
         **kwargs,
     )
     uncorr_ax.bar(

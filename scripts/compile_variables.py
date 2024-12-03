@@ -140,20 +140,8 @@ def get_data_variables(precision: int = 2) -> dict[str, Any]:
         & Q(("max_llh", "ipsi", "IV"), "==", False)
         & Q(("max_llh", "ipsi", "V"), "==", False)
     )
-    is_iII_involved = (
-        Q(("max_llh", "ipsi", "I"), "==", False)
-        & Q(("max_llh", "ipsi", "II"), "==", True)
-        & Q(("max_llh", "ipsi", "III"), "==", False)
-        & Q(("max_llh", "ipsi", "IV"), "==", False)
-        & Q(("max_llh", "ipsi", "V"), "==", False)
-    )
-    is_iIIandIII_involved = (
-        Q(("max_llh", "ipsi", "I"), "==", False)
-        & Q(("max_llh", "ipsi", "II"), "==", True)
-        & Q(("max_llh", "ipsi", "III"), "==", True)
-        & Q(("max_llh", "ipsi", "IV"), "==", False)
-        & Q(("max_llh", "ipsi", "V"), "==", False)
-    )
+    is_iII_involved = Q(("max_llh", "ipsi", "II"), "==", True)
+    is_iIII_involved = Q(("max_llh", "ipsi", "III"), "==", True)
 
     variables.update(variables_from_portion(
         key="early_with_midext",
@@ -167,39 +155,39 @@ def get_data_variables(precision: int = 2) -> dict[str, Any]:
     ))
 
     variables.update(variables_from_portion(
-        key="early_ipsin0_cII",
+        key="early_lateral_ipsin0_cII",
         portion=data.ly.portion(
             query=is_cII_involved,
-            given=is_early & is_ipsi_healthy,
+            given=is_early & not_has_midext & is_ipsi_healthy,
         ),
         precision=precision,
     ))
     variables.update(variables_from_portion(
-        key="early_ipsiII_cII",
+        key="early_lateral_ipsiII_cII",
         portion=data.ly.portion(
             query=is_cII_involved,
-            given=is_early & is_iII_involved,
+            given=is_early & not_has_midext & is_iII_involved,
         ),
         precision=precision,
     ))
     variables.update(variables_from_portion(
-        key="early_ipsiIIandIII_cII",
+        key="early_lateral_ipsiIIandIII_cII",
         portion=data.ly.portion(
             query=is_cII_involved,
-            given=is_early & is_iIIandIII_involved,
+            given=is_early & not_has_midext & is_iII_involved & is_iIII_involved,
         ),
         precision=precision,
     ))
     variables.update(variables_from_portion(
-        key="late_ipsiIIandIII_cII",
+        key="late_lateral_ipsiIIandIII_cII",
         portion=data.ly.portion(
             query=is_cII_involved,
-            given=is_late & is_iIIandIII_involved,
+            given=is_late & not_has_midext & is_iII_involved & is_iIII_involved,
         ),
         precision=precision,
     ))
     variables.update(variables_from_portion(
-        key="early_nomidext_cII",
+        key="early_lateral_cII",
         portion=data.ly.portion(
             query=is_cII_involved,
             given=is_early & not_has_midext,
