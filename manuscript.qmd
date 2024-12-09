@@ -692,11 +692,12 @@ This approach could also facilitate extending the model to other tumor locations
 
 # Acknowledgement {.appendix}
 
-This work was supported by:
+We want to thank the research group around Vincent Grégoire from the Centre Léon Bérard in Lyon (France) and Roland Giger's group from the Inselspital in Bern (Switzerland) for collecting, curating, and publishing their data on lymphatic progression patterns. Without their pathologically assessed data on nodal involvement, we could not have trained and validated our model with a large and representative cohort.
+
+Further, this work was supported by:
 
 - the Clinical Research Priority Program "Artificial Intelligence in Oncological Imaging" of the University of Zurich
 - the Swiss Cancer Research Foundation under grant number KFS 5645-08-2022
-
 
 # Consensus on most likely involvement {#sec-consensus .appendix}
 
