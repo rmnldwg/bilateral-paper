@@ -27,6 +27,9 @@ sampling:
 ########################################################################################
 # Below the dynamically computed values are inserted
 data:
+  early_lateral_cIII_match: 1
+  early_lateral_cIII_percent: 0.3
+  early_lateral_cIII_total: 379
   early_lateral_cII_match: 27
   early_lateral_cII_percent: 7.1
   early_lateral_cII_total: 379
@@ -39,6 +42,9 @@ data:
   early_lateral_ipsin0_cII_match: 1
   early_lateral_ipsin0_cII_percent: 1.2
   early_lateral_ipsin0_cII_total: 86
+  early_with_midext_cII_match: 6
+  early_with_midext_cII_percent: 20.7
+  early_with_midext_cII_total: 29
   early_with_midext_match: 29
   early_with_midext_percent: 6.1
   early_with_midext_total: 473
@@ -48,6 +54,9 @@ data:
   late_with_midext_match: 164
   late_with_midext_percent: 45.6
   late_with_midext_total: 360
+  late_with_midext_upstream_cIII_match: 19
+  late_with_midext_upstream_cIII_percent: 11.6
+  late_with_midext_upstream_cIII_total: 164
   num_patients: 833
 model:
   early_expected_time: 3.0

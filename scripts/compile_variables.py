@@ -133,6 +133,7 @@ def get_data_variables(precision: int = 2) -> dict[str, Any]:
     has_midext = Q("midext", "==", True)
     not_has_midext = Q("midext", "==", False)
     is_cII_involved = Q(("max_llh", "contra", "II"), "==", True)
+    is_cIII_involved = Q(("max_llh", "contra", "III"), "==", True)
     is_ipsi_healthy = (
         Q(("max_llh", "ipsi", "I"), "==", False)
         & Q(("max_llh", "ipsi", "II"), "==", False)
@@ -175,6 +176,30 @@ def get_data_variables(precision: int = 2) -> dict[str, Any]:
         portion=data.ly.portion(
             query=is_cII_involved,
             given=is_early & not_has_midext & is_iII_involved & is_iIII_involved,
+        ),
+        precision=precision,
+    ))
+    variables.update(variables_from_portion(
+        key="early_with_midext_cII",
+        portion=data.ly.portion(
+            query=is_cII_involved,
+            given=is_early & has_midext,
+        ),
+        precision=precision,
+    ))
+    variables.update(variables_from_portion(
+        key="early_lateral_cIII",
+        portion=data.ly.portion(
+            query=is_cIII_involved & ~is_cII_involved,
+            given=is_early & not_has_midext,
+        ),
+        precision=precision,
+    ))
+    variables.update(variables_from_portion(
+        key="late_with_midext_upstream_cIII",
+        portion=data.ly.portion(
+            query=is_cIII_involved & is_cII_involved,
+            given=is_late & has_midext,
         ),
         precision=precision,
     ))
