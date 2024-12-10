@@ -741,7 +741,7 @@ This method of computing a consensus also ensures that the pathology reports alw
 ```{python}
 #| echo: false
 #| label: tbl-data-strat
-#| tbl-cap: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal plane, the T-category, and whether the ipsilateral LNL III was involved or healthy.
+#| tbl-cap: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal plane, the T-category, and how many ipsilateral LNLs were involved.
 lnl_cols = get_lnl_cols("contra", lnls=["I", "II", "III", "IV"])
 num_ipsi_inv = raw[get_lnl_cols("ipsi")].sum(axis="columns")
 
@@ -795,15 +795,11 @@ involved["total", "n"] = total["I"]
 
 # Prevalence of Midline Extension {#sec-prevalence-midext .appendix}
 
-<!-- I moved this here, because we think this is probably irrelevant or distracting w.r.t. the main findings of the paper. But I do think it is somewhat interesting. -->
-
 ![Comparing the predicted (histograms) and observed (lines depicting beta posteriors) prevalence of midline extension for early (blue) and late (orange) T-category. While the prevalence is predicted correctly when marginalizing over T-category, the model cannot capture the degree of separation observed in the data. Since the tumor's midline extension is virtually always part of the diagnosis and hence *given* when predicting a patient's risk, we do not consider this discrepancy a major issue.](figures/fig_model_prevalences_midext.svg){#fig-model-prevalences-midext width="50%"}
 
-In @fig-model-prevalences-midext, we plot the prevalence of midline extension in the data versus our model's prediction. It is obvious the model cannot match the large spread between early and advanced T-category seen in the data. This is because to achieve that, it would need to increase the advanced T-category patient's prior distribution over diagnosis times and at the same time reduce the probability of the tumor to cross the midline during a time-step. But since the time-priors parameter is also coupled with the spread probabilities among the LNLs, the model does not have that freedom.
+In @fig-model-prevalences-midext, we plot the prevalence of midline extension in the data versus our model's prediction. The model adjusts the parameter $p_\epsilon$ to correctly predict the overall proportion of patients with midline extension, but it cannot match the large spread between early and advanced T-category seen in the data. To achieve that, the model would need to increase $p_\text{adv.}$ and decrease $p_\epsilon$. But since the parameter $p_\text{adv.}$ also determines the differences in LNL involvement between early and advanced T-category, the model does not have that freedom.
 
-<!-- Should the paragraphs below be part of the discussion? -->
-
-However, we do not consider this discrepancy a major limitation of the model: We will not realistically be interested in the probability of midline extension, as it is always possible to assess it with high certainty. That is also the reason why we initially modelled the midline extension *not* as a random variable, but as a global risk factor that would have been turned on or off from the onset of a patient's disease evolution. This, however, lead to overly high risks for contralateral involvement in advanced T-category patients with midline extension, because then the model assumes an increased spread to the contralateral side from the onset of the disease. Which is probably not true in a majority of those cases. Thus, treating it as a random variable that only becomes true during a patient's disease evolution resulted in a better description of the data.
+However, we do not consider this discrepancy a major limitation of the model: In a practical application of the model we are not interested in the probability of midline extension, as it is always possible to assess it with high certainty for the patient at hand. That is also the reason why we initially modelled the midline extension *not* as a random variable, but as a global risk factor that would have been turned on or off from the onset of a patient's disease evolution. This, however, lead to overly high risks for contralateral involvement in advanced T-category patients with midline extension, because then the model assumes an increased spread to the contralateral side from the onset of the disease. Which is probably not true in a majority of those cases. Thus, treating it as a random variable that only becomes true during a patient's disease evolution resulted in a better description of the data.
 
 Formally, the wrong prediction of midline extension prevalence makes little difference, since it is always given: Instead of $P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right)$, we typically compute $P\left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c}, \epsilon \right)$, which does not suffer from the wrong probability of midline extension, as the distribution over hidden states is renormalized:
 
@@ -812,5 +808,3 @@ P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mat
 $$
 
 Note that a distribution over $\epsilon$ appears both in the enumerator and the denominator, which largely cancel each other, leaving only the midline extension's effect on the distribution over hidden states in the prediction.
-
-Also, the discrepancy in midline extension prevalence between early and advanced T-category is particularly pronounced in oropharyngeal SCC patients. For example, in oral cavity SCC, the midline extension only increases from 15.4% (20 out of 130) to 33.3% (13 out of 39).
