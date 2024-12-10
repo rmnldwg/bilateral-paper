@@ -564,8 +564,8 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <h1>Data on Lymphatic Progression Patterns</h1>
 <p>To develop models for lymphatic tumor progression for all relevant LNLs, including contralateral regions, we compiled a detailed dataset of 833 patients with newly diagnosed oropharyngeal squamous cell carcinomas (OPSCC) <span class="citation" data-cites="ludwig_dataset_2022 ludwig_multicentric_2024">(<a href="#ref-ludwig_dataset_2022" role="doc-biblioref">Ludwig et al. 2022</a>; <a href="#ref-ludwig_multicentric_2024" role="doc-biblioref">Ludwig, Schubert, Barbatei, Bauwens, Werlen, et al. 2024</a>)</span>. The dataset includes lymph node involvement per LNL for each patient in tabular form, along with primary tumor and patient characteristics such as T-category, subsite, primary tumor lateralization, and HPV p16 status. Patient records were collected from four institutions, and an overview of patient characteristics is provided in <a href="#tbl-data-overview" class="quarto-xref">table&nbsp;1</a>.</p>
 <p>Data from Inselspital Bern (ISB) and Centre Léon Bérard (CLB) consist exclusively of patients who underwent neck dissections. In contrast, the majority of patients from the University Hospital Zürich (USZ) and the Hospital Vall d’Hebron (HVH) were treated with definitive radiotherapy. Since surgical treatment is more common for early T-category patients, ISB and CLB datasets include a higher proportion of these cases compared to USZ and HVH. For 83 patients in the CLB dataset, the primary tumor’s lateralization was not reported.</p>
-<div class="cell" data-execution_count="3">
-<div id="tbl-data-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
+<div class="cell" data-execution_count="4">
+<div id="tbl-data-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Overview over the four datasets from four different institutions used to train and evaluate our model. Here, we briefly characterize the total number of OPSCC patients from the respective institution, their median age, what proportion received neck dissection, the N0 portion of patients, what percentage presented with early T-category (T1/T2), and the prevalence of primary tumor midline extension. For a much more detailed look at the data, visit <a href="https://lyprox.org">lyprox.org</a>.
@@ -916,10 +916,10 @@ P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early}
 </section>
 <section id="sec-results" class="level1">
 <h1>Results: Model evaluation</h1>
-<p>In <a href="#tbl-midline-params" class="quarto-xref">table&nbsp;2</a>, we tabulate the mean and standard deviation of the sampled parameters. The bilateral model mostly reproduces the ipsilateral spread parameter values reported in the earlier publication on the unilateral model <span class="citation" data-cites="ludwig_modelling_2023">(<a href="#ref-ludwig_modelling_2023" role="doc-biblioref">Ludwig et al. 2023</a>)</span>. Any discrepancies may be due to differences in the patient cohorts. Therefore, we omit the analysis of the ipsilateral spread patterns and focus instead on the analysis of contralateral involvement. The small contralateral spread parameters <span class="math inline">\(b^c_v\)</span> compared to the ipsilateral parameters <span class="math inline">\(b^i_v\)</span> adequately reflect the low prevalence of contralateral lymph node involvement for lateralized tumors. The mixing parameter <span class="math inline">\(\alpha=\)</span> 0.3 describes that the probability of contralateral spread is higher for tumors extending over the mid-sagittal plane, but still lower than the probability for ipsilateral spread.</p>
-<p>The high value of <span class="math inline">\(t_{23}\)</span> (0.1) compared to the value of <span class="math inline">\(b_3\)</span> (0.3) shows that the ipsilateral LNL III is rarely involved without the upstream involvement of LNL II.</p>
-<div class="cell" data-execution_count="4">
-<div id="tbl-midline-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<p>In <a href="#tbl-midline-params" class="quarto-xref">table&nbsp;2</a>, we tabulate the mean and standard deviation of the sampled parameters. The bilateral model mostly reproduces the ipsilateral spread parameter values reported in the earlier publication on the unilateral model <span class="citation" data-cites="ludwig_modelling_2023">(<a href="#ref-ludwig_modelling_2023" role="doc-biblioref">Ludwig et al. 2023</a>)</span>. Any discrepancies may be due to differences in the patient cohorts. Therefore, we omit the analysis of the ipsilateral spread patterns and focus instead on the analysis of contralateral involvement. The small contralateral spread parameters <span class="math inline">\(b^c_v\)</span> compared to the ipsilateral parameters <span class="math inline">\(b^i_v\)</span> adequately reflect the low prevalence of contralateral lymph node involvement for lateralized tumors. The mixing parameter <span class="math inline">\(\alpha\)</span> (33.9%) describes that the probability of contralateral spread is higher for tumors extending over the mid-sagittal plane, but still lower than the probability for ipsilateral spread.</p>
+<p>The high value of <span class="math inline">\(t_{23}\)</span> (14.2%) compared to the value of <span class="math inline">\(b_3^\text{i}\)</span> (5.5%) shows that the ipsilateral LNL III is rarely involved without the upstream involvement of LNL II.</p>
+<div class="cell" data-execution_count="5">
+<div id="tbl-midline-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-midline-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Mean sampled parameter estimates of the midline model and the respective standard deviation. The parameters set to fixed values are the maximum number of time steps <span class="math inline">\(t_{max}=10\)</span> and the time prior parameter for early T-category patients <span class="math inline">\(p_{early}=0.3\)</span>.
@@ -1326,8 +1326,8 @@ Table&nbsp;3: Specificity and sensitivity values from the literature <span class
 </div>
 </div></section><section id="contralateral-prevalence-of-involvement" class="level1 appendix"><h2 class="anchored quarto-appendix-heading">Contralateral Prevalence of Involvement</h2><div class="quarto-appendix-contents">
 
-<div class="cell" data-execution_count="5">
-<div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<div class="cell" data-execution_count="6">
+<div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal plane, the T-category, and how many ipsilateral LNLs were involved.
@@ -2155,7 +2155,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":false,"openEffect":"zoom","selector":".lightbox","descPosition":"bottom"});
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","descPosition":"bottom","closeEffect":"zoom","loop":false,"openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
