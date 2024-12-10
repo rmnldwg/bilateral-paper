@@ -23,6 +23,7 @@ manuscript:
 # which formats should be rendered?
 format:
   nature-pdf:
+    number-sections: true
     journal:
       cite-style: sn-mathphys-num
     cite-method: natbib
