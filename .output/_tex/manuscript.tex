@@ -342,7 +342,7 @@ extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_fbab8}\tabularnewline
+\caption{}\label{T_c6cfe}\tabularnewline
 \toprule\noalign{}
 Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
 & Mid. Ext. \\
@@ -1148,7 +1148,7 @@ and the time prior parameter for early T-category patients
 
 \tabularnewline
 
-\caption{}\label{T_e06e5}\tabularnewline
+\caption{}\label{T_da35b}\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1432,13 +1432,13 @@ positives.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_risks.pdf}}
+\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{manuscript_files/mediabag/figures/fig_model_risks.pdf}
 
 }
 
 \caption{\label{fig-model-risks}Histograms over the predicted risk of
-occult involvement in contralateral LNL II (left), III (middle), and IV
-(right), shown for various combinations of T-category, tumor
+occult involvement in contralateral LNL II (top), III (middle), and IV
+(bottom), shown for various combinations of T-category, tumor
 lateralization, and clinical LNL diagnoses. All LNLs not explicitly
 mentioned in the legend, including the LNL for which the risk of occult
 disease was computed, were assumed to be clinically negative
@@ -1701,7 +1701,14 @@ all HNSCC patients.
 
 \section{Acknowledgement}\label{acknowledgement}
 
-This work was supported by:
+We want to thank the research group around Vincent Grégoire from the
+Centre Léon Bérard in Lyon (France) and Roland Giger's group from the
+Inselspital in Bern (Switzerland) for collecting, curating, and
+publishing their data on lymphatic progression patterns. Without their
+pathologically assessed data on nodal involvement, we could not have
+trained and validated our model with a large and representative cohort.
+
+Further, this work was supported by:
 
 \begin{itemize}
 \tightlist
@@ -1786,12 +1793,11 @@ Notebook}}
 
 \caption{\label{tbl-data-strat}Contralateral involvement depending on
 whether the primary tumor extends over the mid-sagittal plane, the
-T-category, and whether the ipsilateral LNL III was involved or
-healthy.}
+T-category, and how many ipsilateral LNLs were involved.}
 
 \tabularnewline
 
-\caption{}\label{T_d4afa}\tabularnewline
+\caption{}\label{T_22819}\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1864,28 +1870,29 @@ risk, we do not consider this discrepancy a major issue.}
 \end{figure}%
 
 In figure~\ref{fig-model-prevalences-midext}, we plot the prevalence of
-midline extension in the data versus our model's prediction. It is
-obvious the model cannot match the large spread between early and
-advanced T-category seen in the data. This is because to achieve that,
-it would need to increase the advanced T-category patient's prior
-distribution over diagnosis times and at the same time reduce the
-probability of the tumor to cross the midline during a time-step. But
-since the time-priors parameter is also coupled with the spread
-probabilities among the LNLs, the model does not have that freedom.
+midline extension in the data versus our model's prediction. The model
+adjusts the parameter \(p_\epsilon\) to correctly predict the overall
+proportion of patients with midline extension, but it cannot match the
+large spread between early and advanced T-category seen in the data. To
+achieve that, the model would need to increase \(p_\text{adv.}\) and
+decrease \(p_\epsilon\). But since the parameter \(p_\text{adv.}\) also
+determines the differences in LNL involvement between early and advanced
+T-category, the model does not have that freedom.
 
 However, we do not consider this discrepancy a major limitation of the
-model: We will not realistically be interested in the probability of
-midline extension, as it is always possible to assess it with high
-certainty. That is also the reason why we initially modelled the midline
-extension \emph{not} as a random variable, but as a global risk factor
-that would have been turned on or off from the onset of a patient's
-disease evolution. This, however, lead to overly high risks for
-contralateral involvement in advanced T-category patients with midline
-extension, because then the model assumes an increased spread to the
-contralateral side from the onset of the disease. Which is probably not
-true in a majority of those cases. Thus, treating it as a random
-variable that only becomes true during a patient's disease evolution
-resulted in a better description of the data.
+model: In a practical application of the model we are not interested in
+the probability of midline extension, as it is always possible to assess
+it with high certainty for the patient at hand. That is also the reason
+why we initially modelled the midline extension \emph{not} as a random
+variable, but as a global risk factor that would have been turned on or
+off from the onset of a patient's disease evolution. This, however, lead
+to overly high risks for contralateral involvement in advanced
+T-category patients with midline extension, because then the model
+assumes an increased spread to the contralateral side from the onset of
+the disease. Which is probably not true in a majority of those cases.
+Thus, treating it as a random variable that only becomes true during a
+patient's disease evolution resulted in a better description of the
+data.
 
 Formally, the wrong prediction of midline extension prevalence makes
 little difference, since it is always given: Instead of
@@ -1903,11 +1910,6 @@ Note that a distribution over \(\epsilon\) appears both in the
 enumerator and the denominator, which largely cancel each other, leaving
 only the midline extension's effect on the distribution over hidden
 states in the prediction.
-
-Also, the discrepancy in midline extension prevalence between early and
-advanced T-category is particularly pronounced in oropharyngeal SCC
-patients. For example, in oral cavity SCC, the midline extension only
-increases from 15.4\% (20 out of 130) to 33.3\% (13 out of 39).
 
 \textsubscript{Source:
 \href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article

@@ -590,7 +590,7 @@ For clinical applications, the model needs to estimate the risk of occult metast
 
 We assume imaging detects lymph node involvement with a sensitivity of 81% and a specificity of 76% [@debondt_detection_2007], while FNA has a sensitivity of 80% and a specificity of 98%. This implies that FNA-confirmed involvement is highly reliable, with almost no false positives. 
 
-![Histograms over the predicted risk of occult involvement in contralateral LNL II (left), III (middle), and IV (right), shown for various combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, were assumed to be clinically negative (specificity 76%, sensitivity 81%).](figures/fig_model_risks.svg){#fig-model-risks}
+![Histograms over the predicted risk of occult involvement in contralateral LNL II (top), III (middle), and IV (bottom), shown for various combinations of T-category, tumor lateralization, and clinical LNL diagnoses. All LNLs not explicitly mentioned in the legend, including the LNL for which the risk of occult disease was computed, were assumed to be clinically negative (specificity 76%, sensitivity 81%).](figures/fig_model_risks.svg){#fig-model-risks width="50%"}
 
 ## Contralateral LNL II
 
