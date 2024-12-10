@@ -564,8 +564,8 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <h1>Data on Lymphatic Progression Patterns</h1>
 <p>To develop models for lymphatic tumor progression for all relevant LNLs, including contralateral regions, we compiled a detailed dataset of 833 patients with newly diagnosed oropharyngeal squamous cell carcinomas (OPSCC) <span class="citation" data-cites="ludwig_dataset_2022 ludwig_multicentric_2024">(<a href="#ref-ludwig_dataset_2022" role="doc-biblioref">Ludwig et al. 2022</a>; <a href="#ref-ludwig_multicentric_2024" role="doc-biblioref">Ludwig, Schubert, Barbatei, Bauwens, Werlen, et al. 2024</a>)</span>. The dataset includes lymph node involvement per LNL for each patient in tabular form, along with primary tumor and patient characteristics such as T-category, subsite, primary tumor lateralization, and HPV p16 status. Patient records were collected from four institutions, and an overview of patient characteristics is provided in <a href="#tbl-data-overview" class="quarto-xref">table&nbsp;1</a>.</p>
 <p>Data from Inselspital Bern (ISB) and Centre Léon Bérard (CLB) consist exclusively of patients who underwent neck dissections. In contrast, the majority of patients from the University Hospital Zürich (USZ) and the Hospital Vall d’Hebron (HVH) were treated with definitive radiotherapy. Since surgical treatment is more common for early T-category patients, ISB and CLB datasets include a higher proportion of these cases compared to USZ and HVH. For 83 patients in the CLB dataset, the primary tumor’s lateralization was not reported.</p>
-<div class="cell" data-execution_count="3">
-<div id="tbl-data-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
+<div class="cell" data-execution_count="4">
+<div id="tbl-data-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Overview over the four datasets from four different institutions used to train and evaluate our model. Here, we briefly characterize the total number of OPSCC patients from the respective institution, their median age, what proportion received neck dissection, the N0 portion of patients, what percentage presented with early T-category (T1/T2), and the prevalence of primary tumor midline extension. For a much more detailed look at the data, visit <a href="https://lyprox.org">lyprox.org</a>.
@@ -825,7 +825,10 @@ Here, the tumor remains in the midline-crossed state with probability 1. To acco
 </ol>
 <p>Combining these scenarios leads to a recursive formulation:</p>
 <p><span class="math display">\[
-P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau + 1 \right) = \big[ p_\epsilon P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid \tau \right) + P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right) \big]^\top \cdot \mathbf{A}_\text{c}^{\epsilon=\texttt{True}}
+\begin{multlined}
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau + 1 \right) \\
+= \big[ p_\epsilon P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid \tau \right) + P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right) \big]^\top \cdot \mathbf{A}_\text{c}^{\epsilon=\texttt{True}}
+\end{multlined}
 \]</span></p>
 <p>We can collect the iteratively computed distributions for the midline extension case to define the matrix over the states given all time-steps, as in <a href="#eq-lambda-matrix" class="quarto-xref">equation&nbsp;4</a>:</p>
 <p><span class="math display">\[
@@ -861,7 +864,10 @@ P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid d, \boldsymbol{\hat{\theta
 <p>The terms <span class="math inline">\(P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right)\)</span> and <span class="math inline">\(P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right)\)</span> are defined solely by sensitivity and specificity of the diagnostic modality. These terms already appeared in the definition of the observation matrx in <a href="#eq-obs-matrix" class="quarto-xref">equation&nbsp;3</a>. The <em>prior</em> <span class="math inline">\(P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)\)</span> in the above equation is the crucial term that is supplied by a trained model and its parameters <span class="math inline">\(\boldsymbol{\hat{\theta}}\)</span>.</p>
 <p>It is possible to compute this <em>posterior</em> probability of true involvement not only for one fully defined state <span class="math inline">\((\mathbf{X}^\text{i}, \mathbf{X}^\text{c})\)</span>, but also for e.g.&nbsp;individual LNLs: For example, the risk for involvement in the contralateral level IV would be a marginalization over all combination of ipsi- states <span class="math inline">\(\boldsymbol{\xi}^\text{i}_i\)</span> contralateral states <span class="math inline">\(\boldsymbol{\xi}^\text{c}_j\)</span> where <span class="math inline">\(\xi^\text{c}_{j4}=1\)</span>. Formally:</p>
 <p><span id="eq-marg-over-posterior"><span class="math display">\[
-P \big( \text{IV}^\text{c} \mid \mathbf{Z}^\text{i}=\boldsymbol{\zeta}^\text{i}_k, \mathbf{Z}^\text{c}=\boldsymbol{\zeta}^\text{c}_\ell, \boldsymbol{\hat{\theta}}, \text{T}x \big) = \sum_k \sum_{\ell \, : \, \xi_{\ell 4}=1} P \big( \mathbf{X}^\text{i} = \boldsymbol{\xi}^\text{i}_k, \mathbf{X}^\text{c} = \boldsymbol{\xi}^\text{c}_\ell \mid \boldsymbol{\zeta}^\text{i}_k, \boldsymbol{\zeta}^\text{c}_\ell, \epsilon, \boldsymbol{\hat{\theta}}, \text{T}x \big)
+\begin{multlined}
+P \big( \text{IV}^\text{c} \mid \mathbf{Z}^\text{i}=\boldsymbol{\zeta}^\text{i}_k, \mathbf{Z}^\text{c}=\boldsymbol{\zeta}^\text{c}_\ell, \boldsymbol{\hat{\theta}}, \text{T}x \big) \\
+= \sum_k \sum_{\ell \, : \, \xi_{\ell 4}=1} P \big( \mathbf{X}^\text{i} = \boldsymbol{\xi}^\text{i}_k, \mathbf{X}^\text{c} = \boldsymbol{\xi}^\text{c}_\ell \mid \boldsymbol{\zeta}^\text{i}_k, \boldsymbol{\zeta}^\text{c}_\ell, \epsilon, \boldsymbol{\hat{\theta}}, \text{T}x \big)
+\end{multlined}
 \tag{17}\]</span></span></p>
 </section>
 </section>
@@ -912,8 +918,8 @@ P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early}
 <h1>Results: Model evaluation</h1>
 <p>In <a href="#tbl-midline-params" class="quarto-xref">table&nbsp;2</a>, we tabulate the mean and standard deviation of the sampled parameters. The bilateral model mostly reproduces the ipsilateral spread parameter values reported in the earlier publication on the unilateral model <span class="citation" data-cites="ludwig_modelling_2023">(<a href="#ref-ludwig_modelling_2023" role="doc-biblioref">Ludwig et al. 2023</a>)</span>. Any discrepancies may be due to differences in the patient cohorts. Therefore, we omit the analysis of the ipsilateral spread patterns and focus instead on the analysis of contralateral involvement. The small contralateral spread parameters <span class="math inline">\(b^c_v\)</span> compared to the ipsilateral parameters <span class="math inline">\(b^i_v\)</span> adequately reflect the low prevalence of contralateral lymph node involvement for lateralized tumors. The mixing parameter <span class="math inline">\(\alpha=\)</span> 0.3 describes that the probability of contralateral spread is higher for tumors extending over the mid-sagittal plane, but still lower than the probability for ipsilateral spread.</p>
 <p>The high value of <span class="math inline">\(t_{23}\)</span> (0.1) compared to the value of <span class="math inline">\(b_3\)</span> (0.3) shows that the ipsilateral LNL III is rarely involved without the upstream involvement of LNL II.</p>
-<div class="cell" data-execution_count="4">
-<div id="tbl-midline-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<div class="cell" data-execution_count="5">
+<div id="tbl-midline-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-midline-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Mean sampled parameter estimates of the midline model and the respective standard deviation. The parameters set to fixed values are the maximum number of time steps <span class="math inline">\(t_{max}=10\)</span> and the time prior parameter for early T-category patients <span class="math inline">\(p_{early}=0.3\)</span>.
@@ -1320,8 +1326,8 @@ Table&nbsp;3: Specificity and sensitivity values from the literature <span class
 </div>
 </div></section><section id="contralateral-prevalence-of-involvement" class="level1 appendix"><h2 class="anchored quarto-appendix-heading">Contralateral Prevalence of Involvement</h2><div class="quarto-appendix-contents">
 
-<div class="cell" data-execution_count="5">
-<div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<div class="cell" data-execution_count="6">
+<div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal plane, the T-category, and how many ipsilateral LNLs were involved.
@@ -2149,7 +2155,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","loop":false});
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","openEffect":"zoom","selector":".lightbox","descPosition":"bottom","loop":false});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

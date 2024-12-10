@@ -581,7 +581,7 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-       <div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="ccc3ef68" class="cell" data-execution_count="1">
+       <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="ccc3ef68" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -600,13 +600,13 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>simple_model <span class="op">=</span> shared.get_model(<span class="st">"simple"</span>, load_samples<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="e26b7bb4" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="2">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="e26b7bb4" class="cell" data-tags="[&quot;parameters&quot;]" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># width of figures. May depend on number of text columns</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>full <span class="op">=</span> <span class="dv">17</span> <span class="co"># cm</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> full</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># half =  8 # cm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div id="94edc724" class="cell markdown">
+<div id="72f64c17" class="cell markdown">
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
 <p>In head and neck squamous cell carcinomas (HNSCC) treatments with radiotherapy or surgery, both the primary tumor and clinically detected lymph node metastases are targeted. In addition, current guidelines include large portions of the neck in the elective clinical target volume (CTV-N) <span class="citation" data-cites="gregoire_ctbased_2003 gregoire_delineation_2014 gregoire_delineation_2018 eisbruch_intensitymodulated_2002 biau_selection_2019 chao_determination_2002 vorwerk_guidelines_2011 ferlito_elective_2009">(<a href="#ref-gregoire_ctbased_2003" role="doc-biblioref">Grégoire et al. 2003</a>, <a href="#ref-gregoire_delineation_2014" role="doc-biblioref">2014</a>, <a href="#ref-gregoire_delineation_2018" role="doc-biblioref">2018</a>; <a href="#ref-eisbruch_intensitymodulated_2002" role="doc-biblioref">Eisbruch et al. 2002</a>; <a href="#ref-biau_selection_2019" role="doc-biblioref">Biau et al. 2019</a>; <a href="#ref-chao_determination_2002" role="doc-biblioref">Chao et al. 2002</a>; <a href="#ref-vorwerk_guidelines_2011" role="doc-biblioref">Vorwerk and Hess 2011</a>; <a href="#ref-ferlito_elective_2009" role="doc-biblioref">Ferlito, Silver, and Rinaldo 2009</a>)</span> to mitigate the risk of regional recurrences from untreated microscopic disease undetectable by in-vivo imaging modalities such as computed tomography (CT), magnetic resonance imaging (MRI), or positron emission tomography (PET). However, this approach must balance minimizing the risk of occult disease in the lymphatic drainage region against the toxicity of unnecessarily irradiating healthy tissue.</p>
@@ -625,9 +625,9 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <p>Data from Inselspital Bern (ISB) and Centre Léon Bérard (CLB) consist exclusively of patients who underwent neck dissections. In contrast, the majority of patients from the University Hospital Zürich (USZ) and the Hospital Vall d’Hebron (HVH) were treated with definitive radiotherapy. Since surgical treatment is more common for early T-category patients, ISB and CLB datasets include a higher proportion of these cases compared to USZ and HVH. For 83 patients in the CLB dataset, the primary tumor’s lateralization was not reported.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell" data-execution_count="3">
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell" data-execution_count="4">
 
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> Literal</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> align(</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  column: pd.Series,</span>
@@ -716,7 +716,7 @@ Conclusions: This model offers an interpretable, probabilistic framework to info
 <span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>    subset<span class="op">=</span>grouped.columns[<span class="dv">0</span>:],</span>
 <span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>  .hide()</span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-data-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-data-overview" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;1: Overview over the four datasets from four different institutions used to train and evaluate our model. Here, we briefly characterize the total number of OPSCC patients from the respective institution, their median age, what proportion received neck dissection, the N0 portion of patients, what percentage presented with early T-category (T1/T2), and the prevalence of primary tumor midline extension. For a much more detailed look at the data, visit <a href="https://lyprox.org">lyprox.org</a>.
@@ -785,7 +785,7 @@ Table&nbsp;1: Overview over the four datasets from four different institutions u
 </figure>
 </div></div></div>
 </div></div>
-<div id="48fdbaf8" class="cell markdown">
+<div id="88ab8555" class="cell markdown">
 <section id="sec-data-consensus" class="level2">
 <h2 class="anchored" data-anchor-id="sec-data-consensus">Consensus on Involvement Status</h2>
 <p>Pathological involvement is available only for surgically treated patients and for the levels that were dissected. For non-surgical patients, involvement status is determined clinically, i.e.&nbsp;using imaging. For this work, diagnostic information was synthesized into a consensus decision for each patient and LNL. This consensus reflects the most likely state of involvement and accounts for the sensitivity and specificity of various diagnostic modalities, as reported in the literature <span class="citation" data-cites="debondt_detection_2007 kyzas_18ffluorodeoxyglucose_2008">(<a href="#ref-debondt_detection_2007" role="doc-biblioref">De Bondt et al. 2007</a>; <a href="#ref-kyzas_18ffluorodeoxyglucose_2008" role="doc-biblioref">Kyzas et al. 2008</a>)</span>.</p>
@@ -976,7 +976,10 @@ Here, the tumor remains in the midline-crossed state with probability 1. To acco
 </ol>
 <p>Combining these scenarios leads to a recursive formulation:</p>
 <p><span class="math display">\[
-P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau + 1 \right) = \big[ p_\epsilon P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid \tau \right) + P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right) \big]^\top \cdot \mathbf{A}_\text{c}^{\epsilon=\texttt{True}}
+\begin{multlined}
+P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau + 1 \right) \\
+= \big[ p_\epsilon P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{False} \mid \tau \right) + P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid \tau \right) \big]^\top \cdot \mathbf{A}_\text{c}^{\epsilon=\texttt{True}}
+\end{multlined}
 \]</span></p>
 <p>We can collect the iteratively computed distributions for the midline extension case to define the matrix over the states given all time-steps, as in <a href="#eq-lambda-matrix" class="quarto-xref">equation&nbsp;4</a>:</p>
 <p><span class="math display">\[
@@ -1012,7 +1015,10 @@ P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid d, \boldsymbol{\hat{\theta
 <p>The terms <span class="math inline">\(P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right)\)</span> and <span class="math inline">\(P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right)\)</span> are defined solely by sensitivity and specificity of the diagnostic modality. These terms already appeared in the definition of the observation matrx in <a href="#eq-obs-matrix" class="quarto-xref">equation&nbsp;3</a>. The <em>prior</em> <span class="math inline">\(P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)\)</span> in the above equation is the crucial term that is supplied by a trained model and its parameters <span class="math inline">\(\boldsymbol{\hat{\theta}}\)</span>.</p>
 <p>It is possible to compute this <em>posterior</em> probability of true involvement not only for one fully defined state <span class="math inline">\((\mathbf{X}^\text{i}, \mathbf{X}^\text{c})\)</span>, but also for e.g.&nbsp;individual LNLs: For example, the risk for involvement in the contralateral level IV would be a marginalization over all combination of ipsi- states <span class="math inline">\(\boldsymbol{\xi}^\text{i}_i\)</span> contralateral states <span class="math inline">\(\boldsymbol{\xi}^\text{c}_j\)</span> where <span class="math inline">\(\xi^\text{c}_{j4}=1\)</span>. Formally:</p>
 <p><span id="eq-marg-over-posterior"><span class="math display">\[
-P \big( \text{IV}^\text{c} \mid \mathbf{Z}^\text{i}=\boldsymbol{\zeta}^\text{i}_k, \mathbf{Z}^\text{c}=\boldsymbol{\zeta}^\text{c}_\ell, \boldsymbol{\hat{\theta}}, \text{T}x \big) = \sum_k \sum_{\ell \, : \, \xi_{\ell 4}=1} P \big( \mathbf{X}^\text{i} = \boldsymbol{\xi}^\text{i}_k, \mathbf{X}^\text{c} = \boldsymbol{\xi}^\text{c}_\ell \mid \boldsymbol{\zeta}^\text{i}_k, \boldsymbol{\zeta}^\text{c}_\ell, \epsilon, \boldsymbol{\hat{\theta}}, \text{T}x \big)
+\begin{multlined}
+P \big( \text{IV}^\text{c} \mid \mathbf{Z}^\text{i}=\boldsymbol{\zeta}^\text{i}_k, \mathbf{Z}^\text{c}=\boldsymbol{\zeta}^\text{c}_\ell, \boldsymbol{\hat{\theta}}, \text{T}x \big) \\
+= \sum_k \sum_{\ell \, : \, \xi_{\ell 4}=1} P \big( \mathbf{X}^\text{i} = \boldsymbol{\xi}^\text{i}_k, \mathbf{X}^\text{c} = \boldsymbol{\xi}^\text{c}_\ell \mid \boldsymbol{\zeta}^\text{i}_k, \boldsymbol{\zeta}^\text{c}_\ell, \epsilon, \boldsymbol{\hat{\theta}}, \text{T}x \big)
+\end{multlined}
 \tag{17}\]</span></span></p>
 </section>
 </section>
@@ -1065,9 +1071,9 @@ P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early}
 <p>The high value of <span class="math inline">\(t_{23}\)</span> (0.1) compared to the value of <span class="math inline">\(b_3\)</span> (0.3) shows that the ipsilateral LNL III is rarely involved without the upstream involvement of LNL II.</p>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell" data-execution_count="4">
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell" data-execution_count="5">
 
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_param_names(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> map_param_names(name: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Make parameter names more readable."""</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">try</span>:</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
@@ -1100,7 +1106,7 @@ P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early}
 <span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">format</span>(<span class="st">"± </span><span class="sc">{:.2%}</span><span class="st">"</span>, subset<span class="op">=</span>[<span class="st">"Std. Dev."</span>])</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>  .<span class="bu">apply</span>(right_align, subset<span class="op">=</span>[<span class="st">"Mean"</span>, <span class="st">"Std. Dev."</span>])</span>
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  .hide()</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-midline-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="4">
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-midline-params" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-midline-params-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;2: Mean sampled parameter estimates of the midline model and the respective standard deviation. The parameters set to fixed values are the maximum number of time steps <span class="math inline">\(t_{max}=10\)</span> and the time prior parameter for early T-category patients <span class="math inline">\(p_{early}=0.3\)</span>.
@@ -1224,7 +1230,7 @@ Table&nbsp;2: Mean sampled parameter estimates of the midline model and the resp
 </figure>
 </div></div></div>
 </div></div>
-<div id="f4c321f6" class="cell markdown">
+<div id="eea403aa" class="cell markdown">
 <section id="illustration-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="illustration-of-the-model">Illustration of the model</h2>
 <p>In this subsection, we illustrate key aspects of the mathematical framework introduced earlier. The top panel of <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a> shows the prior distribution over diagnosis times, <span class="math inline">\(P(t)\)</span>. Based on the parameterization, early T-category tumors are on average diagnosed after 3 time steps, while advanced T-category tumors are diagnosed later, averaging 4.5 time steps. This is due to the learned value of <span class="math inline">\(p_\text{adv.}\)</span>, which is 45% for advanced T-category tumors. The tumor’s average probability per time step of growing over the midline, <span class="math inline">\(p_\epsilon\)</span>, was found to be 8.2%. Using this value, the conditional probability of midline extension, <span class="math inline">\(P(\epsilon \mid t)\)</span>, can be computed for a given time step <span class="math inline">\(t\)</span> (red line in the top panel of <a href="#fig-model-midext-evo" class="quarto-xref">figure&nbsp;4</a>). The bottom panel visualizes the joint probability <span class="math inline">\(P(\epsilon, t)\)</span>, showing the likelihood of diagnosis at time <span class="math inline">\(t\)</span> with specific states of midline extension and T-category.</p>
@@ -1506,9 +1512,9 @@ Table&nbsp;3: Specificity and sensitivity values from the literature <span class
 <h1 class="appendix">Contralateral Prevalence of Involvement</h1>
 </section>
 </div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell" data-execution_count="5">
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell" data-execution_count="6">
 
-<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lnl_cols <span class="op">=</span> get_lnl_cols(<span class="st">"contra"</span>, lnls<span class="op">=</span>[<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>])</span>
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lnl_cols <span class="op">=</span> get_lnl_cols(<span class="st">"contra"</span>, lnls<span class="op">=</span>[<span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span>])</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>num_ipsi_inv <span class="op">=</span> raw[get_lnl_cols(<span class="st">"ipsi"</span>)].<span class="bu">sum</span>(axis<span class="op">=</span><span class="st">"columns"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>contra_inv <span class="op">=</span> raw[lnl_cols].copy()</span>
@@ -1555,7 +1561,7 @@ Table&nbsp;3: Specificity and sensitivity values from the literature <span class
 <span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"≥ 2"</span>: COLORS[<span class="st">"red"</span>],</span>
 <span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>  .hide()</span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="5">
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-data-strat" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="6">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-data-strat-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: Contralateral involvement depending on whether the primary tumor extends over the mid-sagittal plane, the T-category, and how many ipsilateral LNLs were involved.
@@ -1867,7 +1873,7 @@ Table&nbsp;4: Contralateral involvement depending on whether the primary tumor e
 </figure>
 </div></div></div>
 </div></div>
-<div id="0539044a" class="cell markdown">
+<div id="760396ca" class="cell markdown">
 <section id="sec-prevalence-midext" class="level1 appendix">
 <h1 class="appendix">Prevalence of Midline Extension</h1>
 <div id="fig-model-prevalences-midext" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -2383,7 +2389,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"closeEffect":"zoom","selector":".lightbox","descPosition":"bottom","openEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {
