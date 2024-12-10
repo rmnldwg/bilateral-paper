@@ -23,6 +23,7 @@ manuscript:
 # which formats should be rendered?
 format:
   nature-pdf:
+    number-sections: true
     journal:
       cite-style: sn-mathphys-num
     cite-method: natbib
@@ -32,6 +33,7 @@ format:
     - text: |
         \usepackage{multirow}
         \usepackage{centernot}
+        \usepackage{mathtools}
   docx:
     toc: true
     number-sections: true
