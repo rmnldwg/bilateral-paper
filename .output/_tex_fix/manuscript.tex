@@ -97,6 +97,7 @@
 
 %%%% Standard Packages
 
+\usepackage{svg}
 \usepackage{graphicx}%
 \usepackage{multirow}%
 \usepackage{amsmath,amssymb,amsfonts}%
@@ -230,15 +231,6 @@ exposure of normal tissue while maintaining regional tumor control.}
 \begin{document}
 \maketitle
 
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
-
 \section{Introduction}\label{introduction}
 
 In head and neck squamous cell carcinomas (HNSCC) treatments with
@@ -305,31 +297,9 @@ The main contributions of this paper are as follows:
 
 \section{Data on Lymphatic Progression Patterns}\label{sec-data}
 
-To develop models for lymphatic tumor progression for all relevant LNLs,
-including contralateral regions, we compiled a detailed dataset of 833
-patients with newly diagnosed oropharyngeal squamous cell carcinomas
-(OPSCC) \citep{ludwig_dataset_2022, ludwig_multicentric_2024}. The
-dataset includes lymph node involvement per LNL for each patient in
-tabular form, along with primary tumor and patient characteristics such
-as T-category, subsite, primary tumor lateralization, and HPV p16
-status. Patient records were collected from four institutions, and an
-overview of patient characteristics is provided in
-table~\ref{tbl-data-overview}.
-
-Data from Inselspital Bern (ISB) and Centre Léon Bérard (CLB) consist
-exclusively of patients who underwent neck dissections. In contrast, the
-majority of patients from the University Hospital Zürich (USZ) and the
-Hospital Vall d'Hebron (HVH) were treated with definitive radiotherapy.
-Since surgical treatment is more common for early T-category patients,
-ISB and CLB datasets include a higher proportion of these cases compared
-to USZ and HVH. For 83 patients in the CLB dataset, the primary tumor's
-lateralization was not reported.
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
-
-\begin{longtable}[]{@{}lllllll@{}}
+{
+\setlength{\tabcolsep}{6pt}
+\begin{longtable}[]{@{}lrrrrrr@{}}
 
 \caption{\label{tbl-data-overview}Overview over the four datasets from
 four different institutions used to train and evaluate our model. Here,
@@ -342,30 +312,47 @@ extension. For a much more detailed look at the data, visit
 
 \tabularnewline
 
-\caption{}\label{T_6831a}\tabularnewline
+\tabularnewline
 \toprule\noalign{}
-Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
+Institution & Total & Median Age & Surgery & N0 & T1 or T2
 & Mid. Ext. \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-Institution & Total & Age (median) & Neck Dissection & N0 & Early T-Cat.
+Institution & Total & Median Age & Surgery & N0 & T1 or T2
 & Mid. Ext. \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Centre Léon Bérard & 325 & 60 & 100\% & 19\% & 69\% & 18\% \\
-Inselspital Bern & 74 & 61 & 100\% & 18\% & 66\% & 14\% \\
-University Hospital Zurich & 287 & 66 & 26\% & 18\% & 52\% & 31\% \\
-Vall d\textquotesingle Hebron Barcelona Hospital & 147 & 58 & 5\% & 21\%
+CLB (Lyon) & 325 & 60 & 100\% & 19\% & 69\% & 18\% \\
+ISB (Bern) & 74 & 61 & 100\% & 18\% & 66\% & 14\% \\
+USZ (Zurich) & 287 & 66 & 26\% & 18\% & 52\% & 31\% \\
+HVH (Barcelona) & 147 & 58 & 5\% & 21\%
 & 34\% & 34\% \\
 
 \end{longtable}
+}
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
+To develop models for lymphatic tumor progression for all relevant LNLs,
+including contralateral regions, we compiled a detailed dataset of 833
+patients with newly diagnosed oropharyngeal squamous cell carcinomas
+(OPSCC) \citep{ludwig_dataset_2022, ludwig_multicentric_2024}. The
+dataset includes lymph node involvement per LNL for each patient in
+tabular form, along with primary tumor and patient characteristics such
+as T-category, subsite, primary tumor lateralization, and HPV p16
+status. Patient records were collected from four institutions, and an
+overview of patient characteristics is provided in
+table~\ref{tbl-data-overview}.
+
+Data from the Inselspital Bern (ISB) and Centre Léon Bérard (CLB) consist
+exclusively of patients who underwent neck dissections. In contrast, the
+majority of patients from the University Hospital Zürich (USZ) and the
+Hospital Vall d'Hebron (HVH) were treated with definitive radiotherapy.
+Since surgical treatment is more common for early T-category patients,
+ISB and CLB datasets include a higher proportion of these cases compared
+to USZ and HVH. For 83 patients in the CLB dataset, the primary tumor's
+lateralization was not reported.
 
 \subsection{Consensus on Involvement Status}\label{sec-data-consensus}
 
@@ -411,7 +398,7 @@ the tumor extends across the mid-sagittal plane.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_data_strat.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_data_strat.svg}}
 
 }
 
@@ -514,7 +501,7 @@ publications \citep{ludwig_hidden_2021, ludwig_modelling_2024}.
 We represent a patient's state of involvement at an abstract time-step
 \(t\) as a vector of hidden binary random variables, where each
 component corresponds to a lymph node level (LNL):
-
+%
 \begin{equation}\phantomsection\label{eq-state-def}{
 \mathbf{X}[t] = \begin{pmatrix} X_v[t] \end{pmatrix} \qquad v \in \left\{ 1, 2, \ldots, V \right\}
 }\end{equation}
@@ -583,7 +570,7 @@ by maximizing the model evidence as described in
 
 \centering{
 
-\includegraphics[width=0.4\linewidth,height=\textheight,keepaspectratio]{manuscript_files/mediabag/static/full-graph.pdf}
+\includesvg[width=0.4\linewidth,height=\textheight,keepaspectratio]{static/full-graph.svg}
 
 }
 
@@ -606,7 +593,7 @@ by successively multiplying this vector with the transition matrix
 \(\mathbf{A}\): \(\mathbf{X}[t+1] = \mathbf{X}[t] \cdot \mathbf{A}\).
 For later use, we define at this point a matrix \(\boldsymbol{\Lambda}\)
 that collects these distributions for all considered times:
-
+%
 \begin{equation}\phantomsection\label{eq-lambda-matrix}{
 \boldsymbol{\Lambda} = P \left( \mathbf{X} \mid \mathbf{t} \right) = \begin{pmatrix}
 \boldsymbol{\pi}^\intercal \cdot \mathbf{A}^0 \\
@@ -615,7 +602,7 @@ that collects these distributions for all considered times:
 \boldsymbol{\pi}^\intercal \cdot \mathbf{A}^{t_\text{max}} \\
 \end{pmatrix}
 }\end{equation}
-
+%
 where the \(k\)-th row in this matrix corresponds to the probability
 distribution over hidden states after \(t=k-1\) time-steps.
 
@@ -635,7 +622,7 @@ advanced T-category patients, \(P(t_D \mid \text{advanced})\).
 
 The probability distribution over \(\mathbf{X}\) for the example of an
 early T-category patient is given by
-
+%
 \[
 P\left( \mathbf{X} \mid \text{T}x = \text{early} \right) = \sum_{t=0}^{t_\text{max}} P \left( \mathbf{X} \mid t \right) \cdot P(t \mid \text{T}x = \text{early})
 \]
@@ -654,11 +641,11 @@ Model}\label{likelihood-function-of-the-unilateral-model}
 The probabiltiy for a patient to present with a diagnosis
 \(\mathbf{Z} = \boldsymbol{\zeta}_i\) a T-category \(\text{T}x\) tumor
 can now be written as:
-
+%
 \begin{equation}\phantomsection\label{eq-single-patient-llh}{
 \ell = P \left( \mathbf{Z} = \boldsymbol{\zeta}_i \mid \text{T}x \right) = \sum_{t=0}^{t_\text{max}} \left[ \boldsymbol{\xi}_0 \cdot \mathbf{A}^t \cdot \mathbf{B} \right]_i \cdot P \left( t \mid \text{T}x \right)
 }\end{equation}
-
+%
 here, \(\left[ \ldots \right]_i\) we denote the \(i\)-th component of
 the vector in the square brackets. Note that it is also possible to
 account for missing involvement information: If a diagnosis (like fine
@@ -675,11 +662,11 @@ shown in figure~\ref{fig-full-graph} via the transition matrix
 time-priors. In this work, we will only differentiate between ``early''
 (T1 \& T2) and ``advanced'' (T3 \& T4) T-categories. Therefore, the
 parameter space of the unilateral model is:
-
+%
 \begin{equation}\phantomsection\label{eq-param-space}{
 \boldsymbol{\theta} = \left( \left\{ b_v \right\}, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.} \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
 }\end{equation}
-
+%
 And it is our goal to infer optimal parameter values of from a given
 dataset \(\mathcal{D}\) (consisting of diagnoses and T-categories) of
 OPSCC patients. The likelihood to observe this cohort of \(N\) patients,
@@ -687,11 +674,11 @@ given a set of parameters \(\boldsymbol{\theta}\) is simply the product
 of their individual likelihoods as defined in
 equation~\ref{eq-single-patient-llh}. For numerical reasons, we
 typically compute the data likelihood in log space:
-
+%
 \begin{equation}\phantomsection\label{eq-log-likelihood}{
 \log \mathcal{L} \left( \mathcal{D} \mid \boldsymbol{\theta} \right) = \sum_{i=1}^N \log \ell_i
 }\end{equation}
-
+%
 The methodology we use to infer the model's parameters is detailed in
 section~\ref{sec-sampling}.
 
@@ -714,11 +701,11 @@ involvement \(\mathbf{X}^\text{i}\) ipsilaterally \emph{and} an
 involvement \(\mathbf{X}^\text{c}\) contralaterally, given a diagnosis
 of the ipsilateral LNLs \(\mathbf{Z}^\text{i}\) and of the contralateral
 ones \(\mathbf{Z}^\text{c}\):
-
+%
 \begin{equation}\phantomsection\label{eq-bilateral-bayes}{
 P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right) = \frac{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \mid \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right) P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right)}{P \left( \mathbf{Z}^\text{i}, \mathbf{Z}^\text{c} \right)}
 }\end{equation}
-
+%
 For the sake of brevity, we omit the dependency on the parameters and
 the T-category here.
 
@@ -736,14 +723,14 @@ contralateral LNLs, implying that contralateral tumor spread occurs
 solely via the primary tumor. We can thus write the joint probability
 \(P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right)\) as a
 factorising sum:
-
+%
 \begin{equation}\phantomsection\label{eq-bilateral-marginal}{
 \begin{aligned}
 P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \right) &= \sum_{t=0}^{t_\text{max}} P(t) \cdot P \left( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid t \right) \\
 &= \sum_{t=0}^{t_\text{max}} P(t) \cdot P \left( \mathbf{X}^\text{i} \mid t \right) \cdot P \left( \mathbf{X}^\text{c} \mid t \right)
 \end{aligned}
 }\end{equation}
-
+%
 This assumption is intuitive: since no major lymph vessels cross the
 midline, the ipsilateral and contralateral sides of the lymphatic
 network evolve independently over time. However, they are indirectly
@@ -755,7 +742,7 @@ time steps, when limited ipsilateral involvement is unlikely.
 Using equation~\ref{eq-bilateral-marginal} along with
 equation~\ref{eq-lambda-matrix}, we can write the above distribution
 algebraically as a product:
-
+%
 \begin{equation}\phantomsection\label{eq-bilateral-marginal-algebra}{
 P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsymbol{\xi}_m \right) = \left[ \boldsymbol{\Lambda}^\intercal_\text{i} \cdot \operatorname{diag} P(\mathbf{t}) \cdot \boldsymbol{\Lambda}_\text{c} \right]_{n,m}
 }\end{equation}
@@ -807,11 +794,11 @@ on the following three assumptions:
 \end{enumerate}
 
 The full parameter space of this model is now:
-
+%
 \begin{equation}\phantomsection\label{eq-bi-param-space}{
 \boldsymbol{\theta} = \left( \left\{ b_v^\text{i} \right\}, \left\{ b_v^\text{c} \right\}, \alpha, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.} \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
 }\end{equation}
-
+%
 This results in less than a doubling of parameters compared to the
 unilateral model. From these parameters, we construct three transition
 matrices: the unchanged \(\mathbf{A}_\text{i}\) for the ipsilateral
@@ -834,7 +821,7 @@ A tumor starts as lateralized, with a finite probability \(p_\epsilon\)
 at each time step of crossing the midline. The overall probabilities of
 a patient having a clearly lateralized tumor or one extending over the
 mid-sagittal plane after \(t\) time steps are then given by
-
+%
 \[
 \begin{aligned}
 P(\epsilon = \texttt{False} \mid t) &= (1 - p_\epsilon)^t \\
@@ -928,11 +915,11 @@ P \left( \mathbf{X}^\text{c}, \epsilon=\texttt{True} \mid t_\text{max} \right) \
 In analogy to equation~\ref{eq-bilateral-marginal-algebra}, we can now
 write the joint distribution of ipsi- and contralateral involvement and
 midline extension algebraically:
-
+%
 \begin{equation}\phantomsection\label{eq-midline-marginal-algebra}{
 P \left( \mathbf{X}^\text{i} = \boldsymbol{\xi}_n, \mathbf{X}^\text{c} = \boldsymbol{\xi}_m, \epsilon \right) = \left[ \boldsymbol{\Lambda}^\intercal_\text{i} \cdot \operatorname{diag} P(\mathbf{t}) \cdot \boldsymbol{\Lambda}_\text{c}^\epsilon \right]_{n,m}
 }\end{equation}
-
+%
 With the above, we compute the likelihood of all patients with and
 without midline extension separately. And if for some patients the
 information of tumor lateralization is not available, we can simply
@@ -941,7 +928,7 @@ marginalize over the unknown variable
 
 The final parameter space of our extended model has now reached this
 size:
-
+%
 \begin{equation}\phantomsection\label{eq-ext-param-space}{
 \boldsymbol{\theta} = \left( \left\{ b_v^\text{i} \right\}, \left\{ b_v^\text{c} \right\}, \alpha, \left\{ t_{vr} \right\}, p_\text{early}, p_\text{adv.}, p_\epsilon \right) \quad \text{with} \quad \genfrac{}{}{0pt}{2}{v\leq V}{r\in\operatorname{pa}(v)}
 }\end{equation}
@@ -957,13 +944,13 @@ Here, this diagnosis consists of the observed ipsi- and contralateral
 nodal involvements, the patient's midline extension \(\epsilon\), and
 their tumor's T-category \(\text{T}x\). Using Bayes' law, we can write
 this risk as:
-
+%
 \begin{equation}\phantomsection\label{eq-uni-bayes-law}{
 P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c} \mid d, \boldsymbol{\hat{\theta}} \big)
 = \frac{P \left( \boldsymbol{\zeta}^\text{i}_k \mid \mathbf{X}^\text{i} \right) P \left( \boldsymbol{\zeta}^\text{c}_\ell \mid \mathbf{X}^\text{c} \right) P \big( \mathbf{X}^\text{i}, \mathbf{X}^\text{c}, \epsilon \mid \boldsymbol{\hat{\theta}}, \text{T}x \big)}
 {\sum_{i=0}^{2^V} \sum_{j=0}^{2^V} \mathcal{C}_{ij}}
 }\end{equation}
-
+%
 with the normalization constants
 
 \[
@@ -988,7 +975,7 @@ e.g.~individual LNLs: For example, the risk for involvement in the
 contralateral level IV would be a marginalization over all combination
 of ipsi- states \(\boldsymbol{\xi}^\text{i}_i\) contralateral states
 \(\boldsymbol{\xi}^\text{c}_j\) where \(\xi^\text{c}_{j4}=1\). Formally:
-
+%
 \begin{equation}\phantomsection\label{eq-marg-over-posterior}{
 \begin{multlined}
 P \big( \text{IV}^\text{c} \mid \mathbf{Z}^\text{i}=\boldsymbol{\zeta}^\text{i}_k, \mathbf{Z}^\text{c}=\boldsymbol{\zeta}^\text{c}_\ell, \boldsymbol{\hat{\theta}}, \text{T}x \big) \\
@@ -1051,7 +1038,7 @@ autocorrelation time and walker acceptance fractions.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_burnin_history.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_model_burnin_history.svg}}
 
 }
 
@@ -1094,7 +1081,7 @@ involvement. Consequently, the beta distribution over the observed
 prevalence is much wider.
 
 The model's predicted prevalence to compare it with is computed as:
-
+%
 \[
 \begin{multlined}
 P \left( \text{II}^\text{c} \mid \epsilon=\texttt{False}, \text{T}x=\text{early} \right) \\ = \frac{ \sum_k \sum_{\ell \, : \, \xi_{\ell 2}=1}  P \left( \mathbf{X}^\text{i}=\boldsymbol{\xi}_k^\text{i}, \mathbf{X}^\text{c}=\boldsymbol{\xi}_\ell^\text{c}, \epsilon=\texttt{False} \mid \text{T}x=\text{early} \right)}{ \sum_k \sum_\ell P \left(\mathbf{X}^\text{i}=\boldsymbol{\xi}_k^\text{i}, \mathbf{X}^\text{c}=\boldsymbol{\xi}_\ell^\text{c}, \epsilon=\texttt{False} \mid \text{T}x=\text{early} \right)}
@@ -1140,11 +1127,7 @@ The high value of \(t_{23}\) (14.2\%) compared to the value of
 \(b_3^\text{i}\) (5.5\%) shows that the ipsilateral LNL III is rarely
 involved without the upstream involvement of LNL II.
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
-
-\begin{longtable}[]{@{}lll@{}}
+\begin{longtable}[]{@{}lrr@{}}
 
 \caption{\label{tbl-midline-params}Mean sampled parameter estimates of
 the midline model and the respective standard deviation. The parameters
@@ -1154,7 +1137,7 @@ and the time prior parameter for early T-category patients
 
 \tabularnewline
 
-\caption{}\label{T_fedc5}\tabularnewline
+\tabularnewline
 \toprule\noalign{}
 Parameter & Mean & Std. Dev. \\
 \midrule\noalign{}
@@ -1165,31 +1148,27 @@ Parameter & Mean & Std. Dev. \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Mid. ext. probability & 8.16\% & ± 0.48\% \\
-ipsi: T ➜ I & 2.80\% & ± 0.26\% \\
-ipsi: T ➜ II & 34.89\% & ± 1.40\% \\
-ipsi: T ➜ III & 5.45\% & ± 0.66\% \\
-ipsi: T ➜ IV & 0.94\% & ± 0.18\% \\
-ipsi: T ➜ V & 1.83\% & ± 0.22\% \\
-ipsi: T ➜ VII & 2.32\% & ± 0.26\% \\
-contra: T ➜ I & 0.29\% & ± 0.09\% \\
-contra: T ➜ II & 2.46\% & ± 0.29\% \\
-contra: T ➜ III & 0.14\% & ± 0.07\% \\
-contra: T ➜ IV & 0.19\% & ± 0.08\% \\
-contra: T ➜ V & 0.05\% & ± 0.04\% \\
-contra: T ➜ VII & 0.50\% & ± 0.17\% \\
-Mixing ⍺ & 33.87\% & ± 4.32\% \\
-I ➜ II & 62.50\% & ± 16.69\% \\
-II ➜ III & 14.23\% & ± 1.64\% \\
-III ➜ IV & 15.86\% & ± 1.93\% \\
-IV ➜ V & 14.58\% & ± 3.76\% \\
-late T-cat. binom. prob. & 44.98\% & ± 1.99\% \\
+$p_\epsilon$ & 8.16\% & ± 0.48\% \\
+$b_1^\text{i}$ & 2.80\% & ± 0.26\% \\
+$b_2^\text{i}$ & 34.89\% & ± 1.40\% \\
+$b_3^\text{i}$ & 5.45\% & ± 0.66\% \\
+$b_4^\text{i}$ & 0.94\% & ± 0.18\% \\
+$b_5^\text{i}$ & 1.83\% & ± 0.22\% \\
+$b_7^\text{i}$ & 2.32\% & ± 0.26\% \\
+$b_1^{\text{c},\epsilon=\texttt{False}}$ & 0.29\% & ± 0.09\% \\
+$b_2^{\text{c},\epsilon=\texttt{False}}$ & 2.46\% & ± 0.29\% \\
+$b_3^{\text{c},\epsilon=\texttt{False}}$ & 0.14\% & ± 0.07\% \\
+$b_4^{\text{c},\epsilon=\texttt{False}}$ & 0.19\% & ± 0.08\% \\
+$b_5^{\text{c},\epsilon=\texttt{False}}$ & 0.05\% & ± 0.04\% \\
+$b_7^{\text{c},\epsilon=\texttt{False}}$ & 0.50\% & ± 0.17\% \\
+$\alpha$ & 33.87\% & ± 4.32\% \\
+$t_{12}$ & 62.50\% & ± 16.69\% \\
+$t_{23}$ & 14.23\% & ± 1.64\% \\
+$t_{34}$ & 15.86\% & ± 1.93\% \\
+$t_{45}$ & 14.58\% & ± 3.76\% \\
+$p_\text{adv.}$ & 44.98\% & ± 1.99\% \\
 
 \end{longtable}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
 
 \subsection{Illustration of the model}\label{illustration-of-the-model}
 
@@ -1213,7 +1192,7 @@ of midline extension and T-category.
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{manuscript_files/mediabag/figures/fig_model_midext_evo.pdf}
+\includesvg[width=0.5\linewidth,height=\textheight,keepaspectratio]{figures/fig_model_midext_evo.svg}
 
 }
 
@@ -1242,7 +1221,7 @@ are set to their mean values from table~\ref{tbl-midline-params}.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_algebra_equation.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_model_algebra_equation.svg}}
 
 }
 
@@ -1284,7 +1263,7 @@ and ipsilateral levels II and III.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_state_dist.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_model_state_dist.svg}}
 
 }
 
@@ -1319,7 +1298,7 @@ of contralateral involvement for LNLs II, III, and IV.
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_prevalences_overall.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_model_prevalences_overall.svg}}
 
 }
 
@@ -1352,7 +1331,7 @@ Metastasis}\label{influence-of-upstream-involvement-on-contralateral-metastasis}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_prevalences_upstream.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_model_prevalences_upstream.svg}}
 
 }
 
@@ -1382,7 +1361,7 @@ Involvement}\label{correlation-between-ipsi--and-contralateral-involvement}
 
 \centering{
 
-\pandocbounded{\includegraphics[keepaspectratio]{manuscript_files/mediabag/figures/fig_model_prevalences_with_ipsi.pdf}}
+\pandocbounded{\includesvg[keepaspectratio]{figures/fig_model_prevalences_with_ipsi.svg}}
 
 }
 
@@ -1438,7 +1417,7 @@ positives.
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{manuscript_files/mediabag/figures/fig_model_risks.pdf}
+\includesvg[width=0.5\linewidth,height=\textheight,keepaspectratio]{figures/fig_model_risks.svg}
 
 }
 
@@ -1733,18 +1712,18 @@ as follows: Suppose the involvement status \(X_v\) of LNL \(v\) was
 assessed using different diagnostic modalities
 \(\mathcal{O} = \{ \text{MRI}, \text{CT}, \text{pathology}, \ldots \}\),
 each characterized by their own pair of sensitivity and specificity
-values \(s_N^{\mathcal{o}}\) and \(s_P^{\mathcal{o}}\), with
-\(\mathcal{o} \in \mathcal{O}\). These values are tabulated in
+values \(s_N^{o}\) and \(s_P^{o}\), with
+\(o \in \mathcal{O}\). These values are tabulated in
 table~\ref{tbl-spec-sens}. Then we have \(|\mathcal{O}|\) observations
-\(z_v^{\mathcal{o}} \in \left[ 0, 1 \right]\), where 0 stands for
+\(z_v^{o} \in \left[ 0, 1 \right]\), where 0 stands for
 ``healthy'' and 1 for ``involved''. We can then compute the most likely
 true involvement \(X_v\) using the likelihood function
-
+%
 \[
 \begin{aligned}
-\ell \left( X_v \mid \{ z_v^{\mathcal{o}} \}_{\mathcal{o} \in \mathcal{O}} \right) = \prod_{\mathcal{o} \in \mathcal{O}}
-\left( 1 - X_v \right) \cdot &\left[ z_v^{\mathcal{o}} \cdot \left( 1 - s_P^{\mathcal{o}} \right) + \left( 1 - z_v^{\mathcal{o}} \right) \cdot s_P^{\mathcal{o}} \right] \\
-+ X_v \cdot &\left[ z_v^{\mathcal{o}} \cdot s_N^{\mathcal{o}} + \left( 1 - z_v^{\mathcal{o}} \right) \cdot (1 - s_N^{\mathcal{o}}) \right]
+\ell \left( X_v \mid \{ z_v^{o} \}_{o \in \mathcal{O}} \right) = \prod_{o \in \mathcal{O}}
+\left( 1 - X_v \right) \cdot &\left[ z_v^{o} \cdot \left( 1 - s_P^{o} \right) + \left( 1 - z_v^{o} \right) \cdot s_P^{o} \right] \\
++ X_v \cdot &\left[ z_v^{o} \cdot s_N^{o} + \left( 1 - z_v^{o} \right) \cdot (1 - s_N^{o}) \right]
 \end{aligned}
 \]
 
@@ -1753,7 +1732,7 @@ We now assume the true state \(X_v\) to take on the value 1 if
 and 0 otherwise. For example, if we have \(z_\text{II}^\text{CT} = 0\)
 and \(z_\text{II}^\text{MRI} = 1\) we would compute the following
 likelihoods:
-
+%
 \[
 \begin{aligned}
 \ell \left( X_\text{II} = 1 \mid z_\text{II}^\text{CT} = 0, z_\text{II}^\text{MRI} = 1 \right) &= \left( 1 - s_N^\text{CT} \right) \cdot s_N^\text{MRI} = 15.39\% \\
@@ -1791,11 +1770,7 @@ pathology & 100\% & 100\% \\
 \section{Contralateral Prevalence of
 Involvement}\label{contralateral-prevalence-of-involvement}
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
-
-\begin{longtable}[]{@{}llllllllllll@{}}
+\begin{longtable}[]{@{}lrlrrrrrrrrr@{}}
 
 \caption{\label{tbl-data-strat}Contralateral involvement depending on
 whether the primary tumor extends over the mid-sagittal plane, the
@@ -1803,7 +1778,7 @@ T-category, and how many ipsilateral LNLs were involved.}
 
 \tabularnewline
 
-\caption{}\label{T_89008}\tabularnewline
+\tabularnewline
 \toprule\noalign{}
 T-cat. & ipsi & Mid. ext. & \multicolumn{2}{l}{%
 I} & \multicolumn{2}{l}{%
@@ -1824,35 +1799,31 @@ IV} & total \\
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-early & 0 & False & 0 & 0.00 & 1 & 1.16 & 0 & 0.00 & 0 & 0.00 & 86 \\
-early & 0 & True & 0 & 0.00 & 1 & 10.00 & 1 & 10.00 & 0 & 0.00 & 10 \\
-early & 0 & nan & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 12 \\
-early & 1 & False & 1 & 0.53 & 11 & 5.82 & 2 & 1.06 & 1 & 0.53 & 189 \\
-early & 1 & True & 1 & 11.11 & 2 & 22.22 & 0 & 0.00 & 0 & 0.00 & 9 \\
-early & 1 & nan & 0 & 0.00 & 3 & 9.68 & 0 & 0.00 & 1 & 3.23 & 31 \\
-early & ≥ 2 & False & 1 & 0.96 & 15 & 14.42 & 3 & 2.88 & 3 & 2.88 &
+early & 0 & False & 0 & 0.0 & 1 & 1.2 & 0 & 0.0 & 0 & 0.0 & 86 \\
+early & 0 & True & 0 & 0.0 & 1 & 10.0 & 1 & 10.0 & 0 & 0.0 & 10 \\
+early & 0 & unknown & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 12 \\
+early & 1 & False & 1 & 0.5 & 11 & 5.8 & 2 & 1.1 & 1 & 0.5 & 189 \\
+early & 1 & True & 1 & 11.1 & 2 & 22.2 & 0 & 0.0 & 0 & 0.0 & 9 \\
+early & 1 & unknown & 0 & 0.0 & 3 & 9.7 & 0 & 0.0 & 1 & 3.2 & 31 \\
+early & \geq 2 & False & 1 & 1.0 & 15 & 14.4 & 3 & 2.9 & 3 & 2.9 &
 104 \\
-early & ≥ 2 & True & 0 & 0.00 & 3 & 30.00 & 4 & 40.00 & 1 & 10.00 &
+early & \geq 2 & True & 0 & 0.0 & 3 & 30.0 & 4 & 40.0 & 1 & 10.0 &
 10 \\
-early & ≥ 2 & nan & 0 & 0.00 & 3 & 13.64 & 0 & 0.00 & 0 & 0.00 & 22 \\
-advanced & 0 & False & 0 & 0.00 & 2 & 5.88 & 0 & 0.00 & 0 & 0.00 & 34 \\
-advanced & 0 & True & 0 & 0.00 & 3 & 12.50 & 0 & 0.00 & 0 & 0.00 & 24 \\
-advanced & 0 & nan & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 3 \\
-advanced & 1 & False & 0 & 0.00 & 3 & 4.55 & 0 & 0.00 & 0 & 0.00 & 66 \\
-advanced & 1 & True & 1 & 1.64 & 18 & 29.51 & 5 & 8.20 & 1 & 1.64 &
+early & \geq 2 & unknown & 0 & 0.0 & 3 & 13.6 & 0 & 0.0 & 0 & 0.0 & 22 \\
+advanced & 0 & False & 0 & 0.0 & 2 & 5.9 & 0 & 0.0 & 0 & 0.0 & 34 \\
+advanced & 0 & True & 0 & 0.0 & 3 & 12.5 & 0 & 0.0 & 0 & 0.0 & 24 \\
+advanced & 0 & unknown & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 3 \\
+advanced & 1 & False & 0 & 0.0 & 3 & 4.6 & 0 & 0.0 & 0 & 0.0 & 66 \\
+advanced & 1 & True & 1 & 1.6 & 18 & 29.5 & 5 & 8.2 & 1 & 1.6 &
 61 \\
-advanced & 1 & nan & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 9 \\
-advanced & ≥ 2 & False & 4 & 5.26 & 16 & 21.05 & 7 & 9.21 & 4 & 5.26 &
+advanced & 1 & unknown & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 9 \\
+advanced & \geq 2 & False & 4 & 5.3 & 16 & 21.1 & 7 & 9.2 & 4 & 5.3 &
 76 \\
-advanced & ≥ 2 & True & 3 & 3.80 & 46 & 58.23 & 18 & 22.78 & 8 & 10.13 &
+advanced & \geq 2 & True & 3 & 3.8 & 46 & 58.2 & 18 & 22.8 & 8 & 10.1 &
 79 \\
-advanced & ≥ 2 & nan & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 0 & 0.00 & 8 \\
+advanced & \geq 2 & unknown & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 8 \\
 
 \end{longtable}
-
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
 
 \section{Prevalence of Midline Extension}\label{sec-prevalence-midext}
 
@@ -1860,7 +1831,7 @@ Notebook}}
 
 \centering{
 
-\includegraphics[width=0.5\linewidth,height=\textheight,keepaspectratio]{manuscript_files/mediabag/figures/fig_model_prevalences_midext.pdf}
+\includesvg[width=0.5\linewidth,height=\textheight,keepaspectratio]{figures/fig_model_prevalences_midext.svg}
 
 }
 
@@ -1917,13 +1888,6 @@ enumerator and the denominator, which largely cancel each other, leaving
 only the midline extension's effect on the distribution over hidden
 states in the prediction.
 
-\textsubscript{Source:
-\href{https://rmnldwg.github.io/bilateral-paper/manuscript.qmd.html}{Article
-Notebook}}
-
-
-  \bibliography{references.bib}
-
-
+\bibliography{references.bib}
 
 \end{document}
