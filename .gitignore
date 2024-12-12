@@ -188,8 +188,6 @@ pyrightconfig.json
 
 # Quarto generated files
 /.quarto/
-/.output/*
-!/.output/_tex/*
 /*_files/
 /*_files/
 /manuscript.*
