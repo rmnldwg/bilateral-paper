@@ -119,6 +119,7 @@
 \usepackage{multirow}
 \usepackage{centernot}
 \usepackage{mathtools}
+\usepackage{import}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -398,7 +399,7 @@ the tumor extends across the mid-sagittal plane.
 
 \centering{
 
-\pandocbounded{\input{figures/fig_data_strat.pdf_tex}}
+\pandocbounded{\import{figures}{fig_data_strat.pdf_tex}}
 
 }
 
@@ -571,7 +572,7 @@ by maximizing the model evidence as described in
 \centering{
 
 \def\svgwidth{0.4\linewidth}
-\input{static/full-graph.pdf_tex}
+\import{static}{full-graph.pdf_tex}
 
 }
 
@@ -1039,7 +1040,7 @@ autocorrelation time and walker acceptance fractions.
 
 \centering{
 
-\pandocbounded{\input{figures/fig_model_burnin_history.pdf_tex}}
+\pandocbounded{\import{figures}{fig_model_burnin_history.pdf_tex}}
 
 }
 
@@ -1194,7 +1195,7 @@ of midline extension and T-category.
 \centering{
 
 \def\svgwidth{0.5\linewidth}
-\input{figures/fig_model_midext_evo.pdf_tex}
+\import{figures}{fig_model_midext_evo.pdf_tex}
 
 }
 
@@ -1223,7 +1224,7 @@ are set to their mean values from table~\ref{tbl-midline-params}.
 
 \centering{
 
-\pandocbounded{\input{figures/fig_model_algebra_equation.pdf_tex}}
+\pandocbounded{\import{figures}{fig_model_algebra_equation.pdf_tex}}
 
 }
 
@@ -1265,7 +1266,7 @@ and ipsilateral levels II and III.
 
 \centering{
 
-\pandocbounded{\input{figures/fig_model_state_dist.pdf_tex}}
+\pandocbounded{\import{figures}{fig_model_state_dist.pdf_tex}}
 
 }
 
@@ -1300,7 +1301,7 @@ of contralateral involvement for LNLs II, III, and IV.
 
 \centering{
 
-\pandocbounded{\input{figures/fig_model_prevalences_overall.pdf_tex}}
+\pandocbounded{\import{figures}{fig_model_prevalences_overall.pdf_tex}}
 
 }
 
@@ -1333,7 +1334,7 @@ Metastasis}\label{influence-of-upstream-involvement-on-contralateral-metastasis}
 
 \centering{
 
-\pandocbounded{\input{figures/fig_model_prevalences_upstream.pdf_tex}}
+\pandocbounded{\import{figures}{fig_model_prevalences_upstream.pdf_tex}}
 
 }
 
@@ -1363,7 +1364,7 @@ Involvement}\label{correlation-between-ipsi--and-contralateral-involvement}
 
 \centering{
 
-\pandocbounded{\input{figures/fig_model_prevalences_with_ipsi.pdf_tex}}
+\pandocbounded{\import{figures}{fig_model_prevalences_with_ipsi.pdf_tex}}
 
 }
 
@@ -1420,7 +1421,7 @@ positives.
 \centering{
 
 \def\svgwidth{0.5\linewidth}
-\input{figures/fig_model_risks.pdf_tex}
+\import{figures}{fig_model_risks.pdf_tex}
 
 }
 
@@ -1835,7 +1836,7 @@ advanced & \geq 2 & unknown & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 0 & 0.0 & 8 \\
 \centering{
 
 \def\svgwidth{0.5\linewidth}
-\input{figures/fig_model_prevalences_midext.pdf_tex}
+\import{figures}{fig_model_prevalences_midext.pdf_tex}
 
 }
 
