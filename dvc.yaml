@@ -54,7 +54,7 @@ stages:
     cmd: >
       lyscripts sample
       --input data/reduced.csv
-      --params models/${item.model}/params.yaml
+      --params models/${item.model}/params.ly.yaml
       --output models/${item.model}/samples.hdf5
       --history models/${item.model}/history.csv
       --walkers-per-dim ${sampling.walkers_per_dim}
@@ -68,7 +68,7 @@ stages:
     - data/reduced.csv
     - requirements.in
     params:
-    - models/${item.model}/params.yaml:
+    - models/${item.model}/params.ly.yaml:
     outs:
     - models/${item.model}/samples.hdf5
     - models/${item.model}/history.csv:
@@ -82,12 +82,12 @@ stages:
       lyscripts compute priors
       --samples models/${item.model}/samples.hdf5
       --priors models/${item.model}/priors.hdf5
-      --params models/${item.model}/params.yaml
+      --params models/${item.model}/params.ly.yaml
       --scenarios scenarios/${item.scenario}.yaml
     deps:
     - models/${item.model}/samples.hdf5
     params:
-    - models/${item.model}/params.yaml:
+    - models/${item.model}/params.ly.yaml:
     - scenarios/${item.scenario}.yaml:
     outs:
     - models/${item.model}/${item.scenario}.hdf5
@@ -101,13 +101,13 @@ stages:
       --priors models/${item.model}/priors.hdf5
       --prevalences models/${item.model}/prevalences_${item.scenario}.hdf5
       --data data/reduced.csv
-      --params models/${item.model}/params.yaml
+      --params models/${item.model}/params.ly.yaml
       --scenarios scenarios/${item.scenario}.yaml
     deps:
     - models/${item.model}/priors.hdf5
     - data/reduced.csv
     params:
-    - models/${item.model}/params.yaml:
+    - models/${item.model}/params.ly.yaml:
     - scenarios/${item.scenario}.yaml:
     outs:
     - models/${item.model}/prevalences_${item.scenario}.hdf5
@@ -119,7 +119,7 @@ stages:
     - models/full/samples.hdf5
     - data/reduced.csv
     params:
-    - models/full/params.yaml:
+    - models/full/params.ly.yaml:
     outs:
     - models/full/prevalences_midext.hdf5
 
