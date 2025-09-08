@@ -7,7 +7,7 @@ emcee
 corner
 dvc[azure]
 scipy
-lyscripts @ git+https://github.com/rmnldwg/lyscripts@7cddc7a9964e5848cfec8952845b3cf38b6510c5
+lyscripts == 1.0.0
 lymph-model
 lydata
 pydantic
