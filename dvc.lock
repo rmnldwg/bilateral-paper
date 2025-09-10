@@ -6,8 +6,8 @@ stages:
     deps:
     - path: data/joined.csv
       hash: md5
-      md5: 531cc9bf535fc405d208a10da755c4c3
-      size: 921944
+      md5: 4212c0016a24213542322551af7228af
+      size: 887321
     params:
       _variables.manual.yml:
         modalities:
@@ -38,8 +38,8 @@ stages:
     outs:
     - path: data/enhanced.csv
       hash: md5
-      md5: c97b395f4a0d5346317907791d79db3d
-      size: 1207178
+      md5: 861d6729b9d5eadb1848d02d9298cfd1
+      size: 1208733
   join:
     cmd: "lyscripts data join  --inputs '{\"source\": \"data/2021-usz-oropharynx.csv\"\
       }' --inputs '{\"source\": \"data/2021-clb-oropharynx.csv\"}' --inputs '{\"source\"\
@@ -69,8 +69,8 @@ stages:
     outs:
     - path: data/joined.csv
       hash: md5
-      md5: 531cc9bf535fc405d208a10da755c4c3
-      size: 921944
+      md5: 4212c0016a24213542322551af7228af
+      size: 887321
   filter:
     cmd: lyscripts data filter data/enhanced.csv data/filtered.csv 
       --include-subsites C01 C09 C10
@@ -370,8 +370,8 @@ stages:
     deps:
     - path: data/filtered.csv
       hash: md5
-      md5: c2dccda78189830ca5d7dd06e7aea5e8
-      size: 715287
+      md5: 470c74f1acd70c339244a63a27f8eec6
+      size: 702862
     - path: scripts/reduce.py
       hash: md5
       md5: cca90a24a20a1b5f5906ea28f88967df
@@ -379,8 +379,8 @@ stages:
     outs:
     - path: data/reduced.csv
       hash: md5
-      md5: 40bb4110dcb484ad2144b2d58b6a36de
-      size: 605859
+      md5: 46f73924e60ad1f3fb9b44d80aaca50d
+      size: 606922
   precompute-state-dists@ipsi:
     cmd: "lyscripts predict precompute --samples models/ipsi/samples.hdf5 --params
       models/ipsi/params.yaml --state-dists models/ipsi/distributions.hdf5\n"
@@ -7925,12 +7925,12 @@ stages:
     deps:
     - path: data/reduced.csv
       hash: md5
-      md5: 9ca225097a4a61297f114c18b911171b
-      size: 599667
+      md5: 46f73924e60ad1f3fb9b44d80aaca50d
+      size: 606922
     - path: requirements.in
       hash: md5
-      md5: b4b72cc3315e663cfa5e5dbd1395f189
-      size: 151
+      md5: 00bb11394a570984a9a7ba7d0fb0fa2f
+      size: 234
     params:
       _variables.manual.yml:
         sampling:
@@ -7944,13 +7944,15 @@ stages:
       models/simple/params.ly.yaml:
         distributions:
           early:
-            frozen: binomial
-            max_time: 10
-            kwargs:
+            kind: frozen
+            func: binomial
+            params:
               p: 0.3
           late:
-            parametric: binomial
-            max_time: 10
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
         graph:
           tumor:
             T:
@@ -7968,7 +7970,9 @@ stages:
             spec: 1.0
             sens: 1.0
         model:
-          class: Midline
+          class_name: Midline
+          constructor: binary
+          max_time: 10
           kwargs:
             is_symmetric:
               tumor_spread: false
@@ -7976,24 +7980,16 @@ stages:
             use_central: false
             use_midext_evo: true
             use_mixing: true
-          modalities:
-          - max_llh
-          mapping:
-            0: early
-            1: early
-            2: early
-            3: late
-            4: late
         version: 1
     outs:
     - path: models/simple/history.csv
       hash: md5
-      md5: 9fda9171e856d08cf66deb5a46f61e5f
-      size: 2835
+      md5: 75139c7b733fe794f59d4e3527a73134
+      size: 5960
     - path: models/simple/samples.hdf5
       hash: md5
-      md5: aba79f10aab3a6025f92e8aff695cdf0
-      size: 20356888
+      md5: 23023b3086113be09133360c40a192ae
+      size: 95849504
   sampling@full:
     cmd: "lyscripts sample --input data/reduced.csv --params models/full/params.yaml
       --output models/full/samples.hdf5 --history models/full/history.csv --walkers-per-dim
@@ -10508,39 +10504,39 @@ stages:
     deps:
     - path: data/enhanced.csv
       hash: md5
-      md5: c97b395f4a0d5346317907791d79db3d
-      size: 1207178
+      md5: 861d6729b9d5eadb1848d02d9298cfd1
+      size: 1208733
     outs:
     - path: data/filtered_C01.csv
       hash: md5
-      md5: bf26477121b7b4f07dd8b632f3573839
-      size: 192503
+      md5: 6d8570373b03ea3c5bae7569e595a6df
+      size: 192774
   filter-C09:
     cmd: "lyscripts data filter --input.source data/enhanced.csv --output-file data/filtered_C09.csv
       --include --column subsite --operator contains --value C09\n"
     deps:
     - path: data/enhanced.csv
       hash: md5
-      md5: c97b395f4a0d5346317907791d79db3d
-      size: 1207178
+      md5: 861d6729b9d5eadb1848d02d9298cfd1
+      size: 1208733
     outs:
     - path: data/filtered_C09.csv
       hash: md5
-      md5: 091bbea5d130c26a9677626d7d5a475f
-      size: 383633
+      md5: 94c6de84f9a6b844669cceccab0dc8ff
+      size: 384229
   filter-C10:
     cmd: "lyscripts data filter --input.source data/enhanced.csv --output-file data/filtered_C10.csv
       --include --column subsite --operator contains --value C10\n"
     deps:
     - path: data/enhanced.csv
       hash: md5
-      md5: c97b395f4a0d5346317907791d79db3d
-      size: 1207178
+      md5: 861d6729b9d5eadb1848d02d9298cfd1
+      size: 1208733
     outs:
     - path: data/filtered_C10.csv
       hash: md5
-      md5: e656952e8e794f2f89091b38b99e4618
-      size: 153437
+      md5: 6268e9e8e3f12bb5618a3f6c49be00f8
+      size: 153633
   join-filered:
     cmd: "lyscripts data join  --inputs '{\"source\": \"data/filtered_C01.csv\"}'
       --inputs '{\"source\": \"data/filtered_C09.csv\"}' --inputs '{\"source\": \"\
@@ -10548,18 +10544,18 @@ stages:
     deps:
     - path: data/filtered_C01.csv
       hash: md5
-      md5: bf26477121b7b4f07dd8b632f3573839
-      size: 192503
+      md5: 6d8570373b03ea3c5bae7569e595a6df
+      size: 192774
     - path: data/filtered_C09.csv
       hash: md5
-      md5: 091bbea5d130c26a9677626d7d5a475f
-      size: 383633
+      md5: 94c6de84f9a6b844669cceccab0dc8ff
+      size: 384229
     - path: data/filtered_C10.csv
       hash: md5
-      md5: e656952e8e794f2f89091b38b99e4618
-      size: 153437
+      md5: 6268e9e8e3f12bb5618a3f6c49be00f8
+      size: 153633
     outs:
     - path: data/filtered.csv
       hash: md5
-      md5: c2dccda78189830ca5d7dd06e7aea5e8
-      size: 715287
+      md5: 470c74f1acd70c339244a63a27f8eec6
+      size: 702862

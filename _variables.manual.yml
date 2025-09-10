@@ -22,7 +22,7 @@ sampling:
   relative_thresh: 0.05
   num_steps: 10
   thin_by: 10
-  cores: null
+  cores: 8
 
 ########################################################################################
 # Below the dynamically computed values are inserted
