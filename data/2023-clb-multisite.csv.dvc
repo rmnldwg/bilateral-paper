@@ -1,13 +1,13 @@
-md5: fd73e09fccb692b65849023cec042a31
+md5: 359ada6c4f8fc2b9783ede67bbd435c2
 frozen: true
 deps:
 - path: 2023-clb-multisite/data.csv
   repo:
-    url: https://github.com/rmnldwg/lydata
-    rev: 2023-clb-multisite-v1
-    rev_lock: dd798084ecc6de82bce9a6d4037c9579bdc45f5b
+    url: https://github.com/rmnldwg/lydata.private
+    rev: c79a327dad625947b47184d5c49b4c0f091c3b90
+    rev_lock: c79a327dad625947b47184d5c49b4c0f091c3b90
 outs:
-- md5: 9d72ee96af2c51033a2fb0bb8551e318
-  size: 123938
+- md5: c7122e540ab30ab014761100b173623e
+  size: 108673
   hash: md5
   path: 2023-clb-multisite.csv

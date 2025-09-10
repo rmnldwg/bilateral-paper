@@ -91,7 +91,7 @@ certifi==2025.8.3
     #   httpcore
     #   httpx
     #   requests
-cffi==1.17.1
+cffi==2.0.0
     # via
     #   argon2-cffi-bindings
     #   azure-datalake-store
@@ -367,7 +367,7 @@ lydata==0.4.0
     # via
     #   -r requirements.in
     #   lyscripts
-lymph-model==1.3.6
+lymph-model @ git+https://github.com/lycosystem/lymph@b469258bc21ccd4ece6750b8825baed9be300dfd
     # via
     #   -r requirements.in
     #   lyscripts
@@ -535,7 +535,7 @@ py-cpuinfo==9.0.0
     # via
     #   blosc2
     #   tables
-pycparser==2.22
+pycparser==2.23
     # via cffi
 pydantic==2.11.7
     # via
@@ -604,7 +604,7 @@ pyyaml==6.0.2
     #   knack
     #   lyscripts
     #   omegaconf
-pyzmq==27.0.2
+pyzmq==27.1.0
     # via
     #   ipykernel
     #   jupyter-client
