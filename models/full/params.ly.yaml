@@ -19,7 +19,9 @@ graph:
 ########################################################################################
 # Below are some parameters necessary for the model setup:
 model:
-  class: Midline
+  class_name: Midline
+  constructor: binary
+  max_time: 10
   kwargs:
     is_symmetric:
       tumor_spread: false
@@ -27,26 +29,21 @@ model:
     use_central: false
     use_midext_evo: true
     use_mixing: true
-  distributions:                # marginalize over diagnosis times. Keys are T-stages
-    early:
-      frozen: binomial
-      max_time: 10
-      kwargs: {p: 0.3}
-    late:
-      parametric: binomial
-      max_time: 10
-  modalities: [max_llh]         # List of modalities, defined further down
-  mapping:
-    0: "early"
-    1: "early"
-    2: "early"
-    3: "late"
-    4: "late"
+
+distributions:                # marginalize over diagnosis times. Keys are T-stages
+  early:
+    kind: frozen
+    func: binomial
+    params: {p: 0.3}
+  late:
+    kind: parametric
+    func: binomial
+    params: {p: 0.5}
 
 ########################################################################################
-# Under this key we define the specficity and sensitivity for a range
+# Under this key we define the specificity and sensitivity for a range
 # of diagnostic modalities. They are taken from literature and during
 # sampling, everything that's not commented our here will be used for
 # inference.
 modalities:
-  max_llh: [1.0, 1.0]
+  max_llh: {spec: 1.0, sens: 1.0}
