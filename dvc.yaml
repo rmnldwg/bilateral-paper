@@ -100,7 +100,7 @@ stages:
 
   sampling:
     matrix:
-      model: [simple]
+      model: [full]
     cmd: >
       lyscripts --log-level DEBUG sample
       --data.source data/reduced.csv

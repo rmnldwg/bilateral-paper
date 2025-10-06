@@ -7991,21 +7991,40 @@ stages:
       md5: 23023b3086113be09133360c40a192ae
       size: 95849504
   sampling@full:
-    cmd: "lyscripts sample --input data/reduced.csv --params models/full/params.yaml
-      --output models/full/samples.hdf5 --history models/full/history.csv --walkers-per-dim
-      12 --check-interval 50 --trust-fac 50.0 --rel-thresh 0.05 --nsteps 10 --thin
-      10 --cores 12\n"
+    cmd: "lyscripts --log-level DEBUG sample --data.source data/reduced.csv --configs
+      _variables.manual.yml --configs models/full/params.ly.yaml --sampling.storage-file
+      models/full/samples.hdf5 --sampling.history-file models/full/history.csv\n"
     deps:
     - path: data/reduced.csv
       hash: md5
-      md5: 0e948bcfa0b0521194f3cddb4a9f14cd
-      size: 557587
+      md5: 46f73924e60ad1f3fb9b44d80aaca50d
+      size: 606922
     - path: requirements.in
       hash: md5
-      md5: aed945a35bfef0ef845dc79803cba79c
-      size: 387
+      md5: 00bb11394a570984a9a7ba7d0fb0fa2f
+      size: 234
     params:
-      models/full/params.yaml:
+      _variables.manual.yml:
+        sampling:
+          walkers_per_dim: 12
+          check_interval: 50
+          trust_factor: 50.0
+          relative_thresh: 0.05
+          num_steps: 10
+          thin_by: 10
+          cores: 4
+      models/full/params.ly.yaml:
+        distributions:
+          early:
+            kind: frozen
+            func: binomial
+            params:
+              p: 0.3
+          late:
+            kind: parametric
+            func: binomial
+            params:
+              p: 0.5
         graph:
           tumor:
             T:
@@ -8028,10 +8047,12 @@ stages:
             VII: []
         modalities:
           max_llh:
-          - 1.0
-          - 1.0
+            spec: 1.0
+            sens: 1.0
         model:
-          class: Midline
+          class_name: Midline
+          constructor: binary
+          max_time: 10
           kwargs:
             is_symmetric:
               tumor_spread: false
@@ -8039,33 +8060,16 @@ stages:
             use_central: false
             use_midext_evo: true
             use_mixing: true
-          distributions:
-            early:
-              frozen: binomial
-              max_time: 10
-              kwargs:
-                p: 0.3
-            late:
-              parametric: binomial
-              max_time: 10
-          modalities:
-          - max_llh
-          mapping:
-            0: early
-            1: early
-            2: early
-            3: late
-            4: late
         version: 1
     outs:
     - path: models/full/history.csv
       hash: md5
-      md5: 568f657283f405a56b22ae922dcd83aa
-      size: 10223
+      md5: 4956b4f733a871087f53b274895715ec
+      size: 10721
     - path: models/full/samples.hdf5
       hash: md5
-      md5: 982ee99cb6a6cae3c792ef2ab080ccdb
-      size: 371014784
+      md5: 8941a9587da5c58ae01b9a97a89d7c07
+      size: 406965712
   compute-priors@simple-priors:
     cmd: "lyscripts compute priors --samples models/simple/samples.hdf5 --priors models/simple/priors.hdf5
       --params models/simple/params.yaml --scenarios scenarios/priors.yaml\n"
